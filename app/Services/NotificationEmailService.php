@@ -129,40 +129,35 @@ class NotificationEmailService
     {
         $tanggalSelesai = Carbon::parse($kontrak->tanggal_selesai);
         $hariSisa = $tanggalSelesai->diffInDays(now());
-        
+         
         // 7 hari sebelum berakhir
-        if ($hariSisa == 7 && !$kontrak->notif_7hari_dikirim) {
+        if ($hariSisa == 7) {
             $this->sendTenggatWaktuToPenghuni($kontrak, '7_hari');
             $this->sendTenggatWaktuToPemilik($kontrak, '7_hari');
-            $kontrak->update(['notif_7hari_dikirim' => now()]);
         }
-        
+         
         // 3 hari sebelum berakhir
-        if ($hariSisa == 3 && !$kontrak->notif_3hari_dikirim) {
+        if ($hariSisa == 3) {
             $this->sendTenggatWaktuToPenghuni($kontrak, '3_hari');
             $this->sendTenggatWaktuToPemilik($kontrak, '3_hari');
-            $kontrak->update(['notif_3hari_dikirim' => now()]);
         }
-        
+         
         // 1 hari sebelum berakhir
-        if ($hariSisa == 1 && !$kontrak->notif_h1_dikirim) {
+        if ($hariSisa == 1) {
             $this->sendTenggatWaktuToPenghuni($kontrak, '1_hari');
             $this->sendTenggatWaktuToPemilik($kontrak, '1_hari');
-            $kontrak->update(['notif_h1_dikirim' => now()]);
         }
-        
+         
         // Hari berakhir
-        if ($hariSisa == 0 && !$kontrak->notif_hari_ini_dikirim) {
+        if ($hariSisa == 0) {
             $this->sendTenggatWaktuToPenghuni($kontrak, 'tenggat');
             $this->sendTenggatWaktuToPemilik($kontrak, 'tenggat');
-            $kontrak->update(['notif_hari_ini_dikirim' => now()]);
         }
-        
+         
         // Sudah melewati tenggat waktu (1 hari setelah berakhir)
-        if ($hariSisa < 0 && abs($hariSisa) == 1 && !$kontrak->notif_terlambat_dikirim) {
+        if ($hariSisa < 0 && abs($hariSisa) == 1) {
             $this->sendTenggatWaktuToPenghuni($kontrak, 'terlambat');
             $this->sendTenggatWaktuToPemilik($kontrak, 'terlambat');
-            $kontrak->update(['notif_terlambat_dikirim' => now()]);
         }
     }
 }

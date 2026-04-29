@@ -181,11 +181,6 @@ class KontrakController extends Controller
         // Hitung hari tersisa untuk setiap kontrak
         foreach ($kontrakAktif as $k) {
             $k->hari_tersisa = now()->diffInDays($k->tanggal_selesai, false);
-            $k->notifikasi_terkirim = [
-                '7_hari' => !is_null($k->notif_7hari_dikirim),
-                '3_hari' => !is_null($k->notif_3hari_dikirim),
-                '1_hari' => !is_null($k->notif_h1_dikirim),
-            ];
         }
 
         return view('penghuni.kontrak.notifikasi', compact('kontrakAktif', 'user'));

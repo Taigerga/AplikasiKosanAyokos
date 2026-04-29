@@ -33,15 +33,13 @@ class NotificationService
     {
         $kontrak = KontrakSewa::with(['penghuni', 'kos'])->find($kontrakId);
 
-        if (!$kontrak || $kontrak->notif_menunggu_dikirim) {
+        if (!$kontrak) {
             return false;
         }
 
         // Send Email
         try {
             Mail::to($kontrak->penghuni->email)->send(new MenungguPersetujuanMail($kontrak));
-            
-            $kontrak->update(['notif_menunggu_dikirim' => now()]);
             return true;
         } catch (\Exception $e) {
             Log::error("Failed to send email MenungguPersetujuan: " . $e->getMessage());
@@ -53,15 +51,13 @@ class NotificationService
     {
         $kontrak = KontrakSewa::with(['penghuni', 'kos'])->find($kontrakId);
 
-        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || $kontrak->notif_disetujui_dikirim) {
+        if (!$kontrak || $kontrak->status_kontrak !== 'aktif') {
             return false;
         }
 
         // Send Email
         try {
             Mail::to($kontrak->penghuni->email)->send(new KontrakDiterimaMail($kontrak));
-            
-            $kontrak->update(['notif_disetujui_dikirim' => now()]);
             return true;
         } catch (\Exception $e) {
             Log::error("Failed to send email KontrakDiterima: " . $e->getMessage());
@@ -73,15 +69,13 @@ class NotificationService
     {
         $kontrak = KontrakSewa::with(['penghuni', 'kos'])->find($kontrakId);
 
-        if (!$kontrak || $kontrak->status_kontrak !== 'ditolak' || $kontrak->notif_tolak_dikirim) {
+        if (!$kontrak || $kontrak->status_kontrak !== 'ditolak') {
             return false;
         }
 
         // Send Email
         try {
             Mail::to($kontrak->penghuni->email)->send(new PenghuniKontrakDitolakMail($kontrak));
-            
-            $kontrak->update(['notif_tolak_dikirim' => now()]);
             return true;
         } catch (\Exception $e) {
             Log::error("Failed to send email KontrakDitolak: " . $e->getMessage());
@@ -152,7 +146,7 @@ class NotificationService
     {
         $kontrak = KontrakSewa::with(['penghuni', 'kos'])->find($kontrakId);
 
-        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || $kontrak->notif_7hari_dikirim) {
+        if (!$kontrak || $kontrak->status_kontrak !== 'aktif') {
             return false;
         }
 
@@ -174,8 +168,6 @@ class NotificationService
                 'before',
                 false
             );
-            
-            $kontrak->update(['notif_7hari_dikirim' => now()]);
             return true;
         } catch (\Exception $e) {
             Log::error("Failed to send 7-day reminder email: " . $e->getMessage());
@@ -190,7 +182,7 @@ class NotificationService
     {
         $kontrak = KontrakSewa::with(['penghuni', 'kos'])->find($kontrakId);
 
-        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || $kontrak->notif_3hari_dikirim) {
+        if (!$kontrak || $kontrak->status_kontrak !== 'aktif') {
             return false;
         }
 
@@ -212,8 +204,6 @@ class NotificationService
                 'before',
                 false
             );
-            
-            $kontrak->update(['notif_3hari_dikirim' => now()]);
             return true;
         } catch (\Exception $e) {
             Log::error("Failed to send 3-day reminder email: " . $e->getMessage());
@@ -228,7 +218,7 @@ class NotificationService
     {
         $kontrak = KontrakSewa::with(['penghuni', 'kos'])->find($kontrakId);
 
-        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || !$kontrak->tanggal_selesai || $kontrak->notif_h1_dikirim) {
+        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || !$kontrak->tanggal_selesai) {
             return false;
         }
 
@@ -245,8 +235,6 @@ class NotificationService
                 'today',
                 false
             );
-            
-            $kontrak->update(['notif_h1_dikirim' => now()]);
             return true;
         } catch (\Exception $e) {
             Log::error("Failed to send H-1 reminder email: " . $e->getMessage());
@@ -261,7 +249,7 @@ class NotificationService
     {
         $kontrak = KontrakSewa::with(['penghuni', 'kos'])->find($kontrakId);
 
-        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || !$kontrak->tanggal_selesai || $kontrak->notif_hari_ini_dikirim) {
+        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || !$kontrak->tanggal_selesai) {
             return false;
         }
 
@@ -278,8 +266,6 @@ class NotificationService
                 'today',
                 false
             );
-            
-            $kontrak->update(['notif_hari_ini_dikirim' => now()]);
             return true;
         } catch (\Exception $e) {
             Log::error("Failed to send today reminder email: " . $e->getMessage());
@@ -294,7 +280,7 @@ class NotificationService
     {
         $kontrak = KontrakSewa::with(['penghuni', 'kos'])->find($kontrakId);
 
-        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || !$kontrak->tanggal_selesai || $kontrak->notif_terlambat_dikirim) {
+        if (!$kontrak || $kontrak->status_kontrak !== 'aktif' || !$kontrak->tanggal_selesai) {
             return false;
         }
 
@@ -311,8 +297,6 @@ class NotificationService
                 'overdue',
                 false
             );
-            
-            $kontrak->update(['notif_terlambat_dikirim' => now()]);
             return true;
         } catch (\Exception $e) {
             Log::error("Failed to send overdue email: " . $e->getMessage());

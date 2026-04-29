@@ -10,12 +10,10 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        // Register ALLNotificationService (email only, WhatsApp removed)
         $this->app->singleton(ALLNotificationService::class, function ($app) {
             return new ALLNotificationService();
         });
 
-        // Register NotificationService (email only, WhatsApp removed)
         $this->app->singleton(NotificationService::class, function ($app) {
             return new NotificationService();
         });

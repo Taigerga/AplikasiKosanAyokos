@@ -21,10 +21,7 @@ class NotificationEmailService
         try {
             Mail::to($kontrak->penghuni->email)
                 ->send(new KontrakDiterimaMail($kontrak));
-            
-            // Update tracking field (kolom yang sudah ada)
-            $kontrak->update(['notif_disetujui_dikirim' => now()]);
-            
+             
             return true;
         } catch (\Exception $e) {
             \Log::error('Gagal mengirim email kontrak diterima: ' . $e->getMessage());
@@ -40,10 +37,7 @@ class NotificationEmailService
         try {
             Mail::to($kontrak->penghuni->email)
                 ->send(new KontrakDitolakMail($kontrak));
-            
-            // Update tracking field (kolom yang sudah ada)
-            $kontrak->update(['notif_tolak_dikirim' => now()]);
-            
+             
             return true;
         } catch (\Exception $e) {
             \Log::error('Gagal mengirim email kontrak ditolak: ' . $e->getMessage());
@@ -59,10 +53,7 @@ class NotificationEmailService
         try {
             Mail::to($kontrak->kos->pemilik->email)
                 ->send(new PengajuanBaruMail($kontrak));
-            
-            // Update tracking field (kolom yang sudah ada)
-            $kontrak->update(['notif_menunggu_dikirim' => now()]);
-            
+             
             return true;
         } catch (\Exception $e) {
             \Log::error('Gagal mengirim email pengajuan baru: ' . $e->getMessage());
@@ -77,13 +68,10 @@ class NotificationEmailService
     {
         try {
             $hariSisa = Carbon::parse($kontrak->tanggal_selesai)->diffInDays(now());
-            
+             
             Mail::to($kontrak->penghuni->email)
                 ->send(new NotifikasiTenggatWaktuMail($kontrak, $hariSisa, $tipeNotifikasi));
-            
-            // Update tracking field berdasarkan tipe notifikasi (kolom yang sudah ada)
-            $this->updateTrackingFieldPenghuni($kontrak, $tipeNotifikasi);
-            
+             
             return true;
         } catch (\Exception $e) {
             \Log::error('Gagal mengirim email tenggat waktu ke penghuni: ' . $e->getMessage());
@@ -113,36 +101,8 @@ class NotificationEmailService
     }
 
     /**
-     * Update field tracking untuk penghuni (menggunakan kolom yang sudah ada)
-     */
-    private function updateTrackingFieldPenghuni(KontrakSewa $kontrak, $tipeNotifikasi)
-    {
-        $updateData = [];
-        
-        switch ($tipeNotifikasi) {
-            case '7_hari':
-                $updateData['notif_7hari_dikirim'] = now();
-                break;
-            case '3_hari':
-                $updateData['notif_3hari_dikirim'] = now();
-                break;
-            case '1_hari':
-                $updateData['notif_h1_dikirim'] = now();
-                break;
-            case 'tenggat':
-                $updateData['notif_hari_ini_dikirim'] = now();
-                break;
-            case 'terlambat':
-                $updateData['notif_terlambat_dikirim'] = now();
-                break;
-        }
-        
-        $kontrak->update($updateData);
-    }
-
-    /**
      * Cek dan kirim semua notifikasi tenggat waktu
-     * KE PENGHUNI (dengan tracking) dan PEMILIK (tanpa tracking)
+     * KE PENGHUNI DAN PEMILIK
      */
     public function checkAndSendTenggatWaktuNotifications()
     {
@@ -157,61 +117,40 @@ class NotificationEmailService
 
     /**
      * Cek notifikasi untuk satu kontrak
-     * Penghuni: pakai tracking, Pemilik: selalu kirim
      */
     private function checkSingleKontrak(KontrakSewa $kontrak)
     {
         $tanggalSelesai = Carbon::parse($kontrak->tanggal_selesai);
         $hariSisa = $tanggalSelesai->diffInDays(now());
-        
-        // Untuk setiap kondisi, kirim ke pemilik (selalu)
-        // Untuk penghuni, cek tracking dulu
-        
+         
         // 7 hari sebelum berakhir
         if ($hariSisa == 7) {
-            // Kirim ke pemilik (selalu)
             $this->sendTenggatWaktuToPemilik($kontrak, '7_hari');
-            
-            // Kirim ke penghuni hanya jika belum dikirim
-            if (!$kontrak->notif_7hari_dikirim) {
-                $this->sendTenggatWaktuToPenghuni($kontrak, '7_hari');
-            }
+            $this->sendTenggatWaktuToPenghuni($kontrak, '7_hari');
         }
-        
+         
         // 3 hari sebelum berakhir
         if ($hariSisa == 3) {
             $this->sendTenggatWaktuToPemilik($kontrak, '3_hari');
-            
-            if (!$kontrak->notif_3hari_dikirim) {
-                $this->sendTenggatWaktuToPenghuni($kontrak, '3_hari');
-            }
+            $this->sendTenggatWaktuToPenghuni($kontrak, '3_hari');
         }
-        
+         
         // 1 hari sebelum berakhir
         if ($hariSisa == 1) {
             $this->sendTenggatWaktuToPemilik($kontrak, '1_hari');
-            
-            if (!$kontrak->notif_h1_dikirim) {
-                $this->sendTenggatWaktuToPenghuni($kontrak, '1_hari');
-            }
+            $this->sendTenggatWaktuToPenghuni($kontrak, '1_hari');
         }
-        
+         
         // Hari berakhir
         if ($hariSisa == 0) {
             $this->sendTenggatWaktuToPemilik($kontrak, 'tenggat');
-            
-            if (!$kontrak->notif_hari_ini_dikirim) {
-                $this->sendTenggatWaktuToPenghuni($kontrak, 'tenggat');
-            }
+            $this->sendTenggatWaktuToPenghuni($kontrak, 'tenggat');
         }
-        
+         
         // Sudah melewati tenggat waktu (1 hari setelah berakhir)
         if ($hariSisa < 0 && abs($hariSisa) == 1) {
             $this->sendTenggatWaktuToPemilik($kontrak, 'terlambat');
-            
-            if (!$kontrak->notif_terlambat_dikirim) {
-                $this->sendTenggatWaktuToPenghuni($kontrak, 'terlambat');
-            }
+            $this->sendTenggatWaktuToPenghuni($kontrak, 'terlambat');
         }
     }
 }

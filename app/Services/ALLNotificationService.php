@@ -78,8 +78,8 @@ class ALLNotificationService
     public function sendDualContractReminder($user, $kosName, $roomNumber, $daysLeft, $endDate, $type = 'before', $isPemilik = false)
     {
         $results = [];
-        
-        // Send Email only (WhatsApp removed)
+         
+        // Send Email
         if (!empty($user->email)) {
             try {
                 if ($type === 'completion') {
@@ -108,7 +108,7 @@ class ALLNotificationService
                 Log::error("ALLNotificationService: Failed Email for {$user->email}: " . $e->getMessage());
             }
         }
-        
+         
         return $results;
     }
 
@@ -193,8 +193,8 @@ class ALLNotificationService
         $results = [];
         $paymentData['userName'] = $user->nama;
         $paymentData['isPemilik'] = $isPemilik;
-        
-        // Send Email only (WhatsApp removed)
+         
+        // Send Email
         if (!empty($user->email)) {
             try {
                 $results['email'] = $this->sendPaymentEmailNotification(
@@ -207,7 +207,7 @@ class ALLNotificationService
                 Log::error("ALLNotificationService: Failed Email for {$user->email}: " . $e->getMessage());
             }
         }
-        
+         
         return $results;
     }
 

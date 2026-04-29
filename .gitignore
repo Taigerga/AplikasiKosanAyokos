@@ -28,5 +28,4 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
-/app/Services/WhatsAppBot/auth_info/
 /auth_info
