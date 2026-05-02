@@ -164,7 +164,7 @@
                     <div class="space-y-4">
                         <div>
                             <p class="text-sm text-dark-muted">Username</p>
-                            <p class="font-medium text-white">{{ $penghuni->username }}</p>
+                            <p class="font-medium text-white">{{ $user->username }}</p>
                         </div>
 
                         <div>

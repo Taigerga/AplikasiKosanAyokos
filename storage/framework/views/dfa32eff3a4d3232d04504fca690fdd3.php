@@ -31,32 +31,21 @@
 
                 <!-- Profile Menu -->
                 <div class="profile-menu relative">
+                    <?php $user = auth('pemilik')->user(); ?>
                     <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-700/50">
-                        <?php if(Auth::guard('pemilik')->user()->foto_profil): ?>
-                            <?php
-                            $filePath = storage_path('app/public/' . Auth::guard('pemilik')->user()->foto_profil);
-                            $fileExists = file_exists($filePath);
-                            ?>
-                            <?php if($fileExists): ?>
-                                <img src="<?php echo e(url('storage/' . Auth::guard('pemilik')->user()->foto_profil)); ?>" 
-                                     alt="<?php echo e(Auth::guard('pemilik')->user()->nama); ?>" 
-                                     class="w-8 h-8 rounded-full object-cover border-2 border-blue-400">
-                            <?php else: ?>
-                                <div
-                                    class="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center">
-                                    <span
-                                        class="text-white font-medium"><?php echo e(substr(Auth::guard('pemilik')->user()->nama, 0, 1)); ?></span>
-                                </div>
-                            <?php endif; ?>
+                        <?php if($user && $user->pemilik && $user->pemilik->foto_profil): ?>
+                            <img src="<?php echo e(asset('storage/' . $user->pemilik->foto_profil)); ?>"
+                                 alt="<?php echo e($user->pemilik->nama ?? $user->nama); ?>"
+                                 class="w-8 h-8 rounded-full object-cover border-2 border-blue-400">
                         <?php else: ?>
                             <div
                                 class="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center">
                                 <span
-                                    class="text-white font-medium"><?php echo e(substr(Auth::guard('pemilik')->user()->nama, 0, 1)); ?></span>
+                                    class="text-white font-medium"><?php echo e(($user->pemilik->nama ?? $user->nama) ? substr($user->pemilik->nama ?? $user->nama, 0, 1) : '?'); ?></span>
                             </div>
                         <?php endif; ?>
                         <span
-                            class="text-sm font-medium text-white hidden md:inline"><?php echo e(Auth::guard('pemilik')->user()->nama); ?></span>
+                            class="text-sm font-medium text-white hidden md:inline"><?php echo e($user->pemilik->nama ?? $user->nama ?? 'User'); ?></span>
                         <i class="fas fa-chevron-down text-slate-400 text-xs"></i>
                     </button>
 
@@ -65,8 +54,8 @@
                         class="profile-dropdown absolute right-0 mt-2 w-64 bg-slate-800 rounded-xl shadow-2xl border border-slate-700 py-2 z-[1001]">
                         <!-- User Info -->
                         <div class="px-4 py-3 border-b border-slate-700">
-                            <p class="text-sm font-semibold text-white"><?php echo e(Auth::guard('pemilik')->user()->nama); ?></p>
-                            <p class="text-xs text-slate-400 truncate"><?php echo e(Auth::guard('pemilik')->user()->email); ?></p>
+                            <p class="text-sm font-semibold text-white"><?php echo e($user->pemilik->nama ?? $user->nama ?? 'User'); ?></p>
+                            <p class="text-xs text-slate-400 truncate"><?php echo e($user->pemilik->email ?? $user->email ?? '-'); ?></p>
                         </div>
 
                         <!-- Menu Items -->
@@ -196,15 +185,15 @@
         <!-- Quick Stats -->
         <div class="p-4 border-t border-slate-700">
             <div class="text-xs text-slate-400 mb-2">Statistik Cepat</div>
-            <div class="space-y-2">
+                <div class="space-y-2">
                 <div class="flex items-center justify-between text-sm">
                     <span class="text-slate-400">Total Kos</span>
-                    <span class="font-bold text-white"><?php echo e(Auth::guard('pemilik')->user()->kos()->count()); ?></span>
+                    <span class="font-bold text-white"><?php echo e($user->pemilik?->kos()->count() ?? 0); ?></span>
                 </div>
                 <div class="flex items-center justify-between text-sm">
                     <span class="text-slate-400">Kamar Tersedia</span>
                     <span class="font-bold text-green-400">
-                        <?php echo e(Auth::guard('pemilik')->user()->kos()->withCount(['kamar' => fn($q) => $q->where('status_kamar', 'tersedia')])->get()->sum('kamar_count')); ?>
+                        <?php echo e($user->pemilik?->kos()->withCount(['kamar' => fn($q) => $q->where('status_kamar', 'tersedia')])->get()->sum('kamar_count') ?? 0); ?>
 
                     </span>
                 </div>

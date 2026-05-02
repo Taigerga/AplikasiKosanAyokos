@@ -22,7 +22,8 @@ class PembayaranController extends Controller
 
     public function index()
     {
-        $user = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
         $query = Pembayaran::with(['penghuni', 'kontrak.kos'])
             ->whereHas('kontrak.kos', function ($query) use ($user) {
@@ -44,7 +45,8 @@ class PembayaranController extends Controller
 
     public function approve($id)
     {
-        $user = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
         $pembayaran = Pembayaran::with(['penghuni', 'kontrak.kos', 'kontrak.kamar'])
             ->whereHas('kontrak.kos', function ($query) use ($user) {
@@ -116,7 +118,7 @@ class PembayaranController extends Controller
 
     public function reject($id)
     {
-        $user = Auth::guard('pemilik')->user();
+        $user = Auth::user();
 
         $pembayaran = Pembayaran::with(['penghuni', 'kontrak.kos', 'kontrak.kamar'])
             ->whereHas('kontrak.kos', function ($query) use ($user) {
@@ -146,7 +148,7 @@ class PembayaranController extends Controller
             // Get related data
             $penghuni = $pembayaran->penghuni;
             $kontrak = $pembayaran->kontrak;
-            $pemilik = Auth::guard('pemilik')->user();
+            $pemilik = Auth::user();
 
             // Prepare payment data
             $paymentData = [

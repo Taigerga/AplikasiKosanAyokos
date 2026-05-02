@@ -11,7 +11,7 @@ class CheckPenghuni
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guard('penghuni')->check()) {
+        if (!Auth::check() || Auth::user()->role !== 'penghuni') {
             return redirect()->route('login')->with('error', 'Anda harus login sebagai penghuni.');
         }
 

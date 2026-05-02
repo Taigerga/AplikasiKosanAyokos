@@ -10,57 +10,38 @@ class Notification extends Model
     use HasFactory;
 
     protected $table = 'notifications';
-    protected $primaryKey = 'id_notifikasi';
-    
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
-        'id_user',
-        'user_type',
-        'judul',
-        'pesan',
-        'tipe',
-        'dibaca',
-        'link'
+        'id',
+        'type',
+        'notifiable_type',
+        'notifiable_id',
+        'data',
+        'read_at'
     ];
 
     protected $casts = [
+        'data' => 'array',
+        'read_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
 
-    // Scope untuk notifikasi yang belum dibaca
+    public function notifiable()
+    {
+        return $this->morphTo();
+    }
+
     public function scopeUnread($query)
     {
-        return $query->where('dibaca', 'tidak');
+        return $query->whereNull('read_at');
     }
 
-    // Scope untuk notifikasi berdasarkan user type
-    public function scopeForUserType($query, $userType)
-    {
-        return $query->where('user_type', $userType);
-    }
-
-    // Scope untuk notifikasi berdasarkan user
-    public function scopeForUser($query, $userId, $userType)
-    {
-        return $query->where('id_user', $userId)
-                    ->where('user_type', $userType);
-    }
-
-    // Method untuk menandai sebagai sudah dibaca
     public function markAsRead()
     {
-        $this->update(['dibaca' => 'ya']);
-    }
-
-    // Method untuk menandai sebagai belum dibaca
-    public function markAsUnread()
-    {
-        $this->update(['dibaca' => 'tidak']);
-    }
-
-    // Accessor untuk check jika notifikasi sudah dibaca
-    public function getIsReadAttribute()
-    {
-        return $this->dibaca === 'ya';
+        $this->update(['read_at' => now()]);
     }
 }

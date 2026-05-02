@@ -16,7 +16,7 @@ class CheckPemilik
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guard('pemilik')->check()) {
+        if (!Auth::check() || Auth::user()->role !== 'pemilik') {
             return redirect()->route('login')->with('error', 'Anda harus login sebagai pemilik.');
         }
 

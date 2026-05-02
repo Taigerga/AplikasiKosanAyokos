@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Penghuni extends Authenticatable
+class Penghuni extends Model
 {
     use HasFactory;
 
@@ -13,20 +13,26 @@ class Penghuni extends Authenticatable
     protected $primaryKey = 'id_penghuni';
     
     protected $fillable = [
-        'nama', 'nik', 'no_hp', 'email', 'jenis_kelamin', 'tanggal_lahir',
-        'alamat', 'foto_profil', 'username', 'password',
-        'status_penghuni', 'role', 'remember_token'
+        'user_id',
+        'nama',
+        'no_hp',
+        'email',
+        'jenis_kelamin',
+        'tanggal_lahir',
+        'alamat',
+        'foto_profil',
+        'status_penghuni'
     ];
 
     protected $casts = [
         'tanggal_lahir' => 'date',
     ];
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
-    // Relationships
     public function kontrakSewa()
     {
         return $this->hasMany(KontrakSewa::class, 'id_penghuni');
@@ -44,6 +50,6 @@ class Penghuni extends Authenticatable
 
     public function notifications()
     {
-        return $this->morphMany(Notification::class, 'user', 'user_type', 'id_user');
+        return $this->morphMany(Notification::class, 'notifiable');
     }
 }

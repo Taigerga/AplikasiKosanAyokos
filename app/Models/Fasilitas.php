@@ -16,7 +16,6 @@ class Fasilitas extends Model
         'nama_fasilitas', 'kategori', 'icon'
     ];
 
-    // Relationships
     public function kos()
     {
         return $this->belongsToMany(Kos::class, 'kos_fasilitas', 'id_fasilitas', 'id_kos');

@@ -12,11 +12,12 @@ class KamarController extends Controller
 {
     public function index(Request $request)
     {
-        $user = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
         $query = Kamar::with('kos')
-            ->whereHas('kos', function ($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            ->whereHas('kos', function ($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             });
 
         // Filter by kos jika ada
@@ -50,8 +51,9 @@ class KamarController extends Controller
 
     public function create()
     {
-        $user = Auth::guard('pemilik')->user();
-        $kos = Kos::where('id_pemilik', $user->id_pemilik)
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
+        $kos = Kos::where('id_pemilik', $pemilik->id_pemilik)
             ->where('status_kos', 'aktif')
             ->get();
 
@@ -60,7 +62,8 @@ class KamarController extends Controller
 
     public function store(Request $request)
     {
-        $user = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
         $validated = $request->validate([
             'id_kos' => 'required|exists:kos,id_kos',
@@ -121,26 +124,28 @@ class KamarController extends Controller
 
     public function edit($id)
     {
-        $user = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
         $kamar = Kamar::with('kos')
-            ->whereHas('kos', function ($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            ->whereHas('kos', function ($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })
             ->findOrFail($id);
 
-        $kos = Kos::where('id_pemilik', $user->id_pemilik)
+        $kos = Kos::where('id_pemilik', $pemilik->id_pemilik)
             ->where('status_kos', 'aktif')
             ->get();
 
-        return view('pemilik.kamar.edit', compact('kamar', 'kos'));
+        return view('pemilik.kamar.edit', compact('kamar', 'kos', 'user'));
     }
 
     public function update(Request $request, $id)
     {
-        $user = Auth::guard('pemilik')->user();
-        $kamar = Kamar::whereHas('kos', function ($query) use ($user) {
-            $query->where('id_pemilik', $user->id_pemilik);
-        })
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
+        $kamar = Kamar::whereHas('kos', function ($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
+            })
             ->findOrFail($id);
 
         $validated = $request->validate([
@@ -195,10 +200,11 @@ class KamarController extends Controller
 
     public function destroy($id)
     {
-        $user = Auth::guard('pemilik')->user();
-        $kamar = Kamar::whereHas('kos', function ($query) use ($user) {
-            $query->where('id_pemilik', $user->id_pemilik);
-        })
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
+        $kamar = Kamar::whereHas('kos', function ($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
+            })
             ->findOrFail($id);
 
         // Hapus foto jika ada

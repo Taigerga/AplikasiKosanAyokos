@@ -62,4 +62,8 @@ class Kos extends Model
             $q->where('status_kamar', 'tersedia');
         });
     }
+    public function kontrak()
+    {
+        return $this->kontrakSewa();
+    }
 }

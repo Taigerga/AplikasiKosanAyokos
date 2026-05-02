@@ -740,7 +740,7 @@
 
 <!-- Data penghuni untuk PDF (hidden element) -->
 <div id="penghuniData" 
-     data-nama="{{ auth()->guard('penghuni')->user()->nama ?? 'Penghuni' }}"
+     data-nama="{{ auth()->user()->nama ?? 'Penghuni' }}"
      style="display: none;">
 </div>
 

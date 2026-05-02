@@ -863,7 +863,7 @@
 
 <!-- Data pemilik untuk PDF (hidden element) -->
 <div id="pemilikData" 
-     data-nama="{{ auth()->guard('pemilik')->user()->nama ?? 'Pemilik' }}"
+     data-nama="{{ auth()->user()->nama ?? 'Pemilik' }}"
      data-tanggal="{{ now()->format('d F Y') }}"
      style="display: none;">
 </div>

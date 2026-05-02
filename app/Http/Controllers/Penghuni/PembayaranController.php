@@ -25,7 +25,7 @@ class PembayaranController extends Controller
 
     public function index()
     {
-        $user = Auth::guard('penghuni')->user();
+        $user = Auth::user();
 
         $pembayaran = Pembayaran::with(['kontrak.kos'])
             ->where('id_penghuni', $user->id_penghuni)
@@ -44,7 +44,7 @@ class PembayaranController extends Controller
 
     public function create(Request $request)
     {
-        $user = Auth::guard('penghuni')->user();
+        $user = Auth::user();
 
         $kontrakAktif = KontrakSewa::with(['kos', 'kamar', 'kos.pemilik'])
             ->where('id_penghuni', $user->id_penghuni)
@@ -151,10 +151,10 @@ class PembayaranController extends Controller
             Log::info('PembayaranController::store - START', [
                 'request_params' => $request->except(['bukti_pembayaran']),
                 'has_file' => $request->hasFile('bukti_pembayaran'),
-                'user_id' => Auth::guard('penghuni')->id()
+                'user_id' => Auth::id()
             ]);
 
-            $user = Auth::guard('penghuni')->user();
+            $user = Auth::user();
 
             Log::debug('Store validation started');
             $validated = $request->validate([
@@ -279,7 +279,7 @@ class PembayaranController extends Controller
 
     public function show($id)
     {
-        $user = Auth::guard('penghuni')->user();
+        $user = Auth::user();
 
         $pembayaran = Pembayaran::with(['kontrak.kos'])
             ->where('id_penghuni', $user->id_penghuni)

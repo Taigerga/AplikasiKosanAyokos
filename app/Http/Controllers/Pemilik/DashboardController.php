@@ -15,19 +15,20 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
         
         // Data untuk stats
         $statistics = [
-            'total_kos' => Kos::where('id_pemilik', $user->id_pemilik)->count(),
-            'total_kamar' => Kamar::whereHas('kos', function($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            'total_kos' => Kos::where('id_pemilik', $pemilik->id_pemilik)->count(),
+            'total_kamar' => Kamar::whereHas('kos', function($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })->count(),
-            'kamar_tersedia' => Kamar::whereHas('kos', function($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            'kamar_tersedia' => Kamar::whereHas('kos', function($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })->where('status_kamar', 'tersedia')->count(),
-            'total_penghuni' => KontrakSewa::whereHas('kos', function($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            'total_penghuni' => KontrakSewa::whereHas('kos', function($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })->where('status_kontrak', 'aktif')->count(),
         ];
 
@@ -35,21 +36,21 @@ class DashboardController extends Controller
         $kos = Kos::withCount(['kamar' => function($query) {
                 $query->where('status_kamar', 'tersedia');
             }])
-            ->where('id_pemilik', $user->id_pemilik)
+            ->where('id_pemilik', $pemilik->id_pemilik)
             ->orderBy('created_at', 'desc')
             ->get();
 
         $kamar = Kamar::with('kos')
-            ->whereHas('kos', function($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            ->whereHas('kos', function($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })
             ->orderBy('created_at', 'desc')
             ->get();
 
         // Data kontrak pending
         $kontrakPending = KontrakSewa::with(['penghuni', 'kos', 'kamar'])
-            ->whereHas('kos', function($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            ->whereHas('kos', function($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })
             ->where('status_kontrak', 'pending')
             ->orderBy('created_at', 'desc')
@@ -57,18 +58,19 @@ class DashboardController extends Controller
 
         // Data pembayaran terbaru
         $pembayaranTerbaru = Pembayaran::with(['penghuni', 'kontrak.kos'])
-            ->whereHas('kontrak.kos', function($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            ->whereHas('kontrak.kos', function($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
 
         // PERBAIKAN: Pendapatan bulan ini termasuk deposit kontrak baru
-        $pendapatanBulanIni = $this->hitungPendapatanBulanIni($user->id_pemilik);
+        $pendapatanBulanIni = $this->hitungPendapatanBulanIni($pemilik->id_pemilik);
 
         return view('pemilik.dashboard', compact(
-            'user', 
+            'user',
+            'pemilik',
             'statistics', 
             'kos', 
             'kamar', 

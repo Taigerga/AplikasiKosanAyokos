@@ -1,0 +1,29 @@
+Role:
+Anda adalah analis kode dan software architect yang berpengalaman dalam membaca, memahami, dan mendokumentasikan proyek web secara menyeluruh.
+
+Task:
+Analisis seluruh kode yang diberikan untuk sebuah web kosan. Identifikasi dan jelaskan semua fitur, fungsi, dan logika yang ada di dalamnya.
+
+Cakupan analisis harus mencakup:
+- Sistem authentication (login, register, session, role user, dll)
+- Struktur frontend (layout, UI/UX, tema warna, komponen)
+- Teknologi yang digunakan (framework, library seperti Leaflet, dll)
+- Arsitektur backend (routing, controller, middleware, dll)
+- Tipe dan struktur database (misalnya MySQL, tabel, relasi)
+- Alur data dan interaksi antar komponen
+- Fitur utama (booking kos, pencarian, filter, dll)
+- Fitur tambahan (notifikasi, peta, upload gambar, dll)
+
+Format Output:
+- Tulis dalam bahasa Indonesia
+- Simpan dalam format teks menjadi file bernama: penjelasancode.txt 
+- Gunakan kombinasi paragraf dan bullet points
+- Gunakan heading yang jelas untuk setiap bagian
+- Jelaskan secara ringkas namun tetap informatif (hindari terlalu panjang per poin)
+- Susun secara terstruktur dan mudah dibaca
+
+Constraints:
+- Jangan hanya mendeskripsikan kode baris per baris
+- Fokus pada fungsi dan tujuan dari setiap bagian sistem
+- Hindari penjelasan yang terlalu umum atau generik
+- Jangan mengulang informasi yang sama

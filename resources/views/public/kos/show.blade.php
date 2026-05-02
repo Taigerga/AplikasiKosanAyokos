@@ -474,7 +474,7 @@
                 </div>
                 <h3 class="text-xl font-semibold text-white mt-4">Belum Ada Ulasan</h3>
                 <p class="text-dark-muted mt-2">Jadilah yang pertama memberikan ulasan untuk kos ini.</p>
-                
+                 
                 @auth('penghuni')
                     @php
                         $penghuni = Auth::guard('penghuni')->user();
@@ -573,13 +573,13 @@
 
                 <!-- Action Buttons -->
                 <div class="space-y-4">
-                    @auth('penghuni')
-                        @php
-                            $user = Auth::guard('penghuni')->user();
-                            $isAllowed = true;
-                            if ($kos->jenis_kos == 'putra' && $user->jenis_kelamin != 'L') $isAllowed = false;
-                            if ($kos->jenis_kos == 'putri' && $user->jenis_kelamin != 'P') $isAllowed = false;
-                        @endphp
+                @auth('penghuni')
+                    @php
+                        $user = Auth::guard('penghuni')->user();
+                        $isAllowed = true;
+                        if ($kos->jenis_kos == 'putra' && $user->jenis_kelamin != 'L') $isAllowed = false;
+                        if ($kos->jenis_kos == 'putri' && $user->jenis_kelamin != 'P') $isAllowed = false;
+                    @endphp
 
                         @if($kos->kamar->count() > 0)
                             @if($isAllowed)
@@ -626,7 +626,7 @@
                         $penghuni = Auth::guard('penghuni')->user();
                         $canReview = false;
                         $hasReviewed = false;
-                        
+
                         $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
                             ->where('id_kos', $kos->id_kos)
                             ->whereIn('status_kontrak', ['aktif', 'selesai'])

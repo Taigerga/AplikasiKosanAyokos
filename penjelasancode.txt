@@ -1,0 +1,525 @@
+
+================================================================================
+                    DOKUMENTASI SISTEM - APLIKASI AYOKOS
+             Platform Web Manajemen Kos & Pencarian Hunian
+================================================================================
+
+---
+1. GAMBARAN UMUM
+---
+Aplikasi Ayokos adalah platform web berbasis Laravel yang dirancang untuk 
+memfasilitasi pencarian, pemesanan, dan manajemen kos (kost/kontrakan) di 
+Indonesia. Sistem ini mendukung dua jenis pengguna utama: Penghuni (pencari 
+kos) dan Pemilik (pemilik properti kos). Aplikasi dilengkapi dengan fitur 
+pencarian canggih, sistem booking, manajemen pembayaran, notifikasi real-time, 
+dan analisis data.
+
+Teknologi Utama:
+- Framework: Laravel (PHP)
+- Frontend: Blade Templates, Tailwind CSS, Font Awesome
+- Database: MySQL/MariaDB (relasional)
+- Library Spesifik: Leaflet.js (pemetaan interaktif)
+- Architecture: MVC (Model-View-Controller) + Repository Pattern
+
+---
+2. SISTEM AUTHENTICATION & AUTHORIZATION
+---
+
+2.1. Struktur Autentikasi Multi-Guard:
+- Sistem menggunakan dua guard terpisah: 'penghuni' dan 'pemilik'
+- Masing-masing guard memiliki provider model independen
+- Session-based authentication dengan opsi "Remember Me"
+- Password di-hash menggunakan algoritma bcrypt/Laravel Hash
+
+2.2. Alur Login:
+- User memilih role (penghuni/pemilik) pada form login
+- Validasi kredensial terhadap tabel masing-masing (penghuni/pemilik)
+- Regenerasi session ID untuk keamanan
+- Redirect ke dashboard berdasarkan role
+
+2.3. Proses Registrasi:
+- Validasi umur minimum 17 tahun (persyaratan legal)
+- Pengecekan unique username per role
+- Upload foto profil opsional (maksimal 2MB)
+- Tiga jenis user dalam sistem:
+  * Penghuni: Pencari dan penyewa kos
+  * Pemilik: Pemilik properti kos (bisa memiliki banyak kos)
+  * Admin/Super: (implisit melalui model User)
+
+2.4. Middleware Proteksi:
+- Route middleware 'auth' untuk area terproteksi
+- Role-based access control melalui middleware 'role'
+- Semua route penghuni dan pemilik dilindungi autentikasi
+
+---
+3. ARSITEKTUR BACKEND
+---
+
+3.1. Struktur Folder:
+app/
+├─ Http/
+│  ├─ Controllers/
+│  │  ├─ Auth/          (LoginController, RegisterController)
+│  │  ├─ Public/        (HomeController, KosController, PageController)
+│  │  ├─ Penghuni/      (Dashboard, Kontrak, Pembayaran, Review, Analisis)
+│  │  ├─ Pemilik/       (Dashboard, Kos, Kamar, Kontrak, Pembayaran, Review, Analisis)
+│  │  ├─ API/           (NotificationController, PaymentCallbackController)
+│  │  └─ ProfileController.php
+│  └─ Middleware/       (auth, role, dll.)
+├─ Models/              (14 model Eloquent)
+├─ Services/            (NotificationService, ALLNotificationService)
+└─ Mail/                (Email templates untuk notifikasi)
+
+3.2. Routing Strategy:
+- routes/web.php: Route publik dan umum
+- routes/penghuni.php: Route khusus penghuni (prefix: /penghuni)
+- routes/pemilik.php: Route khusus pemilik (prefix: /pemilik)
+- routes/api.php: Endpoint API RESTful untuk notifikasi
+- routes/console.php: Artisan commands
+
+3.3. Controller Pattern:
+- Semua controller extend base Controller
+- Dependency injection untuk service dan repository
+- Method naming mengikuti konvensi RESTful (index, create, store, show, edit, update, destroy)
+- Form Request validation untuk validasi input
+
+---
+4. STRUKTUR DATABASE & MODEL ELOQUENT
+---
+
+4.1. Tabel Utama & Relasi:
+
+Tabel: penghuni (PK: id_penghuni)
+- Relasi: hasMany(KontrakSewa) - satu penghuni bisa punya banyak kontrak
+- Relasi: hasMany(Pembayaran) - riwayat pembayaran
+- Relasi: hasMany(Review) - ulasan yang dibuat
+- Relasi: morphMany(Notification) - notifikasi terkait
+
+Tabel: pemilik (PK: id_pemilik)
+- Relasi: hasMany(Kos) - satu pemilik bisa punya banyak kos
+- Relasi: morphMany(Notification)
+- Field utama: nama, no_hp, email, username, password, nama_bank, nomor_rekening
+
+Tabel: kos (PK: id_kos) [FK: id_pemilik]
+- Relasi: belongsTo(Pemilik) - milik siapa
+- Relasi: hasMany(Kamar) - punya banyak kamar
+- Relasi: belongsToMany(Fasilitas) - pivot melalui kos_fasilitas
+- Relasi: hasMany(KontrakSewa)
+- Relasi: hasMany(Review)
+- Field utama: nama_kos, alamat, kecamatan, kota, provinsi, jenis_kos (putra/putri/campur)
+- Scope: scopeAktif(), scopeDenganKamarTersedia()
+
+Tabel: kamar (PK: id_kamar) [FK: id_kos]
+- Relasi: belongsTo(Kos)
+- Relasi: hasMany(KontrakSewa)
+- Accessor: getFotoKamarUrlAttribute() - normalisasi path foto
+- Field utama: nomor_kamar, tipe_kamar, harga, kapasitas, fasilitas_kamar (JSON)
+- Status: tersedia/terisi
+
+Tabel: kontrak_sewa (PK: id_kontrak) [FK: id_penghuni, id_kos, id_kamar]
+- Relasi: belongsTo(Penghuni, Kos, Kamar)
+- Relasi: hasMany(Pembayaran) - pembayaran terkait kontrak ini
+- Relasi: hasMany(Review) - review dari kontrak ini
+- Field utama: tanggal_daftar, tanggal_mulai, tanggal_selesai, durasi_sewa
+- Status: pending/ditolak/aktif/selesai
+- Boot event: otomatis ubah kamar jadi tersedia saat status=selesai
+
+Tabel: pembayaran (PK: id_pembayaran) [FK: id_kontrak, id_penghuni]
+- Relasi: belongsTo(KontrakSewa), belongsTo(Penghuni)
+- Field utama: bulan_tahun, jumlah, status_pembayaran
+- Status: belum/pending/lunas/terlambat
+- Scope: scopeLunas(), scopePending(), scopeBelumBayar()
+
+Tabel: review (PK: id_review) [FK: id_kos, id_penghuni, id_kontrak]
+- Relasi: belongsTo(Kos, Penghuni, KontrakSewa)
+- Field utama: rating (1-5), komentar, foto_review
+- Validation: rating harus 1-5
+- Accessor: getStarRatingAttribute() untuk visual bintang
+
+Tabel: fasilitas (PK: id_fasilitas)
+- Field: nama_fasilitas, kategori, icon
+- Relasi: belongsToMany(Kos)
+
+Tabel: notifications (PK: id_notifikasi)
+- Polymorphic: user_type + id_user
+- Field: judul, pesan, tipe, dibaca, link
+- Scope: scopeUnread(), scopeForUserType(), scopeForUser()
+
+4.2. Database Design Principles:
+- Nama tabel singular (penghuni, pemilik) dan plural (fasilitas)
+- Foreign key mengikuti konvensi: id_[nama_tabel]
+- Composite foreign key di relasi pivot: kos_fasilitas
+- Soft delete tidak digunakan (delete permanen)
+- Timestamps standar: created_at, updated_at
+- Casts untuk JSON: fasilitas_kamar di tabel kamar
+
+---
+5. ALUR DATA & INTERAKSI SISTEM
+---
+
+5.1. Alur Pencarian Kos (Penghuni):
+  1. Penghuni akses /kos (GET)
+  2. Controller KosController@index memproses query parameters
+  3. Eloquent query: where('status_kos', 'aktif')
+  4. Filter tambahan: search, jenis_kos, kota, tipe_sewa, ketersediaan
+  5. Eager loading: with(['fasilitas', 'reviews']) untuk performa
+  6. View: public/kos/index.blade.php render hasil pencarian
+  7. Pagination otomatis Laravel (paginate)
+
+5.2. Alur Booking Kontrak (Penghuni):
+  1. Penghuni klik "Sewa" di detail kos
+  2. KontrakController@create: cek kamar tersedia, ambil data
+  3. POST ke /kontrak (store)
+  4. Validasi data penghuni + ketersediaan kamar
+  5. Buat record KontrakSewa dengan status = 'pending'
+  6. Trigger event: kirim notifikasi ke pemilik (async)
+  7. Redirect ke detail kontrak dengan status pending
+  8. Pemilik terima notifikasi (database + email)
+
+5.3. Alur Persetujuan Kontrak (Pemilik):
+  1. Pemilik masuk dashboard /pemilik/dashboard
+  2. Lihat list kontrak pending di sidebar
+  3. Click "Terima" atau "Tolak" di KontrakController
+  4. Update status_kontrak = 'aktif' atau 'ditolak'
+  5. Trigger notification: kirim email ke penghuni
+  6. Jika diterima: penghuni bisa bayar (opsional)
+  7. Auto-update kamar status saat kontrak selesai
+
+5.4. Alur Pembayaran (Penghuni - ke Pemilik):
+  1. Penghuni akses /penghuni/pembayaran/create
+  2. Pilih kontrak aktif yang ingin dibayar
+  3. Input: bulan_tahun, nominal, metode pembayaran
+  4. POST /pembayaran/store
+  5. Buat record Pembayaran (status = 'pending')
+  6. Upload bukti bayar (file ke storage/app/public/)
+  7. Redirect ke detail pembayaran
+  8. Pemilik verifikasi (approve/reject)
+  9. Update status_pembayaran = 'lunas' atau 'belum'
+  10. Notifikasi balik ke penghuni
+
+5.5. Alur Review (Penghuni):
+  1. Setelah kontrak selesai, penghuni bisa review
+  2. POST /reviews/store dengan rating (1-5) + komentar
+  3. Validasi: rating validasi range 1-5
+  4. Update total review di Kos (via relasi hasMany)
+  5. Hitung ulang rata-rata rating (accessor)
+  6. Tampil di halaman detail Kos
+
+---
+6. FITUR UTAMA
+---
+
+6.1. Pencarian & Filter Kos:
+- Pencarian teks bebas (nama, alamat, kecamatan, kota)
+- Filter jenis kos: Putra / Putri / Campur
+- Filter lokasi (kota)
+- Filter ketersediaan kamar
+- Filter tipe sewa (bulanan/tahunan)
+- Sorting otomatis berdasarkan relevansi
+- Pagination dengan 10-20 item per halaman
+
+6.2. Sistem Booking Kontrak:
+- Form booking berbasis kontrak sewa
+- Validasi real-time ketersediaan kamar
+- Durasi sewa otomatis (dari tanggal mulai - selesai)
+- Status flow: pending → aktif/ditolak → selesai
+- Auto-aktivasi saat pemilik setujui
+- Auto-expire jika tidak dibayar dalam batas waktu
+
+6.3. Manajemen Pembayaran:
+- Multi-pembayaran per kontrak (per bulan)\n- Upload bukti transfer (file gambar)
+- Validasi bukti oleh pemilik
+- Status tracking: belum → pending → lunas/terlambat
+- Riwayat pembayaran per penghuni
+- Laporan pembayaran per pemilik (12 bulan terakhir)
+- Denda keterlambatan otomatis (configurable)
+- Toleransi keterlambatan (pengaturan per kos)
+
+6.4. Manajemen Property Pemilik:
+- CRUD Kos (Create, Read, Update, Delete)
+- CRUD Kamar (tambah, edit, nonaktifkan, hapus)
+- Upload foto kos utama (multi-upload via FotoKos)
+- Set fasilitas kos (many-to-many pivot)
+- Set pengaturan khusus kos (denda, toleransi)
+- Status aktif/nonaktif kos
+
+6.5. Sistem Notifikasi:
+- Real-time notifikasi database (polymorphic)
+- Email notification otomatis (queue)
+- Notifikasi terkait kontrak (pending, diterima, ditolak)
+- Notifikasi pembayaran (approve, reject)
+- Reminder jatuh tempo pembayaran
+- Mark as read/unread functionality
+- Filter notifikasi per user type
+
+6.6. Profile Management:
+- Edit profil penghuni/pemilik
+- Upload/update foto profil
+- Ubah password (dengan validasi strength)
+- Tambah/edit data bank (pemilik)
+- Riwayat aktivitas
+- Simpan dengan enkripsi password
+
+6.7. Sistem Review & Rating:
+- Tambah review setelah kontrak selesai
+- Rating bintang 1-5
+- Komentar teks bebas
+- Upload foto review (opsional)
+- Edit/hapus review (hanya pemilik)
+- Tampilkan rata-rata rating di detail kos
+- Distribusi rating (chart)
+- Validasi: satu review per kontrak per penghuni
+
+6.8. Dashboard Analytics:
+- Pemilik: pendapatan 12 bulan terakhir
+- Pemilik: statistik kamar (tersedia/terisi)
+- Pemilik: distribusi jenis kos
+- Pemilik: aktivitas terkini
+- Penghuni: riwayat kontrak (grafik)
+- Penghuni: analisis pengeluaran (6 bulan)
+- Penghuni: status pembayaran (pie chart)
+- Export PDF report
+
+6.9. Peta Lokasi (Leaflet Integration):
+- Peta interaktif OpenStreetMap
+- Marker untuk setiap kos aktif
+- Popup dengan detail kos
+- Filter berbasis lokasi geografis
+- Custom icon marker per jenis kos
+- Responsive mobile-friendly
+
+6.10. File Management:
+- Upload bukti bayar (storage/app/public/)
+- Upload foto profil
+- Upload foto kamar
+- Upload foto review
+- Upload kontrak (KTP, dll)
+- Validasi MIME type & ukuran
+- Path normalisasi (backslash → forward slash)
+- Auto-delete file lama saat update
+
+---
+7. FITUR TAMBAHAN
+---
+
+7.1. Sistem Email Otomatis:
+- Kirim email konfirmasi registrasi
+- Email notifikasi kontrak pending
+- Email persetujuan kontrak (diterima/ditolak)
+- Email reminder pembayaran
+- Email konfirmasi pembayaran lunas
+- Template blade untuk email HTML
+- Queue support untuk performa
+
+7.2. Pengaturan Per-Kos:
+- Denda keterlambatan pembayaran (per-hari)
+- Toleransi hari telat
+- Notifikasi H-3 sebelum jatuh tempo
+- Pengaturan via UI oleh pemilik
+
+7.3. Fitur Keamanan:
+- CSRF protection otomatis Laravel
+- Session fixation protection
+- SQL injection prevention (Eloquent ORM)
+- XSS prevention (Blade auto-escape)
+- Rate limiting login
+- Password hashing bcrypt
+- File upload sanitization
+- MIME type validation
+
+7.4. Responsive Design:
+- Mobile-first approach
+- Tailwind CSS utility classes
+- Dark mode support (prefers-color-scheme)
+- Mobile-optimized navigation
+- Touch-friendly UI components
+- Grid system adaptif
+
+7.5. UI/UX Features:
+- Dark theme default (slate/cool gray)
+- Blue primary accent (#0ea5e9)
+- Animated gradient backgrounds
+- Smooth transitions (0.2s)
+- Custom scrollbars
+- Font Awesome icons
+- Inter font family
+- Mobile optimizations
+- Loading states
+- Toast notifications
+- Form validation errors
+
+7.6. Public Pages:
+- Homepage (hero + rekomendasi kos)
+- About / How-to pages
+- Terms & Conditions
+- Privacy Policy
+- FAQ section
+- Contact information
+
+---
+8. TEKNOLOGI YANG DIGUNAKAN
+---
+
+8.1. Backend:
+- PHP 8.x (Laravel Framework)
+- Laravel Eloquent ORM
+- Laravel Blade Templates
+- Laravel Mail/Mailable
+- Laravel Queues (async jobs)
+- Carbon (date/time handling)
+- Illuminate Components
+
+8.2. Database:
+- MySQL / MariaDB
+- Eloquent Relationships
+- Database Migrations
+- Seeders & Factories
+- Query Builder
+- Pivot Tables
+
+8.3. Frontend:
+- Tailwind CSS 3.x
+- Vite (build tool)
+- Blade templating engine
+- Alpine.js (implisit/dinamis)
+- Font Awesome 6.4
+- Google Fonts (Inter)
+
+8.4. JavaScript/Libraries:
+- Leaflet.js 1.9.4 (pemetaan)
+- Vite/HMR untuk dev
+- Native JS untuk interaktivitas
+- AJAX via Fetch API (opsional)
+
+8.5. Development:
+- Laravel Mix/Vite
+- Composer (dependency manager)
+- Artisan CLI
+- PHPUnit (testing - implied)
+- Laravel Telescope/Tinker (opsional)
+
+8.6. Infrastructure:
+- Session-based auth
+- File storage driver (local/public)
+- Config caching
+- Route caching
+- Queue worker (implisit)
+
+---
+9. KONFIGURASI & ENVIRONMENT
+---
+
+9.1. Auth Configuration (config/auth.php):
+- 2 guards: penghuni, pemilik
+- 2 providers: penghuni (eloquent), pemilik (eloquent)
+- Password reset table: password_reset_tokens
+- Remember me: enabled
+- Password expiry: 60 menit
+
+9.2. Database Tables:
+- penghuni, pemilik, users
+- kos, kamar, fasilitas
+- kontrak_sewa, pembayaran
+- foto_kos, reviews
+- notifications, pengaturan_kos
+- kos_fasilitas (pivot)
+
+9.3. Storage Structure:
+- storage/app/public/kos/ (foto utama)
+- storage/app/public/kamar/ (foto kamar)
+- storage/app/public/profiles/ (foto profil)
+- storage/app/public/bukti/ (bukti bayar)
+- storage/app/public/reviews/ (foto review)
+- storage/app/public/kontrak/ (dokumen)
+
+9.4. Environment Variables:
+- APP_NAME=AyoKos
+- DB_CONNECTION=mysql
+- MAIL_MAILER=smtp (for notifications)
+- QUEUE_CONNECTION=sync (or redis)
+- BROADCAST_DRIVER=log
+- CACHE_DRIVER=file
+- SESSION_DRIVER=file
+
+---
+10. KODE REUSABLE PATTERNS
+---
+
+10.1. Service Classes:
+- NotificationService: kirim email notifikasi
+- ALLNotificationService: notifikasi multi-channel
+- NotificationEmailService: kirim email khusus
+
+10.2. Eloquent Scopes:
+- scopeAktif() - filter status aktif
+- scopePending() - filter status pending
+- scopeUnread() - filter notifikasi belum baca
+- scopeForUser() - scope polymorphic
+
+10.3. Accessors & Mutators:
+- getFotoKamarUrlAttribute() - normalisasi path
+- getStarRatingAttribute() - visual bintang
+- getAverageRatingAttribute() - hitung rata-rata
+- setFasilitasKamarAttribute() - JSON encode
+
+10.4. Global Scopes:
+- Booted events untuk update otomatis
+- Contoh: update kamar status saat kontrak selesai
+
+10.5. Helper Functions:
+- testMail() - helper testing kirim email
+- route() named routes untuk navigasi
+- asset() untuk URL asset publik
+- url() untuk URL storage
+
+---
+11. POTENSI IMPROVEMENT (TODO)
+---
+
+11.1. Fitur Belum Ada:
+- Real-time websocket (Pusher/Soketi)
+- Payment gateway integration (Midtrans/Xendit)
+- Google Maps API (alternatif Leaflet)
+- Chat system (penghuni-pemilik)
+- Sistem komplain/maintenance
+- Voucher & diskon promosi
+- Sistem referral
+- Booking otomatis berdasarkan preferensi
+- AI rekomendasi kos
+
+11.2. Optimasi:
+- Database indexing strategis
+- Redis caching untuk query berat
+- Lazy loading images
+- CDN untuk asset statis
+- Queue untuk email (bukan sync)
+- Database read replicas
+- Full-text search indexing
+
+11.3. Keamanan:
+- 2FA authentication
+- Email verification required
+- Password strength policy
+- Login attempt limiter
+- Activity logging
+- Audit trail
+- Rate limiting API
+- File virus scanning
+
+11.4. Testing:
+- Unit tests untuk model
+- Feature tests untuk controller
+- Browser tests (Dusk)
+- API endpoint testing
+- Database seeding fixtures
+
+11.5. DevOps:
+- CI/CD pipeline (GitHub Actions)
+- Docker containerization
+- Auto-deployment
+- Monitoring (Sentry, etc.)
+- Backup strategy
+
+================================================================================
+                    AKHIR DOKUMENTASI
+================================================================================

@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Pemilik extends Authenticatable
+class Pemilik extends Model
 {
     use HasFactory;
 
@@ -14,33 +13,28 @@ class Pemilik extends Authenticatable
     protected $primaryKey = 'id_pemilik';
 
     protected $fillable = [
+        'user_id',
         'nama',
         'no_hp',
         'email',
-        'foto_profil',
-        'username',
-        'password',
-        'alamat',
-        'status_pemilik',
-        'role',
-        'remember_token',
         'jenis_kelamin',
         'tanggal_lahir',
-        'nik',
+        'alamat',
+        'foto_profil',
+        'status_pemilik',
         'nama_bank',
         'nomor_rekening'
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
     ];
 
     protected $casts = [
         'tanggal_lahir' => 'date',
     ];
 
-    // Relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function kos()
     {
         return $this->hasMany(Kos::class, 'id_pemilik');
@@ -48,6 +42,6 @@ class Pemilik extends Authenticatable
 
     public function notifications()
     {
-        return $this->morphMany(Notification::class, 'user', 'user_type', 'id_user');
+        return $this->morphMany(Notification::class, 'notifiable');
     }
 }

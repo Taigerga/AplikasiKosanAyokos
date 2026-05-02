@@ -14,11 +14,12 @@ class KosController extends Controller
 {
     public function index(Request $request)
     {
-        $user = Auth::guard('pemilik')->user();
-        
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
+
         $query = Kos::withCount('kamar')
-            ->where('id_pemilik', $user->id_pemilik);
-            
+            ->where('id_pemilik', $pemilik->id_pemilik);
+
         // Add search functionality
         if ($request->filled('search')) {
             $search = $request->search;
@@ -29,11 +30,11 @@ class KosController extends Controller
                   ->orWhere('kota', 'like', '%' . $search . '%');
             });
         }
-        
+
         $kos = $query->orderBy('created_at', 'desc')
             ->paginate(12);
 
-        return view('pemilik.kos.index', compact('kos'));
+        return view('pemilik.kos.index', compact('kos', 'user'));
     }
 
     public function create()
@@ -44,7 +45,8 @@ class KosController extends Controller
 
     public function store(Request $request)
     {
-        $user = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
         $validated = $request->validate([
             'nama_kos' => 'required|string|max:255',
@@ -58,8 +60,8 @@ class KosController extends Controller
             'jenis_kos' => 'required|in:putra,putri,campuran',
             'tipe_sewa' => 'required|in:harian,mingguan,bulanan,tahunan',
             'foto_utama' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'latitude' => 'nullable|numeric',      // TAMBAHKAN INI
-            'longitude' => 'nullable|numeric',     // TAMBAHKAN INI
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
             'fasilitas' => 'nullable|array',
             'fasilitas.*' => 'exists:fasilitas,id_fasilitas'
         ]);
@@ -72,12 +74,12 @@ class KosController extends Controller
             $validated['foto_utama'] = $path;
         }
 
-        $validated['id_pemilik'] = $user->id_pemilik;
+        $validated['id_pemilik'] = $pemilik->id_pemilik;
         $validated['status_kos'] = 'aktif';
 
         $kos = Kos::create($validated);
 
-        // Simpan fasilitas
+        // Save fasilitas
         if ($request->has('fasilitas')) {
             $kos->fasilitas()->attach($request->fasilitas);
         }
@@ -86,21 +88,37 @@ class KosController extends Controller
             ->with('success', 'Kos berhasil ditambahkan!');
     }
 
+    public function show($id)
+    {
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
+
+        $kos = Kos::with(['kamar', 'fasilitas', 'reviews.penghuni'])
+            ->where('id_pemilik', $pemilik->id_pemilik)
+            ->findOrFail($id);
+
+        return view('pemilik.kos.show', compact('kos', 'user'));
+    }
+
     public function edit($id)
     {
-        $user = Auth::guard('pemilik')->user();
-        $kos = Kos::with('fasilitas')
-            ->where('id_pemilik', $user->id_pemilik)
-            ->findOrFail($id);
-        $fasilitas = Fasilitas::all();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
-        return view('pemilik.kos.edit', compact('kos', 'fasilitas'));
+        $kos = Kos::with('fasilitas')
+            ->where('id_pemilik', $pemilik->id_pemilik)
+            ->findOrFail($id);
+
+        $fasilitas = Fasilitas::all();
+        return view('pemilik.kos.edit', compact('kos', 'fasilitas', 'user'));
     }
 
     public function update(Request $request, $id)
     {
-        $user = Auth::guard('pemilik')->user();
-        $kos = Kos::where('id_pemilik', $user->id_pemilik)
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
+
+        $kos = Kos::where('id_pemilik', $pemilik->id_pemilik)
             ->findOrFail($id);
 
         $validated = $request->validate([
@@ -115,18 +133,17 @@ class KosController extends Controller
             'jenis_kos' => 'required|in:putra,putri,campuran',
             'tipe_sewa' => 'required|in:harian,mingguan,bulanan,tahunan',
             'foto_utama' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'status_kos' => 'required|in:aktif,nonaktif,pending',
-            'latitude' => 'nullable|numeric',      // TAMBAHKAN INI
-            'longitude' => 'nullable|numeric',     // TAMBAHKAN INI
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
             'fasilitas' => 'nullable|array',
             'fasilitas.*' => 'exists:fasilitas,id_fasilitas'
         ]);
 
         // Handle file upload
         if ($request->hasFile('foto_utama')) {
-            // Hapus foto lama jika ada
-            if ($kos->foto_utama) {
-                \Storage::disk('public')->delete($kos->foto_utama);
+            // Delete old file
+            if ($kos->foto_utama && Storage::exists('public/' . $kos->foto_utama)) {
+                Storage::delete('public/' . $kos->foto_utama);
             }
 
             $file = $request->file('foto_utama');
@@ -135,19 +152,11 @@ class KosController extends Controller
             $validated['foto_utama'] = $path;
         }
 
-        // Debug: lihat data yang akan diupdate
-        \Log::info('Updating kos with coordinates:', [
-            'latitude' => $validated['latitude'] ?? 'null',
-            'longitude' => $validated['longitude'] ?? 'null'
-        ]);
-
         $kos->update($validated);
 
         // Update fasilitas
         if ($request->has('fasilitas')) {
             $kos->fasilitas()->sync($request->fasilitas);
-        } else {
-            $kos->fasilitas()->detach();
         }
 
         return redirect()->route('pemilik.kos.index')
@@ -156,13 +165,15 @@ class KosController extends Controller
 
     public function destroy($id)
     {
-        $user = Auth::guard('pemilik')->user();
-        $kos = Kos::where('id_pemilik', $user->id_pemilik)
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
+
+        $kos = Kos::where('id_pemilik', $pemilik->id_pemilik)
             ->findOrFail($id);
 
-        // Hapus foto jika ada
-        if ($kos->foto_utama) {
-            \Storage::disk('public')->delete($kos->foto_utama);
+        // Delete foto
+        if ($kos->foto_utama && Storage::exists('public/' . $kos->foto_utama)) {
+            Storage::delete('public/' . $kos->foto_utama);
         }
 
         $kos->delete();
@@ -170,26 +181,4 @@ class KosController extends Controller
         return redirect()->route('pemilik.kos.index')
             ->with('success', 'Kos berhasil dihapus!');
     }
-    public function show($id)
-    {
-        $user = Auth::guard('pemilik')->user();
-        $kos = Kos::with(['fasilitas', 'kamar'])
-            ->where('id_pemilik', $user->id_pemilik)
-            ->findOrFail($id);
-
-        return view('pemilik.kos.show', compact('kos'));
-    }
-
-    public function peta()
-    {
-        $kos = Kos::with(['fasilitas', 'pemilik'])
-            ->where('status_kos', 'aktif')
-            ->whereNotNull('latitude')
-            ->whereNotNull('longitude')
-            ->get();
-
-        return view('public.kos.peta', compact('kos'));
-    }
-
-
 }

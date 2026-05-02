@@ -4,31 +4,28 @@ namespace App\Http\Controllers\Pemilik;
 
 use App\Http\Controllers\Controller;
 use App\Models\KontrakSewa;
-use App\Models\Pembayaran; // TAMBAHKAN INI
+use App\Models\Pembayaran;
 use App\Services\NotificationService;
 use App\Services\NotificationEmailService;
 use Illuminate\Http\Request;
 
-
 class KontrakController extends Controller
 {
     protected $notificationService;
-    protected $emailService; // TAMBAHKAN INI
+    protected $emailService;
 
     public function __construct(
         NotificationService $notificationService,
-        NotificationEmailService $emailService // TAMBAHKAN INI
+        NotificationEmailService $emailService
     ) {
         $this->notificationService = $notificationService;
-        $this->emailService = $emailService; // TAMBAHKAN INI
+        $this->emailService = $emailService;
     }
 
-    /**
-     * Tampilkan semua kontrak (dengan tabs)
-     */
     public function index()
     {
-        $idPemilik = auth('pemilik')->id();
+        $user = auth()->user();
+        $idPemilik = $user->pemilik->id_pemilik;
 
         // Ambil semua kos milik pemilik ini
         $kosIds = \App\Models\Kos::where('id_pemilik', $idPemilik)
@@ -90,9 +87,10 @@ class KontrakController extends Controller
     {
         try {
             $kontrak = KontrakSewa::with(['penghuni', 'kos'])->findOrFail($idKontrak);
+            $user = auth()->user();
 
             // Verifikasi pemilik
-            if ($kontrak->kos->id_pemilik != auth('pemilik')->id()) {
+            if ($kontrak->kos->id_pemilik != $user->pemilik->id_pemilik) {
                 return redirect()->back()->with('error', 'Anda tidak memiliki akses!');
             }
 
@@ -136,9 +134,10 @@ class KontrakController extends Controller
     {
         try {
             $kontrak = KontrakSewa::with(['penghuni', 'kos'])->findOrFail($idKontrak);
+            $user = auth()->user();
 
             // Verifikasi pemilik
-            if ($kontrak->kos->id_pemilik != auth('pemilik')->id()) {
+            if ($kontrak->kos->id_pemilik != $user->pemilik->id_pemilik) {
                 return redirect()->back()->with('error', 'Anda tidak memiliki akses!');
             }
 
@@ -200,10 +199,11 @@ class KontrakController extends Controller
     public function selesai($idKontrak)
     {
         try {
-            $kontrak = KontrakSewa::with(['penghuni', 'kos'])->findOrFail($idKontrak);
+            $kontrak = KontrakSewa::with(['penghuni', 'kos', 'kamar'])->findOrFail($idKontrak);
+            $user = auth()->user();
 
             // Verifikasi pemilik
-            if ($kontrak->kos->id_pemilik != auth('pemilik')->id()) {
+            if ($kontrak->kos->id_pemilik != $user->pemilik->id_pemilik) {
                 return redirect()->back()->with('error', 'Anda tidak memiliki akses!');
             }
 
@@ -281,7 +281,7 @@ class KontrakController extends Controller
     public function destroy($id)
     {
         $kontrak = KontrakSewa::findOrFail($id);
-        $pemilikId = auth()->guard('pemilik')->user()->id_pemilik;
+        $pemilikId = auth()->user()->id_pemilik;
 
         // Pastikan kontrak milik pemilik yang login
         if ($kontrak->kos->id_pemilik != $pemilikId) {

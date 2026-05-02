@@ -15,7 +15,7 @@ class AnalisisController extends Controller
 {
     public function index()
     {
-        $pemilikId = auth()->guard('pemilik')->user()->id_pemilik;
+        $pemilikId = auth()->user()->id_pemilik;
         
         // 1. Data Pendapatan per Bulan (12 bulan terakhir)
         $pendapatanPerBulan = Pembayaran::selectRaw('
@@ -140,7 +140,7 @@ class AnalisisController extends Controller
             ->orderBy('total_pendapatan', 'desc')
             ->get();
 
-        $pemilik = auth()->guard('pemilik')->user();
+        $pemilik = auth()->user();
         return view('pemilik.analisis.index', compact(
             'pendapatanPerBulan',
             'statusKamar',

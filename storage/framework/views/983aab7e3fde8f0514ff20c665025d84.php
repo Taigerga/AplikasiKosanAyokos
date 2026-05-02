@@ -873,7 +873,7 @@
 
 <!-- Data pemilik untuk PDF (hidden element) -->
 <div id="pemilikData" 
-     data-nama="<?php echo e(auth()->guard('pemilik')->user()->nama ?? 'Pemilik'); ?>"
+     data-nama="<?php echo e(auth()->user()->nama ?? 'Pemilik'); ?>"
      data-tanggal="<?php echo e(now()->format('d F Y')); ?>"
      style="display: none;">
 </div>

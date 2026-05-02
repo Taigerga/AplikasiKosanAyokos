@@ -7,32 +7,26 @@ use App\Models\KontrakSewa;
 use App\Models\Kos;
 use App\Models\Kamar;
 use App\Services\NotificationService;
-use App\Services\NotificationEmailService; // TAMBAHKAN INI
+use App\Services\NotificationEmailService;
 use Illuminate\Http\Request;
-use App\Models\Pembayaran; // TAMBAHKAN INI
-use Illuminate\Support\Facades\Auth; // TAMBAHKAN INI
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Fasilitas;
 class KontrakController extends Controller
 {
     protected $notificationService;
-    protected $emailService; // TAMBAHKAN INI
+    protected $emailService;
 
     public function __construct(
         NotificationService $notificationService,
-        NotificationEmailService $emailService // TAMBAHKAN INI
+        NotificationEmailService $emailService
     ) {
         $this->notificationService = $notificationService;
-        $this->emailService = $emailService; // TAMBAHKAN INI
+        $this->emailService = $emailService;
     }
 
-    
-    /**
-     * Show form untuk membuat kontrak baru
-     */
     public function create($kosId)
     {
         try {
-            // Ambil data kos dan kamar yang tersedia
             $kos = Kos::with(['kamar' => function($query) {
                 $query->where('status_kamar', 'tersedia');
             }])->findOrFail($kosId);
@@ -43,6 +37,22 @@ class KontrakController extends Controller
             return redirect()->route('public.kos.show', $kosId)
                 ->with('error', 'Kos tidak ditemukan atau tidak ada kamar tersedia.');
         }
+    }
+
+    /**
+     * Cari Kos - stays in dashboard layout, reuse public index view
+     */
+    public function cariKos()
+    {
+        $kos = Kos::with(['kamar', 'fasilitas', 'reviews'])
+            ->withCount(['kamar as kamar_tersedia_count' => function ($q) {
+                $q->where('status_kamar', 'tersedia');
+            }])
+            ->paginate(12);
+
+        $fasilitasList = Fasilitas::all();
+
+        return view('public.kos.index', compact('kos', 'fasilitasList'));
     }
 
     /**
@@ -108,10 +118,8 @@ class KontrakController extends Controller
      */
     public function index()
     {
-        // Ambil user yang sedang login
         $user = auth('penghuni')->user();
-        
-        // Ambil kontrak penghuni
+
         $kontrak = KontrakSewa::with(['kos', 'kamar'])
             ->where('id_penghuni', $user->id_penghuni)
             ->orderBy('created_at', 'desc')

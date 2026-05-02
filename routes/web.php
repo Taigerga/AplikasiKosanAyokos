@@ -95,32 +95,34 @@ Route::get('/redirect', function () {
  *  PENGHUNI ROUTES
  * -------------------------------------------------------------------------- */
 Route::prefix('penghuni')->as('penghuni.')->group(function () {
-    /* --- open routes (development) --- */
-    Route::get('/dashboard', [PenghuniDashboard::class, 'index'])->name('dashboard');
-
-    // Kontrak
-    Route::get('/kontrak/create/{kosId}', [PenghuniKontrak::class, 'create'])->name('kontrak.create');
-    Route::post('/kontrak', [PenghuniKontrak::class, 'store'])->name('kontrak.store');
-    Route::get('/kontrak/{id}', [PenghuniKontrak::class, 'show'])->name('kontrak.show');
-    Route::post('/kontrak/{id}/extend', [PenghuniKontrak::class, 'extend'])->name('kontrak.extend');
-    Route::get('/kontrak', [PenghuniKontrak::class, 'index'])->name('kontrak.index');
-
-    // Pembayaran
-    Route::get('/pembayaran', [PenghuniPembayaran::class, 'index'])->name('pembayaran.index');
-    Route::get('/pembayaran/create', [PenghuniPembayaran::class, 'create'])->name('pembayaran.create');
-    Route::post('/pembayaran', [PenghuniPembayaran::class, 'store'])->name('pembayaran.store');
-    Route::get('/pembayaran/{id}', [PenghuniPembayaran::class, 'show'])->name('pembayaran.show');
-
-    // Reviews
-    Route::get('/reviews/create/{kos}', [PenghuniReview::class, 'create'])->name('reviews.create');
-    Route::post('/reviews/store', [PenghuniReview::class, 'store'])->name('reviews.store');
-    Route::get('/reviews/history', [PenghuniReview::class, 'history'])->name('reviews.history');
-
     /* --- protected routes --- */
     Route::middleware('auth:penghuni')->group(function () {
+        Route::get('/dashboard', [PenghuniDashboard::class, 'index'])->name('dashboard');
+
+        // Kontrak
+        Route::get('/kontrak/create/{kosId}', [PenghuniKontrak::class, 'create'])->name('kontrak.create');
+        Route::post('/kontrak', [PenghuniKontrak::class, 'store'])->name('kontrak.store');
+        Route::get('/kontrak/{id}', [PenghuniKontrak::class, 'show'])->name('kontrak.show');
+        Route::post('/kontrak/{id}/extend', [PenghuniKontrak::class, 'extend'])->name('kontrak.extend');
+        Route::get('/kontrak', [PenghuniKontrak::class, 'index'])->name('kontrak.index');
+        Route::get('/kontrak/notifikasi-tenggat', [PenghuniKontrak::class, 'notifikasiTenggat'])->name('kontrak.notifikasi');
+
+        // Pembayaran
+        Route::get('/pembayaran', [PenghuniPembayaran::class, 'index'])->name('pembayaran.index');
+        Route::get('/pembayaran/create', [PenghuniPembayaran::class, 'create'])->name('pembayaran.create');
+        Route::post('/pembayaran', [PenghuniPembayaran::class, 'store'])->name('pembayaran.store');
+        Route::get('/pembayaran/{id}', [PenghuniPembayaran::class, 'show'])->name('pembayaran.show');
+
+        // Reviews
+        Route::get('/reviews/create/{kos}', [PenghuniReview::class, 'create'])->name('reviews.create');
+        Route::post('/reviews/store', [PenghuniReview::class, 'store'])->name('reviews.store');
+        Route::get('/reviews/history', [PenghuniReview::class, 'history'])->name('reviews.history');
         Route::get('/reviews/{review}/edit', [PenghuniReview::class, 'edit'])->name('reviews.edit');
         Route::put('/reviews/{review}', [PenghuniReview::class, 'update'])->name('reviews.update');
         Route::delete('/reviews/{review}', [PenghuniReview::class, 'destroy'])->name('reviews.destroy');
+
+        // Cari Kos (stays in dashboard layout)
+        Route::get('/cari-kos', [PenghuniKontrak::class, 'cariKos'])->name('cari-kos');
 
         // Profile
         Route::get('/profile', [ProfileController::class, 'showPenghuni'])->name('profile.show');
@@ -138,44 +140,43 @@ Route::prefix('penghuni')->as('penghuni.')->group(function () {
  *  PEMILIK ROUTES
  * -------------------------------------------------------------------------- */
 Route::prefix('pemilik')->as('pemilik.')->group(function () {
-    /* --- open routes (development) --- */
-    Route::get('/dashboard', [PemilikDashboard::class, 'index'])->name('dashboard');
-
-    // Kontrak
-    Route::get('/kontrak', [PemilikKontrak::class, 'index'])->name('kontrak.index');
-    Route::get('/kontrak/{id}', [PemilikKontrak::class, 'show'])->name('kontrak.show');
-    Route::post('/kontrak/{id}/approve', [PemilikKontrak::class, 'approve'])->name('kontrak.approve');
-    Route::post('/kontrak/{id}/reject', [PemilikKontrak::class, 'reject'])->name('kontrak.reject');
-    Route::post('/kontrak/{id}/selesai', [PemilikKontrak::class, 'selesai'])->name('kontrak.selesai');
-    Route::delete('/kontrak/{id}', [PemilikKontrak::class, 'destroy'])->name('kontrak.destroy');
-
-    // Pembayaran
-    Route::get('/pembayaran', [PemilikPembayaran::class, 'index'])->name('pembayaran.index');
-    Route::post('/pembayaran/{id}/approve', [PemilikPembayaran::class, 'approve'])->name('pembayaran.approve');
-    Route::post('/pembayaran/{id}/reject', [PemilikPembayaran::class, 'reject'])->name('pembayaran.reject');
-
-    // Kos
-    Route::get('/kos', [PemilikKos::class, 'index'])->name('kos.index');
-    Route::get('/kos/create', [PemilikKos::class, 'create'])->name('kos.create');
-    Route::post('/kos', [PemilikKos::class, 'store'])->name('kos.store');
-    Route::get('/kos/{id}/edit', [PemilikKos::class, 'edit'])->name('kos.edit');
-    Route::put('/kos/{id}', [PemilikKos::class, 'update'])->name('kos.update');
-    Route::delete('/kos/{id}', [PemilikKos::class, 'destroy'])->name('kos.destroy');
-    Route::get('/kos/{id}/show', [PemilikKos::class, 'show'])->name('kos.show');
-
-    // Kamar
-    Route::get('/kamar', [PemilikKamar::class, 'index'])->name('kamar.index');
-    Route::get('/kamar/create', [PemilikKamar::class, 'create'])->name('kamar.create');
-    Route::post('/kamar', [PemilikKamar::class, 'store'])->name('kamar.store');
-    Route::get('/kamar/{id}/edit', [PemilikKamar::class, 'edit'])->name('kamar.edit');
-    Route::put('/kamar/{id}', [PemilikKamar::class, 'update'])->name('kamar.update');
-    Route::delete('/kamar/{id}', [PemilikKamar::class, 'destroy'])->name('kamar.destroy');
-
-    // Review
-    Route::get('/reviews', [PemilikReview::class, 'index'])->name('reviews.index');
-
     /* --- protected routes --- */
     Route::middleware('auth:pemilik')->group(function () {
+        Route::get('/dashboard', [PemilikDashboard::class, 'index'])->name('dashboard');
+
+        // Kontrak
+        Route::get('/kontrak', [PemilikKontrak::class, 'index'])->name('kontrak.index');
+        Route::get('/kontrak/{id}', [PemilikKontrak::class, 'show'])->name('kontrak.show');
+        Route::post('/kontrak/{id}/approve', [PemilikKontrak::class, 'approve'])->name('kontrak.approve');
+        Route::post('/kontrak/{id}/reject', [PemilikKontrak::class, 'reject'])->name('kontrak.reject');
+        Route::post('/kontrak/{id}/selesai', [PemilikKontrak::class, 'selesai'])->name('kontrak.selesai');
+        Route::delete('/kontrak/{id}', [PemilikKontrak::class, 'destroy'])->name('kontrak.destroy');
+
+        // Pembayaran
+        Route::get('/pembayaran', [PemilikPembayaran::class, 'index'])->name('pembayaran.index');
+        Route::post('/pembayaran/{id}/approve', [PemilikPembayaran::class, 'approve'])->name('pembayaran.approve');
+        Route::post('/pembayaran/{id}/reject', [PemilikPembayaran::class, 'reject'])->name('pembayaran.reject');
+
+        // Kos
+        Route::get('/kos', [PemilikKos::class, 'index'])->name('kos.index');
+        Route::get('/kos/create', [PemilikKos::class, 'create'])->name('kos.create');
+        Route::post('/kos', [PemilikKos::class, 'store'])->name('kos.store');
+        Route::get('/kos/{id}/edit', [PemilikKos::class, 'edit'])->name('kos.edit');
+        Route::put('/kos/{id}', [PemilikKos::class, 'update'])->name('kos.update');
+        Route::delete('/kos/{id}', [PemilikKos::class, 'destroy'])->name('kos.destroy');
+        Route::get('/kos/{id}/show', [PemilikKos::class, 'show'])->name('kos.show');
+
+        // Kamar
+        Route::get('/kamar', [PemilikKamar::class, 'index'])->name('kamar.index');
+        Route::get('/kamar/create', [PemilikKamar::class, 'create'])->name('kamar.create');
+        Route::post('/kamar', [PemilikKamar::class, 'store'])->name('kamar.store');
+        Route::get('/kamar/{id}/edit', [PemilikKamar::class, 'edit'])->name('kamar.edit');
+        Route::put('/kamar/{id}', [PemilikKamar::class, 'update'])->name('kamar.update');
+        Route::delete('/kamar/{id}', [PemilikKamar::class, 'destroy'])->name('kamar.destroy');
+
+        // Review
+        Route::get('/reviews', [PemilikReview::class, 'index'])->name('reviews.index');
+
         // Profile
         Route::get('/profile', [ProfileController::class, 'showPemilik'])->name('profile.show');
         Route::get('/profile/edit', [ProfileController::class, 'editPemilik'])->name('profile.edit');

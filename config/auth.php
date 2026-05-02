@@ -9,44 +9,44 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'penghuni',
+            'provider' => 'users',
         ],
 
         'penghuni' => [
             'driver' => 'session',
-            'provider' => 'penghuni',
-            'remember' => true, 
+            'provider' => 'users',
+            'remember' => true,
         ],
 
         'pemilik' => [
             'driver' => 'session',
-            'provider' => 'pemilik',
-            'remember' => true, 
+            'provider' => 'users',
+            'remember' => true,
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
     ],
 
     'providers' => [
-        'penghuni' => [
+        'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Penghuni::class,
-        ],
-
-        'pemilik' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Pemilik::class,
+            'model' => App\Models\User::class,
         ],
     ],
 
     'passwords' => [
         'penghuni' => [
-            'provider' => 'penghuni',
+            'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],
 
         'pemilik' => [
-            'provider' => 'pemilik',
+            'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

@@ -31,32 +31,21 @@
 
                 <!-- Profile Menu -->
                 <div class="profile-menu relative">
+                    @php $user = auth('penghuni')->user(); @endphp
                     <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-700/50">
-                        @if(Auth::guard('penghuni')->user()->foto_profil)
-                            <?php
-                            $filePath = storage_path('app/public/' . Auth::guard('penghuni')->user()->foto_profil);
-                            $fileExists = file_exists($filePath);
-                            ?>
-                            @if($fileExists)
-                                <img src="{{ url('storage/' . Auth::guard('penghuni')->user()->foto_profil) }}" 
-                                     alt="{{ Auth::guard('penghuni')->user()->nama }}" 
-                                     class="w-8 h-8 rounded-full object-cover border-2 border-emerald-400">
-                            @else
-                                <div
-                                    class="w-8 h-8 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full flex items-center justify-center">
-                                    <span
-                                        class="text-white font-medium">{{ substr(Auth::guard('penghuni')->user()->nama, 0, 1) }}</span>
-                                </div>
-                            @endif
+                        @if($user && $user->penghuni && $user->penghuni->foto_profil)
+                            <img src="{{ asset('storage/' . $user->penghuni->foto_profil) }}"
+                                 alt="{{ $user->penghuni->nama ?? $user->nama }}"
+                                 class="w-8 h-8 rounded-full object-cover border-2 border-emerald-400">
                         @else
                             <div
                                 class="w-8 h-8 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full flex items-center justify-center">
                                 <span
-                                    class="text-white font-medium">{{ substr(Auth::guard('penghuni')->user()->nama, 0, 1) }}</span>
+                                    class="text-white font-medium">{{ ($user->penghuni->nama ?? $user->nama) ? substr($user->penghuni->nama ?? $user->nama, 0, 1) : '?' }}</span>
                             </div>
                         @endif
                         <span
-                            class="text-sm font-medium text-white hidden md:inline">{{ Auth::guard('penghuni')->user()->nama }}</span>
+                            class="text-sm font-medium text-white hidden md:inline">{{ $user->penghuni->nama ?? $user->nama ?? 'User' }}</span>
                         <i class="fas fa-chevron-down text-slate-400 text-xs"></i>
                     </button>
 
@@ -65,8 +54,8 @@
                         class="profile-dropdown absolute right-0 mt-2 w-64 bg-slate-800 rounded-xl shadow-2xl border border-slate-700 py-2 z-[1001]">
                         <!-- User Info -->
                         <div class="px-4 py-3 border-b border-slate-700">
-                            <p class="text-sm font-semibold text-white">{{ Auth::guard('penghuni')->user()->nama }}</p>
-                            <p class="text-xs text-slate-400 truncate">{{ Auth::guard('penghuni')->user()->email }}</p>
+                            <p class="text-sm font-semibold text-white">{{ $user->penghuni->nama ?? $user->nama ?? 'User' }}</p>
+                            <p class="text-xs text-slate-400 truncate">{{ $user->penghuni->email ?? $user->email ?? '-' }}</p>
                         </div>
 
                         <!-- Menu Items -->
@@ -150,8 +139,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('public.kos.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('public.kos.*') ? 'bg-emerald-900/30 text-emerald-300 border-l-4 border-emerald-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                    <a href="{{ route('penghuni.cari-kos') }}"
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.cari-kos') ? 'bg-emerald-900/30 text-emerald-300 border-l-4 border-emerald-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
                         <i class="fas fa-search w-5"></i>
                         <span class="sidebar-text">Cari Kos</span>
                     </a>
@@ -190,11 +179,11 @@
         <!-- Quick Stats -->
         <div class="p-4 border-t border-slate-700">
             <div class="text-xs text-slate-400 mb-2">Status Anda</div>
-            <div class="space-y-2">
+                <div class="space-y-2">
                 <div class="flex items-center justify-between text-sm">
                     <span class="text-slate-400">Kontrak Aktif</span>
                     @php
-                        $activeContracts = Auth::guard('penghuni')->user()->kontrakSewa()->where('status_kontrak', 'aktif')->count();
+                        $activeContracts = $user->penghuni?->kontrakSewa()->where('status_kontrak', 'aktif')->count() ?? 0;
                     @endphp
                     <span class="font-bold {{ $activeContracts > 0 ? 'text-emerald-400' : 'text-yellow-400' }}">
                         {{ $activeContracts }}
@@ -202,10 +191,10 @@
                 </div>
                 <div class="flex items-center justify-between text-sm">
                     <span class="text-slate-400">Status</span>
-                    <span class="font-bold capitalize 
-                        {{ Auth::guard('penghuni')->user()->status_penghuni == 'aktif' ? 'text-emerald-400' :
-    (Auth::guard('penghuni')->user()->status_penghuni == 'calon' ? 'text-yellow-400' : 'text-red-400') }}">
-                        {{ Auth::guard('penghuni')->user()->status_penghuni }}
+                    <span class="font-bold capitalize
+                        {{ ($user->penghuni?->status_penghuni ?? '') == 'aktif' ? 'text-emerald-400' :
+    (($user->penghuni?->status_penghuni ?? '') == 'calon' ? 'text-yellow-400' : 'text-red-400') }}">
+                        {{ $user->penghuni?->status_penghuni ?? 'N/A' }}
                     </span>
                 </div>
             </div>

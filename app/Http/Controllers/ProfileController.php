@@ -17,14 +17,11 @@ class ProfileController extends Controller
 {
     // ==================== PENGHUNI ====================
 
-    /**
-     * Tampilkan profil penghuni
-     */
     public function showPenghuni()
     {
-        $penghuni = Auth::guard('penghuni')->user();
+        $user = Auth::user();
+        $penghuni = $user->penghuni;
 
-        // Load relations for stats
         $penghuni->load([
             'kontrakSewa' => function ($query) {
                 $query->where('status_kontrak', 'aktif');
@@ -35,24 +32,20 @@ class ProfileController extends Controller
             }
         ]);
 
-        return view('penghuni.profile.show', compact('penghuni'));
+        return view('penghuni.profile.show', compact('penghuni', 'user'));
     }
 
-    /**
-     * Tampilkan form edit profil penghuni
-     */
     public function editPenghuni()
     {
-        $penghuni = Auth::guard('penghuni')->user();
-        return view('penghuni.profile.edit', compact('penghuni'));
+        $user = Auth::user();
+        $penghuni = $user->penghuni;
+        return view('penghuni.profile.edit', compact('penghuni', 'user'));
     }
 
-    /**
-     * Update profil penghuni
-     */
     public function updatePenghuni(Request $request)
     {
-        $penghuni = Auth::guard('penghuni')->user();
+        $user = Auth::user();
+        $penghuni = $user->penghuni;
 
         $validated = $request->validate([
             'nama' => 'required|string|max:100',
@@ -61,16 +54,21 @@ class ProfileController extends Controller
             'jenis_kelamin' => 'required|in:L,P',
             'tanggal_lahir' => 'nullable|date',
             'alamat' => 'nullable|string',
-            'username' => 'required|string|max:50|unique:penghuni,username,' . $penghuni->id_penghuni . ',id_penghuni',
+            'username' => 'required|string|max:50|unique:users,username,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        // Jika password diisi, hash password baru
-        if (!empty($validated['password'])) {
-            $validated['password'] = Hash::make($validated['password']);
-        } else {
-            unset($validated['password']);
+        // Update username in users table
+        if ($validated['username'] !== $user->username) {
+            $user->update(['username' => $validated['username']]);
         }
+        unset($validated['username']);
+
+        // Update password if filled
+        if (!empty($validated['password'])) {
+            $user->update(['password' => Hash::make($validated['password'])]);
+        }
+        unset($validated['password']);
 
         $penghuni->update($validated);
 
@@ -78,23 +76,18 @@ class ProfileController extends Controller
             ->with('success', 'Profil berhasil diperbarui!');
     }
 
-    /**
-     * Upload foto profil penghuni
-     */
     public function uploadPhotoPenghuni(Request $request)
     {
         $request->validate([
             'foto_profil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $penghuni = Auth::guard('penghuni')->user();
+        $penghuni = Auth::user()->penghuni;
 
-        // Hapus foto lama jika ada
-        if ($penghuni->foto_profil && Storage::exists($penghuni->foto_profil)) {
-            Storage::delete($penghuni->foto_profil);
+        if ($penghuni->foto_profil && Storage::exists('public/' . $penghuni->foto_profil)) {
+            Storage::delete('public/' . $penghuni->foto_profil);
         }
 
-        // Upload foto baru
         $path = $request->file('foto_profil')->store('profiles', 'public');
         $penghuni->update(['foto_profil' => $path]);
 
@@ -107,14 +100,11 @@ class ProfileController extends Controller
 
     // ==================== PEMILIK ====================
 
-    /**
-     * Tampilkan profil pemilik
-     */
     public function showPemilik()
     {
-        $pemilik = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
-        // Hitung stats
         $totalKos = Kos::where('id_pemilik', $pemilik->id_pemilik)->count();
         $totalKamar = Kamar::whereHas('kos', function ($q) use ($pemilik) {
             $q->where('id_pemilik', $pemilik->id_pemilik);
@@ -145,6 +135,7 @@ class ProfileController extends Controller
 
         return view('pemilik.profile.show', compact(
             'pemilik',
+            'user',
             'totalKos',
             'totalKamar',
             'kamarTerisi',
@@ -154,21 +145,17 @@ class ProfileController extends Controller
         ));
     }
 
-    /**
-     * Tampilkan form edit profil pemilik
-     */
     public function editPemilik()
     {
-        $pemilik = Auth::guard('pemilik')->user();
-        return view('pemilik.profile.edit', compact('pemilik'));
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
+        return view('pemilik.profile.edit', compact('pemilik', 'user'));
     }
 
-    /**
-     * Update profil pemilik
-     */
     public function updatePemilik(Request $request)
     {
-        $pemilik = Auth::guard('pemilik')->user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
         $validated = $request->validate([
             'nama' => 'required|string|max:100',
@@ -177,18 +164,23 @@ class ProfileController extends Controller
             'jenis_kelamin' => 'nullable|in:L,P',
             'tanggal_lahir' => 'nullable|date',
             'alamat' => 'nullable|string',
-            'username' => 'required|string|max:50|unique:pemilik,username,' . $pemilik->id_pemilik . ',id_pemilik',
+            'username' => 'required|string|max:50|unique:users,username,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
             'nama_bank' => 'nullable|string|max:50',
             'nomor_rekening' => 'nullable|string|max:50',
         ]);
 
-        // Jika password diisi, hash password baru
-        if (!empty($validated['password'])) {
-            $validated['password'] = Hash::make($validated['password']);
-        } else {
-            unset($validated['password']);
+        // Update username in users table
+        if ($validated['username'] !== $user->username) {
+            $user->update(['username' => $validated['username']]);
         }
+        unset($validated['username']);
+
+        // Update password if filled
+        if (!empty($validated['password'])) {
+            $user->update(['password' => Hash::make($validated['password'])]);
+        }
+        unset($validated['password']);
 
         $pemilik->update($validated);
 
@@ -196,23 +188,18 @@ class ProfileController extends Controller
             ->with('success', 'Profil berhasil diperbarui!');
     }
 
-    /**
-     * Upload foto profil pemilik
-     */
     public function uploadPhotoPemilik(Request $request)
     {
         $request->validate([
             'foto_profil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $pemilik = Auth::guard('pemilik')->user();
+        $pemilik = Auth::user()->pemilik;
 
-        // Hapus foto lama jika ada
-        if ($pemilik->foto_profil && Storage::exists($pemilik->foto_profil)) {
-            Storage::delete($pemilik->foto_profil);
+        if ($pemilik->foto_profil && Storage::exists('public/' . $pemilik->foto_profil)) {
+            Storage::delete('public/' . $pemilik->foto_profil);
         }
 
-        // Upload foto baru
         $path = $request->file('foto_profil')->store('profiles', 'public');
         $pemilik->update(['foto_profil' => $path]);
 

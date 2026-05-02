@@ -68,7 +68,7 @@
                                     <i class="fas fa-at text-dark-muted"></i>
                                 </div>
                                 <input type="text" id="username" name="username"
-                                    value="{{ old('username', $pemilik->username) }}"
+                                    value="{{ old('username', $user->username) }}"
                                     class="w-full pl-10 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition"
                                     required placeholder="username">
                             </div>
