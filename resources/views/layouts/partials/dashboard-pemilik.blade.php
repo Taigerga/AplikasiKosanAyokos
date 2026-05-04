@@ -208,8 +208,8 @@
 
     <!-- Main Content -->
     <main id="mainContent" class="flex-1 transition-all duration-300">
-        <div class="p-4 md:p-6">
+
             @yield('content')
-        </div>
+
     </main>
 </div>

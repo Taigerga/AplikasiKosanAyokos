@@ -225,3 +225,10 @@
         transform: scale(0.98);
         opacity: 0.9;
     }
+
+
+    /* Atau jika ingin mengikuti tema glassmorphism */
+    select option {
+        background-color: rgba(30, 41, 59, 0.95);
+        color: #ffffff;
+    }

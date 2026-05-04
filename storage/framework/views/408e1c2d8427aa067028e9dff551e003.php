@@ -1,69 +1,329 @@
 <?php $__env->startSection('title', $kos->nama_kos . ' - AyoKos'); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="space-y-6">
-    <!-- Breadcrumb -->
-    <nav class="bg-dark-card/50 border border-dark-border rounded-xl p-4">
-        <ol class="inline-flex items-center space-x-1 md:space-x-3">
-            <li class="inline-flex items-center">
-                <a href="<?php echo e(route('public.home')); ?>" class="inline-flex items-center text-sm font-medium text-dark-muted hover:text-primary-300">
-                    <i class="fas fa-gauge mr-2"></i>
-                    Home
-                </a>
-            </li>
-            <li>
-                <div class="flex items-center">
-                    <i class="fas fa-chevron-right mx-2 text-dark-border text-xs"></i>
-                    <a href="<?php echo e(route('public.kos.index')); ?>" class="text-sm font-medium text-dark-muted hover:text-primary-300">
-                        <i class="fas fa-home mr-2"></i>
-                        Kos
+<div class="pt-28 md:pt-32 pb-12 md:pb-16 bg-gradient-to-br from-slate-800 to-slate-900">
+    <div class="container mx-auto px-4 space-y-6">
+        <!-- Breadcrumb -->
+        <nav class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3 text-sm">
+                <li class="inline-flex items-center">
+                    <a href="<?php echo e(route('public.home')); ?>" class="text-slate-500 hover:text-sky-600 transition">
+                        <i class="fas fa-home mr-1"></i> Home
                     </a>
-                </div>
-            </li>
-            <li aria-current="page">
-                <div class="flex items-center">
-                    <i class="fas fa-chevron-right mx-2 text-dark-border text-xs"></i>
-                    <span class="ml-1 text-sm font-medium text-white truncate max-w-xs">
-                        <i class="fa-solid fa-tag mr-2"></i>
-                        <?php echo e($kos->nama_kos); ?>
-
-                    </span>
-                </div>
-            </li>
-        </ol>
-    </nav>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Main Content -->
-        <div class="lg:col-span-2 space-y-6">
-            <!-- Gallery -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl overflow-hidden">
-                <?php if($kos->foto_utama): ?>
-                    <img src="<?php echo e(asset('storage/' . $kos->foto_utama)); ?>" 
-                         alt="<?php echo e($kos->nama_kos); ?>" 
-                         class="w-full h-64 md:h-80 object-cover hover:scale-105 transition-transform duration-700">
-                <?php else: ?>
-                    <div class="w-full h-64 md:h-80 bg-gradient-to-br from-dark-border to-dark-bg flex items-center justify-center">
-                        <i class="fas fa-home text-6xl text-dark-muted"></i>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right mx-2 text-slate-300 text-xs"></i>
+                        <a href="<?php echo e(route('public.kos.index')); ?>" class="text-slate-500 hover:text-sky-600 transition">
+                            Kos
+                        </a>
                     </div>
-                <?php endif; ?>
-            </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right mx-2 text-slate-300 text-xs"></i>
+                        <span class="text-slate-800 font-medium truncate max-w-xs">
+                            <?php echo e($kos->nama_kos); ?>
 
-            <!-- Basic Info -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
-                    <div class="flex-1">
-                        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2"><?php echo e($kos->nama_kos); ?></h1>
-                        <div class="flex items-start text-dark-muted mb-4">
-                            <i class="fas fa-map-marker-alt text-primary-400 mr-2 mt-0.5 flex-shrink-0"></i>
-                            <span class="leading-relaxed"><?php echo e($kos->alamat); ?>, <?php echo e($kos->kecamatan); ?>, <?php echo e($kos->kota); ?></span>
+                        </span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Gallery -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <?php if($kos->foto_utama): ?>
+                        <img src="<?php echo e(asset('storage/' . $kos->foto_utama)); ?>" 
+                             alt="<?php echo e($kos->nama_kos); ?>" 
+                             class="w-full h-64 md:h-80 object-cover hover:scale-105 transition-transform duration-700">
+                    <?php else: ?>
+                        <div class="w-full h-64 md:h-80 bg-slate-100 flex items-center justify-center">
+                            <i class="fas fa-home text-6xl text-slate-300"></i>
                         </div>
-                        
-                        <!-- Rating -->
-                        <?php if($kos->reviews->count() > 0): ?>
-                        <div class="flex items-center">
+                    <?php endif; ?>
+                </div>
+
+                <!-- Basic Info -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+                        <div class="flex-1">
+                            <h1 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2"><?php echo e($kos->nama_kos); ?></h1>
+                            <div class="flex items-start text-slate-500 mb-4">
+                                <i class="fas fa-map-marker-alt text-sky-500 mr-2 mt-0.5 flex-shrink-0"></i>
+                                <span class="leading-relaxed"><?php echo e($kos->alamat); ?>, <?php echo e($kos->kecamatan); ?>, <?php echo e($kos->kota); ?></span>
+                            </div>
+                            
+                            <?php if($kos->reviews->count() > 0): ?>
                             <div class="flex items-center">
-                                <div class="flex text-yellow-400 mr-2">
+                                <div class="flex items-center">
+                                    <div class="flex text-amber-500 mr-2">
+                                        <?php for($i = 1; $i <= 5; $i++): ?>
+                                            <?php if($i <= floor($averageRating)): ?>
+                                                <i class="fas fa-star"></i>
+                                            <?php elseif($i - 0.5 <= $averageRating): ?>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            <?php else: ?>
+                                                <i class="far fa-star"></i>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    </div>
+                                    <span class="text-lg font-semibold text-slate-800 mr-2"><?php echo e(number_format($averageRating, 1)); ?></span>
+                                </div>
+                                <span class="text-slate-500">(<?php echo e($totalReviews); ?> ulasan)</span>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-sky-50 text-sky-700 border border-sky-200 capitalize">
+                                    <?php echo e($kos->jenis_kos); ?>
+
+                                </span>
+                                <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <?php echo e($kos->kamar->count()); ?> Kamar
+                                </span>
+                            </div>
+                            <button onclick="shareKos()" 
+                                    class="px-3 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition flex items-center">
+                                <i class="fas fa-share-alt mr-1"></i> Bagikan
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Pemilik Info Card -->
+                    <?php if($kos->pemilik): ?>
+                    <div class="bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-100 rounded-xl p-4 mt-4">
+                        <div class="flex items-center space-x-4">
+                            <?php if($kos->pemilik->foto_profil): ?>
+                                <?php
+                                    $filePath = storage_path('app/public/' . $kos->pemilik->foto_profil);
+                                    $fileExists = file_exists($filePath);
+                                ?>
+                                <?php if($fileExists): ?>
+                                    <img src="<?php echo e(url('storage/' . $kos->pemilik->foto_profil)); ?>" 
+                                         alt="<?php echo e($kos->pemilik->nama); ?>" 
+                                         class="w-12 h-12 rounded-full object-cover border-2 border-sky-400">
+                                <?php else: ?>
+                                    <div class="w-12 h-12 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white font-semibold text-lg"><?php echo e(strtoupper(substr($kos->pemilik->nama, 0, 1))); ?></span>
+                                    </div>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <div class="w-12 h-12 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-user-tie text-white text-lg"></i>
+                                </div>
+                            <?php endif; ?>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-slate-800 text-lg">Pemilik Kos</h3>
+                                <p class="text-sm text-sky-700"><?php echo e($kos->pemilik->nama); ?></p>
+                                <p class="text-xs text-slate-500 mt-1">Terverifikasi • <?php echo e($kos->created_at->format('Y')); ?></p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                                <span class="text-xs text-emerald-600 font-medium">Aktif</span>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Description -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center">
+                        <i class="fas fa-file-alt text-sky-500 mr-3"></i>
+                        Deskripsi Kos
+                    </h2>
+                    <div class="prose max-w-none text-slate-600 leading-relaxed whitespace-pre-line">
+                        <?php echo e($kos->deskripsi); ?>
+
+                    </div>
+                </div>
+
+                <!-- Facilities -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                        <i class="fas fa-th-large text-sky-500 mr-3"></i>
+                        Fasilitas
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <?php $__currentLoopData = $kos->fasilitas->groupBy('kategori'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kategori => $fasilitasList): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div>
+                            <h3 class="font-semibold text-sky-700 mb-4 capitalize text-lg">
+                                <?php echo e(str_replace('_', ' ', $kategori)); ?>
+
+                            </h3>
+                            <div class="space-y-3">
+                                <?php $__currentLoopData = $fasilitasList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fasilitas): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600">
+                                        <?php switch($fasilitas->kategori):
+                                            case ('umum'): ?> <i class="fas fa-wifi"></i> <?php break; ?>
+                                            <?php case ('kamar_mandi'): ?> <i class="fas fa-shower"></i> <?php break; ?>
+                                            <?php case ('dapur'): ?> <i class="fas fa-utensils"></i> <?php break; ?>
+                                            <?php case ('parkir'): ?> <i class="fas fa-parking"></i> <?php break; ?>
+                                            <?php case ('keamanan'): ?> <i class="fas fa-shield-alt"></i> <?php break; ?>
+                                            <?php default: ?> <i class="fas fa-check text-emerald-500"></i>
+                                        <?php endswitch; ?>
+                                    </div>
+                                    <span class="text-slate-600"><?php echo e($fasilitas->nama_fasilitas); ?></span>
+                                </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+
+                <!-- Available Rooms -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                        <i class="fas fa-door-open text-sky-500 mr-3"></i>
+                        Kamar Tersedia
+                    </h2>
+                    <div class="space-y-6">
+                        <?php $__empty_1 = true; $__currentLoopData = $kos->kamar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kamar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 hover:border-sky-300 transition-all duration-300">
+                            <div class="flex flex-col lg:flex-row gap-6">
+                                <div class="flex-1">
+                                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                                        <div>
+                                            <h3 class="text-xl font-semibold text-slate-900">Kamar <?php echo e($kamar->nomor_kamar); ?></h3>
+                                            <div class="flex items-center space-x-3 mt-2">
+                                                <span class="text-sm text-slate-500 bg-slate-200/70 px-3 py-1 rounded-lg"><?php echo e($kamar->tipe_kamar); ?></span>
+                                                <span class="text-sm text-slate-500 bg-slate-200/70 px-3 py-1 rounded-lg"><?php echo e($kamar->luas_kamar); ?></span>
+                                                <span class="text-sm text-slate-500 bg-slate-200/70 px-3 py-1 rounded-lg">Untuk <?php echo e($kamar->kapasitas); ?> orang</span>
+                                            </div>
+                                        </div>
+                                        <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            Tersedia
+                                        </span>
+                                    </div>
+                                    
+                                    <?php
+                                        $fasilitasKamar = $kamar->fasilitas_kamar;
+                                        $maxAttempts = 3;
+                                        $attempts = 0;
+                                        while (is_string($fasilitasKamar) && $attempts < $maxAttempts) {
+                                            $decoded = json_decode($fasilitasKamar, true);
+                                            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                                                $fasilitasKamar = $decoded;
+                                            } else {
+                                                break;
+                                            }
+                                            $attempts++;
+                                        }
+                                        if (is_string($fasilitasKamar)) {
+                                            $fasilitasKamar = [$fasilitasKamar];
+                                        }
+                                        $fasilitasKamar = is_array($fasilitasKamar) ? $fasilitasKamar : [];
+                                        $fasilitasKamar = array_filter($fasilitasKamar);
+                                    ?>
+
+                                    <?php if(count($fasilitasKamar) > 0): ?>
+                                    <div class="mb-4">
+                                        <h4 class="font-medium text-sky-700 mb-3">Fasilitas Kamar:</h4>
+                                        <div class="flex flex-wrap gap-2">
+                                            <?php $__currentLoopData = $fasilitasKamar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fasilitas): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if(is_string($fasilitas)): ?>
+                                                <span class="px-3 py-1.5 rounded-lg text-sm bg-sky-50 text-sky-700 border border-sky-200">
+                                                    <i class="fas fa-check-circle mr-1"></i>
+                                                    <?php echo e($fasilitas); ?>
+
+                                                </span>
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <div class="lg:text-right lg:border-l lg:border-slate-200 lg:pl-6 lg:min-w-48">
+                                    <div class="mb-4">
+                                        <p class="text-3xl font-bold text-emerald-600 mb-1">
+                                            Rp <?php echo e(number_format($kamar->harga, 0, ',', '.')); ?>
+
+                                        </p>
+                                        <p class="text-sm text-slate-500">per 
+                                            <?php if($kos->tipe_sewa == 'harian'): ?> hari
+                                            <?php elseif($kos->tipe_sewa == 'mingguan'): ?> minggu
+                                            <?php elseif($kos->tipe_sewa == 'bulanan'): ?> bulan
+                                            <?php elseif($kos->tipe_sewa == 'tahunan'): ?> tahun
+                                            <?php else: ?> bulan
+                                            <?php endif; ?>
+                                        </p>
+                                    </div>
+                                    <?php if(auth()->guard('penghuni')->check()): ?>
+                                        <?php
+                                            $user = Auth::guard('penghuni')->user();
+                                            $isAllowed = true;
+                                            if ($kos->jenis_kos == 'putra' && $user->jenis_kelamin != 'L') $isAllowed = false;
+                                            if ($kos->jenis_kos == 'putri' && $user->jenis_kelamin != 'P') $isAllowed = false;
+                                        ?>
+                                        <?php if($isAllowed): ?>
+                                        <a href="<?php echo e(route('penghuni.kontrak.create', $kos->id_kos)); ?>" 
+                                           class="w-full lg:w-auto px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 font-semibold inline-block transition shadow-md hover:shadow-lg">
+                                            <i class="fas fa-check mr-2"></i> Pilih Kamar Ini
+                                        </a>
+                                        <?php else: ?>
+                                        <button disabled 
+                                                class="w-full lg:w-auto px-6 py-3 bg-red-100 text-red-600 border border-red-200 rounded-xl font-semibold inline-block cursor-not-allowed">
+                                            <i class="fas fa-ban mr-2"></i> Khusus <?php echo e(ucfirst($kos->jenis_kos)); ?>
+
+                                        </button>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <a href="<?php echo e(route('login')); ?>" 
+                                           class="w-full lg:w-auto px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 font-semibold inline-block transition shadow-md hover:shadow-lg">
+                                            <i class="fas fa-sign-in-alt mr-2"></i> Login untuk Pesan
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                        <div class="text-center py-12">
+                            <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-door-closed text-3xl text-slate-400"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-800 mt-4">Tidak Ada Kamar Tersedia</h3>
+                            <p class="text-slate-500 mt-2">Semua kamar sudah terisi untuk saat ini.</p>
+                            <a href="<?php echo e(route('public.kos.index')); ?>" 
+                               class="inline-block mt-6 px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition shadow-sm">
+                                <i class="fas fa-search mr-2"></i> Cari Kos Lainnya
+                            </a>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Rules -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                        <i class="fas fa-clipboard-list text-sky-500 mr-3"></i>
+                        Peraturan Kos
+                    </h2>
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <pre class="whitespace-pre-wrap font-sans text-slate-600 text-sm leading-relaxed"><?php echo e($kos->peraturan); ?></pre>
+                    </div>
+                </div>
+
+                <!-- Reviews -->
+                <?php if($kos->reviews->count() > 0): ?>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                        <i class="fas fa-comments text-sky-500 mr-3"></i>
+                        Ulasan Penghuni
+                    </h2>
+                    
+                    <div class="bg-slate-50 rounded-xl p-6 mb-8 border border-slate-200">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div class="text-center md:text-left">
+                                <div class="text-5xl font-bold text-slate-800 mb-2"><?php echo e(number_format($averageRating, 1)); ?></div>
+                                <div class="flex justify-center md:justify-start text-amber-500 text-xl mb-3">
                                     <?php for($i = 1; $i <= 5; $i++): ?>
                                         <?php if($i <= floor($averageRating)): ?>
                                             <i class="fas fa-star"></i>
@@ -74,1176 +334,509 @@
                                         <?php endif; ?>
                                     <?php endfor; ?>
                                 </div>
-                                <span class="text-lg font-semibold text-white mr-2"><?php echo e(number_format($averageRating, 1)); ?></span>
+                                <div class="text-slate-500">Berdasarkan <?php echo e($totalReviews); ?> ulasan</div>
                             </div>
-                            <span class="text-dark-muted">(<?php echo e($totalReviews); ?> ulasan)</span>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-primary-900/30 text-primary-300 border border-primary-700/30 capitalize whitespace-nowrap">
-                                <?php echo e($kos->jenis_kos); ?>
-
-                            </span>
-                            <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-green-900/30 text-green-300 border border-green-700/30 whitespace-nowrap">
-                                <?php echo e($kos->kamar->count()); ?> Kamar
-                            </span>
-                        </div>
-                        <button onclick="shareKos()" 
-                                class="px-3 py-1.5 rounded-full text-sm font-medium bg-blue-900/30 text-blue-300 border border-blue-700/30 hover:bg-blue-800/40 transition-all duration-300 flex items-center whitespace-nowrap">
-                            <i class="fas fa-share-alt mr-1"></i>
-                            Bagikan
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Pemilik Info Card -->
-                <?php if($kos->pemilik): ?>
-                <div class="bg-gradient-to-r from-blue-900/20 to-indigo-900/20 border border-blue-800/30 rounded-xl p-4 mt-4">
-                    <div class="flex items-center space-x-4">
-                        <?php if($kos->pemilik->foto_profil): ?>
-                            <?php
-                            $filePath = storage_path('app/public/' . $kos->pemilik->foto_profil);
-                            $fileExists = file_exists($filePath);
-                            ?>
-                            <?php if($fileExists): ?>
-                                <img src="<?php echo e(url('storage/' . $kos->pemilik->foto_profil)); ?>" 
-                                     alt="<?php echo e($kos->pemilik->nama); ?>" 
-                                     class="w-12 h-12 rounded-full object-cover border-2 border-blue-400">
-                            <?php else: ?>
-                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
-                                    <span class="text-white font-semibold text-lg"><?php echo e(strtoupper(substr($kos->pemilik->nama, 0, 1))); ?></span>
-                                </div>
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user-tie text-white text-lg"></i>
-                            </div>
-                        <?php endif; ?>
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-white text-lg">Pemilik Kos</h3>
-                            <p class="text-sm text-blue-300"><?php echo e($kos->pemilik->nama); ?></p>
-                            <p class="text-xs text-dark-muted mt-1">Terverifikasi • <?php echo e($kos->created_at->format('Y')); ?></p>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                            <span class="text-xs text-green-400 font-medium">Aktif</span>
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
-            </div>
-
-            <!-- Description -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-4 flex items-center">
-                    <i class="fas fa-file-alt text-primary-400 mr-3"></i>
-                    Deskripsi Kos
-                </h2>
-                <div class="prose prose-invert max-w-none">
-                    <p class="text-dark-text leading-relaxed whitespace-pre-line"><?php echo e($kos->deskripsi); ?></p>
-                </div>
-            </div>
-
-            <!-- Facilities -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-6 flex items-center">
-                    <i class="fas fa-th-large text-primary-400 mr-3"></i>
-                    Fasilitas
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <?php $__currentLoopData = $kos->fasilitas->groupBy('kategori'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kategori => $fasilitasList): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div>
-                        <h3 class="font-semibold text-primary-300 mb-4 capitalize text-lg">
-                            <?php echo e(str_replace('_', ' ', $kategori)); ?>
-
-                        </h3>
-                        <div class="space-y-3">
-                            <?php $__currentLoopData = $fasilitasList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fasilitas): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 rounded-lg bg-primary-900/20 flex items-center justify-center">
-                                    <?php switch($fasilitas->kategori):
-                                        case ('umum'): ?> <i class="fas fa-wifi text-primary-400"></i> <?php break; ?>
-                                        <?php case ('kamar_mandi'): ?> <i class="fas fa-shower text-blue-400"></i> <?php break; ?>
-                                        <?php case ('dapur'): ?> <i class="fas fa-utensils text-green-400"></i> <?php break; ?>
-                                        <?php case ('parkir'): ?> <i class="fas fa-parking text-yellow-400"></i> <?php break; ?>
-                                        <?php case ('keamanan'): ?> <i class="fas fa-shield-alt text-red-400"></i> <?php break; ?>
-                                        <?php default: ?> <i class="fas fa-check text-green-400"></i>
-                                    <?php endswitch; ?>
-                                </div>
-                                <span class="text-dark-text"><?php echo e($fasilitas->nama_fasilitas); ?></span>
-                            </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </div>
-                    </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </div>
-            </div>
-
-            <!-- Available Rooms -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-6 flex items-center">
-                    <i class="fas fa-door-open text-primary-400 mr-3"></i>
-                    Kamar Tersedia
-                </h2>
-                <div class="space-y-6">
-                    <?php $__empty_1 = true; $__currentLoopData = $kos->kamar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kamar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-6 hover:border-primary-500/50 transition-all duration-300">
-                        <div class="flex flex-col lg:flex-row gap-6">
-                            <div class="flex-1">
-                                <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-                                    <div>
-                                        <h3 class="text-xl font-semibold text-white">Kamar <?php echo e($kamar->nomor_kamar); ?></h3>
-                                        <div class="flex items-center space-x-3 mt-2">
-                                            <span class="text-sm text-dark-muted bg-dark-border/50 px-3 py-1 rounded-lg">
-                                                <?php echo e($kamar->tipe_kamar); ?>
-
-                                            </span>
-                                            <span class="text-sm text-dark-muted bg-dark-border/50 px-3 py-1 rounded-lg">
-                                                <?php echo e($kamar->luas_kamar); ?>
-
-                                            </span>
-                                            <span class="text-sm text-dark-muted bg-dark-border/50 px-3 py-1 rounded-lg">
-                                                Untuk <?php echo e($kamar->kapasitas); ?> orang
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-green-900/30 text-green-300">
-                                        Tersedia
-                                    </span>
-                                </div>
-                                
+                            <div class="w-full md:w-64">
+                                <?php for($rating = 5; $rating >= 1; $rating--): ?>
                                 <?php
-                                    $fasilitasKamar = $kamar->fasilitas_kamar;
-                                    $maxAttempts = 3;
-                                    $attempts = 0;
-                                    
-                                    while (is_string($fasilitasKamar) && $attempts < $maxAttempts) {
-                                        $decoded = json_decode($fasilitasKamar, true);
-                                        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                                            $fasilitasKamar = $decoded;
-                                        } else {
-                                            break;
-                                        }
-                                        $attempts++;
-                                    }
-                                    
-                                    if (is_string($fasilitasKamar)) {
-                                        $fasilitasKamar = [$fasilitasKamar];
-                                    }
-                                    
-                                    $fasilitasKamar = is_array($fasilitasKamar) ? $fasilitasKamar : [];
-                                    $fasilitasKamar = array_filter($fasilitasKamar);
+                                    $count = $kos->reviews->where('rating', $rating)->count();
+                                    $percentage = $totalReviews > 0 ? ($count / $totalReviews) * 100 : 0;
                                 ?>
-
-                                <?php if(count($fasilitasKamar) > 0): ?>
-                                <div class="mb-4">
-                                    <h4 class="font-medium text-primary-300 mb-3">Fasilitas Kamar:</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        <?php $__currentLoopData = $fasilitasKamar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fasilitas): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <?php if(is_string($fasilitas)): ?>
-                                            <span class="px-3 py-1.5 rounded-lg text-sm bg-primary-900/20 text-primary-300 border border-primary-700/30">
-                                                <i class="fas fa-check-circle mr-1"></i>
-                                                <?php echo e($fasilitas); ?>
-
-                                            </span>
-                                            <?php endif; ?>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <div class="flex items-center mb-3">
+                                    <span class="text-sm text-slate-500 w-8"><?php echo e($rating); ?> <i class="fas fa-star text-amber-500"></i></span>
+                                    <div class="flex-1 bg-slate-200 rounded-full h-2 mx-3">
+                                        <div class="bg-amber-500 h-2 rounded-full" style="width: <?php echo e($percentage); ?>%"></div>
                                     </div>
+                                    <span class="text-sm text-slate-500 w-8 text-right"><?php echo e($count); ?></span>
                                 </div>
-                                <?php endif; ?>
-                            </div>
-                            
-                            <div class="lg:text-right lg:border-l lg:border-dark-border lg:pl-6 lg:min-w-48">
-                                <div class="mb-4">
-                                    <p class="text-3xl font-bold text-green-400 mb-1">
-                                        Rp <?php echo e(number_format($kamar->harga, 0, ',', '.')); ?>
-
-                                    </p>
-                                    <p class="text-sm text-dark-muted">per 
-                                        <?php if($kos->tipe_sewa == 'harian'): ?>
-                                            hari
-                                        <?php elseif($kos->tipe_sewa == 'mingguan'): ?>
-                                            minggu
-                                        <?php elseif($kos->tipe_sewa == 'bulanan'): ?>
-                                            bulan
-                                        <?php elseif($kos->tipe_sewa == 'tahunan'): ?>
-                                            tahun
-                                        <?php else: ?>
-                                            bulan
-                                        <?php endif; ?>
-                                    </p>
-                                </div>
-                                <?php if(auth()->guard('penghuni')->check()): ?>
-                                    <?php
-                                        $user = Auth::guard('penghuni')->user();
-                                        $isAllowed = true;
-                                        if ($kos->jenis_kos == 'putra' && $user->jenis_kelamin != 'L') $isAllowed = false;
-                                        if ($kos->jenis_kos == 'putri' && $user->jenis_kelamin != 'P') $isAllowed = false;
-                                    ?>
-
-                                    <?php if($isAllowed): ?>
-                                    <a href="<?php echo e(route('penghuni.kontrak.create', $kos->id_kos)); ?>" 
-                                       class="w-full lg:w-auto px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white rounded-xl hover:from-primary-600 hover:to-indigo-600 font-semibold inline-block transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                                        <i class="fas fa-check mr-2"></i>
-                                        Pilih Kamar Ini
-                                    </a>
-                                    <?php else: ?>
-                                    <button disabled 
-                                            class="w-full lg:w-auto px-6 py-3 bg-red-900/20 text-red-400 border border-red-800/50 rounded-xl font-semibold inline-block cursor-not-allowed transition-all duration-300">
-                                        <i class="fas fa-ban mr-2"></i>
-                                        Khusus <?php echo e(ucfirst($kos->jenis_kos)); ?>
-
-                                    </button>
-                                    <?php endif; ?>
-                                <?php else: ?>
-                                    <a href="<?php echo e(route('login')); ?>" 
-                                       class="w-full lg:w-auto px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white rounded-xl hover:from-primary-600 hover:to-indigo-600 font-semibold inline-block transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                                        <i class="fas fa-sign-in-alt mr-2"></i>
-                                        Login untuk Pesan
-                                    </a>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                    <div class="text-center py-12">
-                        <div class="w-20 h-20 bg-dark-border/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-door-closed text-3xl text-dark-muted"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-white mt-4">Tidak Ada Kamar Tersedia</h3>
-                        <p class="text-dark-muted mt-2">Semua kamar sudah terisi untuk saat ini.</p>
-                        <a href="<?php echo e(route('public.kos.index')); ?>" 
-                           class="inline-block mt-6 px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white rounded-xl hover:from-primary-600 hover:to-indigo-600 transition-all duration-300">
-                            <i class="fas fa-search mr-2"></i>
-                            Cari Kos Lainnya
-                        </a>
-                    </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-            <!-- Rules -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-6 flex items-center">
-                    <i class="fas fa-clipboard-list text-primary-400 mr-3"></i>
-                    Peraturan Kos
-                </h2>
-                <div class="bg-dark-bg/50 rounded-xl p-5 border border-dark-border">
-                    <pre class="whitespace-pre-wrap font-sans text-dark-text text-sm leading-relaxed"><?php echo e($kos->peraturan); ?></pre>
-                </div>
-            </div>
-
-            <!-- Reviews -->
-            <?php if($kos->reviews->count() > 0): ?>
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-6 flex items-center">
-                    <i class="fas fa-comments text-primary-400 mr-3"></i>
-                    Ulasan Penghuni
-                </h2>
-                
-                <!-- Rating Summary -->
-                <div class="bg-dark-bg/50 rounded-xl p-6 mb-8 border border-dark-border">
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div class="text-center md:text-left">
-                            <div class="text-5xl font-bold text-white mb-2"><?php echo e(number_format($averageRating, 1)); ?></div>
-                            <div class="flex justify-center md:justify-start text-yellow-400 text-xl mb-3">
-                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= floor($averageRating)): ?>
-                                        <i class="fas fa-star"></i>
-                                    <?php elseif($i - 0.5 <= $averageRating): ?>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    <?php else: ?>
-                                        <i class="far fa-star"></i>
-                                    <?php endif; ?>
                                 <?php endfor; ?>
                             </div>
-                            <div class="text-dark-muted">Berdasarkan <?php echo e($totalReviews); ?> ulasan</div>
-                        </div>
-                        <div class="w-full md:w-64">
-                            <?php for($rating = 5; $rating >= 1; $rating--): ?>
-                            <?php
-                                $count = $kos->reviews->where('rating', $rating)->count();
-                                $percentage = $totalReviews > 0 ? ($count / $totalReviews) * 100 : 0;
-                            ?>
-                            <div class="flex items-center mb-3">
-                                <span class="text-sm text-dark-muted w-8"><?php echo e($rating); ?> <i class="fas fa-star text-yellow-400"></i></span>
-                                <div class="flex-1 bg-dark-border rounded-full h-2 mx-3">
-                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: <?php echo e($percentage); ?>%"></div>
-                                </div>
-                                <span class="text-sm text-dark-muted w-8 text-right"><?php echo e($count); ?></span>
-                            </div>
-                            <?php endfor; ?>
                         </div>
                     </div>
-                </div>
 
-                <!-- Reviews List -->
-                <div class="space-y-6">
-                    <?php $__currentLoopData = $kos->reviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $review): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="border-b border-dark-border pb-6 last:border-b-0">
-                        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-                            <div class="flex items-center space-x-4">
-                                <?php if($review->penghuni->foto_profil): ?>
-                                    <?php
-                                    $filePath = storage_path('app/public/' . $review->penghuni->foto_profil);
-                                    $fileExists = file_exists($filePath);
-                                    ?>
-                                    <?php if($fileExists): ?>
-                                        <img src="<?php echo e(url('storage/' . $review->penghuni->foto_profil)); ?>" 
-                                             alt="<?php echo e($review->penghuni->nama); ?>" 
-                                             class="w-12 h-12 rounded-full object-cover border-2 border-primary-400">
-                                    <?php else: ?>
-                                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500/20 to-indigo-500/20 rounded-full flex items-center justify-center">
-                                            <span class="text-white font-semibold text-lg">
+                    <div class="space-y-6">
+                        <?php $__currentLoopData = $kos->reviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $review): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="border-b border-slate-200 pb-6 last:border-b-0">
+                            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                                <div class="flex items-center space-x-4">
+                                    <?php if($review->penghuni->foto_profil): ?>
+                                        <?php
+                                            $filePath = storage_path('app/public/' . $review->penghuni->foto_profil);
+                                            $fileExists = file_exists($filePath);
+                                        ?>
+                                        <?php if($fileExists): ?>
+                                            <img src="<?php echo e(url('storage/' . $review->penghuni->foto_profil)); ?>" 
+                                                 alt="<?php echo e($review->penghuni->nama); ?>" 
+                                                 class="w-12 h-12 rounded-full object-cover border-2 border-sky-200">
+                                        <?php else: ?>
+                                            <div class="w-12 h-12 bg-gradient-to-br from-sky-100 to-indigo-100 rounded-full flex items-center justify-center text-sky-600 font-semibold text-lg">
                                                 <?php echo e(strtoupper(substr($review->penghuni->nama, 0, 1))); ?>
 
-                                            </span>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php else: ?>
-                                    <div class="w-12 h-12 bg-gradient-to-br from-primary-500/20 to-indigo-500/20 rounded-full flex items-center justify-center">
-                                        <span class="text-white font-semibold text-lg">
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <div class="w-12 h-12 bg-gradient-to-br from-sky-100 to-indigo-100 rounded-full flex items-center justify-center text-sky-600 font-semibold text-lg">
                                             <?php echo e(strtoupper(substr($review->penghuni->nama, 0, 1))); ?>
 
-                                        </span>
-                                    </div>
-                                <?php endif; ?>
-                                <div>
-                                    <h4 class="font-semibold text-white"><?php echo e($review->penghuni->nama); ?></h4>
-                                    <p class="text-sm text-dark-muted">
-                                        <?php echo e($review->created_at->format('d M Y')); ?>
-
-                                        <?php if($review->updated_at->gt($review->created_at)): ?>
-                                        <span class="text-xs text-dark-muted ml-1">(diedit)</span>
-                                        <?php endif; ?>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <div class="flex text-yellow-400">
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
-                                        <?php if($i <= $review->rating): ?>
-                                            <i class="fas fa-star"></i>
-                                        <?php else: ?>
-                                            <i class="far fa-star"></i>
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
-                                </div>
-                                
-                                <?php if(auth()->guard('penghuni')->check()): ?>
-                                    <?php if(Auth::guard('penghuni')->id() == $review->id_penghuni): ?>
-                                    <div class="relative review-action-btn">
-                                        <button type="button" 
-                                                class="text-dark-muted hover:text-white focus:outline-none px-2 py-1 rounded-lg hover:bg-dark-border/50">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
-                                        <div class="absolute right-0 mt-2 w-40 bg-dark-card border border-dark-border rounded-xl shadow-xl hidden group-hover:block z-10">
-                                            <a href="<?php echo e(route('penghuni.reviews.edit', $review->id_review)); ?>" 
-                                               class="flex items-center px-4 py-3 text-sm text-dark-text hover:bg-dark-border/50 hover:text-white transition">
-                                                <i class="fas fa-edit mr-3 text-primary-400"></i>
-                                                Edit Review
-                                            </a>
-                                            <form action="<?php echo e(route('penghuni.reviews.destroy', $review->id_review)); ?>" 
-                                                  method="POST" 
-                                                  onsubmit="return confirmDeleteReview()">
-                                                <?php echo csrf_field(); ?> 
-                                                <?php echo method_field('DELETE'); ?>
-                                                <button type="submit" 
-                                                        class="flex items-center w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-900/20 transition">
-                                                    <i class="fas fa-trash mr-3"></i>
-                                                    Hapus Review
-                                                </button>
-                                            </form>
                                         </div>
-                                    </div>
                                     <?php endif; ?>
-                                <?php endif; ?>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800"><?php echo e($review->penghuni->nama); ?></h4>
+                                        <p class="text-sm text-slate-500">
+                                            <?php echo e($review->created_at->format('d M Y')); ?>
+
+                                            <?php if($review->updated_at->gt($review->created_at)): ?>
+                                            <span class="text-xs text-slate-400 ml-1">(diedit)</span>
+                                            <?php endif; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex text-amber-500">
+                                        <?php for($i = 1; $i <= 5; $i++): ?>
+                                            <?php if($i <= $review->rating): ?>
+                                                <i class="fas fa-star"></i>
+                                            <?php else: ?>
+                                                <i class="far fa-star"></i>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    </div>
+                                    
+                                    <?php if(auth()->guard('penghuni')->check()): ?>
+                                        <?php if(Auth::guard('penghuni')->id() == $review->id_penghuni): ?>
+                                        <div class="relative review-action-btn">
+                                            <button type="button" 
+                                                    class="text-slate-400 hover:text-slate-600 focus:outline-none px-2 py-1 rounded-lg hover:bg-slate-100">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <div class="absolute right-0 mt-2 w-40 bg-white border border-slate-200 rounded-xl shadow-lg hidden group-hover:block z-10">
+                                                <a href="<?php echo e(route('penghuni.reviews.edit', $review->id_review)); ?>" 
+                                                   class="flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition">
+                                                    <i class="fas fa-edit mr-3 text-sky-500"></i> Edit
+                                                </a>
+                                                <form action="<?php echo e(route('penghuni.reviews.destroy', $review->id_review)); ?>" method="POST" onsubmit="return confirmDeleteReview()">
+                                                    <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
+                                                    <button type="submit" class="flex items-center w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 transition">
+                                                        <i class="fas fa-trash mr-3"></i> Hapus
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
+                            <p class="text-slate-600 leading-relaxed whitespace-pre-line"><?php echo e($review->komentar); ?></p>
+                            
+                            <?php if($review->foto_review): ?>
+                            <div class="mt-4">
+                                <img src="<?php echo e(asset('storage/' . $review->foto_review)); ?>" 
+                                     alt="Foto review" 
+                                     class="w-40 h-40 object-cover rounded-xl cursor-pointer hover:scale-105 transition-transform duration-300"
+                                     onclick="openImageModal('<?php echo e(asset('storage/' . $review->foto_review)); ?>')">
+                            </div>
+                            <?php endif; ?>
                         </div>
-                        <p class="text-dark-text leading-relaxed whitespace-pre-line"><?php echo e($review->komentar); ?></p>
-                        
-                        <?php if($review->foto_review): ?>
-                        <div class="mt-4">
-                            <img src="<?php echo e(asset('storage/' . $review->foto_review)); ?>" 
-                                 alt="Foto review" 
-                                 class="w-40 h-40 object-cover rounded-xl cursor-pointer hover:scale-105 transition-transform duration-300"
-                                 onclick="openImageModal('<?php echo e(asset('storage/' . $review->foto_review)); ?>')">
-                        </div>
-                        <?php endif; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-            </div>
-            <?php else: ?>
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-8 text-center">
-                <div class="w-20 h-20 bg-yellow-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-comment text-3xl text-yellow-400"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-white mt-4">Belum Ada Ulasan</h3>
-                <p class="text-dark-muted mt-2">Jadilah yang pertama memberikan ulasan untuk kos ini.</p>
-                 
-                <?php if(auth()->guard('penghuni')->check()): ?>
-                    <?php
-                        $penghuni = Auth::guard('penghuni')->user();
-                        $canReview = false;
-                        $hasReviewed = false;
-                        
-                        $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
-                            ->where('id_kos', $kos->id_kos)
-                            ->whereIn('status_kontrak', ['aktif', 'selesai'])
-                            ->first();
-                            
-                        if ($kontrak) {
-                            $canReview = true;
-                            
-                            $existingReview = \App\Models\Review::where('id_penghuni', $penghuni->id_penghuni)
+                <?php else: ?>
+                <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center shadow-sm">
+                    <div class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-comment text-3xl text-amber-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-800">Belum Ada Ulasan</h3>
+                    <p class="text-slate-500 mt-2">Jadilah yang pertama memberikan ulasan untuk kos ini.</p>
+                     
+                    <?php if(auth()->guard('penghuni')->check()): ?>
+                        <?php
+                            $penghuni = Auth::guard('penghuni')->user();
+                            $canReview = false;
+                            $hasReviewed = false;
+                            $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
                                 ->where('id_kos', $kos->id_kos)
+                                ->whereIn('status_kontrak', ['aktif', 'selesai'])
                                 ->first();
-                                
-                            if ($existingReview) {
-                                $hasReviewed = true;
+                            if ($kontrak) {
+                                $canReview = true;
+                                $existingReview = \App\Models\Review::where('id_penghuni', $penghuni->id_penghuni)
+                                    ->where('id_kos', $kos->id_kos)
+                                    ->first();
+                                if ($existingReview) $hasReviewed = true;
                             }
-                        }
-                    ?>
-                    
-                    <?php if($canReview && !$hasReviewed): ?>
-                    <div class="mt-6">
-                        <a href="<?php echo e(route('penghuni.reviews.create', $kos->id_kos)); ?>" 
-                           class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl hover:from-yellow-600 hover:to-orange-600 font-semibold transition-all duration-300 hover:shadow-lg">
-                            <i class="fas fa-star mr-2"></i>
-                            Beri Review Pertama
-                        </a>
-                    </div>
-                    <?php elseif($hasReviewed): ?>
-                    <p class="text-green-400 mt-6">✅ Anda sudah memberikan review untuk kos ini.</p>
+                        ?>
+                        
+                        <?php if($canReview && !$hasReviewed): ?>
+                        <div class="mt-6">
+                            <a href="<?php echo e(route('penghuni.reviews.create', $kos->id_kos)); ?>" 
+                               class="inline-flex items-center px-6 py-3 bg-amber-500 text-white rounded-xl hover:bg-amber-600 font-semibold transition shadow-sm">
+                                <i class="fas fa-star mr-2"></i> Beri Review Pertama
+                            </a>
+                        </div>
+                        <?php elseif($hasReviewed): ?>
+                        <p class="text-emerald-600 mt-6">✅ Anda sudah memberikan review untuk kos ini.</p>
+                        <?php endif; ?>
                     <?php endif; ?>
+                </div>
                 <?php endif; ?>
             </div>
-            <?php endif; ?>
-        </div>
 
-        <!-- Sidebar -->
-        <div class="lg:col-span-1 space-y-6">
-            <!-- Action Card -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-6 flex items-center">
-                    <i class="fas fa-calendar-check text-primary-400 mr-3"></i>
-                    Informasi Booking
-                </h2>
-                
-                <!-- Price Range -->
-                <div class="mb-8">
-                    <h3 class="font-semibold text-primary-300 mb-3">Harga Mulai Dari:</h3>
+            <!-- Sidebar -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Action Card -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm sticky top-24">
+                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                        <i class="fas fa-calendar-check text-sky-500 mr-3"></i>
+                        Informasi Booking
+                    </h2>
+                    
                     <?php if($kos->kamar->min('harga') > 0): ?>
-                        <p class="text-4xl font-bold text-green-400">
-                            Rp <?php echo e(number_format($kos->kamar->min('harga'), 0, ',', '.')); ?>
-
-                        </p>
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-sky-700 mb-1">Harga Mulai Dari</h3>
+                            <p class="text-4xl font-bold text-emerald-600">Rp <?php echo e(number_format($kos->kamar->min('harga'), 0, ',', '.')); ?></p>
+                            <p class="text-sm text-slate-500 mt-1">per <?php echo e($kos->tipe_sewa ?? 'bulan'); ?></p>
+                        </div>
                     <?php else: ?>
-                        <p class="text-4xl font-bold text-red-400">
-                            Penuh
-                        </p>
+                        <p class="text-lg font-bold text-red-500 bg-red-50 rounded-lg px-3 py-2 mb-6">Penuh</p>
                     <?php endif; ?>
-                    <p class="text-sm text-dark-muted mt-1">per 
-                        <?php if($kos->tipe_sewa == 'harian'): ?>
-                            hari
-                        <?php elseif($kos->tipe_sewa == 'mingguan'): ?>
-                            minggu
-                        <?php elseif($kos->tipe_sewa == 'bulanan'): ?>
-                            bulan
-                        <?php elseif($kos->tipe_sewa == 'tahunan'): ?>
-                            tahun
-                        <?php else: ?>
-                            bulan
-                        <?php endif; ?>
-                    </p>
-                </div>
 
-                <!-- Kos Info -->
-                <div class="space-y-4 mb-8">
-                    <div class="flex justify-between items-center">
-                        <span class="text-dark-muted">Jenis Kos:</span>
-                        <span class="font-semibold text-white capitalize"><?php echo e($kos->jenis_kos); ?></span>
+                    <div class="space-y-3 mb-6 text-sm">
+                        <div class="flex justify-between"><span class="text-slate-500">Jenis Kos:</span><span class="font-medium text-slate-800 capitalize"><?php echo e($kos->jenis_kos); ?></span></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Tipe Sewa:</span><span class="font-medium text-slate-800 capitalize"><?php echo e($kos->tipe_sewa); ?></span></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Kamar Tersedia:</span><span class="font-medium text-emerald-600"><?php echo e($kos->kamar->count()); ?> kamar</span></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Lokasi:</span><span class="font-medium text-slate-800 text-right"><?php echo e($kos->kota); ?>, <?php echo e($kos->provinsi); ?></span></div>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-dark-muted">Tipe Sewa:</span>
-                        <span class="font-semibold text-white capitalize"><?php echo e($kos->tipe_sewa); ?></span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-dark-muted">Kamar Tersedia:</span>
-                        <span class="font-semibold text-green-400"><?php echo e($kos->kamar->count()); ?> kamar</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-dark-muted">Lokasi:</span>
-                        <span class="font-semibold text-white text-right"><?php echo e($kos->kota); ?>, <?php echo e($kos->provinsi); ?></span>
-                    </div>
-                </div>
 
-                <!-- Action Buttons -->
-                <div class="space-y-4">
-                <?php if(auth()->guard('penghuni')->check()): ?>
-                    <?php
-                        $user = Auth::guard('penghuni')->user();
-                        $isAllowed = true;
-                        if ($kos->jenis_kos == 'putra' && $user->jenis_kelamin != 'L') $isAllowed = false;
-                        if ($kos->jenis_kos == 'putri' && $user->jenis_kelamin != 'P') $isAllowed = false;
-                    ?>
-
+                    <?php if(auth()->guard('penghuni')->check()): ?>
+                        <?php
+                            $user = Auth::guard('penghuni')->user();
+                            $isAllowed = true;
+                            if ($kos->jenis_kos == 'putra' && $user->jenis_kelamin != 'L') $isAllowed = false;
+                            if ($kos->jenis_kos == 'putri' && $user->jenis_kelamin != 'P') $isAllowed = false;
+                        ?>
                         <?php if($kos->kamar->count() > 0): ?>
                             <?php if($isAllowed): ?>
                             <a href="<?php echo e(route('penghuni.kontrak.create', $kos->id_kos)); ?>" 
-                               class="w-full px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white text-center rounded-xl hover:from-primary-600 hover:to-indigo-600 font-semibold block transition-all duration-300 hover:shadow-lg">
-                                <i class="fas fa-home mr-2"></i>
-                                Daftar Sekarang
+                               class="block w-full px-6 py-3 bg-sky-600 text-white text-center rounded-xl hover:bg-sky-700 font-semibold transition shadow-sm">
+                                <i class="fas fa-home mr-2"></i> Daftar Sekarang
                             </a>
                             <?php else: ?>
-                            <button disabled 
-                                    class="w-full px-6 py-3 bg-red-900/20 text-red-400 border border-red-800/50 text-center rounded-xl font-semibold block cursor-not-allowed transition-all duration-300">
-                                <i class="fas fa-ban mr-2"></i>
-                                Maaf, Kos ini Khusus <?php echo e(ucfirst($kos->jenis_kos)); ?>
+                            <button disabled class="block w-full px-6 py-3 bg-red-50 text-red-600 border border-red-200 rounded-xl font-semibold cursor-not-allowed">
+                                <i class="fas fa-ban mr-2"></i> Khusus <?php echo e(ucfirst($kos->jenis_kos)); ?>
 
                             </button>
                             <?php endif; ?>
                         <?php else: ?>
-                        <button disabled class="w-full px-6 py-3 bg-gray-900/50 text-dark-muted text-center rounded-xl font-semibold block cursor-not-allowed border border-dark-border">
-                            <i class="fas fa-times mr-2"></i>
-                            Penuh
+                        <button disabled class="block w-full px-6 py-3 bg-slate-100 text-slate-400 border border-slate-200 rounded-xl font-semibold cursor-not-allowed">
+                            <i class="fas fa-times mr-2"></i> Penuh
                         </button>
                         <?php endif; ?>
                     <?php else: ?>
-                    <div class="text-center">
-                        <p class="text-dark-muted mb-4">Login untuk mendaftar</p>
+                        <div class="text-center">
+                            <p class="text-slate-500 mb-4">Login untuk mendaftar</p>
+                            <div class="space-y-3">
+                                <a href="<?php echo e(route('login')); ?>" class="block w-full px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition">Login</a>
+                                <a href="<?php echo e(route('register')); ?>" class="block w-full px-6 py-3 bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition">Daftar Akun Baru</a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Review Section for Sidebar -->
+                    <?php if(auth()->guard('penghuni')->check()): ?>
+                        <?php
+                            $penghuni = Auth::guard('penghuni')->user();
+                            $canReview = false;
+                            $hasReviewed = false;
+                            $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
+                                ->where('id_kos', $kos->id_kos)
+                                ->whereIn('status_kontrak', ['aktif', 'selesai'])
+                                ->first();
+                            if ($kontrak) {
+                                $canReview = true;
+                                $existingReview = \App\Models\Review::where('id_penghuni', $penghuni->id_penghuni)
+                                    ->where('id_kos', $kos->id_kos)
+                                    ->first();
+                                if ($existingReview) $hasReviewed = true;
+                            }
+                        ?>
+                        <?php if($canReview && !$hasReviewed): ?>
+                        <div class="mt-6 pt-6 border-t border-slate-200">
+                            <a href="<?php echo e(route('penghuni.reviews.create', $kos->id_kos)); ?>" 
+                               class="block w-full px-6 py-3 bg-amber-500 text-white text-center rounded-xl hover:bg-amber-600 font-semibold transition">
+                                <i class="fas fa-star mr-2"></i> Beri Review
+                            </a>
+                        </div>
+                        <?php elseif($hasReviewed): ?>
+                        <div class="mt-6 pt-6 border-t border-slate-200">
+                            <p class="text-sm text-slate-500 mb-3">Review Anda:</p>
+                            <a href="<?php echo e(route('penghuni.reviews.edit', $existingReview->id_review)); ?>" 
+                               class="block w-full px-6 py-3 bg-emerald-500 text-white text-center rounded-xl hover:bg-emerald-600 font-semibold transition">
+                                <i class="fas fa-edit mr-2"></i> Edit Review
+                            </a>
+                        </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+                    <!-- Contact -->
+                    <?php if($kos->pemilik): ?>
+                    <div class="mt-6 pt-6 border-t border-slate-200">
+                        <h3 class="font-semibold text-slate-800 mb-3 flex items-center"><i class="fas fa-headset text-sky-500 mr-2"></i>Butuh Bantuan?</h3>
                         <div class="space-y-3">
-                            <a href="<?php echo e(route('login')); ?>" 
-                               class="w-full px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white rounded-xl hover:from-primary-600 hover:to-indigo-600 block transition-all duration-300">
-                                <i class="fas fa-sign-in-alt mr-2"></i>
-                                Login
+                            <?php
+                                $waNumber = $kos->pemilik->no_hp;
+                                if (str_starts_with($waNumber, '0')) $waNumber = '62' . substr($waNumber, 1);
+                                elseif (str_starts_with($waNumber, '+')) $waNumber = substr($waNumber, 1);
+                            ?>
+                            <a href="https://wa.me/<?php echo e($waNumber); ?>?text=Halo%20<?php echo e(urlencode($kos->pemilik->nama)); ?>,%20saya%20tertarik%20dengan%20kos%20<?php echo e(urlencode($kos->nama_kos)); ?>" 
+                               target="_blank"
+                               class="flex items-center justify-center px-4 py-3 bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition">
+                                <i class="fab fa-whatsapp mr-2"></i> WhatsApp
                             </a>
-                            <a href="<?php echo e(route('register')); ?>" 
-                               class="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 block transition-all duration-300">
-                                <i class="fas fa-user-plus mr-2"></i>
-                                Daftar Akun Baru
-                            </a>
+                            <button onclick="showContactModal()" class="w-full px-4 py-3 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition border border-slate-200">
+                                <i class="fas fa-phone mr-2"></i> Telepon
+                            </button>
                         </div>
                     </div>
                     <?php endif; ?>
                 </div>
 
-                <!-- Button Review -->
-                <?php if(auth()->guard('penghuni')->check()): ?>
-                    <?php
-                        $penghuni = Auth::guard('penghuni')->user();
-                        $canReview = false;
-                        $hasReviewed = false;
-
-                        $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
-                            ->where('id_kos', $kos->id_kos)
-                            ->whereIn('status_kontrak', ['aktif', 'selesai'])
-                            ->first();
-                            
-                        if ($kontrak) {
-                            $canReview = true;
-                            
-                            $existingReview = \App\Models\Review::where('id_penghuni', $penghuni->id_penghuni)
-                                ->where('id_kos', $kos->id_kos)
-                                ->first();
-                                
-                            if ($existingReview) {
-                                $hasReviewed = true;
-                            }
-                        }
-                    ?>
-                    
-                    <?php if($canReview && !$hasReviewed): ?>
-                    <div class="mt-8 pt-8 border-t border-dark-border">
-                        <p class="text-sm text-dark-muted mb-4">Sudah pernah tinggal di kos ini?</p>
-                        <a href="<?php echo e(route('penghuni.reviews.create', $kos->id_kos)); ?>" 
-                           class="w-full px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-center rounded-xl hover:from-yellow-600 hover:to-orange-600 font-semibold block transition-all duration-300 hover:shadow-lg">
-                            <i class="fas fa-star mr-2"></i>
-                            Beri Review
-                        </a>
-                    </div>
-                    <?php elseif($hasReviewed): ?>
-                    <div class="mt-8 pt-8 border-t border-dark-border">
-                        <p class="text-sm text-dark-muted mb-4">Review Anda:</p>
-                        <a href="<?php echo e(route('penghuni.reviews.edit', $existingReview->id_review)); ?>" 
-                           class="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-center rounded-xl hover:from-green-600 hover:to-emerald-600 font-semibold block transition-all duration-300 hover:shadow-lg">
-                            <i class="fas fa-edit mr-2"></i>
-                            Edit Review Anda
-                        </a>
-                        <p class="text-xs text-dark-muted mt-3 text-center">
-                            Lihat semua review Anda di 
-                            <a href="<?php echo e(route('penghuni.reviews.history')); ?>" class="text-primary-300 hover:text-primary-400 hover:underline">
-                                History Review
-                            </a>
-                        </p>
-                    </div>
-                    <?php endif; ?>
-                <?php endif; ?>
-
-                <!-- Contact Info -->
-                <div class="mt-8 pt-8 border-t border-dark-border">
-                    <h3 class="font-semibold text-white mb-4 flex items-center">
-                        <i class="fas fa-headset text-primary-400 mr-2"></i>
-                        Butuh Bantuan?
-                    </h3>
-                    <div class="space-y-3">
-                        <?php if($kos->pemilik): ?>
-                            <?php
-                                $waNumber = $kos->pemilik->no_hp;
-                                if (str_starts_with($waNumber, '0')) {
-                                    $waNumber = '62' . substr($waNumber, 1);
-                                } elseif (str_starts_with($waNumber, '+')) {
-                                    $waNumber = substr($waNumber, 1);
-                                }
-                            ?>
-                            <a href="https://wa.me/<?php echo e($waNumber); ?>?text=Halo%20<?php echo e(urlencode($kos->pemilik->nama)); ?>,%20saya%20tertarik%20dengan%20kos%20<?php echo e(urlencode($kos->nama_kos)); ?>%20di%20<?php echo e(urlencode($kos->alamat)); ?>" 
-                               target="_blank"
-                               class="flex items-center justify-center space-x-3 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 group">
-                                <i class="fab fa-whatsapp text-lg"></i>
-                                <span>Hubungi via WhatsApp</span>
-                            </a>
-                            <button onclick="showContactModal()" 
-                                    class="w-full px-4 py-3 bg-dark-bg/50 text-white rounded-xl hover:bg-dark-border/50 transition-all duration-300 border border-dark-border">
-                                <i class="fas fa-phone mr-2"></i>
-                                Telepon Pemilik
-                            </button>
-                        <?php else: ?>
-                            <div class="bg-dark-bg/50 rounded-xl p-4 text-center border border-dark-border">
-                                <p class="text-dark-muted text-sm">Informasi kontak tidak tersedia</p>
+                <!-- Location Card -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center">
+                        <i class="fas fa-map-marker-alt text-sky-500 mr-3"></i> Lokasi
+                    </h2>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-location-dot text-sky-500 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800"><?php echo e($kos->alamat); ?></p>
+                                <p class="text-slate-500"><?php echo e($kos->kecamatan); ?>, <?php echo e($kos->kota); ?> - <?php echo e($kos->kode_pos); ?></p>
                             </div>
+                        </div>
+                        <?php if($kos->latitude && $kos->longitude): ?>
+                        <div id="map" class="h-64 rounded-xl z-0 mt-4"></div>
+                        <div class="flex justify-between mt-3">
+                            <button id="locate-btn" class="text-sky-600 hover:text-sky-700 text-sm flex items-center">
+                                <i class="fas fa-location-crosshairs mr-1"></i> Lokasi Saya
+                            </button>
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=<?php echo e($kos->latitude); ?>,<?php echo e($kos->longitude); ?>" target="_blank" class="text-emerald-600 hover:text-emerald-700 text-sm flex items-center">
+                                <i class="fas fa-directions mr-1"></i> Petunjuk Arah
+                            </a>
+                        </div>
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
 
-            <!-- Location Card -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-6 flex items-center">
-                    <i class="fas fa-map-marker-alt text-primary-400 mr-3"></i>
-                    Lokasi
-                </h2>
-                <div class="space-y-4">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-10 h-10 rounded-lg bg-primary-900/20 flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-location-dot text-primary-400"></i>
-                        </div>
-                        <div>
-                            <p class="text-white font-medium"><?php echo e($kos->alamat); ?></p>
-                            <p class="text-dark-muted text-sm mt-1"><?php echo e($kos->kecamatan); ?>, <?php echo e($kos->kota); ?></p>
-                            <p class="text-dark-muted text-sm"><?php echo e($kos->provinsi); ?> - <?php echo e($kos->kode_pos); ?></p>
-                        </div>
-                    </div>
-                    
-                    <?php if($kos->latitude && $kos->longitude): ?>
-                    <div class="mt-4">
-                        <div id="map" class="h-72 rounded-xl z-0"></div>
-                        <div class="flex justify-between mt-4">
-                            <button id="locate-btn" 
-                                    class="text-sm text-primary-300 hover:text-primary-400 transition flex items-center">
-                                <i class="fas fa-location-crosshairs mr-2"></i>
-                                Lokasi Saya
-                            </button>
-                            <a href="https://www.google.com/maps/dir/?api=1&destination=<?php echo e($kos->latitude); ?>,<?php echo e($kos->longitude); ?>" 
-                               target="_blank"
-                               class="text-sm text-green-400 hover:text-green-300 transition flex items-center">
-                                <i class="fas fa-directions mr-2"></i>
-                                Petunjuk Arah
-                            </a>
-                        </div>
-                    </div>
-                    <?php else: ?>
-                    <div class="bg-dark-bg/50 rounded-xl p-6 text-center border border-dark-border">
-                        <i class="fas fa-map text-3xl text-dark-muted mb-3"></i>
-                        <span class="text-dark-muted text-sm">📍 Peta lokasi tidak tersedia</span>
-                    </div>
-                    <?php endif; ?>
-                </div>
-            </div>
+                <!-- Similar Kos -->
+                <?php if($similarKos->count() > 0): ?>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center">
+                        <i class="fas fa-building text-sky-500 mr-3"></i> Kos Serupa
+                    </h2>
+                    <div class="space-y-4">
+                        <?php $__currentLoopData = $similarKos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $similar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <a href="<?php echo e(route('public.kos.show', $similar->id_kos)); ?>" class="block bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-sky-300 transition">
+                            <div class="flex space-x-4">
+                                <?php if($similar->foto_utama): ?>
+                                    <img src="<?php echo e(asset('storage/' . $similar->foto_utama)); ?>" alt="<?php echo e($similar->nama_kos); ?>" class="w-16 h-16 rounded-lg object-cover flex-shrink-0">
+                                <?php else: ?>
+                                    <div class="w-16 h-16 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400"><i class="fas fa-home"></i></div>
+                                <?php endif; ?>
+                                <div class="min-w-0">
+                                    <h4 class="font-semibold text-slate-800 text-sm truncate"><?php echo e($similar->nama_kos); ?></h4>
+                                    <p class="text-emerald-600 font-bold text-sm mt-1">
+                                        <?php if($similar->kamar->count() > 0): ?>
+                                            Rp <?php echo e(number_format($similar->kamar->min('harga'), 0, ',', '.')); ?>
 
-            <!-- Similar Kos -->
-            <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-6 flex items-center">
-                    <i class="fas fa-building text-primary-400 mr-3"></i>
-                    Kos Serupa
-                </h2>
-                <div class="space-y-4">
-                    <?php $__empty_1 = true; $__currentLoopData = $similarKos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $similar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <a href="<?php echo e(route('public.kos.show', $similar->id_kos)); ?>" 
-                       class="block bg-dark-bg/50 border border-dark-border rounded-xl p-4 hover:border-primary-500/50 transition-all duration-300">
-                        <div class="flex space-x-4">
-                            <?php if($similar->foto_utama): ?>
-                                <img src="<?php echo e(asset('storage/' . $similar->foto_utama)); ?>" 
-                                     alt="<?php echo e($similar->nama_kos); ?>" 
-                                     class="w-16 h-16 rounded-lg object-cover flex-shrink-0">
-                            <?php else: ?>
-                                <div class="w-16 h-16 bg-gradient-to-br from-dark-border to-dark-bg rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-home text-dark-muted"></i>
-                                </div>
-                            <?php endif; ?>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="font-semibold text-white text-sm truncate"><?php echo e($similar->nama_kos); ?></h4>
-                                <p class="text-green-400 font-bold text-sm mt-1">
-                                    <?php if($similar->kamar->count() > 0): ?>
-                                        Rp <?php echo e(number_format($similar->kamar->min('harga'), 0, ',', '.')); ?>
-
-                                    <?php else: ?>
-                                        Penuh
-                                    <?php endif; ?>
-                                </p>
-                                <div class="flex items-center mt-2">
-                                    <span class="text-xs px-2 py-1 rounded bg-dark-border/50 text-dark-muted capitalize">
-                                        <?php echo e($similar->jenis_kos); ?>
-
-                                    </span>
-                                    <span class="text-xs text-dark-muted ml-2"><?php echo e($similar->kota); ?></span>
-                                    <?php if($similar->id_pemilik == $kos->id_pemilik): ?>
-                                        <span class="text-xs px-2 py-1 rounded bg-blue-900/30 text-blue-300 ml-2">
-                                            <i class="fas fa-user-tie mr-1"></i>Pemilik Sama
-                                        </span>
-                                    <?php endif; ?>
+                                        <?php else: ?>
+                                            Penuh
+                                        <?php endif; ?>
+                                    </p>
+                                    <div class="flex items-center mt-1 gap-2 text-xs text-slate-500">
+                                        <span class="capitalize"><?php echo e($similar->jenis_kos); ?></span>
+                                        <span>•</span>
+                                        <span><?php echo e($similar->kota); ?></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                    <div class="text-center py-6">
-                        <div class="w-12 h-12 bg-dark-border/30 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-building text-xl text-dark-muted"></i>
-                        </div>
-                        <p class="text-sm text-dark-muted">Tidak ada kos serupa saat ini</p>
+                        </a>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                    <?php endif; ?>
                 </div>
-                <a href="<?php echo e(route('public.kos.index')); ?>?jenis_kos=<?php echo e($kos->jenis_kos); ?>&kota=<?php echo e($kos->kota); ?>" 
-                   class="block text-center mt-6 text-primary-300 hover:text-primary-400 text-sm font-medium transition">
-                    <span>Lihat lebih banyak</span>
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Image Modal -->
-<div id="image-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-    <div class="relative max-w-4xl max-h-full">
-        <button onclick="closeImageModal()" 
-                class="absolute -top-12 right-0 text-white text-2xl hover:text-gray-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center transition">
-            <i class="fas fa-times"></i>
-        </button>
-        <img id="modal-image" class="max-w-full max-h-screen rounded-xl shadow-2xl">
-    </div>
+<div id="image-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white text-2xl bg-black/40 rounded-full w-10 h-10 flex items-center justify-center hover:bg-black/60 transition">
+        <i class="fas fa-times"></i>
+    </button>
+    <img id="modal-image" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl">
 </div>
-
-<script>
-    // Image modal functions
-    function openImageModal(src) {
-        document.getElementById('modal-image').src = src;
-        document.getElementById('image-modal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeImageModal() {
-        document.getElementById('image-modal').classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-    
-    // Close modal on background click
-    document.getElementById('image-modal').addEventListener('click', function(e) {
-        if (e.target.id === 'image-modal') {
-            closeImageModal();
-        }
-    });
-    
-    // Close on ESC key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeImageModal();
-        }
-    });
-
-    // Confirm delete review
-    function confirmDeleteReview() {
-        return confirm('Apakah Anda yakin ingin menghapus review ini? Tindakan ini tidak dapat dibatalkan.');
-    }
-
-    // Share function
-    function shareKos() {
-        const url = window.location.href;
-        
-        // Try to use Web Share API first (for mobile)
-        if (navigator.share) {
-            navigator.share({
-                title: '<?php echo e($kos->nama_kos); ?>',
-                text: 'Lihat kos ini: <?php echo e($kos->nama_kos); ?> - <?php echo e($kos->alamat); ?>, <?php echo e($kos->kota); ?>',
-                url: url
-            }).catch(err => {
-                // If share fails, fallback to copy
-                copyToClipboard(url);
-            });
-        } else {
-            // Fallback to copy to clipboard
-            copyToClipboard(url);
-        }
-    }
-
-    // Copy to clipboard function
-    function copyToClipboard(text) {
-        // Create a temporary textarea element
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        
-        try {
-            document.execCommand('copy');
-            showNotification('Link berhasil disalin!');
-        } catch (err) {
-            // Fallback for modern browsers
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showNotification('Link berhasil disalin!');
-                }).catch(() => {
-                    showNotification('Gagal menyalin link', 'error');
-                });
-            } else {
-                showNotification('Gagal menyalin link', 'error');
-            }
-        } finally {
-            document.body.removeChild(textarea);
-        }
-    }
-
-    // Show notification
-    function showNotification(message, type = 'success') {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `fixed top-4 right-4 px-6 py-3 rounded-xl shadow-lg z-50 flex items-center space-x-2 transition-all duration-300 transform translate-x-full`;
-        
-        if (type === 'success') {
-            notification.classList.add('bg-green-500', 'text-white');
-            notification.innerHTML = `<i class="fas fa-check-circle mr-2"></i>${message}`;
-        } else {
-            notification.classList.add('bg-red-500', 'text-white');
-            notification.innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i>${message}`;
-        }
-        
-        document.body.appendChild(notification);
-        
-        // Animate in
-        setTimeout(() => {
-            notification.classList.remove('translate-x-full');
-            notification.classList.add('translate-x-0');
-        }, 100);
-        
-        // Remove after 3 seconds
-        setTimeout(() => {
-            notification.classList.add('translate-x-full');
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 3000);
-    }
-
-    // Leaflet map initialization
-    document.addEventListener('DOMContentLoaded', function() {
-        <?php if($kos->latitude && $kos->longitude): ?>
-        const map = L.map('map').setView([<?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>], 15);
-        
-        // Add OpenStreetMap tiles with dark theme
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 19,
-            className: 'dark-tiles'
-        }).addTo(map);
-        
-        // Custom icon with gradient
-        const houseIcon = L.divIcon({
-            html: `
-                <div class="relative">
-                    <div class="absolute -inset-2 bg-primary-500/20 rounded-full animate-ping"></div>
-                    <div class="relative bg-gradient-to-br from-primary-500 to-indigo-500 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-white">
-                        <i class="fas fa-home text-white"></i>
-                    </div>
-                </div>
-            `,
-            iconSize: [48, 48],
-            iconAnchor: [24, 48],
-            popupAnchor: [0, -48],
-            className: 'custom-house-icon'
-        });
-        
-        // Add marker for kos location
-        const marker = L.marker([<?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>], {
-            icon: houseIcon
-        }).addTo(map);
-        
-        // Popup content
-        marker.bindPopup(`
-            <div class="p-3 bg-dark-card border border-dark-border rounded-xl shadow-xl">
-                <h3 class="font-bold text-white text-base mb-2"><?php echo e($kos->nama_kos); ?></h3>
-                <p class="text-dark-text text-sm mb-3"><?php echo e($kos->alamat); ?></p>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=<?php echo e($kos->latitude); ?>,<?php echo e($kos->longitude); ?>" 
-                   target="_blank"
-                   class="inline-flex items-center px-3 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 text-sm transition">
-                    <i class="fas fa-directions mr-2"></i>
-                    Arah ke sini
-                </a>
-            </div>
-        `);
-        
-        // Add user location button
-        const locateBtn = document.getElementById('locate-btn');
-        let userMarker = null;
-        
-        locateBtn.addEventListener('click', function() {
-            if (navigator.geolocation) {
-                locateBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mencari...';
-                
-                navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                        const userLat = position.coords.latitude;
-                        const userLng = position.coords.longitude;
-                        
-                        // Remove previous user marker
-                        if (userMarker) {
-                            map.removeLayer(userMarker);
-                        }
-                        
-                        // Add user marker
-                        const userIcon = L.divIcon({
-                            html: `
-                                <div class="relative">
-                                    <div class="absolute -inset-2 bg-blue-500/20 rounded-full animate-ping"></div>
-                                    <div class="relative bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full w-10 h-10 flex items-center justify-center shadow-lg border-2 border-white">
-                                        <i class="fas fa-location-dot text-white"></i>
-                                    </div>
-                                </div>
-                            `,
-                            iconSize: [40, 40],
-                            iconAnchor: [20, 40],
-                            className: 'custom-user-icon'
-                        });
-                        
-                        userMarker = L.marker([userLat, userLng], {
-                            icon: userIcon
-                        }).addTo(map);
-                        
-                        userMarker.bindPopup(`
-                            <div class="p-2 bg-dark-card border border-dark-border rounded-lg">
-                                <p class="text-white text-sm font-medium">Lokasi Anda</p>
-                            </div>
-                        `).openPopup();
-                        
-                        // Fit bounds to show both markers
-                        const bounds = L.latLngBounds([
-                            [userLat, userLng],
-                            [<?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>]
-                        ]);
-                        map.fitBounds(bounds, { padding: [60, 60] });
-                        
-                        locateBtn.innerHTML = '<i class="fas fa-location-crosshairs mr-2"></i>Lokasi Saya';
-                    },
-                    function(error) {
-                        alert('Tidak dapat mengakses lokasi Anda. Pastikan izin lokasi diaktifkan.');
-                        console.error('Geolocation error:', error);
-                        locateBtn.innerHTML = '<i class="fas fa-location-crosshairs mr-2"></i>Lokasi Saya';
-                    },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
-                    }
-                );
-            } else {
-                alert('Browser tidak mendukung geolocation.');
-            }
-        });
-        
-        // Add scale control
-        L.control.scale().addTo(map);
-        
-        // Add custom CSS for map
-        const style = document.createElement('style');
-        style.textContent = `
-            .custom-house-icon {
-                background: none !important;
-                border: none !important;
-            }
-            .custom-user-icon {
-                background: none !important;
-                border: none !important;
-            }
-            .leaflet-popup-content {
-                margin: 0 !important;
-            }
-            .leaflet-popup-content-wrapper {
-                background: transparent !important;
-                box-shadow: none !important;
-                border: none !important;
-            }
-            .leaflet-control-attribution {
-                background: rgba(0,0,0,0.5) !important;
-                color: #94a3b8 !important;
-                font-size: 10px !important;
-            }
-            .leaflet-control-scale-line {
-                background: rgba(0,0,0,0.5) !important;
-                color: #94a3b8 !important;
-                border: 1px solid #334155 !important;
-            }
-        `;
-        document.head.appendChild(style);
-        <?php endif; ?>
-        
-        // Initialize Contact Modal
-        <?php if($kos->pemilik): ?>
-        const contactModal = new Modal('contactModal');
-        window.contactModal = contactModal;
-        
-        window.showContactModal = function() {
-            contactModal.show();
-        };
-        <?php endif; ?>
-        
-        // Hover effect for review actions
-        document.querySelectorAll('.review-action-btn button').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                const menu = this.nextElementSibling;
-                if (menu && menu.classList.contains('hidden')) {
-                    menu.classList.remove('hidden');
-                }
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                const menu = this.nextElementSibling;
-                setTimeout(() => {
-                    if (menu && !menu.matches(':hover')) {
-                        menu.classList.add('hidden');
-                    }
-                }, 100);
-            });
-            
-            const menu = button.nextElementSibling;
-            if (menu) {
-                menu.addEventListener('mouseenter', function() {
-                    this.classList.remove('hidden');
-                });
-                
-                menu.addEventListener('mouseleave', function() {
-                    this.classList.add('hidden');
-                });
-            }
-        });
-    });
-</script>
-
-<style>
-    .card-hover {
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-    
-    .card-hover:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
-        border-color: var(--primary-500);
-    }
-    
-    .hover\:scale-105:hover {
-        transform: scale(1.05);
-    }
-    
-    .transition-transform {
-        transition: transform 0.3s ease;
-    }
-    
-    .transition-all {
-        transition: all 0.3s ease;
-    }
-    
-    .animate-ping {
-        animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
-    
-    @keyframes ping {
-        75%, 100% {
-            transform: scale(2);
-            opacity: 0;
-        }
-    }
-    
-    /* Custom scrollbar for modal */
-    #image-modal img {
-        max-height: 80vh;
-    }
-</style>
 
 <?php if($kos->pemilik): ?>
 <!-- Contact Owner Modal -->
 <div id="contactModal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4">
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" data-modal-close></div>
-    <div class="relative bg-dark-card border border-dark-border rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl">
-        <div class="border-b border-dark-border p-5">
-            <h5 class="text-lg font-semibold text-white flex items-center">
-                <i class="fas fa-headset text-primary-400 mr-2"></i>
-                Hubungi Pemilik
+    <div class="relative bg-white border border-slate-200 rounded-2xl w-full max-w-sm overflow-hidden shadow-xl">
+        <div class="border-b border-slate-200 p-5">
+            <h5 class="text-lg font-semibold text-slate-800 flex items-center">
+                <i class="fas fa-headset text-sky-500 mr-2"></i> Hubungi Pemilik
             </h5>
         </div>
         <div class="p-6 text-center">
-            <div class="mb-4 inline-block">
+            <div class="mb-4">
                 <?php if($kos->pemilik->foto_profil): ?>
-                    <img src="<?php echo e(url('storage/' . $kos->pemilik->foto_profil)); ?>" 
-                         alt="<?php echo e($kos->pemilik->nama); ?>" 
-                         class="w-20 h-20 rounded-full object-cover border-4 border-primary-500/20 mx-auto">
+                    <img src="<?php echo e(url('storage/' . $kos->pemilik->foto_profil)); ?>" alt="<?php echo e($kos->pemilik->nama); ?>" class="w-20 h-20 rounded-full object-cover border-4 border-sky-100 mx-auto">
                 <?php else: ?>
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto shadow-lg">
+                    <div class="w-20 h-20 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto">
                         <i class="fas fa-user-tie text-white text-3xl"></i>
                     </div>
                 <?php endif; ?>
             </div>
-            <h5 class="text-xl font-bold text-white mb-1"><?php echo e($kos->pemilik->nama); ?></h5>
-            <p class="text-dark-muted text-sm mb-6">Pemilik <?php echo e($kos->nama_kos); ?></p>
-            
-            <div class="bg-dark-bg/50 rounded-2xl p-4 border border-dark-border mb-6">
-                <p class="text-xs text-dark-muted uppercase tracking-wider font-semibold mb-2">Nomor Telepon</p>
-                <p class="text-2xl font-bold text-primary-400 tracking-widest"><?php echo e($kos->pemilik->no_hp); ?></p>
+            <h5 class="text-xl font-bold text-slate-800"><?php echo e($kos->pemilik->nama); ?></h5>
+            <p class="text-slate-500 text-sm mb-4">Pemilik <?php echo e($kos->nama_kos); ?></p>
+            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 mb-4">
+                <p class="text-xs text-slate-500 uppercase font-semibold mb-1">Nomor Telepon</p>
+                <p class="text-2xl font-bold text-sky-600"><?php echo e($kos->pemilik->no_hp); ?></p>
             </div>
-            
             <div class="grid grid-cols-1 gap-3">
-                <a href="tel:<?php echo e($kos->pemilik->no_hp); ?>" 
-                   class="flex items-center justify-center space-x-3 px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white rounded-xl hover:from-primary-600 hover:to-indigo-600 transition-all duration-300 shadow-lg font-semibold group">
-                    <i class="fas fa-phone-alt group-hover:rotate-12 transition-transform"></i>
-                    <span>Telepon Sekarang</span>
+                <a href="tel:<?php echo e($kos->pemilik->no_hp); ?>" class="flex items-center justify-center px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition font-semibold">
+                    <i class="fas fa-phone-alt mr-2"></i> Telepon Sekarang
                 </a>
-                
                 <?php
                     $waNumber = $kos->pemilik->no_hp;
-                    if (str_starts_with($waNumber, '0')) {
-                        $waNumber = '62' . substr($waNumber, 1);
-                    } elseif (str_starts_with($waNumber, '+')) {
-                        $waNumber = substr($waNumber, 1);
-                    }
+                    if (str_starts_with($waNumber, '0')) $waNumber = '62' . substr($waNumber, 1);
+                    elseif (str_starts_with($waNumber, '+')) $waNumber = substr($waNumber, 1);
                 ?>
-                <a href="https://wa.me/<?php echo e($waNumber); ?>?text=Halo%20<?php echo e(urlencode($kos->pemilik->nama)); ?>,%20saya%20ingin%20bertanya%20tentang%20kos%20<?php echo e(urlencode($kos->nama_kos)); ?>" 
-                   target="_blank"
-                   class="flex items-center justify-center space-x-3 px-6 py-3 bg-green-900/20 text-green-400 border border-green-800/30 rounded-xl hover:bg-green-800/30 transition-all duration-300 font-semibold group">
-                    <i class="fab fa-whatsapp text-lg group-hover:scale-110 transition-transform"></i>
-                    <span>WhatsApp Pemilik</span>
+                <a href="https://wa.me/<?php echo e($waNumber); ?>?text=Halo%20<?php echo e(urlencode($kos->pemilik->nama)); ?>,%20saya%20ingin%20bertanya%20tentang%20kos%20<?php echo e(urlencode($kos->nama_kos)); ?>" target="_blank"
+                   class="flex items-center justify-center px-6 py-3 bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition font-semibold">
+                    <i class="fab fa-whatsapp mr-2"></i> WhatsApp
                 </a>
             </div>
         </div>
-        <div class="p-4 bg-dark-bg/30 text-center border-t border-dark-border">
-            <button type="button" class="modal-close-btn text-dark-muted hover:text-white transition-colors text-sm font-medium">
-                Kembali
-            </button>
+        <div class="p-4 bg-slate-50 text-center border-t border-slate-200">
+            <button type="button" class="modal-close-btn text-slate-500 hover:text-slate-700 text-sm font-medium">Kembali</button>
         </div>
     </div>
 </div>
 <?php endif; ?>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/public/kos/show.blade.php ENDPATH**/ ?>
+
+<?php $__env->startPush('scripts'); ?>
+<script>
+    // Image modal
+    function openImageModal(src) {
+        document.getElementById('modal-image').src = src;
+        document.getElementById('image-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeImageModal() {
+        document.getElementById('image-modal').classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+    document.getElementById('image-modal').addEventListener('click', function(e) {
+        if (e.target.id === 'image-modal') closeImageModal();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeImageModal();
+    });
+
+    function confirmDeleteReview() {
+        return confirm('Apakah Anda yakin ingin menghapus review ini? Tindakan ini tidak dapat dibatalkan.');
+    }
+
+    // Share functionality
+    function shareKos() {
+        const url = window.location.href;
+        if (navigator.share) {
+            navigator.share({
+                title: '<?php echo e($kos->nama_kos); ?>',
+                text: 'Lihat kos ini: <?php echo e($kos->nama_kos); ?> - <?php echo e($kos->alamat); ?>, <?php echo e($kos->kota); ?>',
+                url: url
+            }).catch(() => copyToClipboard(url));
+        } else {
+            copyToClipboard(url);
+        }
+    }
+    function copyToClipboard(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            alert('Link berhasil disalin!');
+        } catch (err) {
+            prompt('Salin link ini:', text);
+        }
+        document.body.removeChild(textarea);
+    }
+
+    // Map initialization (if coordinates exist)
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if($kos->latitude && $kos->longitude): ?>
+        const map = L.map('map').setView([<?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const houseIcon = L.divIcon({
+            html: `<div class="relative"><div class="absolute -inset-1 bg-sky-400/30 rounded-full animate-ping"></div><div class="relative bg-sky-600 rounded-full w-10 h-10 flex items-center justify-center shadow-lg border-2 border-white"><i class="fas fa-home text-white text-sm"></i></div></div>`,
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40]
+        });
+        const marker = L.marker([<?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>], { icon: houseIcon }).addTo(map);
+        marker.bindPopup(`<b><?php echo e($kos->nama_kos); ?></b><br><?php echo e($kos->alamat); ?>`);
+
+        document.getElementById('locate-btn').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Mencari...';
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+                    if (window.userMarker) map.removeLayer(window.userMarker);
+                    const userIcon = L.divIcon({
+                        html: `<div class="relative"><div class="absolute -inset-1 bg-blue-500/30 rounded-full animate-ping"></div><div class="relative bg-blue-600 rounded-full w-8 h-8 flex items-center justify-center shadow-lg border-2 border-white"><i class="fas fa-location-dot text-white text-xs"></i></div></div>`,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32]
+                    });
+                    window.userMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(map).bindPopup('Lokasi Anda').openPopup();
+                    const bounds = L.latLngBounds([[userLat, userLng], [<?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>]]);
+                    map.fitBounds(bounds, { padding: [50, 50] });
+                    document.getElementById('locate-btn').innerHTML = '<i class="fas fa-location-crosshairs mr-1"></i> Lokasi Saya';
+                }, function() {
+                    alert('Tidak dapat mengakses lokasi. Periksa izin.');
+                    document.getElementById('locate-btn').innerHTML = '<i class="fas fa-location-crosshairs mr-1"></i> Lokasi Saya';
+                });
+            } else {
+                alert('Geolokasi tidak didukung.');
+            }
+        });
+        <?php endif; ?>
+
+        // Contact modal
+        <?php if($kos->pemilik): ?>
+        const contactModal = new Modal('contactModal');
+        window.showContactModal = () => contactModal.show();
+        <?php endif; ?>
+
+        // Review action hover
+        document.querySelectorAll('.review-action-btn').forEach(btn => {
+            const button = btn.querySelector('button');
+            const menu = btn.querySelector('.absolute');
+            if (!button || !menu) return;
+            button.addEventListener('mouseenter', () => menu.classList.remove('hidden'));
+            btn.addEventListener('mouseleave', () => setTimeout(() => { if (!menu.matches(':hover')) menu.classList.add('hidden'); }, 100));
+            menu.addEventListener('mouseenter', () => menu.classList.remove('hidden'));
+            menu.addEventListener('mouseleave', () => menu.classList.add('hidden'));
+        });
+    });
+</script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', ['hideFooter' => true], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/public/kos/show.blade.php ENDPATH**/ ?>

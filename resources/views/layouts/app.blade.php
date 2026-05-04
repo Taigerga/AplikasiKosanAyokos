@@ -229,13 +229,14 @@
         @include('layouts.partials.dashboard-admin')
     @else
         <!-- Public Layout: Overlay Navbar -->
+         
         <header id="publicNavbar" class="transition-all duration-300">
             <div class="container mx-auto px-4">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-8">
-                        <a href="{{ route('public.home') }}" class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-white/15 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm border border-white/20 transition-all duration-300" id="brandIcon">
-                                <i class="fas fa-home text-white text-lg"></i>
+                        <a href="{{ route('public.home') }}" class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm">
+                            <div class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm" id="brandIcon">
+                                <i class="fas fa-home text-lg"></i>
                             </div>
                             <span class="text-xl font-bold brand-text">
                                 AyoKos
@@ -277,6 +278,7 @@
         </main>
 
         <!-- Footer (Only for Public Pages) -->
+        @if(!isset($hideFooter) || !$hideFooter) 
         <footer class="bg-white border-t border-slate-200">
             <div class="container mx-auto px-4 py-16">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -329,6 +331,7 @@
                 </div>
             </div>
         </footer>
+        @endif
     @endif
 
     <!-- Logout Confirmation Modal -->

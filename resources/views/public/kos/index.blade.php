@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['hideFooter' => true])
 
 @section('title', 'Cari Kos - AyoKos')
 
@@ -60,8 +60,10 @@
                                 <label class="block text-sm font-medium text-white mb-2">
                                     <i class="fas fa-users mr-2 text-sky-300"></i>Jenis Kos
                                 </label>
-                                <select name="jenis_kos"
-                                        class="w-full px-4 py-3 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:border-sky-400 appearance-none transition">
+                                <select
+                                    name="jenis_kos"
+                                    class="w-full px-4 py-3 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:border-sky-400 appearance-none transition"
+                                >
                                     <option value="">Semua Jenis</option>
                                     <option value="putra" {{ request('jenis_kos') == 'putra' ? 'selected' : '' }}>Putra</option>
                                     <option value="putri" {{ request('jenis_kos') == 'putri' ? 'selected' : '' }}>Putri</option>

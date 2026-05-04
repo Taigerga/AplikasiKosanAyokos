@@ -11,7 +11,7 @@
             <div class="flex items-center gap-3">
                 <div class="hidden md:flex items-center gap-3">
                     <div
-                        class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-500 rounded-lg flex items-center justify-center">
+                        class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
                         <i class="fas fa-user text-white"></i>
                     </div>
                     <div>
@@ -36,10 +36,10 @@
                         <?php if($user && $user->penghuni && $user->penghuni->foto_profil): ?>
                             <img src="<?php echo e(asset('storage/' . $user->penghuni->foto_profil)); ?>"
                                  alt="<?php echo e($user->penghuni->nama ?? $user->nama); ?>"
-                                 class="w-8 h-8 rounded-full object-cover border-2 border-emerald-400">
+                                 class="w-8 h-8 rounded-full object-cover border-2 border-blue-400">
                         <?php else: ?>
                             <div
-                                class="w-8 h-8 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full flex items-center justify-center">
+                                class="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center">
                                 <span
                                     class="text-white font-medium"><?php echo e(($user->penghuni->nama ?? $user->nama) ? substr($user->penghuni->nama ?? $user->nama, 0, 1) : '?'); ?></span>
                             </div>
@@ -62,7 +62,7 @@
                         <div class="py-2">
                             <a href="<?php echo e(route('penghuni.dashboard')); ?>"
                                 class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-tachometer-alt w-5 mr-3 text-emerald-400"></i>
+                                <i class="fas fa-tachometer-alt w-5 mr-3 text-blue-400"></i>
                                 <span>Dashboard</span>
                             </a>
                             <a href="<?php echo e(route('penghuni.kontrak.index')); ?>"
@@ -90,7 +90,6 @@
                                 <i class="fas fa-map-marked-alt w-5 mr-3 text-orange-400"></i>
                                 <span>Peta Kos</span>
                             </a>
-
                         </div>
 
                         <!-- Logout -->
@@ -119,7 +118,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div
-                        class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-green-500 rounded-lg flex items-center justify-center">
+                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
                         <i class="fas fa-user text-white text-sm"></i>
                     </div>
                     <span class="logo-text font-bold text-white">AyoKos</span>
@@ -133,42 +132,42 @@
             <ul class="space-y-1">
                 <li>
                     <a href="<?php echo e(route('penghuni.dashboard')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.dashboard') ? 'bg-emerald-900/30 text-emerald-300 border-l-4 border-emerald-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.dashboard') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
                         <i class="fas fa-tachometer-alt w-5"></i>
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('penghuni.cari-kos')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.cari-kos') ? 'bg-emerald-900/30 text-emerald-300 border-l-4 border-emerald-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.cari-kos') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
                         <i class="fas fa-search w-5"></i>
                         <span class="sidebar-text">Cari Kos</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('penghuni.kontrak.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.kontrak.*') ? 'bg-emerald-900/30 text-emerald-300 border-l-4 border-emerald-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.kontrak.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
                         <i class="fas fa-file-contract w-5"></i>
                         <span class="sidebar-text">Kontrak Saya</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('penghuni.pembayaran.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.pembayaran.*') ? 'bg-emerald-900/30 text-emerald-300 border-l-4 border-emerald-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.pembayaran.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
                         <i class="fas fa-credit-card w-5"></i>
                         <span class="sidebar-text">Pembayaran</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('penghuni.reviews.history')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.reviews.*') ? 'bg-emerald-900/30 text-emerald-300 border-l-4 border-emerald-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.reviews.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
                         <i class="fas fa-star w-5"></i>
                         <span class="sidebar-text">Review Saya</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('penghuni.analisis.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.analisis.*') ? 'bg-emerald-900/30 text-emerald-300 border-l-4 border-emerald-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('penghuni.analisis.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
                         <i class="fas fa-chart-bar w-5"></i>
                         <span class="sidebar-text">Analisis Saya</span>
                     </a>
@@ -210,9 +209,9 @@
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300">
-        <div class="p-4 md:p-6">
+    <main id="mainContent" class="flex-1 transition-all duration-300 bg-slate-900">
+
             <?php echo $__env->yieldContent('content'); ?>
-        </div>
+
     </main>
 </div><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/layouts/partials/dashboard-penghuni.blade.php ENDPATH**/ ?>

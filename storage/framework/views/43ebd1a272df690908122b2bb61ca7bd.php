@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-blue-800 to-indigo-900 text-white py-12 md:py-16 relative overflow-hidden">
+    <section class="relative bg-gradient-to-br from-slate-800 to-slate-900 pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-10">
             <div
@@ -17,13 +17,13 @@
             <div class="max-w-4xl mx-auto">
                 <!-- Animated Map Icon -->
                 <div
-                    class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
-                    <i class="fas fa-map-marked-alt text-white text-2xl"></i>
+                    class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
+                    <i class="fas fa-map-marked-alt text-slate text-2xl"></i>
                 </div>
 
                 <h1
                     class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                    🗺️ Peta <span class="text-blue-300">Kos</span> Tersedia
+                    Peta <span class="text-blue-300">Kos</span> Tersedia
                 </h1>
 
                 <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
@@ -1534,4 +1534,4 @@
         });
     </script>
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/public/kos/peta.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', ['hideFooter' => true], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/public/kos/peta.blade.php ENDPATH**/ ?>

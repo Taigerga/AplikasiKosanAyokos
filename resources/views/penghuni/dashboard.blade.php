@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app') 
 
 @section('title', 'Dashboard Penghuni - AyoKos')
 
@@ -10,12 +10,12 @@
                 <div>
                     <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">
                         <i class="fas fa-gauge mr-3"></i>
-                        Halo, {{ $user->nama }}! 🎉</h1>
+                        Halo, {{ $user->penghuni->nama }}! 🎉</h1>
                     <p class="text-dark-muted">Kelola hunian dan aktivitas sewa Anda dengan mudah</p>
                 </div>
                 <div class="mt-4 md:mt-0">
                     <span
-                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-900/30 text-green-300 border border-green-700/30">
+                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-slate-800 text-white border border-slate-700/30">
                         <i class="fas fa-user mr-2"></i>
                         Penghuni Kos
                     </span>

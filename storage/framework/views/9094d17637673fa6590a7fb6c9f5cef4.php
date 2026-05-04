@@ -59,8 +59,10 @@
                                 <label class="block text-sm font-medium text-white mb-2">
                                     <i class="fas fa-users mr-2 text-sky-300"></i>Jenis Kos
                                 </label>
-                                <select name="jenis_kos"
-                                        class="w-full px-4 py-3 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:border-sky-400 appearance-none transition">
+                                <select
+                                    name="jenis_kos"
+                                    class="w-full px-4 py-3 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:border-sky-400 appearance-none transition"
+                                >
                                     <option value="">Semua Jenis</option>
                                     <option value="putra" <?php echo e(request('jenis_kos') == 'putra' ? 'selected' : ''); ?>>Putra</option>
                                     <option value="putri" <?php echo e(request('jenis_kos') == 'putri' ? 'selected' : ''); ?>>Putri</option>
@@ -496,4 +498,4 @@
     /* Tambahan untuk animasi AOS jika diperlukan */
 </style>
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/public/kos/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', ['hideFooter' => true], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/public/kos/index.blade.php ENDPATH**/ ?>
