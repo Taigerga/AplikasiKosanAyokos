@@ -22,7 +22,7 @@ class LoginController extends Controller
             'role' => 'required|in:penghuni,pemilik,admin'
         ]);
 
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('username', 'password', 'role');
         $role = $request->role;
         $remember = $request->has('remember');
 

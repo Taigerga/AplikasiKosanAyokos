@@ -207,7 +207,7 @@
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300">
+    <main id="mainContent" class="flex-1 transition-all duration-300 bg-slate-900">
 
             @yield('content')
 

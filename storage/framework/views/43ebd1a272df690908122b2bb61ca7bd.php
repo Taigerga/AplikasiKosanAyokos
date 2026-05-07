@@ -32,7 +32,7 @@
 
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
-                    <div class="bg-blue-900/30 backdrop-blur-sm rounded-xl p-4 text-center border border-blue-700/30">
+                    <div class="bg-green-900/30 backdrop-blur-sm rounded-xl p-4 text-center border border-green-700/30">
                         <div class="text-xl md:text-2xl font-bold text-white mb-1"><?php echo e($kos->count()); ?></div>
                         <div class="text-xs text-blue-200">Total Kos</div>
                     </div>
@@ -851,7 +851,7 @@
                                         <div class="text-emerald-400 text-lg mb-1 text-center">
                                             <i class="fas fa-map-marker-alt"></i>
                                         </div>
-                                        <div class="font-medium text-white">📍 Lokasi Anda</div>
+                                        <div class="font-medium text-black">📍 Lokasi Anda</div>
                                     </div>
                                 `);
                         } else {
@@ -1331,7 +1331,7 @@
                                     <div class="text-emerald-400 text-lg mb-1">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
-                                    <div class="font-medium text-white">📍 Lokasi Anda Sekarang</div>
+                                    <div class="font-medium text-black">📍 Lokasi Anda Sekarang</div>
                                     <div class="text-xs text-slate-400 mt-1">${lat.toFixed(6)}, ${lng.toFixed(6)}</div>
                                 </div>
                             `).openPopup();

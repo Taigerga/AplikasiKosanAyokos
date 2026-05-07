@@ -208,9 +208,9 @@
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300">
-        <div class="p-4 md:p-6">
+    <main id="mainContent" class="flex-1 transition-all duration-300 bg-slate-900">
+
             <?php echo $__env->yieldContent('content'); ?>
-        </div>
+
     </main>
 </div><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/layouts/partials/dashboard-pemilik.blade.php ENDPATH**/ ?>
