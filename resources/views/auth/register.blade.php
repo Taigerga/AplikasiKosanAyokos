@@ -349,7 +349,7 @@
 @endif
 
 <!-- Register Section -->
-<section class="register-bg">
+<section class="relative bg-gradient-to-br from-slate-800 to-slate-900 pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden">
     <div class="container mx-auto px-4 relative z-10">
         <div class="flex justify-center">
             <div class="register-card">

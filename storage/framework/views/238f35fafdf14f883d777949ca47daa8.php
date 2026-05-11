@@ -3,19 +3,19 @@
 <?php $__env->startSection('content'); ?>
     <div class="container mx-auto px-4 py-6">
         <div class="max-w-4xl mx-auto">
-            <div class="bg-dark-card/50 border border-dark-border rounded-xl p-4 mb-6">
+            <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4 mb-6">
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
-                            <a href="<?php echo e(route('pemilik.dashboard')); ?>" class="inline-flex items-center text-sm font-medium text-dark-muted hover:text-white transition-colors">
+                            <a href="<?php echo e(route('pemilik.dashboard')); ?>" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                                 <i class="fas fa-home mr-2"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
-                                <i class="fas fa-chevron-right text-dark-muted text-xs mx-2"></i>
-                                <a href="<?php echo e(route('pemilik.kos.index')); ?>" class="inline-flex items-center text-sm font-medium text-dark-muted hover:text-white transition-colors">
+                                <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
+                                <a href="<?php echo e(route('pemilik.kos.index')); ?>" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                                     <i class="fas fa-file-contract mr-2"></i>
                                     Kelola Kos
                                 </a>
@@ -23,7 +23,7 @@
                         </li>
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
-                                <i class="fas fa-chevron-right text-dark-muted text-xs mx-2"></i>
+                                <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
                                 <a href="<?php echo e(route('pemilik.kos.create')); ?>" class="inline-flex items-center text-sm font-medium text-white">
                                     <i class="fas fa-plus mr-2"></i>
                                     Tambah Kos
@@ -35,20 +35,20 @@
             </div>
             
             <!-- Header -->
-            <div class="bg-gradient-to-r from-primary-900/30 to-indigo-900/30 border border-primary-800/30 rounded-2xl p-6 mb-6">
+            <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 mb-6">
                 <div class="flex items-center justify-between">
                     <div>
                         <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Tambah Kos Baru</h1>
-                        <p class="text-dark-muted">Lengkapi formulir untuk menambahkan properti kos baru ke sistem</p>
+                        <p class="text-slate-100">Lengkapi formulir untuk menambahkan properti kos baru ke sistem</p>
                     </div>
-                    <div class="w-12 h-12 bg-gradient-to-br from-primary-500/20 to-indigo-500/20 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-plus text-primary-400 text-xl"></i>
+                    <div class="w-12 h-12 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-plus text-sky-400 text-xl"></i>
                     </div>
                 </div>
             </div>
 
             <?php if($errors->any()): ?>
-                <div class="bg-red-900/30 border border-red-800/50 text-red-300 rounded-xl p-4 mb-6">
+                <div class="bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-red-300 rounded-xl p-4 mb-6">
                     <div class="flex items-center mb-2">
                         <i class="fas fa-exclamation-circle mr-2"></i>
                         <strong class="font-semibold">Terjadi kesalahan:</strong>
@@ -62,16 +62,16 @@
             <?php endif; ?>
 
             <!-- Form -->
-            <div class="bg-dark-card border border-dark-border rounded-2xl p-6">
+            <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
                 <form method="POST" action="<?php echo e(route('pemilik.kos.store')); ?>" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
 
                     <div class="space-y-8">
                         <!-- Informasi Dasar -->
-                        <div class="border-b border-dark-border pb-8">
+                        <div class="border-b border-white/10 pb-8">
                             <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 bg-primary-900/30 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="fas fa-info-circle text-primary-400"></i>
+                                <div class="w-10 h-10 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-info-circle text-sky-400"></i>
                                 </div>
                                 <h2 class="text-xl font-semibold text-white">🏠 Informasi Dasar</h2>
                             </div>
@@ -83,9 +83,9 @@
                                         Nama Kos <span class="text-red-400">*</span>
                                     </label>
                                     <div class="relative">
-                                        <i class="fas fa-home absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-home absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="nama_kos" value="<?php echo e(old('nama_kos')); ?>"
-                                            class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                                            class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             placeholder="Contoh: Kos Bahagia Sentosa" required maxlength="255">
                                     </div>
                                 </div>
@@ -96,9 +96,9 @@
                                         Alamat Lengkap <span class="text-red-400">*</span>
                                     </label>
                                     <div class="relative">
-                                        <i class="fas fa-map-marker-alt absolute left-3 top-3 text-dark-muted"></i>
+                                        <i class="fas fa-map-marker-alt absolute left-3 top-3 text-white/50"></i>
                                         <textarea name="alamat" rows="3"
-                                            class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition resize-none"
+                                            class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition resize-none"
                                             placeholder="Jl. Merdeka No. 123, Kelurahan..."
                                             required><?php echo e(old('alamat')); ?></textarea>
                                     </div>
@@ -110,9 +110,9 @@
                                         Kecamatan <span class="text-red-400">*</span>
                                     </label>
                                     <div class="relative">
-                                        <i class="fas fa-map-pin absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-map-pin absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="kecamatan" value="<?php echo e(old('kecamatan')); ?>"
-                                            class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                                            class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             required maxlength="100">
                                     </div>
                                 </div>
@@ -123,9 +123,9 @@
                                         Kota <span class="text-red-400">*</span>
                                     </label>
                                     <div class="relative">
-                                        <i class="fas fa-city absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-city absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="kota" value="<?php echo e(old('kota')); ?>"
-                                            class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                                            class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             required maxlength="100">
                                     </div>
                                 </div>
@@ -136,9 +136,9 @@
                                         Provinsi <span class="text-red-400">*</span>
                                     </label>
                                     <div class="relative">
-                                        <i class="fas fa-globe-asia absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-globe-asia absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="provinsi" value="<?php echo e(old('provinsi')); ?>"
-                                            class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                                            class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             required maxlength="100">
                                     </div>
                                 </div>
@@ -149,9 +149,9 @@
                                         Kode Pos
                                     </label>
                                     <div class="relative">
-                                        <i class="fas fa-mail-bulk absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-mail-bulk absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="kode_pos" value="<?php echo e(old('kode_pos')); ?>"
-                                            class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                                            class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             maxlength="10">
                                     </div>
                                 </div>
@@ -159,9 +159,9 @@
                         </div>
 
                         <!-- Informasi Tambahan -->
-                        <div class="border-b border-dark-border pb-8">
+                        <div class="border-b border-white/10 pb-8">
                             <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 bg-blue-900/30 rounded-lg flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 bg-blue-500/20 backdrop-blur-sm border border-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <i class="fas fa-file-alt text-blue-400"></i>
                                 </div>
                                 <h2 class="text-xl font-semibold text-white">📋 Informasi Tambahan</h2>
@@ -174,16 +174,16 @@
                                         Jenis Kos <span class="text-red-400">*</span>
                                     </label>
                                     <div class="relative">
-                                        <i class="fas fa-users absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-users absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <select name="jenis_kos"
-                                            class="w-full pl-10 pr-10 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 appearance-none transition"
+                                            class="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition"
                                             required>
                                             <option value="">Pilih Jenis Kos</option>
                                             <option value="putra" <?php echo e(old('jenis_kos') == 'putra' ? 'selected' : ''); ?>>Putra</option>
                                             <option value="putri" <?php echo e(old('jenis_kos') == 'putri' ? 'selected' : ''); ?>>Putri</option>
                                             <option value="campuran" <?php echo e(old('jenis_kos') == 'campuran' ? 'selected' : ''); ?>>Campuran</option>
                                         </select>
-                                        <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-dark-muted pointer-events-none"></i>
+                                        <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                                     </div>
                                 </div>
 
@@ -193,9 +193,9 @@
                                         Tipe Sewa <span class="text-red-400">*</span>
                                     </label>
                                     <div class="relative">
-                                        <i class="fas fa-calendar-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-calendar-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <select name="tipe_sewa"
-                                            class="w-full pl-10 pr-10 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 appearance-none transition"
+                                            class="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition"
                                             required>
                                             <option value="">Pilih Tipe Sewa</option>
                                             <option value="harian" <?php echo e(old('tipe_sewa') == 'harian' ? 'selected' : ''); ?>>Harian</option>
@@ -203,7 +203,7 @@
                                             <option value="bulanan" <?php echo e(old('tipe_sewa') == 'bulanan' ? 'selected' : ''); ?>>Bulanan</option>
                                             <option value="tahunan" <?php echo e(old('tipe_sewa') == 'tahunan' ? 'selected' : ''); ?>>Tahunan</option>
                                         </select>
-                                        <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-dark-muted pointer-events-none"></i>
+                                        <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                                     </div>
                                 </div>
                             </div>
@@ -214,9 +214,9 @@
                                     Deskripsi Kos
                                 </label>
                                 <div class="relative">
-                                    <i class="fas fa-align-left absolute left-3 top-3 text-dark-muted"></i>
+                                    <i class="fas fa-align-left absolute left-3 top-3 text-white/50"></i>
                                     <textarea name="deskripsi" rows="4"
-                                        class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition resize-none"
+                                        class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition resize-none"
                                         placeholder="Deskripsikan keunggulan dan fasilitas kos..."><?php echo e(old('deskripsi')); ?></textarea>
                                 </div>
                             </div>
@@ -227,19 +227,19 @@
                                     Peraturan Kos
                                 </label>
                                 <div class="relative">
-                                    <i class="fas fa-clipboard-list absolute left-3 top-3 text-dark-muted"></i>
+                                    <i class="fas fa-clipboard-list absolute left-3 top-3 text-white/50"></i>
                                     <textarea name="peraturan" rows="4"
-                                        class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition resize-none"
+                                        class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition resize-none"
                                         placeholder="Tuliskan peraturan yang berlaku di kos..."><?php echo e(old('peraturan')); ?></textarea>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Map Section -->
-                        <div class="border-b border-dark-border pb-8">
+                        <div class="border-b border-white/10 pb-8">
                             <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 bg-green-900/30 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="fas fa-map-marked-alt text-green-400"></i>
+                                <div class="w-10 h-10 bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-map-marked-alt text-emerald-400"></i>
                                 </div>
                                 <h2 class="text-xl font-semibold text-white">🗺️ Pilih Lokasi di Peta</h2>
                             </div>
@@ -249,20 +249,20 @@
                                 <div>
                                     <label class="block text-sm font-medium text-white mb-2">Latitude</label>
                                     <div class="relative">
-                                        <i class="fas fa-location-arrow absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-location-arrow absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="latitude" id="latitude"
                                             value="<?php echo e(old('latitude')); ?>"
-                                            class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/30 transition"
+                                            class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition"
                                             placeholder="-6.208763" required>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-white mb-2">Longitude</label>
                                     <div class="relative">
-                                        <i class="fas fa-location-arrow absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                        <i class="fas fa-location-arrow absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="longitude" id="longitude"
                                             value="<?php echo e(old('longitude')); ?>"
-                                            class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/30 transition"
+                                            class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition"
                                             placeholder="106.845599" required>
                                     </div>
                                 </div>
@@ -274,15 +274,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div class="md:col-span-2">
                                         <div class="relative">
-                                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                             <input type="text" id="address-search" 
-                                                class="w-full pl-10 pr-3 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/30 transition"
+                                                class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition"
                                                 placeholder="Masukkan alamat lengkap (contoh: Jl. Sudirman No. 123, Jakarta)">
                                         </div>
                                     </div>
                                     <div class="flex items-end">
                                         <button type="button" id="search-btn" 
-                                            class="w-full px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold flex items-center justify-center">
+                                            class="w-full px-4 py-3 bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 hover:bg-emerald-500/10 text-white rounded-xl transition-all duration-300 font-semibold flex items-center justify-center">
                                             <i class="fas fa-search mr-2"></i>
                                             Cari Alamat
                                         </button>
@@ -294,32 +294,32 @@
                             <div class="mb-6">
                                 <div class="flex flex-col sm:flex-row gap-4">
                                     <button type="button" id="current-location-btn" 
-                                        class="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold flex items-center justify-center">
+                                        class="flex-1 px-6 py-3 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-xl transition-all duration-300 font-semibold flex items-center justify-center">
                                         <i class="fas fa-location-arrow mr-2"></i>
                                         Gunakan Lokasi Saat Ini
                                     </button>
                                     <button type="button" id="detect-nearby-btn" 
-                                        class="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold flex items-center justify-center">
+                                        class="flex-1 px-6 py-3 bg-purple-500/20 backdrop-blur-sm border border-purple-500/20 hover:bg-purple-500/10 text-white rounded-xl transition-all duration-300 font-semibold flex items-center justify-center">
                                         <i class="fas fa-map-marker-alt mr-2"></i>
                                         Cari Tempat Terdekat
                                     </button>
                                 </div>
-                                <p class="text-sm text-dark-muted mt-2 flex items-center">
+                                <p class="text-sm text-slate-100 mt-2 flex items-center">
                                     <i class="fas fa-info-circle mr-2"></i>
                                     Izinkan akses lokasi di browser untuk fitur "Sekitar Saya"
                                 </p>
                             </div>
 
                             <!-- Map Container -->
-                            <div id="map" class="h-96 w-full rounded-xl border-2 border-dark-border mb-6 bg-dark-bg"></div>
+                            <div id="map" class="h-96 w-full rounded-xl border-2 border-white/20 mb-6 bg-white/5"></div>
 
                             <!-- Instructions -->
-                            <div class="bg-green-900/20 border border-green-800/30 rounded-xl p-4">
+                            <div class="bg-emerald-500/10 backdrop-blur-sm border border-emerald-500/20 rounded-xl p-4">
                                 <div class="flex items-start">
-                                    <i class="fas fa-info-circle text-green-400 mt-1 mr-3"></i>
+                                    <i class="fas fa-info-circle text-emerald-400 mt-1 mr-3"></i>
                                     <div>
-                                        <p class="text-sm text-green-300 font-medium mb-1">Petunjuk Penggunaan:</p>
-                                        <ol class="text-sm text-green-200/80 list-decimal list-inside space-y-1">
+                                        <p class="text-sm text-emerald-300 font-medium mb-1">Petunjuk Penggunaan:</p>
+                                        <ol class="text-sm text-emerald-200/80 list-decimal list-inside space-y-1">
                                             <li><strong>Cari alamat</strong> atau <strong>klik tombol lokasi</strong> untuk mendapatkan posisi</li>
                                             <li><strong>Klik pada peta</strong> untuk menandai lokasi kos secara manual</li>
                                             <li><strong>Koordinat dan alamat</strong> akan otomatis terisi</li>
@@ -331,9 +331,9 @@
                         </div>
 
                         <!-- Fasilitas Umum -->
-                        <div class="border-b border-dark-border pb-8">
+                        <div class="border-b border-white/10 pb-8">
                             <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 bg-purple-900/30 rounded-lg flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 bg-purple-500/20 backdrop-blur-sm border border-purple-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <i class="fas fa-concierge-bell text-purple-400"></i>
                                 </div>
                                 <h2 class="text-xl font-semibold text-white">🏗️ Fasilitas Umum</h2>
@@ -341,15 +341,15 @@
 
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 <?php $__currentLoopData = $fasilitas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fasilitasItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <label class="flex items-center space-x-3 p-3 bg-dark-bg/50 border border-dark-border rounded-xl hover:border-primary-500/50 transition cursor-pointer">
+                                    <label class="flex items-center space-x-3 p-3 bg-white/5 border border-white/20 rounded-xl hover:border-sky-500/50 transition cursor-pointer">
                                         <div class="relative">
                                             <input type="checkbox" name="fasilitas[]" value="<?php echo e($fasilitasItem->id_fasilitas); ?>"
-                                                class="rounded border-dark-border bg-dark-bg text-primary-600 focus:ring-primary-500/50 focus:ring-offset-dark-bg transition"
+                                                class="rounded border-white/20 bg-white/5 text-sky-600 focus:ring-sky-500/50 focus:ring-offset-0 transition"
                                                 <?php echo e(in_array($fasilitasItem->id_fasilitas, old('fasilitas', [])) ? 'checked' : ''); ?>>
                                         </div>
                                         <div class="flex-1">
                                             <span class="text-sm font-medium text-white"><?php echo e($fasilitasItem->nama_fasilitas); ?></span>
-                                            <span class="text-xs text-dark-muted block"><?php echo e($fasilitasItem->kategori); ?></span>
+                                            <span class="text-xs text-slate-100 block"><?php echo e($fasilitasItem->kategori); ?></span>
                                         </div>
                                     </label>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -359,7 +359,7 @@
                         <!-- Foto Utama -->
                         <div>
                             <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 bg-yellow-900/30 rounded-lg flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 bg-yellow-500/20 backdrop-blur-sm border border-yellow-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <i class="fas fa-camera text-yellow-400"></i>
                                 </div>
                                 <h2 class="text-xl font-semibold text-white">📷 Foto Utama</h2>
@@ -370,20 +370,20 @@
                                 <div class="relative group">
                                     <div class="flex items-center justify-center w-full">
                                         <label for="foto-utama"
-                                            class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-dark-border rounded-xl cursor-pointer bg-dark-bg/50 hover:bg-dark-bg hover:border-primary-500/50 transition">
+                                            class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-white/20 rounded-xl cursor-pointer bg-white/5 hover:bg-white/10 hover:border-sky-500/50 transition">
                                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <i class="fas fa-cloud-upload-alt text-3xl text-dark-muted mb-2 group-hover:text-primary-400 transition"></i>
-                                                <p class="text-sm text-dark-muted mb-1">
+                                                <i class="fas fa-cloud-upload-alt text-3xl text-white/50 mb-2 group-hover:text-sky-400 transition"></i>
+                                                <p class="text-sm text-slate-100 mb-1">
                                                     <span class="font-semibold">Klik untuk upload</span> atau drag & drop
                                                 </p>
-                                                <p class="text-xs text-dark-muted/70">PNG, JPG, JPEG (Max. 2MB)</p>
+                                                <p class="text-xs text-white/50">PNG, JPG, JPEG (Max. 2MB)</p>
                                             </div>
                                             <input id="foto-utama" name="foto_utama" type="file" class="hidden" accept="image/*">
                                         </label>
                                     </div>
                                 </div>
                                 <div id="new-photo-preview" class="mt-2"></div>
-                                <p class="text-sm text-dark-muted mt-3 flex items-center">
+                                <p class="text-sm text-slate-100 mt-3 flex items-center">
                                     <i class="fas fa-info-circle mr-2"></i>
                                     Gambar utama yang akan ditampilkan di halaman pencarian
                                 </p>
@@ -394,12 +394,12 @@
                     <!-- Action Buttons -->
                     <div class="mt-8 flex flex-col sm:flex-row gap-4">
                         <a href="<?php echo e(route('pemilik.kos.index')); ?>"
-                            class="flex-1 sm:flex-none px-6 py-3 bg-dark-border border border-dark-border text-white rounded-xl hover:bg-dark-border/80 transition flex items-center justify-center">
+                            class="flex-1 sm:flex-none px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition flex items-center justify-center">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Kembali
                         </a>
                         <button type="submit"
-                            class="flex-1 sm:flex-none px-6 py-3 bg-gradient-to-r from-primary-600 to-indigo-600 text-white rounded-xl hover:from-primary-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold flex items-center justify-center">
+                            class="flex-1 sm:flex-none px-6 py-3 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-xl transition-all duration-300 font-semibold flex items-center justify-center">
                             <i class="fas fa-save mr-2"></i>
                             Simpan Kos
                         </button>
@@ -734,10 +734,10 @@
             return L.divIcon({
                 html: `
                     <div class="relative">
-                        <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
-                            <i class="fas fa-home text-white text-sm"></i>
+                        <div class="w-10 h-10 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-home text-sky-400 text-sm"></i>
                         </div>
-                        <div class="w-3 h-3 bg-primary-500 rounded-full absolute -bottom-1 left-1/2 transform -translate-x-1/2 rotate-45"></div>
+                        <div class="w-3 h-3 bg-sky-500 rounded-full absolute -bottom-1 left-1/2 transform -translate-x-1/2 rotate-45"></div>
                     </div>
                 `,
                 className: 'custom-marker',
@@ -765,7 +765,7 @@
             // Set popup content
             marker.bindPopup(`
                 <div class="text-sm p-2" style="max-width: 250px;">
-                    <div class="font-semibold text-dark-bg mb-1">📍 ${title}</div>
+                    <div class="font-semibold text-slate-800 mb-1">📍 ${title}</div>
                     <div class="text-gray-600 text-xs">Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}</div>
                 </div>
             `).openPopup();
@@ -1097,17 +1097,17 @@
             modal.id = 'nearby-places-modal';
             modal.className = 'fixed inset-0 bg-black/70 z-[10000] flex items-center justify-center p-4';
             modal.innerHTML = `
-                <div class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
+                <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden shadow-2xl">
                     <!-- Header -->
-                    <div class="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border-b border-dark-border p-6">
+                    <div class="bg-white border-b border-slate-200 p-6">
                         <div class="flex items-center justify-between">
                             <div>
-                                <h3 class="text-xl font-bold text-white mb-1">📍 Tempat Terdekat</h3>
-                                <p class="text-sm text-dark-muted">Pilih lokasi terdekat untuk kos Anda</p>
+                                <h3 class="text-xl font-bold text-slate-800 mb-1">📍 Tempat Terdekat</h3>
+                                <p class="text-sm text-slate-500">Pilih lokasi terdekat untuk kos Anda</p>
                             </div>
                             <button type="button" id="close-modal" 
-                                class="w-10 h-10 bg-dark-border rounded-lg flex items-center justify-center hover:bg-dark-border/80 transition">
-                                <i class="fas fa-times text-white"></i>
+                                class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center hover:bg-slate-200 transition">
+                                <i class="fas fa-times text-slate-500"></i>
                             </button>
                         </div>
                     </div>
@@ -1116,28 +1116,28 @@
                     <div class="p-6 overflow-y-auto max-h-[60vh]">
                         ${places.length === 0 ? `
                             <div class="text-center py-8">
-                                <i class="fas fa-map-marker-slash text-4xl text-dark-muted mb-4"></i>
-                                <p class="text-white font-medium mb-2">Tidak ada tempat terdeteksi</p>
-                                <p class="text-dark-muted text-sm">Coba cari dengan radius yang lebih luas atau gunakan pencarian manual</p>
+                                <i class="fas fa-map-marker-slash text-4xl text-slate-300 mb-4"></i>
+                                <p class="text-slate-800 font-medium mb-2">Tidak ada tempat terdeteksi</p>
+                                <p class="text-slate-500 text-sm">Coba cari dengan radius yang lebih luas atau gunakan pencarian manual</p>
                             </div>
                         ` : `
                             <div class="space-y-3">
                                 ${places.map((place, index) => `
-                                    <div class="place-item bg-dark-bg/50 border border-dark-border rounded-xl p-4 hover:border-primary-500/50 transition cursor-pointer"
+                                    <div class="place-item bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-sky-500/50 transition cursor-pointer"
                                          data-lat="${place.lat}" 
                                          data-lng="${place.lng}"
                                          data-name="${place.name}">
                                         <div class="flex items-start">
-                                            <div class="w-10 h-10 bg-purple-900/30 rounded-lg flex items-center justify-center mr-3 mt-1">
-                                                <i class="fas fa-map-pin text-purple-400"></i>
+                                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 mt-1">
+                                                <i class="fas fa-map-pin text-purple-500"></i>
                                             </div>
                                             <div class="flex-1">
                                                 <div class="flex items-center justify-between mb-1">
-                                                    <h4 class="font-semibold text-white">${place.name}</h4>
-                                                    <span class="text-xs bg-primary-900/30 text-primary-300 px-2 py-1 rounded">${place.type}</span>
+                                                    <h4 class="font-semibold text-slate-800">${place.name}</h4>
+                                                    <span class="text-xs bg-sky-100 text-sky-600 px-2 py-1 rounded">${place.type}</span>
                                                 </div>
-                                                <p class="text-sm text-dark-muted mb-2">${getDistance(userLat, userLng, place.lat, place.lng)} meter dari Anda</p>
-                                                <button type="button" class="select-place-btn text-sm bg-primary-900/20 text-primary-300 hover:bg-primary-900/40 px-3 py-1 rounded-lg transition">
+                                                <p class="text-sm text-slate-500 mb-2">${getDistance(userLat, userLng, place.lat, place.lng)} meter dari Anda</p>
+                                                <button type="button" class="select-place-btn text-sm bg-sky-100 text-sky-600 hover:bg-sky-200 px-3 py-1 rounded-lg transition">
                                                     Pilih Lokasi Ini
                                                 </button>
                                             </div>
@@ -1149,15 +1149,15 @@
                     </div>
                     
                     <!-- Footer -->
-                    <div class="border-t border-dark-border p-4 bg-dark-bg/50">
+                    <div class="border-t border-slate-200 p-4 bg-slate-50">
                         <div class="flex justify-between">
                             <button type="button" id="use-my-exact-location" 
-                                class="px-4 py-2 bg-blue-900/30 text-blue-300 rounded-lg hover:bg-blue-900/50 transition flex items-center">
+                                class="px-4 py-2 bg-sky-100 text-sky-600 rounded-lg hover:bg-sky-200 transition flex items-center">
                                 <i class="fas fa-crosshairs mr-2"></i>
                                 Gunakan Posisi Tepat Saya
                             </button>
                             <button type="button" id="cancel-modal" 
-                                class="px-4 py-2 bg-dark-border text-white rounded-lg hover:bg-dark-border/80 transition">
+                                class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">
                                 Tutup
                             </button>
                         </div>
@@ -1324,10 +1324,10 @@
             
             // Notification config
             const config = {
-                info: { bg: 'bg-blue-900/90', border: 'border-blue-700', icon: 'fa-info-circle' },
-                success: { bg: 'bg-green-900/90', border: 'border-green-700', icon: 'fa-check-circle' },
-                error: { bg: 'bg-red-900/90', border: 'border-red-700', icon: 'fa-exclamation-circle' },
-                warning: { bg: 'bg-yellow-900/90', border: 'border-yellow-700', icon: 'fa-exclamation-triangle' }
+                info: { bg: 'bg-blue-500/20', border: 'border-blue-500/20', icon: 'fa-info-circle' },
+                success: { bg: 'bg-green-500/20', border: 'border-green-500/20', icon: 'fa-check-circle' },
+                error: { bg: 'bg-red-500/20', border: 'border-red-500/20', icon: 'fa-exclamation-circle' },
+                warning: { bg: 'bg-yellow-500/20', border: 'border-yellow-500/20', icon: 'fa-exclamation-triangle' }
             };
             
             const { bg, border, icon } = config[type] || config.info;
@@ -1387,13 +1387,13 @@
                     // Create preview
                     const preview = document.createElement('img');
                     preview.src = e.target.result;
-                    preview.className = 'w-full h-48 object-cover rounded-xl border border-dark-border';
+                    preview.className = 'w-full h-48 object-cover rounded-xl border border-white/20';
                     preview.alt = 'Preview foto baru';
                     
                     // Add remove button
                     const removeBtn = document.createElement('button');
                     removeBtn.type = 'button';
-                    removeBtn.className = 'mt-2 px-4 py-2 bg-red-900/50 text-red-300 rounded-lg hover:bg-red-800/50 transition text-sm w-full';
+                    removeBtn.className = 'mt-2 px-4 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/10 transition text-sm w-full';
                     removeBtn.innerHTML = '<i class="fas fa-trash mr-2"></i>Hapus Foto Baru';
                     removeBtn.onclick = function() {
                         fotoInput.value = '';

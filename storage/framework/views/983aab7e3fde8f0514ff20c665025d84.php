@@ -1,20 +1,20 @@
 <?php $__env->startSection('title', 'Analisis Data - AyoKos'); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="space-y-6">
+<div class="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 space-y-6">
     <!-- Breadcrumb -->
-    <div class="bg-dark-card/50 border border-dark-border rounded-xl p-4 mb-6">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="<?php echo e(route('pemilik.dashboard')); ?>" class="inline-flex items-center text-sm font-medium text-dark-muted hover:text-white transition-colors">
+                    <a href="<?php echo e(route('pemilik.dashboard')); ?>" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                         <i class="fas fa-home mr-2"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="inline-flex items-center">
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-dark-muted text-xs mx-2"></i>
+                        <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
                         <a href="<?php echo e(route('pemilik.analisis.index')); ?>" class="inline-flex items-center text-sm font-medium text-white">
                             <i class="fas fa-chart-bar mr-2"></i>
                             Analisis Data
@@ -25,7 +25,7 @@
         </nav>
     </div>  
     <!-- Header -->
-    <div class="bg-gradient-to-r from-primary-900/30 to-indigo-900/30 border border-primary-800/30 rounded-2xl p-6 mb-6">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between">
             <div>
                 <div class="flex items-center space-x-3 mb-3">
@@ -33,18 +33,18 @@
                         <h1 class="text-2xl md:text-3xl font-bold text-white">
                         <i class="fas fa-chart-bar text-white mr-3"></i>    
                         Analisis Data Kosan</h1>
-                        <p class="text-dark-muted">Analisis statistik dan visualisasi data properti Anda</p>
+                        <p class="text-slate-100">Analisis statistik dan visualisasi data properti Anda</p>
                     </div>
                 </div>
             </div>
             <div class="mt-4 md:mt-0">
                 <a href="<?php echo e(route('pemilik.dashboard')); ?>" 
-                   class="inline-flex items-center px-4 py-2.5 bg-dark-border hover:bg-dark-border/80 text-white rounded-xl transition">
+                   class="inline-flex items-center px-4 py-2.5 bg-white/5 backdrop-blur-sm border border-white/20 hover:bg-white/10 text-white rounded-xl transition">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Kembali ke Dashboard
                 </a>
                 <button id="exportPdf" 
-                    class="inline-flex items-center px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl transition">
+                    class="inline-flex items-center px-4 py-2.5 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-xl transition">
                     <i class="fas fa-file-pdf mr-2"></i>
                     Export PDF
                 </button>
@@ -55,13 +55,13 @@
     <!-- Stats Overview -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <!-- Total Pendapatan -->
-        <div class="bg-gradient-to-br from-primary-600/90 to-primary-700/90 border border-primary-500/30 rounded-2xl p-5 shadow-lg">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
             <div class="flex items-center">
-                <div class="p-3 rounded-xl bg-white/10 backdrop-blur-sm mr-4">
+                <div class="p-3 rounded-xl bg-white/5 backdrop-blur-sm mr-4">
                     <i class="fas fa-wallet text-white text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-primary-100 font-medium mb-1">Total Pendapatan Tahun Ini</p>
+                    <p class="text-sm text-slate-100 font-medium mb-1">Total Pendapatan Tahun Ini</p>
                      <p class="text-2xl font-bold text-white" data-total-pendapatan>
                          Rp <?php echo e(number_format($pendapatanPerKosFull->sum('total_pendapatan'), 0, ',', '.')); ?>
 
@@ -71,13 +71,13 @@
         </div>
 
         <!-- Total Penghuni -->
-        <div class="bg-gradient-to-br from-green-600/90 to-emerald-700/90 border border-green-500/30 rounded-2xl p-5 shadow-lg">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
             <div class="flex items-center">
-                <div class="p-3 rounded-xl bg-white/10 backdrop-blur-sm mr-4">
+                <div class="p-3 rounded-xl bg-white/5 backdrop-blur-sm mr-4">
                     <i class="fas fa-users text-white text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-green-100 font-medium mb-1">Total Penghuni Aktif</p>
+                    <p class="text-sm text-slate-100 font-medium mb-1">Total Penghuni Aktif</p>
                      <p class="text-2xl font-bold text-white" data-total-penghuni>
                          <?php echo e($penghuniPerKosFull->sum('jumlah_penghuni')); ?>
 
@@ -87,13 +87,13 @@
         </div>
 
         <!-- Okupansi -->
-        <div class="bg-gradient-to-br from-purple-600/90 to-indigo-700/90 border border-purple-500/30 rounded-2xl p-5 shadow-lg">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
             <div class="flex items-center">
-                <div class="p-3 rounded-xl bg-white/10 backdrop-blur-sm mr-4">
+                <div class="p-3 rounded-xl bg-white/5 backdrop-blur-sm mr-4">
                     <i class="fas fa-chart-line text-white text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-purple-100 font-medium mb-1">Rata-rata Okupansi</p>
+                    <p class="text-sm text-slate-100 font-medium mb-1">Rata-rata Okupansi</p>
                     <p class="text-2xl font-bold text-white" data-rata-rata-okupansi>
                         <?php
                             $terisi = $statusKamar->where('status_kamar', 'terisi')->first()->jumlah ?? 0;
@@ -110,13 +110,13 @@
     <!-- Charts Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Chart 1: Pendapatan 6 Bulan Terakhir -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 card-hover">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center">
-                    <i class="fas fa-money-bill-wave text-primary-400 mr-3"></i>
+                    <i class="fas fa-money-bill-wave text-sky-400 mr-3"></i>
                     Trend Pendapatan (12 Bulan)
                 </h2>
-                <span class="text-xs px-3 py-1 rounded-full bg-primary-900/30 text-primary-300">
+                <span class="text-xs px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     <?php echo e(date('Y')); ?>
 
                 </span>
@@ -127,13 +127,13 @@
         </div>
 
         <!-- Chart 2: Status Kamar -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 card-hover">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center">
-                    <i class="fas fa-bed text-green-400 mr-3"></i>
+                    <i class="fas fa-bed text-emerald-400 mr-3"></i>
                     Distribusi Status Kamar
                 </h2>
-                <span class="text-xs px-3 py-1 rounded-full bg-green-900/30 text-green-300">
+                <span class="text-xs px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     <?php echo e($statusKamar->sum('jumlah')); ?> Kamar
                 </span>
             </div>
@@ -149,7 +149,7 @@
                             <?php elseif($status->status_kamar == 'terisi'): ?> bg-blue-500
                             <?php else: ?> bg-yellow-500 <?php endif; ?>">
                         </div>
-                        <span class="text-sm text-dark-muted">
+                        <span class="text-sm text-slate-100">
                             <?php echo e(ucfirst($status->status_kamar)); ?>
 
                         </span>
@@ -166,13 +166,13 @@
     <!-- Row 2 -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Chart 3: Jenis Kos -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 card-hover">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <i class="fas fa-home text-blue-400 mr-3"></i>
                     Distribusi Jenis Kos
                 </h2>
-                <span class="text-xs px-3 py-1 rounded-full bg-blue-900/30 text-blue-300">
+                <span class="text-xs px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     <?php echo e($jenisKos->sum('jumlah')); ?> Kos
                 </span>
             </div>
@@ -182,13 +182,13 @@
         </div>
 
         <!-- Chart 4: Status Kontrak -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 card-hover">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <i class="fas fa-file-contract text-purple-400 mr-3"></i>
                     Status Kontrak
                 </h2>
-                <span class="text-xs px-3 py-1 rounded-full bg-purple-900/30 text-purple-300">
+                <span class="text-xs px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     <?php echo e($statusKontrak->sum('jumlah')); ?> Kontrak
                 </span>
             </div>
@@ -201,13 +201,13 @@
     <!-- Row 3: Additional Charts -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Chart 5: Review/Rating -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 card-hover">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <i class="fas fa-star text-yellow-400 mr-3"></i>
                     Distribusi Rating
                 </h2>
-                <span class="text-xs px-3 py-1 rounded-full bg-yellow-900/30 text-yellow-300">
+                <span class="text-xs px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     <?php echo e($reviewData->sum('jumlah')); ?> Review
                 </span>
             </div>
@@ -217,13 +217,13 @@
         </div>
 
         <!-- Chart 6: Tipe Kamar -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 card-hover">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <i class="fas fa-door-open text-cyan-400 mr-3"></i>
                     Distribusi Tipe Kamar
                 </h2>
-                <span class="text-xs px-3 py-1 rounded-full bg-cyan-900/30 text-cyan-300">
+                <span class="text-xs px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     <?php echo e($tipeKamar->sum('jumlah')); ?> Kamar
                 </span>
             </div>
@@ -236,13 +236,13 @@
     <!-- Row 4: Tabel Data -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Tabel: Pendapatan per Kos -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <i class="fas fa-trophy text-yellow-400 mr-3"></i>
                     Pendapatan per Kos
                 </h2>
-                <span class="text-xs px-3 py-1 rounded-full bg-yellow-900/30 text-yellow-300">
+                <span class="text-xs px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     Tahun <?php echo e(date('Y')); ?>
 
                 </span>
@@ -250,24 +250,24 @@
             
             <div class="space-y-4">
                 <?php $__currentLoopData = $pendapatanPerKos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kos): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-4 hover:border-primary-500/50 transition">
+                    <div class="bg-white/5 border border-white/20 rounded-xl p-4 hover:border-sky-500/50 transition">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <div class="w-10 h-10 bg-primary-900/30 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="fas fa-home text-primary-400"></i>
+                                <div class="w-10 h-10 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-home text-sky-400"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-medium text-white"><?php echo e($kos->nama_kos); ?></h3>
-                                    <p class="text-xs text-dark-muted">Kos terbaik</p>
+                                    <p class="text-xs text-slate-100">Kos terbaik</p>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-lg font-bold text-green-400">
+                                <p class="text-lg font-bold text-emerald-400">
                                     Rp <?php echo e(number_format($kos->total_pendapatan, 0, ',', '.')); ?>
 
                                 </p>
-                                 <div class="w-32 h-1 bg-dark-border rounded-full overflow-hidden mt-1">
-                                      <div class="h-full bg-green-500 rounded-full"
+                                 <div class="w-32 h-1 bg-white/20 rounded-full overflow-hidden mt-1">
+                                      <div class="h-full bg-emerald-500 rounded-full"
                                            style="width: <?php echo e(($pendapatanPerKosFull->max('total_pendapatan') > 0 ? ($kos->total_pendapatan / $pendapatanPerKosFull->max('total_pendapatan')) * 100 : 0)); ?>%">
                                       </div>
                                  </div>
@@ -278,17 +278,17 @@
                 
                  <?php if($pendapatanPerKos->isEmpty()): ?>
                      <div class="text-center py-8">
-                         <div class="w-16 h-16 bg-dark-border rounded-full flex items-center justify-center mx-auto mb-4">
-                             <i class="fas fa-chart-line text-dark-muted text-2xl"></i>
+                         <div class="w-16 h-16 bg-white/5 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                             <i class="fas fa-chart-line text-slate-100 text-2xl"></i>
                          </div>
-                         <p class="text-dark-muted">Belum ada data pendapatan</p>
+                         <p class="text-slate-100">Belum ada data pendapatan</p>
                      </div>
                  <?php endif; ?>
 
                  <?php if($pendapatanPerKos->hasPages()): ?>
-                 <div class="px-6 py-4 border-t border-dark-border">
+                 <div class="px-6 py-4 border-t border-white/20">
                      <div class="flex items-center justify-between">
-                         <div class="text-sm text-dark-muted">
+                         <div class="text-sm text-slate-100">
                              Menampilkan <?php echo e($pendapatanPerKos->firstItem()); ?> - <?php echo e($pendapatanPerKos->lastItem()); ?> dari <?php echo e($pendapatanPerKos->total()); ?> kos
                          </div>
                          <div class="flex space-x-2">
@@ -302,33 +302,33 @@
          </div>
 
         <!-- Tabel: Penghuni per Kos -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <i class="fas fa-user-friends text-blue-400 mr-3"></i>
                     Penghuni per Kos
                 </h2>
-                <span class="text-xs px-3 py-1 rounded-full bg-blue-900/30 text-blue-300">
+                <span class="text-xs px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     Penghuni Aktif
                 </span>
             </div>
             
             <div class="space-y-4">
                 <?php $__currentLoopData = $penghuniPerKos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kos): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-4 hover:border-blue-500/50 transition">
+                    <div class="bg-white/5 border border-white/20 rounded-xl p-4 hover:border-blue-500/50 transition">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <div class="w-10 h-10 bg-blue-900/30 rounded-lg flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 bg-blue-500/20 backdrop-blur-sm border border-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <i class="fas fa-user text-blue-400"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-medium text-white"><?php echo e($kos->nama_kos); ?></h3>
-                                    <p class="text-xs text-dark-muted"><?php echo e($kos->jumlah_penghuni); ?> penghuni</p>
+                                    <p class="text-xs text-slate-100"><?php echo e($kos->jumlah_penghuni); ?> penghuni</p>
                                 </div>
                             </div>
                             <div class="text-right">
                                 <div class="flex items-center justify-end">
-                                     <div class="w-24 h-6 bg-dark-border rounded-full overflow-hidden mr-3">
+                                     <div class="w-24 h-6 bg-white/20 rounded-full overflow-hidden mr-3">
                                           <div class="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
                                                style="width: <?php echo e(($penghuniPerKosFull->max('jumlah_penghuni') > 0 ? ($kos->jumlah_penghuni / $penghuniPerKosFull->max('jumlah_penghuni')) * 100 : 0)); ?>%">
                                           </div>
@@ -338,7 +338,7 @@
 
                                     </span>
                                 </div>
-                                 <p class="text-xs text-dark-muted mt-1">
+                                 <p class="text-xs text-slate-100 mt-1">
                                      <?php echo e(round(($kos->jumlah_penghuni / ($penghuniPerKosFull->sum('jumlah_penghuni') ?: 1)) * 100, 1)); ?>% dari total
                                  </p>
                             </div>
@@ -348,17 +348,17 @@
                 
                  <?php if($penghuniPerKos->isEmpty()): ?>
                      <div class="text-center py-8">
-                         <div class="w-16 h-16 bg-dark-border rounded-full flex items-center justify-center mx-auto mb-4">
-                             <i class="fas fa-users text-dark-muted text-2xl"></i>
+                         <div class="w-16 h-16 bg-white/5 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                             <i class="fas fa-users text-slate-100 text-2xl"></i>
                          </div>
-                         <p class="text-dark-muted">Belum ada data penghuni</p>
+                         <p class="text-slate-100">Belum ada data penghuni</p>
                      </div>
                  <?php endif; ?>
 
                  <?php if($penghuniPerKos->hasPages()): ?>
-                 <div class="px-6 py-4 border-t border-dark-border">
+                 <div class="px-6 py-4 border-t border-white/20">
                      <div class="flex items-center justify-between">
-                         <div class="text-sm text-dark-muted">
+                         <div class="text-sm text-slate-100">
                              Menampilkan <?php echo e($penghuniPerKos->firstItem()); ?> - <?php echo e($penghuniPerKos->lastItem()); ?> dari <?php echo e($penghuniPerKos->total()); ?> kos
                          </div>
                          <div class="flex space-x-2">

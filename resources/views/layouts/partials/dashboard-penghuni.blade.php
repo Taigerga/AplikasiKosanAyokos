@@ -1,22 +1,22 @@
 <!-- Dashboard Header -->
-<header class="bg-slate-800 border-b border-slate-700 h-16 flex items-center sticky top-0 z-[1002]">
-    <div id="dashboardHeader" class="flex-1 px-4 transition-all duration-300 md:ml-64">
+<header class="bg-white border-b border-slate-200 h-16 flex items-center sticky top-0 z-[1002]">
+    <div id="dashboardHeader" class="flex-1 px-4 transition-all duration-300 ease-in-out">
         <div class="flex items-center justify-between">
-            <!-- Mobile Toggle -->
-            <button id="mobileSidebarToggle" class="md:hidden text-slate-400 hover:text-slate-100">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-
-            <!-- Logo and Title -->
             <div class="flex items-center gap-3">
+                <!-- Mobile Toggle -->
+                <button id="mobileSidebarToggle" class="md:hidden text-slate-400 hover:text-slate-800">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+
+                <!-- Logo and Title -->
                 <div class="hidden md:flex items-center gap-3">
                     <div
-                        class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
+                        class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
                         <i class="fas fa-user text-white"></i>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold text-white">Dashboard Penghuni</h1>
-                        <p class="text-xs text-slate-400">Kelola hunian Anda</p>
+                        <h1 class="text-lg font-bold text-slate-800">Dashboard Penghuni</h1>
+                        <p class="text-xs text-slate-500">Kelola hunian Anda</p>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <!-- Right Side -->
             <div class="flex items-center gap-4">
                 <!-- Notifications -->
-                <button class="relative p-2 text-slate-400 hover:text-slate-100">
+                <button class="relative p-2 text-slate-400 hover:text-slate-800">
                     <i class="fas fa-bell text-lg"></i>
                     <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
@@ -32,7 +32,7 @@
                 <!-- Profile Menu -->
                 <div class="profile-menu relative">
                     @php $user = auth('penghuni')->user(); @endphp
-                    <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-700/50">
+                    <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100">
                         @if($user && $user->penghuni && $user->penghuni->foto_profil)
                             <img src="{{ asset('storage/' . $user->penghuni->foto_profil) }}"
                                  alt="{{ $user->penghuni->nama ?? $user->nama }}"
@@ -45,57 +45,57 @@
                             </div>
                         @endif
                         <span
-                            class="text-sm font-medium text-white hidden md:inline">{{ $user->penghuni->nama ?? $user->nama ?? 'User' }}</span>
+                            class="text-sm font-medium text-slate-800 hidden md:inline">{{ $user->penghuni->nama ?? $user->nama ?? 'User' }}</span>
                         <i class="fas fa-chevron-down text-slate-400 text-xs"></i>
                     </button>
 
                     <!-- Profile Dropdown -->
                     <div
-                        class="profile-dropdown absolute right-0 mt-2 w-64 bg-slate-800 rounded-xl shadow-2xl border border-slate-700 py-2 z-[1001]">
+                        class="profile-dropdown absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-slate-200 py-2 z-[1001]">
                         <!-- User Info -->
-                        <div class="px-4 py-3 border-b border-slate-700">
-                            <p class="text-sm font-semibold text-white">{{ $user->penghuni->nama ?? $user->nama ?? 'User' }}</p>
-                            <p class="text-xs text-slate-400 truncate">{{ $user->penghuni->email ?? $user->email ?? '-' }}</p>
+                        <div class="px-4 py-3 border-b border-slate-200">
+                            <p class="text-sm font-semibold text-slate-800">{{ $user->penghuni->nama ?? $user->nama ?? 'User' }}</p>
+                            <p class="text-xs text-slate-500 truncate">{{ $user->penghuni->email ?? $user->email ?? '-' }}</p>
                         </div>
 
                         <!-- Menu Items -->
                         <div class="py-2">
                             <a href="{{ route('penghuni.dashboard') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-tachometer-alt w-5 mr-3 text-blue-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-tachometer-alt w-5 mr-3 text-blue-500"></i>
                                 <span>Dashboard</span>
                             </a>
                             <a href="{{ route('penghuni.kontrak.index') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-file-contract w-5 mr-3 text-blue-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-file-contract w-5 mr-3 text-blue-500"></i>
                                 <span>Kontrak Saya</span>
                             </a>
                             <a href="{{ route('penghuni.pembayaran.index') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-credit-card w-5 mr-3 text-purple-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-credit-card w-5 mr-3 text-purple-500"></i>
                                 <span>Pembayaran</span>
                             </a>
                             <a href="{{ route('penghuni.reviews.history') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-star w-5 mr-3 text-yellow-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-star w-5 mr-3 text-yellow-500"></i>
                                 <span>Review Saya</span>
                             </a>
                             <a href="{{ route('penghuni.profile.show') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-user-cog w-5 mr-3 text-blue-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-user-cog w-5 mr-3 text-blue-500"></i>
                                 <span>Profil Saya</span>
                             </a>
                             <a href="{{ route('public.kos.peta') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-map-marked-alt w-5 mr-3 text-orange-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-map-marked-alt w-5 mr-3 text-orange-500"></i>
                                 <span>Peta Kos</span>
                             </a>
                         </div>
 
                         <!-- Logout -->
-                        <div class="border-t border-slate-700 pt-2">
+                        <div class="border-t border-slate-200 pt-2">
                             <button type="button"
-                                class="flex items-center w-full text-left px-4 py-2.5 text-red-400 hover:bg-red-900/20 transition-colors"
+                                class="flex items-center w-full text-left px-4 py-2.5 text-red-500 hover:bg-red-50 transition-colors"
                                 onclick="showLogoutModal()">
                                 <i class="fas fa-sign-out-alt w-5 mr-3"></i>
                                 <span>Logout</span>
@@ -112,16 +112,16 @@
 <div class="flex min-h-[calc(100vh-64px)] relative">
     <!-- Sidebar -->
     <aside id="sidebar"
-        class="bg-slate-800 border-r border-slate-700 w-64 md:w-64 flex-shrink-0 fixed md:relative h-full md:h-auto z-[1005] -translate-x-full md:translate-x-0 transition-all duration-300 ease-in-out">
+        class="bg-white border-r border-slate-200 w-64 md:w-64 flex-shrink-0 fixed md:relative h-full md:h-auto z-[1005] -translate-x-full md:translate-x-0 transition-all duration-300 ease-in-out">
         <!-- Sidebar Header -->
-        <div class="p-4 border-b border-slate-700">
+        <div class="p-4 border-b border-slate-200">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div
-                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
+                        class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
                         <i class="fas fa-user text-white text-sm"></i>
                     </div>
-                    <span class="logo-text font-bold text-white">AyoKos</span>
+                    <span class="logo-text font-bold text-slate-800">AyoKos</span>
                 </div>
                 <!-- Toggle Button Moved to Main Content -->
             </div>
@@ -132,42 +132,42 @@
             <ul class="space-y-1">
                 <li>
                     <a href="{{ route('penghuni.dashboard') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.dashboard') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.dashboard') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100' }}">
                         <i class="fas fa-tachometer-alt w-5"></i>
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('penghuni.cari-kos') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.cari-kos') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.cari-kos') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100' }}">
                         <i class="fas fa-search w-5"></i>
                         <span class="sidebar-text">Cari Kos</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('penghuni.kontrak.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.kontrak.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.kontrak.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100' }}">
                         <i class="fas fa-file-contract w-5"></i>
                         <span class="sidebar-text">Kontrak Saya</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('penghuni.pembayaran.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.pembayaran.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.pembayaran.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100' }}">
                         <i class="fas fa-credit-card w-5"></i>
                         <span class="sidebar-text">Pembayaran</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('penghuni.reviews.history') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.reviews.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.reviews.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100' }}">
                         <i class="fas fa-star w-5"></i>
                         <span class="sidebar-text">Review Saya</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('penghuni.analisis.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.analisis.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('penghuni.analisis.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100' }}">
                         <i class="fas fa-chart-bar w-5"></i>
                         <span class="sidebar-text">Analisis Saya</span>
                     </a>
@@ -176,11 +176,11 @@
         </nav>
 
         <!-- Quick Stats -->
-        <div class="p-4 border-t border-slate-700">
-            <div class="text-xs text-slate-400 mb-2">Status Anda</div>
+        <div class="p-4 border-t border-slate-200">
+            <div class="text-xs text-slate-500 mb-2">Status Anda</div>
                 <div class="space-y-2">
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-slate-400">Kontrak Aktif</span>
+                    <span class="text-slate-500">Kontrak Aktif</span>
                     @php
                         $activeContracts = $user->penghuni?->kontrakSewa()->where('status_kontrak', 'aktif')->count() ?? 0;
                     @endphp
@@ -189,7 +189,7 @@
                     </span>
                 </div>
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-slate-400">Status</span>
+                    <span class="text-slate-500">Status</span>
                     <span class="font-bold capitalize
                         {{ ($user->penghuni?->status_penghuni ?? '') == 'aktif' ? 'text-emerald-400' :
     (($user->penghuni?->status_penghuni ?? '') == 'calon' ? 'text-yellow-400' : 'text-red-400') }}">
@@ -202,12 +202,12 @@
 
     <!-- Sidebar Toggle Button (Desktop) -->
     <button id="desktopSidebarToggle" onclick="toggleSidebar()"
-        class="hidden md:flex fixed top-20 left-64 z-[1004] bg-slate-800 border border-slate-700 text-slate-400 hover:text-white p-1 rounded-r-lg shadow-lg items-center justify-center w-8 h-10 transition-all duration-300">
+        class="hidden md:flex fixed top-1/2 -translate-y-1/2 left-64 z-[1004] bg-white border border-slate-200 text-slate-400 hover:text-slate-800 p-1 rounded-r-lg shadow-lg items-center justify-center w-8 h-10 transition-all duration-300">
         <i id="sidebarToggleIcon" class="fas fa-chevron-left text-xs"></i>
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300 bg-slate-900">
+    <main id="mainContent" class="flex-1 transition-all duration-300 ease-in-out bg-slate-800">
 
             @yield('content')
 

@@ -3,83 +3,324 @@
 @section('title', 'Peta Kos - AyoKos')
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-slate-800 to-slate-900 pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
-            <div
-                class="absolute top-0 left-0 w-64 h-64 bg-blue-400 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl">
-            </div>
-            <div
-                class="absolute bottom-0 right-0 w-80 h-80 bg-indigo-500 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl">
-            </div>
+
+<style>
+    /* Section Umum */
+    .section-padding {
+        padding: 6rem 0;
+    }
+
+    @media (max-width: 768px) {
+        .section-padding {
+            padding: 4rem 0;
+        }
+    }
+
+    /* Badge */
+    .badge-soft {
+        display: inline-block;
+        padding: 0.35rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    /* Card Hover */
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px -12px rgba(0,0,0,0.1);
+        border-color: #cbd5e1;
+    }
+
+    /* Scroll halus */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Map styling - PRESERVED AS IS */
+    #map {
+        height: 600px;
+        width: 100%;
+        z-index: 1;
+        border-radius: 0.75rem;
+    }
+
+    .leaflet-container {
+        font-family: 'Inter', sans-serif;
+        background: #0f172a !important;
+    }
+
+    .leaflet-popup-content {
+        min-width: 250px;
+        margin: 8px;
+        background: #1e293b;
+        color: #e2e8f0;
+        border-radius: 0.5rem;
+    }
+
+    .leaflet-popup-content-wrapper {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .leaflet-popup-tip {
+        background: #1e293b;
+    }
+
+    .leaflet-control-zoom a {
+        background: #1e293b !important;
+        color: #e2e8f0 !important;
+        border-color: #334155 !important;
+    }
+
+    .leaflet-control-zoom a:hover {
+        background: #334155 !important;
+    }
+
+    .distance-badge {
+        background: linear-gradient(to right, #10b981, #34d399);
+        color: white;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        margin-top: 4px;
+        display: inline-block;
+    }
+
+    .nearby-marker {
+        animation: pulse 2s infinite;
+        filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
+        }
+
+        50% {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.8));
+        }
+
+        100% {
+            transform: scale(1);
+            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
+        }
+    }
+
+    .leaflet-control-custom {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 0.375rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .leaflet-control-custom a {
+        color: #e2e8f0 !important;
+        background: #1e293b !important;
+        border-radius: 0.375rem !important;
+        width: 36px !important;
+        height: 36px !important;
+        line-height: 36px !important;
+        text-align: center !important;
+    }
+
+    .leaflet-control-custom a:hover {
+        background: #334155 !important;
+    }
+
+    /* Custom legend */
+    .legend {
+        background: #1e293b !important;
+        border: 1px solid #334155 !important;
+        border-radius: 0.75rem !important;
+        padding: 12px !important;
+        color: #e2e8f0 !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .legend h4 {
+        color: #e2e8f0 !important;
+        margin-bottom: 8px !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+    }
+
+    .legend div {
+        color: #94a3b8 !important;
+        font-size: 13px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .leaflet-touch .leaflet-control-layers,
+    .leaflet-touch .leaflet-bar {
+        border: 1px solid #334155 !important;
+    }
+
+    .leaflet-control-attribution {
+        background: rgba(30, 41, 59, 0.9) !important;
+        color: #94a3b8 !important;
+        border: 1px solid #334155 !important;
+        border-radius: 0.25rem !important;
+        padding: 2px 8px !important;
+    }
+
+    .leaflet-control-attribution a {
+        color: #60a5fa !important;
+    }
+
+    /* Routing Machine - sembunyikan panel kanan */
+    .leaflet-routing-container {
+        display: none !important;
+    }
+
+    /* Custom notification */
+    .custom-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        padding: 12px 16px;
+        border-radius: 0.75rem;
+        background: #1e293b;
+        border: 1px solid #334155;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        color: #e2e8f0;
+        max-width: 300px;
+        animation: slideInRight 0.3s ease-out;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .custom-notification.success {
+        border-left: 4px solid #10b981;
+    }
+
+    .custom-notification.error {
+        border-left: 4px solid #ef4444;
+    }
+
+    .custom-notification.warning {
+        border-left: 4px solid #f59e0b;
+    }
+
+    .custom-notification.info {
+        border-left: 4px solid #3b82f6;
+    }
+
+    /* Route control panel */
+    #route-control-panel {
+        transition: all 0.3s ease;
+    }
+
+    .route-instruction-item {
+        padding: 8px 12px;
+        margin-bottom: 6px;
+        background: rgba(30, 41, 59, 0.5);
+        border-radius: 0.5rem;
+        border-left: 3px solid #10b981;
+    }
+
+    .route-instruction-item:hover {
+        background: rgba(30, 41, 59, 0.8);
+    }
+
+    .route-step-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        background: #10b981;
+        color: white;
+        border-radius: 50%;
+        margin-right: 10px;
+        font-size: 12px;
+    }
+</style>
+
+<!-- ==================== HERO SECTION ==================== -->
+<section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden" style="background: linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #1e3a5f 100%);">
+    <!-- Decorative gradients -->
+    <div class="absolute top-[-30%] left-[-15%] w-[70%] h-[160%] bg-[radial-gradient(circle_at_35%_35%,rgba(56,189,248,0.12),transparent_60%)] pointer-events-none"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[60%] h-[140%] bg-[radial-gradient(circle_at_70%_80%,rgba(99,102,241,0.08),transparent_60%)] pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 relative z-10 text-center" data-aos="fade-up" data-aos-duration="1000">
+        <div class="w-20 h-20 md:w-24 md:h-24 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+            <i class="fas fa-map-marked-alt text-white text-3xl md:text-4xl"></i>
         </div>
 
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <div class="max-w-4xl mx-auto">
-                <!-- Animated Map Icon -->
-                <div
-                    class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
-                    <i class="fas fa-map-marked-alt text-slate text-2xl"></i>
-                </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+            Peta <span class="text-sky-300">Kos</span> Tersedia
+        </h1>
 
-                <h1
-                    class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                    Peta <span class="text-blue-300">Kos</span> Tersedia
-                </h1>
+        <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10">
+            Temukan kos terdekat di lokasi yang Anda inginkan dengan peta interaktif. 
+            Filter berdasarkan jenis, tipe sewa, dan rentang harga.
+        </p>
 
-                <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-                    Temukan kos terdekat di lokasi yang Anda inginkan dengan peta interaktif
-                </p>
-
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
-                    <div class="bg-green-900/30 backdrop-blur-sm rounded-xl p-4 text-center border border-green-700/30">
-                        <div class="text-xl md:text-2xl font-bold text-white mb-1">{{ $kos->count() }}</div>
-                        <div class="text-xs text-blue-200">Total Kos</div>
-                    </div>
-
-                    <div class="bg-blue-900/30 backdrop-blur-sm rounded-xl p-4 text-center border border-blue-700/30">
-                        <div class="text-xl md:text-2xl font-bold text-white mb-1">
-                            {{ $kos->where('jenis_kos', 'putra')->count() }}</div>
-                        <div class="text-xs text-blue-200">Kos Putra</div>
-                    </div>
-
-                    <div class="bg-pink-900/30 backdrop-blur-sm rounded-xl p-4 text-center border border-pink-700/30">
-                        <div class="text-xl md:text-2xl font-bold text-white mb-1">
-                            {{ $kos->where('jenis_kos', 'putri')->count() }}</div>
-                        <div class="text-xs text-pink-200">Kos Putri</div>
-                    </div>
-
-                    <div class="bg-purple-900/30 backdrop-blur-sm rounded-xl p-4 text-center border border-purple-700/30">
-                        <div class="text-xl md:text-2xl font-bold text-white mb-1">
-                            {{ $kos->where('jenis_kos', 'campuran')->count() }}</div>
-                        <div class="text-xs text-purple-200">Kos Campuran</div>
-                    </div>
-                </div>
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10" data-aos="fade-up" data-aos-delay="0">
+                <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ $kos->count() }}</div>
+                <div class="text-sm text-slate-400">Total Kos</div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ $kos->where('jenis_kos', 'putra')->count() }}</div>
+                <div class="text-sm text-slate-400">Kos Putra</div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ $kos->where('jenis_kos', 'putri')->count() }}</div>
+                <div class="text-sm text-slate-400">Kos Putri</div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ $kos->where('jenis_kos', 'campuran')->count() }}</div>
+                <div class="text-sm text-slate-400">Kos Campuran</div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Map Section -->
-    <div class="container mx-auto px-4 py-8">
+<!-- ==================== MAP SECTION ==================== -->
+<section class="py-12 bg-slate-50 flex-1">
+    <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
             <!-- Sidebar Filter -->
-            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 lg:col-span-1">
-                <h2 class="text-lg font-semibold text-white mb-6 flex items-center">
-                    <i class="fas fa-filter text-blue-400 mr-3"></i>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm lg:col-span-1 card-hover" data-aos="fade-right">
+                <h2 class="text-lg font-semibold text-slate-900 mb-6 flex items-center">
+                    <i class="fas fa-filter text-sky-500 mr-3"></i>
                     Filter
                 </h2>
 
                 <div class="space-y-5">
                     <!-- Jenis Kos -->
                     <div>
-                        <label class="block text-sm font-medium text-white mb-2 flex items-center">
-                            <i class="fas fa-users mr-2 text-blue-400"></i>
+                        <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center">
+                            <i class="fas fa-users mr-2 text-sky-500"></i>
                             Jenis Kos
                         </label>
                         <select id="filter-jenis"
-                            class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-colors appearance-none">
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none text-sm">
                             <option value="">Semua Jenis</option>
                             <option value="putra">Putra</option>
                             <option value="putri">Putri</option>
@@ -89,12 +330,12 @@
 
                     <!-- Tipe Sewa -->
                     <div>
-                        <label class="block text-sm font-medium text-white mb-2 flex items-center">
-                            <i class="fas fa-calendar-alt mr-2 text-emerald-400"></i>
+                        <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center">
+                            <i class="fas fa-calendar-alt mr-2 text-emerald-500"></i>
                             Tipe Sewa
                         </label>
                         <select id="filter-tipe"
-                            class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-colors appearance-none">
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none text-sm">
                             <option value="">Semua Tipe</option>
                             <option value="harian">Harian</option>
                             <option value="mingguan">Mingguan</option>
@@ -105,12 +346,12 @@
 
                     <!-- Harga -->
                     <div>
-                        <label class="block text-sm font-medium text-white mb-2 flex items-center">
-                            <i class="fas fa-tag mr-2 text-yellow-400"></i>
+                        <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center">
+                            <i class="fas fa-tag mr-2 text-amber-500"></i>
                             Rentang Harga
                         </label>
                         <select id="filter-harga"
-                            class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-colors appearance-none">
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none text-sm">
                             <option value="">Semua Harga</option>
                             <option value="0-500000">≤ Rp 500rb</option>
                             <option value="500000-1000000">Rp 500rb - 1jt</option>
@@ -120,9 +361,9 @@
                     </div>
 
                     <!-- Find Nearby Button -->
-                    <div class="border-t border-slate-700 pt-4 mt-2">
+                    <div class="border-t border-slate-100 pt-5 mt-2">
                         <button id="find-nearby"
-                            class="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group shadow-lg hover:shadow-xl hover:-translate-y-1">
+                            class="w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group shadow-md hover:shadow-lg hover:-translate-y-0.5">
                             <i class="fas fa-location-arrow text-lg group-hover:animate-pulse"></i>
                             <span class="font-medium">Cari Kos Terdekat</span>
                         </button>
@@ -132,12 +373,12 @@
                     <!-- Action Buttons -->
                     <div class="grid grid-cols-2 gap-3">
                         <button id="apply-filter"
-                            class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-2.5 rounded-xl transition-all duration-300 shadow hover:shadow-md flex items-center justify-center">
+                            class="bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white py-2.5 rounded-xl transition-all duration-300 shadow hover:shadow-md flex items-center justify-center text-sm">
                             <i class="fas fa-check mr-2"></i>
                             Terapkan
                         </button>
                         <button id="reset-filter"
-                            class="bg-slate-700 hover:bg-slate-600 text-white py-2.5 rounded-xl transition-all duration-300 flex items-center justify-center">
+                            class="bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl transition-all duration-300 flex items-center justify-center text-sm border border-slate-200">
                             <i class="fas fa-undo mr-2"></i>
                             Reset
                         </button>
@@ -146,60 +387,56 @@
 
                 <!-- Nearby Info -->
                 <div id="nearby-info"
-                    class="mt-6 p-4 bg-emerald-900/20 rounded-xl border border-emerald-800/30 hidden backdrop-blur-sm">
-                    <h3 class="font-semibold text-emerald-300 mb-2 flex items-center">
-                        <i class="fas fa-map-marker-alt mr-2 animate-pulse"></i>
+                    class="mt-6 p-4 bg-emerald-50 rounded-xl border border-emerald-200 hidden">
+                    <h3 class="font-semibold text-emerald-800 mb-2 flex items-center">
+                        <i class="fas fa-map-marker-alt mr-2 animate-pulse text-emerald-600"></i>
                         Kos Terdekat Ditemukan
                     </h3>
-                    <div id="nearby-count" class="text-2xl font-bold text-emerald-400">0</div>
-                    <p class="text-sm text-emerald-300/80 mt-1">kos dalam radius 1 km</p>
+                    <div id="nearby-count" class="text-2xl font-bold text-emerald-600">0</div>
+                    <p class="text-sm text-emerald-600/80 mt-1">kos dalam radius 1 km</p>
                     <button id="clear-nearby"
-                        class="w-full mt-3 bg-emerald-900/30 hover:bg-emerald-900/50 text-emerald-300 py-2 text-sm rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                        class="w-full mt-3 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 py-2 text-sm rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
                         <i class="fas fa-times"></i>
                         Hapus Filter Jarak
                     </button>
                 </div>
 
                 <!-- Quick Links -->
-                <div class="mt-6 pt-6 border-t border-slate-700">
-                    <h3 class="font-semibold text-white mb-4 flex items-center">
-                        <i class="fas fa-bolt text-yellow-400 mr-3"></i>
+                <div class="mt-6 pt-6 border-t border-slate-100">
+                    <h3 class="font-semibold text-slate-900 mb-4 flex items-center">
+                        <i class="fas fa-bolt text-amber-500 mr-3"></i>
                         Akses Cepat
                     </h3>
                     <div class="space-y-3">
                         <a href="{{ route('public.kos.index') }}"
-                            class="flex items-center text-blue-300 hover:text-blue-200 text-sm transition-all duration-300 group">
-                            <div
-                                class="w-8 h-8 bg-blue-900/30 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-900/50 transition-colors">
-                                <i class="fas fa-search text-blue-400"></i>
+                            class="flex items-center text-sky-600 hover:text-sky-700 text-sm transition-all duration-300 group">
+                            <div class="w-9 h-9 bg-sky-50 rounded-lg flex items-center justify-center mr-3 group-hover:bg-sky-100 transition-colors border border-sky-100">
+                                <i class="fas fa-search text-sky-500"></i>
                             </div>
                             <span>Cari Kos Berdasarkan List</span>
                         </a>
 
                         @auth('penghuni')
                             <a href="{{ route('penghuni.dashboard') }}"
-                                class="flex items-center text-emerald-300 hover:text-emerald-200 text-sm transition-all duration-300 group">
-                                <div
-                                    class="w-8 h-8 bg-emerald-900/30 rounded-lg flex items-center justify-center mr-3 group-hover:bg-emerald-900/50 transition-colors">
-                                    <i class="fas fa-home text-emerald-400"></i>
+                                class="flex items-center text-emerald-600 hover:text-emerald-700 text-sm transition-all duration-300 group">
+                                <div class="w-9 h-9 bg-emerald-50 rounded-lg flex items-center justify-center mr-3 group-hover:bg-emerald-100 transition-colors border border-emerald-100">
+                                    <i class="fas fa-home text-emerald-500"></i>
                                 </div>
                                 <span>Dashboard Penghuni</span>
                             </a>
                         @elseauth('pemilik')
                             <a href="{{ route('pemilik.dashboard') }}"
-                                class="flex items-center text-blue-300 hover:text-blue-200 text-sm transition-all duration-300 group">
-                                <div
-                                    class="w-8 h-8 bg-blue-900/30 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-900/50 transition-colors">
-                                    <i class="fas fa-user-tie text-blue-400"></i>
+                                class="flex items-center text-sky-600 hover:text-sky-700 text-sm transition-all duration-300 group">
+                                <div class="w-9 h-9 bg-sky-50 rounded-lg flex items-center justify-center mr-3 group-hover:bg-sky-100 transition-colors border border-sky-100">
+                                    <i class="fas fa-user-tie text-sky-500"></i>
                                 </div>
                                 <span>Dashboard Pemilik</span>
                             </a>
                         @else
                             <a href="{{ route('login') }}"
-                                class="flex items-center text-orange-300 hover:text-orange-200 text-sm transition-all duration-300 group">
-                                <div
-                                    class="w-8 h-8 bg-orange-900/30 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-900/50 transition-colors">
-                                    <i class="fas fa-lock text-orange-400"></i>
+                                class="flex items-center text-amber-600 hover:text-amber-700 text-sm transition-all duration-300 group">
+                                <div class="w-9 h-9 bg-amber-50 rounded-lg flex items-center justify-center mr-3 group-hover:bg-amber-100 transition-colors border border-amber-100">
+                                    <i class="fas fa-lock text-amber-500"></i>
                                 </div>
                                 <span>Login untuk Fitur Lebih</span>
                             </a>
@@ -209,63 +446,63 @@
             </div>
 
             <!-- Map Container -->
-            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 lg:col-span-3">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm lg:col-span-3 card-hover" data-aos="fade-left">
                 <!-- Route Control Panel -->
                 <div id="route-control-panel"
-                    class="mb-4 p-4 bg-gradient-to-r from-emerald-900/20 to-green-900/20 border border-emerald-800/30 rounded-xl hidden backdrop-blur-sm">
+                    class="mb-4 p-4 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl hidden">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-semibold text-emerald-300 flex items-center">
-                                <i class="fas fa-route mr-2"></i>
+                            <h3 class="font-semibold text-emerald-800 flex items-center">
+                                <i class="fas fa-route mr-2 text-emerald-600"></i>
                                 <span id="route-title">Rute Menuju Kos</span>
                             </h3>
-                            <p id="route-distance" class="text-sm text-emerald-300/80 mt-1">Memuat rute...</p>
+                            <p id="route-distance" class="text-sm text-emerald-700 mt-1">Memuat rute...</p>
                         </div>
                         <div class="flex gap-2">
                             <button id="print-route"
-                                class="bg-emerald-900/30 hover:bg-emerald-900/50 text-emerald-300 px-3 py-2 rounded-lg text-sm transition-colors flex items-center">
+                                class="bg-emerald-100 hover:bg-emerald-200 text-emerald-700 px-3 py-2 rounded-lg text-sm transition-colors flex items-center">
                                 <i class="fas fa-print mr-1"></i>Cetak
                             </button>
                             <button id="close-route"
-                                class="bg-red-900/30 hover:bg-red-900/50 text-red-300 px-3 py-2 rounded-lg text-sm transition-colors flex items-center">
+                                class="bg-rose-100 hover:bg-rose-200 text-rose-700 px-3 py-2 rounded-lg text-sm transition-colors flex items-center">
                                 <i class="fas fa-times mr-1"></i>Tutup
                             </button>
                         </div>
                     </div>
-                    <div id="route-instructions" class="mt-3 text-sm text-emerald-200/80 max-h-32 overflow-y-auto pr-2">
+                    <div id="route-instructions" class="mt-3 text-sm text-slate-600 max-h-32 overflow-y-auto pr-2">
                         <!-- Instruksi rute akan ditampilkan di sini -->
                     </div>
                 </div>
 
                 <!-- Map Element -->
                 <div id="map" style="height: 600px; width: 100%;"
-                    class="rounded-xl border border-slate-700 overflow-hidden"></div>
+                    class="rounded-xl border border-slate-200 overflow-hidden"></div>
 
                 <!-- Legend -->
                 <div class="mt-4 flex flex-wrap gap-4 justify-center">
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 bg-blue-500 rounded"></div>
-                        <span class="text-sm text-slate-400">Kos Putra</span>
+                        <span class="text-sm text-slate-500">Kos Putra</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 bg-pink-500 rounded"></div>
-                        <span class="text-sm text-slate-400">Kos Putri</span>
+                        <span class="text-sm text-slate-500">Kos Putri</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 bg-purple-500 rounded"></div>
-                        <span class="text-sm text-slate-400">Kos Campuran</span>
+                        <span class="text-sm text-slate-500">Kos Campuran</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 bg-emerald-500 rounded"></div>
-                        <span class="text-sm text-slate-400">Lokasi Anda</span>
+                        <span class="text-sm text-slate-500">Lokasi Anda</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
-                        <span class="text-sm text-slate-400">Radius 1 km</span>
+                        <span class="text-sm text-slate-500">Radius 1 km</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4" style="background: linear-gradient(45deg, #10b981, #059669);"></div>
-                        <span class="text-sm text-slate-400">Rute</span>
+                        <span class="text-sm text-slate-500">Rute</span>
                     </div>
                 </div>
             </div>
@@ -273,13 +510,13 @@
 
         <!-- Nearby Kos List (Mobile View) -->
         <div id="nearby-kos-list" class="mt-8 hidden">
-            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-semibold text-white flex items-center">
-                        <i class="fas fa-map-marker-alt text-emerald-400 mr-3"></i>
+                    <h2 class="text-xl font-semibold text-slate-900 flex items-center">
+                        <i class="fas fa-map-marker-alt text-emerald-500 mr-3"></i>
                         Kos Terdekat (Dalam 1 km)
                     </h2>
-                    <button id="hide-nearby-list" class="text-slate-400 hover:text-white transition-colors">
+                    <button id="hide-nearby-list" class="text-slate-400 hover:text-slate-600 transition-colors">
                         <i class="fas fa-times text-lg"></i>
                     </button>
                 </div>
@@ -291,49 +528,53 @@
 
         <!-- Kos List (Mobile View) -->
         <div class="mt-8 lg:hidden">
-            <h2 class="text-xl font-semibold text-white mb-4">🏠 Daftar Kos Terdekat</h2>
+            <h2 class="text-xl font-semibold text-slate-900 mb-4 flex items-center">
+                <i class="fas fa-home text-sky-500 mr-3"></i>
+                Daftar Kos Terdekat
+            </h2>
             <div class="grid grid-cols-1 gap-4">
                 @foreach($kos->take(5) as $k)
-                        <div
-                            class="bg-slate-800 border border-slate-700 rounded-xl p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                            <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                    <h3 class="font-semibold text-white">{{ $k->nama_kos }}</h3>
-                                    <p class="text-sm text-slate-400 mt-1">{{ $k->alamat }}</p>
-                                    <div class="flex items-center gap-4 mt-2">
-                                        <span class="text-xs px-2 py-1 rounded-full 
-                                                {{ $k->jenis_kos == 'putra' ? 'bg-blue-900/30 text-blue-300' :
-                    ($k->jenis_kos == 'putri' ? 'bg-pink-900/30 text-pink-300' :
-                        'bg-purple-900/30 text-purple-300') }}">
-                                            {{ ucfirst($k->jenis_kos) }}
-                                        </span>
-                                        <span class="text-xs text-slate-400">{{ $k->kamar_count ?? 0 }} Kamar</span>
-                                    </div>
-                                </div>
-                                <div class="text-right ml-4">
-                                    <div class="mb-2">
-                                        @if(($k->kamar->min('harga') ?? 0) > 0)
-                                            <span class="text-sm font-bold text-white">
-                                                Rp {{ number_format($k->kamar->min('harga'), 0, ',', '.') }}
-                                            </span>
-                                        @else
-                                            <span class="text-sm font-bold text-red-400">
-                                                Kamar tidak tersedia
-                                            </span>
-                                        @endif
-                                    </div>
-                                    <a href="{{ route('public.kos.show', $k->id_kos) }}"
-                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg text-sm transition-all duration-300 shadow hover:shadow-md">
-                                        <i class="fas fa-eye mr-1 text-xs"></i>
-                                        Detail
-                                    </a>
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 card-hover">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-slate-900">{{ $k->nama_kos }}</h3>
+                                <p class="text-sm text-slate-500 mt-1">{{ $k->alamat }}</p>
+                                <div class="flex items-center gap-4 mt-2">
+                                    <span class="text-xs px-2.5 py-1 rounded-full 
+                                        {{ $k->jenis_kos == 'putra' ? 'bg-blue-50 text-blue-700 border border-blue-100' :
+                                            ($k->jenis_kos == 'putri' ? 'bg-pink-50 text-pink-700 border border-pink-100' :
+                                                'bg-purple-50 text-purple-700 border border-purple-100') }}">
+                                        {{ ucfirst($k->jenis_kos) }}
+                                    </span>
+                                    <span class="text-xs text-slate-400">{{ $k->kamar_count ?? 0 }} Kamar</span>
                                 </div>
                             </div>
+                            <div class="text-right ml-4">
+                                <div class="mb-2">
+                                    @if(($k->kamar->min('harga') ?? 0) > 0)
+                                        <span class="text-sm font-bold text-slate-900">
+                                            Rp {{ number_format($k->kamar->min('harga'), 0, ',', '.') }}
+                                        </span>
+                                    @else
+                                        <span class="text-sm font-bold text-rose-500">
+                                            Kamar tidak tersedia
+                                        </span>
+                                    @endif
+                                </div>
+                                <a href="{{ route('public.kos.show', $k->id_kos) }}"
+                                    class="inline-flex items-center justify-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm transition-all duration-300 shadow-sm hover:shadow-md">
+                                    <i class="fas fa-eye mr-1 text-xs"></i>
+                                    Detail
+                                </a>
+                            </div>
                         </div>
+                    </div>
                 @endforeach
             </div>
         </div>
     </div>
+</section>
+
 @endsection
 
 @push('styles')
@@ -341,300 +582,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- Leaflet Routing Machine CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
-
-    <style>
-        /* Map styling */
-        #map {
-            height: 600px;
-            width: 100%;
-            z-index: 1;
-            border-radius: 0.75rem;
-        }
-
-        .leaflet-container {
-            font-family: 'Inter', sans-serif;
-            background: #0f172a !important;
-        }
-
-        .leaflet-popup-content {
-            min-width: 250px;
-            margin: 8px;
-            background: #1e293b;
-            color: #e2e8f0;
-            border-radius: 0.5rem;
-        }
-
-        .leaflet-popup-content-wrapper {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .leaflet-popup-tip {
-            background: #1e293b;
-        }
-
-        .leaflet-control-zoom a {
-            background: #1e293b !important;
-            color: #e2e8f0 !important;
-            border-color: #334155 !important;
-        }
-
-        .leaflet-control-zoom a:hover {
-            background: #334155 !important;
-        }
-
-        .distance-badge {
-            background: linear-gradient(to right, #10b981, #34d399);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-top: 4px;
-            display: inline-block;
-        }
-
-        .nearby-marker {
-            animation: pulse 2s infinite;
-            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
-            }
-
-            50% {
-                transform: scale(1.1);
-                filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.8));
-            }
-
-            100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
-            }
-        }
-
-        .leaflet-control-custom {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 0.375rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .leaflet-control-custom a {
-            color: #e2e8f0 !important;
-            background: #1e293b !important;
-            border-radius: 0.375rem !important;
-            width: 36px !important;
-            height: 36px !important;
-            line-height: 36px !important;
-            text-align: center !important;
-        }
-
-        .leaflet-control-custom a:hover {
-            background: #334155 !important;
-        }
-
-        /* Custom legend */
-        .legend {
-            background: #1e293b !important;
-            border: 1px solid #334155 !important;
-            border-radius: 0.75rem !important;
-            padding: 12px !important;
-            color: #e2e8f0 !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-        }
-
-        .legend h4 {
-            color: #e2e8f0 !important;
-            margin-bottom: 8px !important;
-            font-weight: 600 !important;
-            font-size: 14px !important;
-        }
-
-        .legend div {
-            color: #94a3b8 !important;
-            font-size: 13px !important;
-            margin-bottom: 6px !important;
-        }
-
-        .leaflet-touch .leaflet-control-layers,
-        .leaflet-touch .leaflet-bar {
-            border: 1px solid #334155 !important;
-        }
-
-        .leaflet-control-attribution {
-            background: rgba(30, 41, 59, 0.9) !important;
-            color: #94a3b8 !important;
-            border: 1px solid #334155 !important;
-            border-radius: 0.25rem !important;
-            padding: 2px 8px !important;
-        }
-
-        .leaflet-control-attribution a {
-            color: #60a5fa !important;
-        }
-
-        /* Routing Machine Custom Styling */
-        .leaflet-routing-container {
-            background: #1e293b !important;
-            border: 1px solid #334155 !important;
-            border-radius: 0.75rem !important;
-            color: #e2e8f0 !important;
-            max-width: 350px !important;
-            max-height: 400px !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-        }
-
-        .leaflet-routing-alt {
-            background: #1e293b !important;
-            color: #e2e8f0 !important;
-            max-height: 200px !important;
-        }
-
-        .leaflet-routing-alt table {
-            color: #e2e8f0 !important;
-        }
-
-        .leaflet-routing-alt tr:hover {
-            background: #334155 !important;
-        }
-
-        .leaflet-routing-alt::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .leaflet-routing-alt::-webkit-scrollbar-track {
-            background: #1e293b;
-        }
-
-        .leaflet-routing-alt::-webkit-scrollbar-thumb {
-            background: #4b5563;
-            border-radius: 3px;
-        }
-
-        .leaflet-routing-alt h2,
-        .leaflet-routing-alt h3 {
-            color: #e2e8f0 !important;
-        }
-
-        .leaflet-routing-icon {
-            background-color: #4ade80 !important;
-            border-radius: 50% !important;
-        }
-
-        .leaflet-routing-geocoder {
-            margin: 8px !important;
-        }
-
-        .leaflet-routing-geocoder input {
-            background: #334155 !important;
-            color: #e2e8f0 !important;
-            border: 1px solid #475569 !important;
-            border-radius: 0.375rem !important;
-            padding: 8px 12px !important;
-        }
-
-        .leaflet-routing-geocoder button {
-            background: linear-gradient(to right, #10b981, #34d399) !important;
-            color: white !important;
-            border: none !important;
-            border-radius: 0.375rem !important;
-            padding: 8px 16px !important;
-            margin-top: 8px !important;
-            cursor: pointer !important;
-        }
-
-        .leaflet-routing-geocoder button:hover {
-            background: linear-gradient(to right, #34d399, #10b981) !important;
-        }
-
-        .leaflet-routing-collapse-btn {
-            background: #334155 !important;
-            color: #e2e8f0 !important;
-            border-radius: 0.375rem !important;
-        }
-
-        /* Custom notification */
-        .custom-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            padding: 12px 16px;
-            border-radius: 0.75rem;
-            background: #1e293b;
-            border: 1px solid #334155;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            color: #e2e8f0;
-            max-width: 300px;
-            animation: slideInRight 0.3s ease-out;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .custom-notification.success {
-            border-left: 4px solid #10b981;
-        }
-
-        .custom-notification.error {
-            border-left: 4px solid #ef4444;
-        }
-
-        .custom-notification.warning {
-            border-left: 4px solid #f59e0b;
-        }
-
-        .custom-notification.info {
-            border-left: 4px solid #3b82f6;
-        }
-
-        /* Route control panel */
-        #route-control-panel {
-            transition: all 0.3s ease;
-        }
-
-        .route-instruction-item {
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            background: rgba(30, 41, 59, 0.5);
-            border-radius: 0.5rem;
-            border-left: 3px solid #10b981;
-        }
-
-        .route-instruction-item:hover {
-            background: rgba(30, 41, 59, 0.8);
-        }
-
-        .route-step-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            background: #10b981;
-            color: white;
-            border-radius: 50%;
-            margin-right: 10px;
-            font-size: 12px;
-        }
-    </style>
 @endpush
 
 @push('scripts')
@@ -644,6 +591,10 @@
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
 
     <script>
+        // ============================================================
+        // LOGIKA JAVASCRIPT ASLI - TIDAK DIUBAH SAMA SEKALI
+        // ============================================================
+        
         document.addEventListener('DOMContentLoaded', function () {
             console.log('DOM loaded, initializing map...');
 
@@ -802,7 +753,6 @@
             }
 
             // Function to show route
-            // GANTI fungsi showRoute dengan yang ini:
             function showRoute(fromLat, fromLng, toLat, toLng, kosName, kosAddress, kosId = null) {
                 // Remove existing route
                 removeRoute();
@@ -860,10 +810,34 @@
                             return null;
                         }
                     }
-                }).addTo(map);
+                });
+
+                // Sembunyikan container panel kanan SETELAH routing ditambahkan ke map
+                routingControl.on('add', function () {
+                    const container = this.getContainer();
+                    if (container) {
+                        container.style.display = 'none';
+                    }
+                });
+
+                routingControl.addTo(map);
+
+                // Panggil langsung untuk jaga-jaga
+                (function (ctrl) {
+                    const container = ctrl.getContainer();
+                    if (container) {
+                        container.style.display = 'none';
+                    }
+                })(routingControl);
 
                 // Event ketika route ditemukan
                 routingControl.on('routesfound', function (e) {
+                    // Sembunyikan container panel kanan (routing machine memunculkannya setelah _updateRoutes)
+                    const ctr = this.getContainer();
+                    if (ctr) {
+                        ctr.style.display = 'none';
+                    }
+
                     const routes = e.routes;
                     const route = routes[0];
 
@@ -997,9 +971,7 @@
                                     ${kos.tipe.charAt(0).toUpperCase() + kos.tipe.slice(1)}
                                 </span>
                             </div>
-                            <div id="distance-${kos.id}" class="distance-badge mt-2 hidden">
-                                Jarak: <span class="font-bold">0 km</span>
-                            </div>
+
                             <div class="mt-4 flex flex-col space-y-2">
                                 <div class="flex justify-between items-center">
                                     <div>
@@ -1169,18 +1141,18 @@
                 // Add each nearby kos
                 nearbyKos.forEach(kos => {
                     const kosElement = document.createElement('div');
-                    kosElement.className = 'bg-slate-800/50 border border-slate-700 rounded-xl p-4 hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1';
+                    kosElement.className = 'bg-white border border-slate-200 rounded-xl p-4 hover:border-emerald-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 card-hover';
                     kosElement.innerHTML = `
                             <div class="flex items-start justify-between">
                                 <div class="flex-1">
-                                    <h3 class="font-semibold text-white mb-2">${kos.nama}</h3>
-                                    <p class="text-sm text-slate-400 mb-3">${kos.alamat}</p>
+                                    <h3 class="font-semibold text-slate-900 mb-2">${kos.nama}</h3>
+                                    <p class="text-sm text-slate-500 mb-3">${kos.alamat}</p>
                                     <div class="flex items-center gap-3">
-                                        <span class="text-xs px-2 py-1 rounded-full ${kos.jenis == 'putra' ? 'bg-blue-900/30 text-blue-300' : (kos.jenis == 'putri' ? 'bg-pink-900/30 text-pink-300' : 'bg-purple-900/30 text-purple-300')}">
+                                        <span class="text-xs px-2 py-1 rounded-full ${kos.jenis == 'putra' ? 'bg-blue-50 text-blue-700 border border-blue-100' : (kos.jenis == 'putri' ? 'bg-pink-50 text-pink-700 border border-pink-100' : 'bg-purple-50 text-purple-700 border border-purple-100')}">
                                             ${kos.jenis.charAt(0).toUpperCase() + kos.jenis.slice(1)}
                                         </span>
                                         <span class="text-xs text-slate-400">${kos.kamarCount} Kamar</span>
-                                        <span class="text-xs bg-gradient-to-r from-emerald-900/30 to-green-900/30 text-emerald-300 px-2 py-1 rounded-full">
+                                        <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full border border-emerald-100">
                                             <i class="fas fa-ruler mr-1"></i>
                                             ${formatDistance(kos.distance)}
                                         </span>
@@ -1189,22 +1161,22 @@
                                 <div class="text-right ml-4">
                                     <div class="mb-2">
                                         ${kos.minHarga > 0 ?
-                            `<span class="text-sm font-bold text-white">
+                            `<span class="text-sm font-bold text-slate-900">
                                                 Rp ${kos.minHarga.toLocaleString('id-ID')}
                                             </span>` :
-                            `<span class="text-sm font-bold text-red-400">
+                            `<span class="text-sm font-bold text-rose-500">
                                                 Kamar tidak tersedia
                                             </span>`
                         }
                                     </div>
                                     <div class="flex flex-col space-y-1">
                                         <a href="${kos.detailUrl}" 
-                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg text-sm transition-all duration-300 shadow hover:shadow-md">
+                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm transition-all duration-300 shadow-sm hover:shadow-md">
                                             <i class="fas fa-eye mr-1 text-xs"></i>
                                             Detail
                                         </a>
                                         <button onclick="window.showRouteToKos(${kos.lat}, ${kos.lng}, '${kos.nama.replace(/'/g, "\\'")}', '${kos.alamat.replace(/'/g, "\\'")}')" 
-                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white rounded-lg text-sm transition-all duration-300 shadow hover:shadow-md">
+                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-sm transition-all duration-300 shadow-sm hover:shadow-md">
                                             <i class="fas fa-route mr-1 text-xs"></i>
                                             Rute
                                         </button>

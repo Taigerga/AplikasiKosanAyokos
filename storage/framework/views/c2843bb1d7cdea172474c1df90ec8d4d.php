@@ -1,15 +1,13 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Edit Kos - AyoKos'); ?>
 
-@section('title', 'Edit Kos - AyoKos')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="container mx-auto px-4 py-6">
         <div class="max-w-4xl mx-auto">
             <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4 mb-6">
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
-                            <a href="{{ route('pemilik.dashboard') }}" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
+                            <a href="<?php echo e(route('pemilik.dashboard')); ?>" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                                 <i class="fas fa-home mr-2"></i>
                                 Dashboard
                             </a>
@@ -17,7 +15,7 @@
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
-                                <a href="{{ route('pemilik.kos.index') }}" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
+                                <a href="<?php echo e(route('pemilik.kos.index')); ?>" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                                     <i class="fas fa-file-contract mr-2"></i>
                                     Kelola Kos
                                 </a>
@@ -26,7 +24,7 @@
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
-                                <a href="{{ route('pemilik.kos.edit', $kos->id_kos) }}" class="inline-flex items-center text-sm font-medium text-white">
+                                <a href="<?php echo e(route('pemilik.kos.edit', $kos->id_kos)); ?>" class="inline-flex items-center text-sm font-medium text-white">
                                     <i class="fas fa-pencil mr-2"></i>
                                     Edit Kos
                                 </a>
@@ -40,7 +38,7 @@
             <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 mb-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Edit Kos: {{ $kos->nama_kos }}</h1>
+                        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Edit Kos: <?php echo e($kos->nama_kos); ?></h1>
                         <p class="text-slate-100">Perbarui informasi properti kos yang sudah ada</p>
                     </div>
                     <div class="w-12 h-12 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 rounded-xl flex items-center justify-center">
@@ -49,25 +47,25 @@
                 </div>
             </div>
 
-            @if($errors->any())
+            <?php if($errors->any()): ?>
                 <div class="bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-red-300 rounded-xl p-4 mb-6">
                     <div class="flex items-center mb-2">
                         <i class="fas fa-exclamation-circle mr-2"></i>
                         <strong class="font-semibold">Terjadi kesalahan:</strong>
                     </div>
                     <ul class="text-sm list-disc list-inside space-y-1">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
-            @endif
+            <?php endif; ?>
 
             <!-- Form -->
             <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
-                <form method="POST" action="{{ route('pemilik.kos.update', $kos->id_kos) }}" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
+                <form method="POST" action="<?php echo e(route('pemilik.kos.update', $kos->id_kos)); ?>" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
+                    <?php echo method_field('PUT'); ?>
 
                     <div class="space-y-8">
                         <!-- Informasi Dasar -->
@@ -87,7 +85,7 @@
                                     </label>
                                     <div class="relative">
                                         <i class="fas fa-home absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
-                                        <input type="text" name="nama_kos" value="{{ old('nama_kos', $kos->nama_kos) }}"
+                                        <input type="text" name="nama_kos" value="<?php echo e(old('nama_kos', $kos->nama_kos)); ?>"
                                             class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             placeholder="Contoh: Kos Bahagia Sentosa" required maxlength="255">
                                     </div>
@@ -103,7 +101,7 @@
                                         <textarea name="alamat" rows="3"
                                             class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition resize-none"
                                             placeholder="Jl. Merdeka No. 123, Kelurahan..."
-                                            required>{{ old('alamat', $kos->alamat) }}</textarea>
+                                            required><?php echo e(old('alamat', $kos->alamat)); ?></textarea>
                                     </div>
                                 </div>
 
@@ -114,7 +112,7 @@
                                     </label>
                                     <div class="relative">
                                         <i class="fas fa-map-pin absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
-                                        <input type="text" name="kecamatan" value="{{ old('kecamatan', $kos->kecamatan) }}"
+                                        <input type="text" name="kecamatan" value="<?php echo e(old('kecamatan', $kos->kecamatan)); ?>"
                                             class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             required maxlength="100">
                                     </div>
@@ -127,7 +125,7 @@
                                     </label>
                                     <div class="relative">
                                         <i class="fas fa-city absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
-                                        <input type="text" name="kota" value="{{ old('kota', $kos->kota) }}"
+                                        <input type="text" name="kota" value="<?php echo e(old('kota', $kos->kota)); ?>"
                                             class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             required maxlength="100">
                                     </div>
@@ -140,7 +138,7 @@
                                     </label>
                                     <div class="relative">
                                         <i class="fas fa-globe-asia absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
-                                        <input type="text" name="provinsi" value="{{ old('provinsi', $kos->provinsi) }}"
+                                        <input type="text" name="provinsi" value="<?php echo e(old('provinsi', $kos->provinsi)); ?>"
                                             class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             required maxlength="100">
                                     </div>
@@ -153,7 +151,7 @@
                                     </label>
                                     <div class="relative">
                                         <i class="fas fa-mail-bulk absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
-                                        <input type="text" name="kode_pos" value="{{ old('kode_pos', $kos->kode_pos) }}"
+                                        <input type="text" name="kode_pos" value="<?php echo e(old('kode_pos', $kos->kode_pos)); ?>"
                                             class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                             maxlength="10">
                                     </div>
@@ -182,9 +180,9 @@
                                             class="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition"
                                             required>
                                             <option value="">Pilih Jenis Kos</option>
-                                            <option value="putra" {{ old('jenis_kos', $kos->jenis_kos) == 'putra' ? 'selected' : '' }}>Putra</option>
-                                            <option value="putri" {{ old('jenis_kos', $kos->jenis_kos) == 'putri' ? 'selected' : '' }}>Putri</option>
-                                            <option value="campuran" {{ old('jenis_kos', $kos->jenis_kos) == 'campuran' ? 'selected' : '' }}>Campuran</option>
+                                            <option value="putra" <?php echo e(old('jenis_kos', $kos->jenis_kos) == 'putra' ? 'selected' : ''); ?>>Putra</option>
+                                            <option value="putri" <?php echo e(old('jenis_kos', $kos->jenis_kos) == 'putri' ? 'selected' : ''); ?>>Putri</option>
+                                            <option value="campuran" <?php echo e(old('jenis_kos', $kos->jenis_kos) == 'campuran' ? 'selected' : ''); ?>>Campuran</option>
                                         </select>
                                         <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                                     </div>
@@ -201,10 +199,10 @@
                                             class="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition"
                                             required>
                                             <option value="">Pilih Tipe Sewa</option>
-                                            <option value="harian" {{ old('tipe_sewa', $kos->tipe_sewa) == 'harian' ? 'selected' : '' }}>Harian</option>
-                                            <option value="mingguan" {{ old('tipe_sewa', $kos->tipe_sewa) == 'mingguan' ? 'selected' : '' }}>Mingguan</option>
-                                            <option value="bulanan" {{ old('tipe_sewa', $kos->tipe_sewa) == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
-                                            <option value="tahunan" {{ old('tipe_sewa', $kos->tipe_sewa) == 'tahunan' ? 'selected' : '' }}>Tahunan</option>
+                                            <option value="harian" <?php echo e(old('tipe_sewa', $kos->tipe_sewa) == 'harian' ? 'selected' : ''); ?>>Harian</option>
+                                            <option value="mingguan" <?php echo e(old('tipe_sewa', $kos->tipe_sewa) == 'mingguan' ? 'selected' : ''); ?>>Mingguan</option>
+                                            <option value="bulanan" <?php echo e(old('tipe_sewa', $kos->tipe_sewa) == 'bulanan' ? 'selected' : ''); ?>>Bulanan</option>
+                                            <option value="tahunan" <?php echo e(old('tipe_sewa', $kos->tipe_sewa) == 'tahunan' ? 'selected' : ''); ?>>Tahunan</option>
                                         </select>
                                         <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                                     </div>
@@ -220,7 +218,7 @@
                                     <i class="fas fa-align-left absolute left-3 top-3 text-white/50"></i>
                                     <textarea name="deskripsi" rows="4"
                                         class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition resize-none"
-                                        placeholder="Deskripsikan keunggulan dan fasilitas kos...">{{ old('deskripsi', $kos->deskripsi) }}</textarea>
+                                        placeholder="Deskripsikan keunggulan dan fasilitas kos..."><?php echo e(old('deskripsi', $kos->deskripsi)); ?></textarea>
                                 </div>
                             </div>
 
@@ -233,7 +231,7 @@
                                     <i class="fas fa-clipboard-list absolute left-3 top-3 text-white/50"></i>
                                     <textarea name="peraturan" rows="4"
                                         class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition resize-none"
-                                        placeholder="Tuliskan peraturan yang berlaku di kos...">{{ old('peraturan', $kos->peraturan) }}</textarea>
+                                        placeholder="Tuliskan peraturan yang berlaku di kos..."><?php echo e(old('peraturan', $kos->peraturan)); ?></textarea>
                                 </div>
                             </div>
 
@@ -247,9 +245,9 @@
                                     <select name="status_kos"
                                         class="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition"
                                         required>
-                                        <option value="aktif" {{ old('status_kos', $kos->status_kos) == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                        <option value="nonaktif" {{ old('status_kos', $kos->status_kos) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                                        <option value="pending" {{ old('status_kos', $kos->status_kos) == 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="aktif" <?php echo e(old('status_kos', $kos->status_kos) == 'aktif' ? 'selected' : ''); ?>>Aktif</option>
+                                        <option value="nonaktif" <?php echo e(old('status_kos', $kos->status_kos) == 'nonaktif' ? 'selected' : ''); ?>>Nonaktif</option>
+                                        <option value="pending" <?php echo e(old('status_kos', $kos->status_kos) == 'pending' ? 'selected' : ''); ?>>Pending</option>
                                     </select>
                                     <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                                 </div>
@@ -272,7 +270,7 @@
                                     <div class="relative">
                                         <i class="fas fa-location-arrow absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="latitude" id="latitude"
-                                            value="{{ old('latitude', $kos->latitude ?? '') }}"
+                                            value="<?php echo e(old('latitude', $kos->latitude ?? '')); ?>"
                                             class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition"
                                             placeholder="-6.208763" required>
                                     </div>
@@ -282,7 +280,7 @@
                                     <div class="relative">
                                         <i class="fas fa-location-arrow absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                         <input type="text" name="longitude" id="longitude"
-                                            value="{{ old('longitude', $kos->longitude ?? '') }}"
+                                            value="<?php echo e(old('longitude', $kos->longitude ?? '')); ?>"
                                             class="w-full pl-10 pr-3 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition"
                                             placeholder="106.845599" required>
                                     </div>
@@ -361,22 +359,22 @@
                             </div>
 
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                @php
+                                <?php
                                     $currentFacilities = $kos->fasilitas->pluck('id_fasilitas')->toArray();
-                                @endphp
-                                @foreach($fasilitas as $fasilitasItem)
+                                ?>
+                                <?php $__currentLoopData = $fasilitas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fasilitasItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <label class="flex items-center space-x-3 p-3 bg-white/5 border border-white/20 rounded-xl hover:border-sky-500/50 transition cursor-pointer">
                                         <div class="relative">
-                                            <input type="checkbox" name="fasilitas[]" value="{{ $fasilitasItem->id_fasilitas }}"
+                                            <input type="checkbox" name="fasilitas[]" value="<?php echo e($fasilitasItem->id_fasilitas); ?>"
                                                 class="rounded border-white/20 bg-white/5 text-sky-600 focus:ring-sky-500/50 focus:ring-offset-0 transition"
-                                                {{ in_array($fasilitasItem->id_fasilitas, old('fasilitas', $currentFacilities)) ? 'checked' : '' }}>
+                                                <?php echo e(in_array($fasilitasItem->id_fasilitas, old('fasilitas', $currentFacilities)) ? 'checked' : ''); ?>>
                                         </div>
                                         <div class="flex-1">
-                                            <span class="text-sm font-medium text-white">{{ $fasilitasItem->nama_fasilitas }}</span>
-                                            <span class="text-xs text-slate-100 block">{{ $fasilitasItem->kategori }}</span>
+                                            <span class="text-sm font-medium text-white"><?php echo e($fasilitasItem->nama_fasilitas); ?></span>
+                                            <span class="text-xs text-slate-100 block"><?php echo e($fasilitasItem->kategori); ?></span>
                                         </div>
                                     </label>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
 
@@ -393,9 +391,9 @@
                                 <!-- Current Photo -->
                                 <div>
                                     <label class="block text-sm font-medium text-white mb-2">Foto Saat Ini</label>
-                                    @if($kos->foto_utama)
+                                    <?php if($kos->foto_utama): ?>
                                         <div class="relative">
-                                            <img src="{{ asset('storage/' . $kos->foto_utama) }}" alt="{{ $kos->nama_kos }}"
+                                            <img src="<?php echo e(asset('storage/' . $kos->foto_utama)); ?>" alt="<?php echo e($kos->nama_kos); ?>"
                                                 class="w-full h-48 object-cover rounded-xl border border-white/20">
                                             <div class="absolute top-2 left-2 px-2 py-1 bg-black/50 text-white text-xs rounded">
                                                 Foto Utama
@@ -405,12 +403,12 @@
                                             <i class="fas fa-info-circle mr-2"></i>
                                             Kosongkan jika tidak ingin mengubah foto
                                         </p>
-                                    @else
+                                    <?php else: ?>
                                         <div class="w-full h-48 bg-white/5 border-2 border-dashed border-white/20 rounded-xl flex flex-col items-center justify-center">
                                             <i class="fas fa-image text-4xl text-white/50 mb-2"></i>
                                             <p class="text-white/50">Belum ada foto</p>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
 
                                 <!-- New Photo -->
@@ -439,7 +437,7 @@
 
                     <!-- Action Buttons -->
                     <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                        <a href="{{ route('pemilik.kos.index') }}"
+                        <a href="<?php echo e(route('pemilik.kos.index')); ?>"
                             class="flex-1 sm:flex-none px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition flex items-center justify-center">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Kembali
@@ -1471,4 +1469,5 @@
             showNotification
         };
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/pemilik/kos/edit.blade.php ENDPATH**/ ?>

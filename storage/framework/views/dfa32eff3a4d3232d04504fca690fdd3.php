@@ -1,17 +1,17 @@
 <!-- Dashboard Header -->
-<header class="bg-slate-800 border-b border-slate-700 h-16 flex items-center sticky top-0 z-[1002]">
-    <div id="dashboardHeader" class="flex-1 px-4 transition-all duration-300 md:ml-64">
+<header class="bg-slate-900 border-b border-slate-700 h-16 flex items-center sticky top-0 z-[1002]">
+    <div id="dashboardHeader" class="flex-1 px-4 transition-all duration-300 ease-in-out">
         <div class="flex items-center justify-between">
-            <!-- Mobile Toggle -->
-            <button id="mobileSidebarToggle" class="md:hidden text-slate-400 hover:text-slate-100">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-
-            <!-- Logo and Title -->
             <div class="flex items-center gap-3">
+                <!-- Mobile Toggle -->
+                <button id="mobileSidebarToggle" class="md:hidden text-slate-400 hover:text-slate-800">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+
+                <!-- Logo and Title -->
                 <div class="hidden md:flex items-center gap-3">
                     <div
-                        class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                        class="w-10 h-10 bg-white/10 backdrop-blur-md rounded-lg flex items-center justify-center">
                         <i class="fas fa-user-tie text-white"></i>
                     </div>
                     <div>
@@ -24,7 +24,7 @@
             <!-- Right Side -->
             <div class="flex items-center gap-4">
                 <!-- Notifications -->
-                <button class="relative p-2 text-slate-400 hover:text-slate-100">
+                <button class="relative p-2 text-slate-400 hover:text-slate-800">
                     <i class="fas fa-bell text-lg"></i>
                     <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
@@ -32,11 +32,11 @@
                 <!-- Profile Menu -->
                 <div class="profile-menu relative">
                     <?php $user = auth('pemilik')->user(); ?>
-                    <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-700/50">
+                    <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-700">
                         <?php if($user && $user->pemilik && $user->pemilik->foto_profil): ?>
                             <img src="<?php echo e(asset('storage/' . $user->pemilik->foto_profil)); ?>"
                                  alt="<?php echo e($user->pemilik->nama ?? $user->nama); ?>"
-                                 class="w-8 h-8 rounded-full object-cover border-2 border-blue-400">
+                                 class="w-8 h-8 rounded-full object-cover border-2 border-slate-400">
                         <?php else: ?>
                             <div
                                 class="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center">
@@ -46,56 +46,56 @@
                         <?php endif; ?>
                         <span
                             class="text-sm font-medium text-white hidden md:inline"><?php echo e($user->pemilik->nama ?? $user->nama ?? 'User'); ?></span>
-                        <i class="fas fa-chevron-down text-slate-400 text-xs"></i>
+                        <i class="fas fa-chevron-down text-white text-xs"></i>
                     </button>
 
                     <!-- Profile Dropdown -->
                     <div
-                        class="profile-dropdown absolute right-0 mt-2 w-64 bg-slate-800 rounded-xl shadow-2xl border border-slate-700 py-2 z-[1001]">
+                        class="profile-dropdown absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-slate-200 py-2 z-[1001]">
                         <!-- User Info -->
-                        <div class="px-4 py-3 border-b border-slate-700">
-                            <p class="text-sm font-semibold text-white"><?php echo e($user->pemilik->nama ?? $user->nama ?? 'User'); ?></p>
-                            <p class="text-xs text-slate-400 truncate"><?php echo e($user->pemilik->email ?? $user->email ?? '-'); ?></p>
+                        <div class="px-4 py-3 border-b border-slate-200">
+                            <p class="text-sm font-semibold text-slate-800"><?php echo e($user->pemilik->nama ?? $user->nama ?? 'User'); ?></p>
+                            <p class="text-xs text-slate-500 truncate"><?php echo e($user->pemilik->email ?? $user->email ?? '-'); ?></p>
                         </div>
 
                         <!-- Menu Items -->
                         <div class="py-2">
                             <a href="<?php echo e(route('pemilik.dashboard')); ?>"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-tachometer-alt w-5 mr-3 text-blue-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-tachometer-alt w-5 mr-3 text-blue-500"></i>
                                 <span>Dashboard</span>
                             </a>
                             <a href="<?php echo e(route('pemilik.kontrak.index')); ?>"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-file-contract w-5 mr-3 text-green-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-file-contract w-5 mr-3 text-green-500"></i>
                                 <span>Kelola Kontrak</span>
                             </a>
                             <a href="<?php echo e(route('pemilik.reviews.index')); ?>"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-star w-5 mr-3 text-yellow-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-star w-5 mr-3 text-yellow-500"></i>
                                 <span>Ulasan Kos</span>
                             </a>
                             <a href="<?php echo e(route('pemilik.pembayaran.index')); ?>"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-credit-card w-5 mr-3 text-purple-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-credit-card w-5 mr-3 text-purple-500"></i>
                                 <span>Pembayaran</span>
                             </a>
                             <a href="<?php echo e(route('pemilik.profile.show')); ?>"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-user-cog w-5 mr-3 text-blue-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-user-cog w-5 mr-3 text-blue-500"></i>
                                 <span>Profil Saya</span>
                             </a>
                             <a href="<?php echo e(route('public.kos.peta')); ?>"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-map-marked-alt w-5 mr-3 text-orange-400"></i>
+                                class="flex items-center px-4 py-2.5 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors">
+                                <i class="fas fa-map-marked-alt w-5 mr-3 text-orange-500"></i>
                                 <span>Peta Kos</span>
                             </a>
                         </div>
 
                         <!-- Logout -->
-                        <div class="border-t border-slate-700 pt-2">
+                        <div class="border-t border-slate-200 pt-2">
                             <button type="button"
-                                class="flex items-center w-full text-left px-4 py-2.5 text-red-400 hover:bg-red-900/20 transition-colors"
+                                class="flex items-center w-full text-left px-4 py-2.5 text-red-500 hover:bg-red-50 transition-colors"
                                 onclick="showLogoutModal()">
                                 <i class="fas fa-sign-out-alt w-5 mr-3"></i>
                                 <span>Logout</span>
@@ -112,69 +112,57 @@
 <div class="flex min-h-[calc(100vh-64px)] relative">
     <!-- Sidebar -->
     <aside id="sidebar"
-        class="bg-slate-800 border-r border-slate-700 w-64 md:w-64 flex-shrink-0 fixed md:relative h-full md:h-auto z-[1005] -translate-x-full md:translate-x-0 transition-all duration-300 ease-in-out">
-        <!-- Sidebar Header -->
-        <div class="p-4 border-b border-slate-700">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-user-tie text-white text-sm"></i>
-                    </div>
-                    <span class="logo-text font-bold text-white">AyoKos</span>
-                </div>
-                <!-- Toggle Button Moved to Main Content -->
-            </div>
-        </div>
+        class="bg-slate-900 border-r border-slate-700 w-64 md:w-64 flex-shrink-0 fixed md:relative h-full md:h-auto z-[1005] -translate-x-full md:translate-x-0 transition-all duration-300 ease-in-out">
+
 
         <!-- Navigation -->
         <nav class="p-4">
             <ul class="space-y-1">
                 <li>
                     <a href="<?php echo e(route('pemilik.dashboard')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.dashboard') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.dashboard') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'); ?>">
                         <i class="fas fa-tachometer-alt w-5"></i>
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('pemilik.kos.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.kos.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.kos.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'); ?>">
                         <i class="fas fa-home w-5"></i>
                         <span class="sidebar-text">Kelola Kos</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('pemilik.kamar.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.kamar.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.kamar.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'); ?>">
                         <i class="fas fa-bed w-5"></i>
                         <span class="sidebar-text">Kelola Kamar</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('pemilik.kontrak.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.kontrak.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.kontrak.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'); ?>">
                         <i class="fas fa-file-contract w-5"></i>
                         <span class="sidebar-text">Kelola Kontrak</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('pemilik.reviews.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.reviews.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.reviews.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'); ?>">
                         <i class="fas fa-star w-5"></i>
                         <span class="sidebar-text">Ulasan Kos</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('pemilik.pembayaran.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.pembayaran.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.pembayaran.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'); ?>">
                         <i class="fas fa-credit-card w-5"></i>
                         <span class="sidebar-text">Pembayaran</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo e(route('pemilik.analisis.index')); ?>"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.analisis.*') ? 'bg-blue-900/30 text-blue-300 border-l-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50'); ?>">
+                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium <?php echo e(request()->routeIs('pemilik.analisis.*') ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'); ?>">
                         <i class="fas fa-chart-bar w-5"></i>
                         <span class="sidebar-text">Analisis Data</span>
                     </a>
@@ -183,15 +171,15 @@
         </nav>
 
         <!-- Quick Stats -->
-        <div class="p-4 border-t border-slate-700">
-            <div class="text-xs text-slate-400 mb-2">Statistik Cepat</div>
+        <div class="p-4 border-t">
+            <div class="text-xs text-slate-500 mb-2">Statistik Cepat</div>
                 <div class="space-y-2">
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-slate-400">Total Kos</span>
-                    <span class="font-bold text-white"><?php echo e($user->pemilik?->kos()->count() ?? 0); ?></span>
+                    <span class="text-slate-500">Total Kos</span>
+                    <span class="font-bold text-slate-800"><?php echo e($user->pemilik?->kos()->count() ?? 0); ?></span>
                 </div>
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-slate-400">Kamar Tersedia</span>
+                    <span class="text-slate-500">Kamar Tersedia</span>
                     <span class="font-bold text-green-400">
                         <?php echo e($user->pemilik?->kos()->withCount(['kamar' => fn($q) => $q->where('status_kamar', 'tersedia')])->get()->sum('kamar_count') ?? 0); ?>
 
@@ -203,12 +191,12 @@
 
     <!-- Sidebar Toggle Button (Desktop) -->
     <button id="desktopSidebarToggle" onclick="toggleSidebar()"
-        class="hidden md:flex fixed top-20 left-64 z-[1004] bg-slate-800 border border-slate-700 text-slate-400 hover:text-white p-1 rounded-r-lg shadow-lg items-center justify-center w-8 h-10 transition-all duration-300">
+        class="hidden md:flex fixed top-1/2 -translate-y-1/2 left-64 z-[1004] bg-white border border-slate-200 text-slate-400 hover:text-slate-800 p-1 rounded-r-lg shadow-lg items-center justify-center w-8 h-10 transition-all duration-300">
         <i id="sidebarToggleIcon" class="fas fa-chevron-left text-xs"></i>
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300 bg-slate-900">
+    <main id="mainContent" class="flex-1 transition-all duration-300 ease-in-out bg-slate-700">
 
             <?php echo $__env->yieldContent('content'); ?>
 

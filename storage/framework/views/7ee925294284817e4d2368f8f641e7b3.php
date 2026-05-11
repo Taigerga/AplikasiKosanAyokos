@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', $kos->nama_kos . ' - AyoKos'); ?>
 
-@section('title', $kos->nama_kos . ' - AyoKos')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="container mx-auto px-4 py-6 md:py-8">
         <div class="max-w-7xl mx-auto">
             <!-- Breadcrumb -->
@@ -10,7 +8,7 @@
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
-                            <a href="{{ route('pemilik.dashboard') }}" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
+                            <a href="<?php echo e(route('pemilik.dashboard')); ?>" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                                 <i class="fas fa-home mr-2"></i>
                                 Dashboard
                             </a>
@@ -18,7 +16,7 @@
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
-                                <a href="{{ route('pemilik.kos.show', $kos->id_kos) }}" class="inline-flex items-center text-sm font-medium text-white">
+                                <a href="<?php echo e(route('pemilik.kos.show', $kos->id_kos)); ?>" class="inline-flex items-center text-sm font-medium text-white">
                                     <i class="fas fa-eye mr-2"></i>
                                     Detail Kos
                                 </a>
@@ -37,23 +35,24 @@
                                 <i class="fas fa-home text-sky-400 text-lg"></i>
                             </div>
                             <div>
-                                <h1 class="text-2xl md:text-3xl font-bold text-white mb-1">{{ $kos->nama_kos }}</h1>
+                                <h1 class="text-2xl md:text-3xl font-bold text-white mb-1"><?php echo e($kos->nama_kos); ?></h1>
                                 <div class="flex items-center text-slate-100">
                                     <i class="fas fa-map-marker-alt text-sm mr-2 text-sky-400"></i>
-                                    <span>{{ $kos->alamat }}</span>
+                                    <span><?php echo e($kos->alamat); ?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 md:mt-0">
                         <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm
-                            {{ $kos->status_kos == 'aktif' ? 'bg-green-50 text-green-600' : 
+                            <?php echo e($kos->status_kos == 'aktif' ? 'bg-green-50 text-green-600' : 
                                ($kos->status_kos == 'pending' ? 'bg-yellow-50 text-yellow-600' : 
-                               'bg-red-50 text-red-600') }}">
+                               'bg-red-50 text-red-600')); ?>">
                             <i class="fas 
-                                {{ $kos->status_kos == 'aktif' ? 'fa-check-circle' : 
-                                   ($kos->status_kos == 'pending' ? 'fa-clock' : 'fa-times-circle') }} mr-2"></i>
-                            {{ ucfirst($kos->status_kos) }}
+                                <?php echo e($kos->status_kos == 'aktif' ? 'fa-check-circle' : 
+                                   ($kos->status_kos == 'pending' ? 'fa-clock' : 'fa-times-circle')); ?> mr-2"></i>
+                            <?php echo e(ucfirst($kos->status_kos)); ?>
+
                         </span>
                     </div>
                 </div>
@@ -79,21 +78,21 @@
                                             <i class="fas fa-map-pin mr-2 text-sky-400"></i>
                                             Alamat
                                         </div>
-                                        <p class="text-white">{{ $kos->alamat }}</p>
+                                        <p class="text-white"><?php echo e($kos->alamat); ?></p>
                                     </div>
                                     <div>
                                         <div class="text-sm text-slate-100 mb-1 flex items-center">
                                             <i class="fas fa-city mr-2 text-blue-400"></i>
                                             Kota
                                         </div>
-                                        <p class="text-white">{{ $kos->kota }}</p>
+                                        <p class="text-white"><?php echo e($kos->kota); ?></p>
                                     </div>
                                     <div>
                                         <div class="text-sm text-slate-100 mb-1 flex items-center">
                                             <i class="fas fa-users mr-2 text-emerald-400"></i>
                                             Jenis Kos
                                         </div>
-                                        <p class="text-white capitalize">{{ $kos->jenis_kos }}</p>
+                                        <p class="text-white capitalize"><?php echo e($kos->jenis_kos); ?></p>
                                     </div>
                                 </div>
                                 
@@ -103,21 +102,21 @@
                                             <i class="fas fa-calendar-alt mr-2 text-purple-400"></i>
                                             Tipe Sewa
                                         </div>
-                                        <p class="text-white capitalize">{{ $kos->tipe_sewa }}</p>
+                                        <p class="text-white capitalize"><?php echo e($kos->tipe_sewa); ?></p>
                                     </div>
                                     <div>
                                         <div class="text-sm text-slate-100 mb-1 flex items-center">
                                             <i class="fas fa-code-branch mr-2 text-yellow-400"></i>
                                             Kecamatan
                                         </div>
-                                        <p class="text-white">{{ $kos->kecamatan }}</p>
+                                        <p class="text-white"><?php echo e($kos->kecamatan); ?></p>
                                     </div>
                                     <div>
                                         <div class="text-sm text-slate-100 mb-1 flex items-center">
                                             <i class="fas fa-globe mr-2 text-red-400"></i>
                                             Provinsi
                                         </div>
-                                        <p class="text-white">{{ $kos->provinsi }}</p>
+                                        <p class="text-white"><?php echo e($kos->provinsi); ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +130,8 @@
                                 <div class="bg-white/5 border border-white/20 rounded-lg p-3">
                                     <div class="flex items-center justify-between">
                                         <span class="text-white font-mono text-sm">
-                                            {{ $kos->latitude }}, {{ $kos->longitude }}
+                                            <?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>
+
                                         </span>
                                         <button onclick="copyCoordinates()" 
                                                 class="text-slate-100 hover:text-sky-400 transition">
@@ -144,7 +144,7 @@
                     </div>
 
                     <!-- Kamar di Kos Ini -->
-                    @if($kos->kamar->count() > 0)
+                    <?php if($kos->kamar->count() > 0): ?>
                     <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
                         <div class="flex items-center justify-between mb-6">
                             <div class="flex items-center">
@@ -154,40 +154,43 @@
                                 <h2 class="text-xl font-bold text-white">Kamar Tersedia</h2>
                             </div>
                             <span class="px-3 py-1 rounded-full text-sm font-medium bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 text-sky-300">
-                                {{ $kos->kamar->count() }} Kamar
+                                <?php echo e($kos->kamar->count()); ?> Kamar
                             </span>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            @foreach($kos->kamar as $kamar)
+                            <?php $__currentLoopData = $kos->kamar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kamar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="bg-white/5 border border-white/20 rounded-xl p-4 hover:border-sky-500/50 transition-all duration-300">
                                 <div class="flex items-start justify-between mb-3">
                                     <div>
-                                        <h3 class="font-semibold text-white mb-1">Kamar {{ $kamar->nomor_kamar }}</h3>
-                                        <p class="text-sm text-slate-100">{{ $kamar->tipe_kamar }}</p>
+                                        <h3 class="font-semibold text-white mb-1">Kamar <?php echo e($kamar->nomor_kamar); ?></h3>
+                                        <p class="text-sm text-slate-100"><?php echo e($kamar->tipe_kamar); ?></p>
                                     </div>
                                     <span class="px-2 py-1 text-xs rounded-full backdrop-blur-sm
-                                        {{ $kamar->status_kamar == 'tersedia' ? 'bg-green-50 text-green-600' : 
+                                        <?php echo e($kamar->status_kamar == 'tersedia' ? 'bg-green-50 text-green-600' : 
                                            ($kamar->status_kamar == 'terisi' ? 'bg-blue-50 text-blue-600' : 
-                                           'bg-yellow-50 text-yellow-600') }}">
-                                        {{ ucfirst($kamar->status_kamar) }}
+                                           'bg-yellow-50 text-yellow-600')); ?>">
+                                        <?php echo e(ucfirst($kamar->status_kamar)); ?>
+
                                     </span>
                                 </div>
                                 
                                 <div class="flex items-center justify-between mt-4">
                                     <div class="text-sm text-slate-100">
                                         <i class="fas fa-expand-arrows-alt mr-1"></i>
-                                        {{ $kamar->luas_kamar ?? 'N/A' }}
+                                        <?php echo e($kamar->luas_kamar ?? 'N/A'); ?>
+
                                     </div>
                                     <div class="text-lg font-bold text-white">
-                                        Rp {{ number_format($kamar->harga, 0, ',', '.') }}
+                                        Rp <?php echo e(number_format($kamar->harga, 0, ',', '.')); ?>
+
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
 
                 <!-- Right Column: Map & Features -->
@@ -209,13 +212,14 @@
                                 <span>Koordinat GPS</span>
                             </div>
                             <span class="font-mono text-white">
-                                {{ $kos->latitude }}, {{ $kos->longitude }}
+                                <?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>
+
                             </span>
                         </div>
                     </div>
 
                     <!-- Fasilitas -->
-                    @if($kos->fasilitas->count() > 0)
+                    <?php if($kos->fasilitas->count() > 0): ?>
                     <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
                         <div class="flex items-center mb-6">
                             <div class="w-10 h-10 bg-purple-500/20 backdrop-blur-sm border border-purple-500/20 rounded-lg flex items-center justify-center mr-3">
@@ -225,17 +229,17 @@
                         </div>
                         
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                            @foreach($kos->fasilitas as $fasilitas)
+                            <?php $__currentLoopData = $kos->fasilitas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fasilitas): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="flex items-center p-3 bg-white/5 border border-white/20 rounded-lg hover:border-sky-500/30 transition">
                                 <div class="w-8 h-8 bg-sky-500/20 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="fas fa-{{ $fasilitas->icon ?? 'check' }} text-sky-400 text-sm"></i>
+                                    <i class="fas fa-<?php echo e($fasilitas->icon ?? 'check'); ?> text-sky-400 text-sm"></i>
                                 </div>
-                                <span class="text-sm text-white">{{ $fasilitas->nama_fasilitas }}</span>
+                                <span class="text-sm text-white"><?php echo e($fasilitas->nama_fasilitas); ?></span>
                             </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -243,17 +247,17 @@
             <div class="mt-8 bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
                 <h3 class="text-lg font-bold text-white mb-4">Kelola Kos</h3>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('pemilik.kos.index') }}" 
+                    <a href="<?php echo e(route('pemilik.kos.index')); ?>" 
                        class="flex items-center px-5 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition font-medium">
                         <i class="fas fa-arrow-left mr-2"></i>
                         Kembali ke Daftar
                     </a>
-                    <a href="{{ route('pemilik.kos.edit', $kos->id_kos) }}" 
+                    <a href="<?php echo e(route('pemilik.kos.edit', $kos->id_kos)); ?>" 
                        class="flex items-center px-5 py-3 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-xl transition font-medium">
                         <i class="fas fa-edit mr-2"></i>
                         Edit Kos
                     </a>
-                    <a href="{{ route('pemilik.kamar.create') }}?kos={{ $kos->id_kos }}" 
+                    <a href="<?php echo e(route('pemilik.kamar.create')); ?>?kos=<?php echo e($kos->id_kos); ?>" 
                        class="flex items-center px-5 py-3 bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 hover:bg-emerald-500/10 text-white rounded-xl transition font-medium">
                         <i class="fas fa-plus mr-2"></i>
                         Tambah Kamar
@@ -300,9 +304,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            @if($kos->latitude && $kos->longitude)
-                const lat = {{ $kos->latitude }};
-                const lng = {{ $kos->longitude }};
+            <?php if($kos->latitude && $kos->longitude): ?>
+                const lat = <?php echo e($kos->latitude); ?>;
+                const lng = <?php echo e($kos->longitude); ?>;
                 
                 // Initialize map dengan dark theme
                 const map = L.map('map', {
@@ -347,29 +351,30 @@
                                 <i class="fas fa-home text-sky-400"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-white text-lg mb-1">{{ $kos->nama_kos }}</h3>
-                                <p class="text-sm text-slate-100">{{ Str::limit($kos->alamat, 60) }}</p>
+                                <h3 class="font-bold text-white text-lg mb-1"><?php echo e($kos->nama_kos); ?></h3>
+                                <p class="text-sm text-slate-100"><?php echo e(Str::limit($kos->alamat, 60)); ?></p>
                             </div>
                         </div>
                         <div class="space-y-2 text-sm">
                             <div class="flex items-center text-slate-100">
                                 <i class="fas fa-users w-4 mr-2 text-sky-400"></i>
-                                <span>{{ ucfirst($kos->jenis_kos) }}</span>
+                                <span><?php echo e(ucfirst($kos->jenis_kos)); ?></span>
                             </div>
                             <div class="flex items-center text-slate-100">
                                 <i class="fas fa-tag w-4 mr-2 text-emerald-400"></i>
-                                <span>{{ ucfirst($kos->tipe_sewa) }}</span>
+                                <span><?php echo e(ucfirst($kos->tipe_sewa)); ?></span>
                             </div>
                         </div>
                         <div class="mt-3 pt-3 border-t border-white/10">
                             <span class="inline-flex items-center px-2 py-1 text-xs rounded-full backdrop-blur-sm
-                                {{ $kos->status_kos == 'aktif' ? 'bg-green-50 text-green-600' : 
+                                <?php echo e($kos->status_kos == 'aktif' ? 'bg-green-50 text-green-600' : 
                                    ($kos->status_kos == 'pending' ? 'bg-yellow-50 text-yellow-600' : 
-                                   'bg-red-50 text-red-600') }}">
+                                   'bg-red-50 text-red-600')); ?>">
                                 <i class="fas 
-                                    {{ $kos->status_kos == 'aktif' ? 'fa-check-circle' : 
-                                       ($kos->status_kos == 'pending' ? 'fa-clock' : 'fa-times-circle') }} mr-1"></i>
-                                {{ ucfirst($kos->status_kos) }}
+                                    <?php echo e($kos->status_kos == 'aktif' ? 'fa-check-circle' : 
+                                       ($kos->status_kos == 'pending' ? 'fa-clock' : 'fa-times-circle')); ?> mr-1"></i>
+                                <?php echo e(ucfirst($kos->status_kos)); ?>
+
                             </span>
                         </div>
                     </div>
@@ -386,7 +391,7 @@
                     position: 'topright'
                 }).addTo(map);
 
-            @else
+            <?php else: ?>
                 // Jika koordinat tidak ada
                 document.getElementById('map').innerHTML = `
                     <div class="h-full flex items-center justify-center rounded-xl">
@@ -396,7 +401,7 @@
                             </div>
                             <h3 class="text-white font-medium mb-2">Lokasi Belum Ditentukan</h3>
                             <p class="text-slate-100 text-sm mb-4">Edit kos untuk menambahkan koordinat lokasi</p>
-                            <a href="{{ route('pemilik.kos.edit', $kos->id_kos) }}" 
+                            <a href="<?php echo e(route('pemilik.kos.edit', $kos->id_kos)); ?>" 
                                class="inline-flex items-center px-4 py-2 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-lg transition text-sm">
                                 <i class="fas fa-edit mr-2"></i>
                                 Tambah Lokasi
@@ -404,11 +409,11 @@
                         </div>
                     </div>
                 `;
-            @endif
+            <?php endif; ?>
         });
 
         function copyCoordinates() {
-            const coords = "{{ $kos->latitude }}, {{ $kos->longitude }}";
+            const coords = "<?php echo e($kos->latitude); ?>, <?php echo e($kos->longitude); ?>";
             navigator.clipboard.writeText(coords).then(() => {
                 // Show toast notification
                 const toast = document.createElement('div');
@@ -427,4 +432,5 @@
             });
         }
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/pemilik/kos/show.blade.php ENDPATH**/ ?>

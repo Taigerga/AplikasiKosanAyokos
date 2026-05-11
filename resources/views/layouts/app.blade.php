@@ -13,7 +13,7 @@
     @vite(['resources/css/app.css'])
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -219,7 +219,7 @@
     </style>
 </head>
 
-<body class="text-slate-800 min-h-screen">
+<body class="text-slate-800 flex flex-col min-h-screen">
     <!-- Dynamic Header Based on Auth Status -->
     @if(auth('penghuni')->check())
         @include('layouts.partials.dashboard-penghuni')
@@ -273,7 +273,7 @@
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1">
+        <main class="flex-1 flex flex-col">
             @yield('content')
         </main>
 
@@ -437,10 +437,6 @@
             if (sidebarCollapsed) {
                 sidebar.classList.remove('w-64', 'md:w-64');
                 sidebar.classList.add('w-0', 'overflow-hidden');
-                if (dashboardHeader) {
-                    dashboardHeader.classList.remove('md:ml-64');
-                    dashboardHeader.classList.add('md:ml-0');
-                }
                 if (toggleIcon) {
                     toggleIcon.classList.remove('fa-chevron-left');
                     toggleIcon.classList.add('fa-chevron-right');
@@ -455,10 +451,6 @@
             } else {
                 sidebar.classList.remove('w-0', 'overflow-hidden');
                 sidebar.classList.add('w-64', 'md:w-64');
-                if (dashboardHeader) {
-                    dashboardHeader.classList.remove('md:ml-0');
-                    dashboardHeader.classList.add('md:ml-64');
-                }
                 if (toggleIcon) {
                     toggleIcon.classList.remove('fa-chevron-right');
                     toggleIcon.classList.add('fa-chevron-left');

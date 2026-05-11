@@ -1,15 +1,13 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Tambah Kamar - AyoKos'); ?>
 
-@section('title', 'Tambah Kamar - AyoKos')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="max-w-4xl mx-auto p-4 md:p-6">
     <!-- Breadcrumb -->
     <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4 mb-6">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="{{ route('pemilik.dashboard') }}" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
+                    <a href="<?php echo e(route('pemilik.dashboard')); ?>" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                         <i class="fas fa-home mr-2"></i>
                         Dashboard
                     </a>
@@ -17,7 +15,7 @@
                 <li class="inline-flex items-center">
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
-                        <a href="{{ route('pemilik.kamar.index') }}" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
+                        <a href="<?php echo e(route('pemilik.kamar.index')); ?>" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                             <i class="fas fa-bed mr-2"></i>
                             Kelola Kamar
                         </a>
@@ -46,7 +44,7 @@
         </div>
         
 
-    @if($errors->any())
+    <?php if($errors->any()): ?>
         <div class="mb-6 p-4 bg-red-500/20 backdrop-blur-sm border border-red-500/20 rounded-xl">
             <div class="flex items-start space-x-3">
                 <div class="p-2 bg-red-500/20 rounded-lg">
@@ -55,22 +53,23 @@
                 <div class="flex-1">
                     <h3 class="text-white font-medium mb-1">Ada beberapa kesalahan:</h3>
                     <ul class="text-red-300 text-sm space-y-1">
-                        @foreach($errors->all() as $error)
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li class="flex items-center">
                             <i class="fas fa-circle text-xs mr-2"></i>
-                            {{ $error }}
+                            <?php echo e($error); ?>
+
                         </li>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
             </div>
         </div>
-    @endif
+    <?php endif; ?>
 
     <!-- Form -->
     <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden">
-        <form method="POST" action="{{ route('pemilik.kamar.store') }}" enctype="multipart/form-data">
-            @csrf
+        <form method="POST" action="<?php echo e(route('pemilik.kamar.store')); ?>" enctype="multipart/form-data">
+            <?php echo csrf_field(); ?>
 
             <!-- Form Content -->
             <div class="p-6">
@@ -94,11 +93,12 @@
                                             class="w-full pl-12 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition"
                                             required>
                                         <option value="">Pilih Kos...</option>
-                                        @foreach($kos as $k)
-                                        <option value="{{ $k->id_kos }}" {{ old('id_kos') == $k->id_kos ? 'selected' : '' }}>
-                                            {{ $k->nama_kos }} - {{ $k->alamat }}
+                                        <?php $__currentLoopData = $kos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($k->id_kos); ?>" <?php echo e(old('id_kos') == $k->id_kos ? 'selected' : ''); ?>>
+                                            <?php echo e($k->nama_kos); ?> - <?php echo e($k->alamat); ?>
+
                                         </option>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                     <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                                 </div>
@@ -114,7 +114,7 @@
                                     <i class="fas fa-hashtag absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                     <input type="text" 
                                            name="nomor_kamar" 
-                                           value="{{ old('nomor_kamar') }}" 
+                                           value="<?php echo e(old('nomor_kamar')); ?>" 
                                            class="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                            placeholder="A1, B2, 101"
                                            required 
@@ -129,7 +129,7 @@
                                     Tipe Kamar <span class="text-red-400">*</span>
                                 </label>
                                 <div class="grid grid-cols-2 gap-3">
-                                    @php
+                                    <?php
                                         $tipeOptions = [
                                             'Standar' => ['color' => 'bg-blue-500/20', 'icon' => 'fa-home'],
                                             'Deluxe' => ['color' => 'bg-purple-500/20', 'icon' => 'fa-crown'],
@@ -137,27 +137,28 @@
                                             'Superior' => ['color' => 'bg-emerald-500/20', 'icon' => 'fa-star'],
                                             'Ekonomi' => ['color' => 'bg-gray-500/20', 'icon' => 'fa-wallet'],
                                         ];
-                                    @endphp
-                                    @foreach($tipeOptions as $value => $style)
+                                    ?>
+                                    <?php $__currentLoopData = $tipeOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value => $style): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <label class="cursor-pointer">
                                         <input type="radio" 
                                                name="tipe_kamar" 
-                                               value="{{ $value }}" 
+                                               value="<?php echo e($value); ?>" 
                                                class="hidden peer"
-                                               {{ old('tipe_kamar') == $value ? 'checked' : '' }}
+                                               <?php echo e(old('tipe_kamar') == $value ? 'checked' : ''); ?>
+
                                                required>
                                         <div class="p-4 border-2 border-white/20 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-500/20 transition-all duration-300">
                                             <div class="flex items-center space-x-3">
-                                                <div class="w-10 h-10 {{ $style['color'] }} backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center">
-                                                    <i class="fas {{ $style['icon'] }} text-white text-sm"></i>
+                                                <div class="w-10 h-10 <?php echo e($style['color']); ?> backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center">
+                                                    <i class="fas <?php echo e($style['icon']); ?> text-white text-sm"></i>
                                                 </div>
                                                 <div>
-                                                    <span class="block font-medium text-white">{{ $value }}</span>
+                                                    <span class="block font-medium text-white"><?php echo e($value); ?></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </label>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
 
@@ -170,7 +171,7 @@
                                     <i class="fas fa-money-bill-wave absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                     <input type="number" 
                                            name="harga" 
-                                           value="{{ old('harga') }}" 
+                                           value="<?php echo e(old('harga')); ?>" 
                                            class="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                            placeholder="1500000"
                                            required 
@@ -188,7 +189,7 @@
                                     <i class="fas fa-ruler-combined absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                                     <input type="text" 
                                            name="luas_kamar" 
-                                           value="{{ old('luas_kamar') }}" 
+                                           value="<?php echo e(old('luas_kamar')); ?>" 
                                            class="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                            placeholder="3x4, 4x4"
                                            required
@@ -203,22 +204,23 @@
                                     Kapasitas <span class="text-red-400">*</span>
                                 </label>
                                 <div class="grid grid-cols-4 gap-3">
-                                    @for($i = 1; $i <= 4; $i++)
+                                    <?php for($i = 1; $i <= 4; $i++): ?>
                                     <label class="cursor-pointer">
                                         <input type="radio" 
                                                name="kapasitas" 
-                                               value="{{ $i }}" 
+                                               value="<?php echo e($i); ?>" 
                                                class="hidden peer"
-                                               {{ old('kapasitas') == $i ? 'checked' : '' }}
+                                               <?php echo e(old('kapasitas') == $i ? 'checked' : ''); ?>
+
                                                required>
                                         <div class="p-4 border-2 border-white/20 rounded-xl text-center peer-checked:border-sky-500 peer-checked:bg-sky-500/20 transition-all duration-300">
-                                            <div class="text-2xl font-bold text-white mb-1">{{ $i }}</div>
+                                            <div class="text-2xl font-bold text-white mb-1"><?php echo e($i); ?></div>
                                             <div class="text-xs text-slate-100">
-                                                @if($i == 1) 1 Orang @else {{ $i }} Orang @endif
+                                                <?php if($i == 1): ?> 1 Orang <?php else: ?> <?php echo e($i); ?> Orang <?php endif; ?>
                                             </div>
                                         </div>
                                     </label>
-                                    @endfor
+                                    <?php endfor; ?>
                                 </div>
                             </div>
                         </div>
@@ -233,21 +235,21 @@
                         
                         <div class="bg-white/5 border border-white/20 rounded-xl p-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                @php
+                                <?php
                                     $facilityGroups = [
                                         'Kamar Mandi' => ['Kamar mandi dalam', 'Water heater'],
                                         'Elektronik' => ['AC', 'Kipas angin', 'TV', 'Kulkas mini', 'WiFi'],
                                         'Furniture' => ['Kasur', 'Lemari', 'Meja belajar', 'Kursi'],
                                         'Lainnya' => ['Dapur', 'Jendela', 'Balkon']
                                     ];
-                                @endphp
+                                ?>
                                 
-                                @foreach($facilityGroups as $group => $facilities)
+                                <?php $__currentLoopData = $facilityGroups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group => $facilities): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div>
-                                    <h4 class="text-sm font-medium text-slate-100 mb-3">{{ $group }}</h4>
+                                    <h4 class="text-sm font-medium text-slate-100 mb-3"><?php echo e($group); ?></h4>
                                     <div class="space-y-2">
-                                        @foreach($facilities as $facility)
-                                        @php
+                                        <?php $__currentLoopData = $facilities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $facility): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php
                                             $icons = [
                                                 'Kamar mandi dalam' => 'fa-bath',
                                                 'Water heater' => 'fa-temperature-high',
@@ -264,22 +266,22 @@
                                                 'Jendela' => 'fa-window-maximize',
                                                 'Balkon' => 'fa-building'
                                             ];
-                                        @endphp
+                                        ?>
                                         <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">
                                             <input type="checkbox" 
                                                    name="fasilitas_kamar[]" 
-                                                   value="{{ $facility }}" 
+                                                   value="<?php echo e($facility); ?>" 
                                                    class="w-4 h-4 bg-white/5 border-white/20 rounded text-sky-500 focus:ring-sky-500 focus:ring-2"
-                                                   {{ in_array($facility, old('fasilitas_kamar', [])) ? 'checked' : '' }}>
+                                                   <?php echo e(in_array($facility, old('fasilitas_kamar', [])) ? 'checked' : ''); ?>>
                                             <div class="flex-1 flex items-center">
-                                                <i class="fas {{ $icons[$facility] ?? 'fa-check' }} w-5 text-white/50 mr-2"></i>
-                                                <span class="text-sm text-white">{{ $facility }}</span>
+                                                <i class="fas <?php echo e($icons[$facility] ?? 'fa-check'); ?> w-5 text-white/50 mr-2"></i>
+                                                <span class="text-sm text-white"><?php echo e($facility); ?></span>
                                             </div>
                                         </label>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
                                 </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                             <p class="text-sm text-slate-100 mt-4">
                                 <i class="fas fa-info-circle mr-1"></i>
@@ -322,7 +324,7 @@
                                     <p class="text-sm text-slate-100">Format: JPG, PNG, JPEG (max 2 MB)</p>
                                     <div id="file-name" class="text-xs text-sky-400 mt-2"></div>
 
-                                    {{-- PREVIEW BARU --}}
+                                    
                                     <div id="preview-wrap" class="hidden mt-4 flex justify-center">
                                         <img id="preview-img" class="max-w-full max-h-48 rounded-xl border border-white/20" alt="Preview">
                                     </div>
@@ -335,38 +337,39 @@
                                     Status Kamar <span class="text-red-400">*</span>
                                 </label>
                                 <div class="space-y-3">
-                                    @php
+                                    <?php
                                         $statusOptions = [
                                             'tersedia' => ['color' => 'bg-emerald-500/20', 'icon' => 'fa-check-circle', 'label' => 'Tersedia'],
                                             'terisi' => ['color' => 'bg-blue-500/20', 'icon' => 'fa-user-check', 'label' => 'Terisi'],
                                             'maintenance' => ['color' => 'bg-yellow-500/20', 'icon' => 'fa-tools', 'label' => 'Maintenance'],
                                         ];
-                                    @endphp
+                                    ?>
                                     
-                                    @foreach($statusOptions as $value => $style)
+                                    <?php $__currentLoopData = $statusOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value => $style): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <label class="cursor-pointer block">
                                         <input type="radio" 
                                                name="status_kamar" 
-                                               value="{{ $value }}" 
+                                               value="<?php echo e($value); ?>" 
                                                class="hidden peer"
-                                               {{ old('status_kamar') == $value ? 'checked' : ($value == 'tersedia' && !old('status_kamar') ? 'checked' : '') }}
+                                               <?php echo e(old('status_kamar') == $value ? 'checked' : ($value == 'tersedia' && !old('status_kamar') ? 'checked' : '')); ?>
+
                                                required>
                                         <div class="p-4 border-2 border-white/20 rounded-xl peer-checked:border-sky-500 peer-checked:bg-sky-500/20 transition-all duration-300">
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center space-x-3">
-                                                    <div class="w-10 h-10 {{ $style['color'] }} backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center">
-                                                        <i class="fas {{ $style['icon'] }} text-white"></i>
+                                                    <div class="w-10 h-10 <?php echo e($style['color']); ?> backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center">
+                                                        <i class="fas <?php echo e($style['icon']); ?> text-white"></i>
                                                     </div>
                                                     <div>
-                                                        <span class="block font-medium text-white">{{ $style['label'] }}</span>
+                                                        <span class="block font-medium text-white"><?php echo e($style['label']); ?></span>
                                                         <span class="text-xs text-slate-100">
-                                                            @if($value == 'tersedia')
+                                                            <?php if($value == 'tersedia'): ?>
                                                             Kamar siap disewa
-                                                            @elseif($value == 'terisi')
+                                                            <?php elseif($value == 'terisi'): ?>
                                                             Kamar sedang ditempati
-                                                            @else
+                                                            <?php else: ?>
                                                             Kamar sedang diperbaiki
-                                                            @endif
+                                                            <?php endif; ?>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -376,7 +379,7 @@
                                             </div>
                                         </div>
                                     </label>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
                         </div>
@@ -386,7 +389,7 @@
                 <!-- Action Buttons -->
                 <div class="mt-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0">
                     <div>
-                        <a href="{{ route('pemilik.kamar.index') }}" 
+                        <a href="<?php echo e(route('pemilik.kamar.index')); ?>" 
                            class="inline-flex items-center px-6 py-3 border-2 border-white/20 text-white rounded-xl hover:bg-white/10 transition">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Kembali ke Daftar
@@ -437,7 +440,7 @@
     </div>
 </div>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     let resetModal;
     
@@ -676,9 +679,9 @@
         }, 5000);
     }
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     /* Custom styles for radio and checkbox */
     input[type="radio"]:checked + div {
@@ -714,5 +717,6 @@
     .glow-rose { box-shadow: 0 10px 40px -10px rgba(244, 63, 94, 0.4); }
     .glow-blue { box-shadow: 0 10px 40px -10px rgba(14, 165, 233, 0.4); }
 </style>
-@endpush
-@endsection
+<?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/pemilik/kamar/create.blade.php ENDPATH**/ ?>

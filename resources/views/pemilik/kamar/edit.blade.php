@@ -3,21 +3,21 @@
 @section('title', 'Edit Kamar - AyoKos')
 
 @section('content')
-<div class="space-y-6">
+<div class="p-4 md:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
     <!-- Breadcrumb -->
-    <div class="bg-dark-card/50 border border-dark-border rounded-xl p-4 mb-6">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4 mb-6">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="{{ route('pemilik.dashboard') }}" class="inline-flex items-center text-sm font-medium text-dark-muted hover:text-white transition-colors">
+                    <a href="{{ route('pemilik.dashboard') }}" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                         <i class="fas fa-home mr-2"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="inline-flex items-center">
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-dark-muted text-xs mx-2"></i>
-                        <a href="{{ route('pemilik.kamar.index') }}" class="inline-flex items-center text-sm font-medium text-dark-muted hover:text-white transition-colors">
+                        <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
+                        <a href="{{ route('pemilik.kamar.index') }}" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                             <i class="fas fa-bed mr-2"></i>
                             Kelola Kamar
                         </a>
@@ -25,7 +25,7 @@
                 </li>
                 <li class="inline-flex items-center">
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-dark-muted text-xs mx-2"></i>
+                        <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
                         <span class="inline-flex items-center text-sm font-medium text-white">
                             <i class="fas fa-pencil mr-2"></i>
                             Edit Kamar
@@ -36,20 +36,20 @@
         </nav>
     </div>
     <!-- Header -->
-    <div class="bg-gradient-to-r from-primary-900/30 to-indigo-900/30 border border-primary-800/30 rounded-2xl p-6 mb-6">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 mb-6">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Edit Kamar {{ $kamar->nomor_kamar }}</h1>
-                <p class="text-dark-muted">Perbarui informasi dan fasilitas kamar</p>
+                <p class="text-slate-100">Perbarui informasi dan fasilitas kamar</p>
             </div>
             <div class="flex items-center space-x-2">
-                <span class="px-3 py-1 text-xs rounded-full 
-                    {{ $kamar->status_kamar == 'tersedia' ? 'bg-green-900/30 text-green-300' : 
-                       ($kamar->status_kamar == 'terisi' ? 'bg-blue-900/30 text-blue-300' : 
-                       'bg-yellow-900/30 text-yellow-300') }}">
+                <span class="px-3 py-1 text-xs rounded-full backdrop-blur-sm
+                    {{ $kamar->status_kamar == 'tersedia' ? 'bg-green-50 text-green-600' : 
+                       ($kamar->status_kamar == 'terisi' ? 'bg-blue-50 text-blue-600' : 
+                       'bg-yellow-50 text-yellow-600') }}">
                     {{ ucfirst($kamar->status_kamar) }}
                 </span>
-                <span class="px-3 py-1 text-xs rounded-full bg-primary-900/30 text-primary-300">
+                <span class="px-3 py-1 text-xs rounded-full bg-sky-500/20 backdrop-blur-sm text-sky-300">
                     {{ $kamar->tipe_kamar }}
                 </span>
             </div>
@@ -57,7 +57,7 @@
     </div>
 
     @if($errors->any())
-        <div class="bg-red-900/20 border border-red-800/30 text-red-300 px-6 py-4 rounded-2xl">
+        <div class="bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-red-300 px-6 py-4 rounded-2xl">
             <div class="flex items-center mb-2">
                 <i class="fas fa-exclamation-circle mr-2"></i>
                 <span class="font-medium">Terjadi kesalahan:</span>
@@ -74,7 +74,7 @@
     @endif
 
     <!-- Form -->
-    <div class="bg-dark-card border border-dark-border rounded-2xl p-6">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
         <form method="POST" action="{{ route('pemilik.kamar.update', $kamar->id_kamar) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -85,13 +85,13 @@
                     <!-- Pilih Kos -->
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 flex items-center">
-                            <i class="fas fa-home text-primary-400 mr-2 w-5"></i>
+                            <i class="fas fa-home text-sky-400 mr-2 w-5"></i>
                             Pilih Kos <span class="text-red-400 ml-1">*</span>
                         </label>
                         <div class="relative">
-                            <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-dark-muted pointer-events-none"></i>
+                            <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                             <select name="id_kos" 
-                                    class="w-full pl-12 pr-10 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 appearance-none transition" required>
+                                    class="w-full pl-12 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition" required>
                                 <option value="">Pilih Kos</option>
                                 @foreach($kos as $k)
                                 <option value="{{ $k->id_kos }}" {{ old('id_kos', $kamar->id_kos) == $k->id_kos ? 'selected' : '' }}>
@@ -99,22 +99,22 @@
                                 </option>
                                 @endforeach
                             </select>
-                            <i class="fas fa-building absolute left-4 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                            <i class="fas fa-building absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                         </div>
                     </div>
 
                     <!-- Nomor Kamar -->
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 flex items-center">
-                            <i class="fas fa-hashtag text-primary-400 mr-2 w-5"></i>
+                            <i class="fas fa-hashtag text-sky-400 mr-2 w-5"></i>
                             Nomor Kamar <span class="text-red-400 ml-1">*</span>
                         </label>
                         <div class="relative">
-                            <i class="fas fa-door-closed absolute left-4 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                            <i class="fas fa-door-closed absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                             <input type="text" 
                                    name="nomor_kamar" 
                                    value="{{ old('nomor_kamar', $kamar->nomor_kamar) }}" 
-                                   class="w-full pl-12 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                                   class="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                    placeholder="Contoh: A1, B2, 101"
                                    required maxlength="10">
                         </div>
@@ -123,13 +123,13 @@
                     <!-- Tipe Kamar -->
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 flex items-center">
-                            <i class="fas fa-star text-primary-400 mr-2 w-5"></i>
+                            <i class="fas fa-star text-sky-400 mr-2 w-5"></i>
                             Tipe Kamar <span class="text-red-400 ml-1">*</span>
                         </label>
                         <div class="relative">
-                            <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-dark-muted pointer-events-none"></i>
+                            <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                             <select name="tipe_kamar" 
-                                    class="w-full pl-12 pr-10 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 appearance-none transition" required>
+                                    class="w-full pl-12 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition" required>
                                 <option value="">Pilih Tipe Kamar</option>
                                 <option value="Standar" {{ old('tipe_kamar', $kamar->tipe_kamar) == 'Standar' ? 'selected' : '' }}>Standar</option>
                                 <option value="Deluxe" {{ old('tipe_kamar', $kamar->tipe_kamar) == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
@@ -137,39 +137,39 @@
                                 <option value="Superior" {{ old('tipe_kamar', $kamar->tipe_kamar) == 'Superior' ? 'selected' : '' }}>Superior</option>
                                 <option value="Ekonomi" {{ old('tipe_kamar', $kamar->tipe_kamar) == 'Ekonomi' ? 'selected' : '' }}>Ekonomi</option>
                             </select>
-                            <i class="fas fa-crown absolute left-4 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                            <i class="fas fa-crown absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                         </div>
                     </div>
 
                     <!-- Harga -->
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 flex items-center">
-                            <i class="fas fa-money-bill-wave text-primary-400 mr-2 w-5"></i>
+                            <i class="fas fa-money-bill-wave text-sky-400 mr-2 w-5"></i>
                             Harga Sewa per Bulan <span class="text-red-400 ml-1">*</span>
                         </label>
                         <div class="relative">
-                            <i class="fas fa-tag absolute left-4 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                            <i class="fas fa-tag absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                             <input type="number" 
                                    name="harga" 
                                    value="{{ old('harga', $kamar->harga) }}" 
-                                   class="w-full pl-12 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                                   class="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                    required min="0">
-                            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-dark-muted">/bulan</span>
+                            <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/50">/bulan</span>
                         </div>
                     </div>
 
                     <!-- Luas Kamar -->
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 flex items-center">
-                            <i class="fas fa-ruler-combined text-primary-400 mr-2 w-5"></i>
+                            <i class="fas fa-ruler-combined text-sky-400 mr-2 w-5"></i>
                             Luas Kamar <span class="text-red-400 ml-1">*</span>
                         </label>
                         <div class="relative">
-                            <i class="fas fa-expand absolute left-4 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                            <i class="fas fa-expand absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                             <input type="text" 
                                    name="luas_kamar" 
                                    value="{{ old('luas_kamar', $kamar->luas_kamar) }}" 
-                                   class="w-full pl-12 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                                   class="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                    placeholder="Contoh: 3x4 m²"
                                    required
                                    maxlength="20">
@@ -182,13 +182,13 @@
                     <!-- Kapasitas -->
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 flex items-center">
-                            <i class="fas fa-users text-primary-400 mr-2 w-5"></i>
+                            <i class="fas fa-users text-sky-400 mr-2 w-5"></i>
                             Kapasitas <span class="text-red-400 ml-1">*</span>
                         </label>
                         <div class="relative">
-                            <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-dark-muted pointer-events-none"></i>
+                            <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
                             <select name="kapasitas" 
-                                    class="w-full pl-12 pr-10 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 appearance-none transition" required>
+                                    class="w-full pl-12 pr-10 py-3 bg-white/5 border border-white/20 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition" required>
                                 <option value="">Pilih Kapasitas</option>
                                 @for($i = 1; $i <= 4; $i++)
                                 <option value="{{ $i }}" {{ old('kapasitas', $kamar->kapasitas) == $i ? 'selected' : '' }}>
@@ -196,14 +196,14 @@
                                 </option>
                                 @endfor
                             </select>
-                            <i class="fas fa-user-friends absolute left-4 top-1/2 transform -translate-y-1/2 text-dark-muted"></i>
+                            <i class="fas fa-user-friends absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
                         </div>
                     </div>
 
                     <!-- Status Kamar -->
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 flex items-center">
-                            <i class="fas fa-info-circle text-primary-400 mr-2 w-5"></i>
+                            <i class="fas fa-info-circle text-sky-400 mr-2 w-5"></i>
                             Status Kamar <span class="text-red-400 ml-1">*</span>
                         </label>
                         <div class="grid grid-cols-3 gap-2">
@@ -213,8 +213,8 @@
                                        value="tersedia" 
                                        class="hidden peer"
                                        {{ old('status_kamar', $kamar->status_kamar) == 'tersedia' ? 'checked' : '' }}>
-                                <div class="p-3 text-center rounded-xl border border-dark-border peer-checked:border-green-500 peer-checked:bg-green-900/20 transition-all duration-300">
-                                    <div class="text-green-400 mb-1">
+                                <div class="p-3 text-center rounded-xl border border-white/20 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/20 transition-all duration-300">
+                                    <div class="text-emerald-400 mb-1">
                                         <i class="fas fa-check-circle"></i>
                                     </div>
                                     <span class="text-sm font-medium text-white">Tersedia</span>
@@ -227,7 +227,7 @@
                                        value="terisi" 
                                        class="hidden peer"
                                        {{ old('status_kamar', $kamar->status_kamar) == 'terisi' ? 'checked' : '' }}>
-                                <div class="p-3 text-center rounded-xl border border-dark-border peer-checked:border-blue-500 peer-checked:bg-blue-900/20 transition-all duration-300">
+                                <div class="p-3 text-center rounded-xl border border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500/20 transition-all duration-300">
                                     <div class="text-blue-400 mb-1">
                                         <i class="fas fa-user-check"></i>
                                     </div>
@@ -241,7 +241,7 @@
                                        value="maintenance" 
                                        class="hidden peer"
                                        {{ old('status_kamar', $kamar->status_kamar) == 'maintenance' ? 'checked' : '' }}>
-                                <div class="p-3 text-center rounded-xl border border-dark-border peer-checked:border-yellow-500 peer-checked:bg-yellow-900/20 transition-all duration-300">
+                                <div class="p-3 text-center rounded-xl border border-white/20 peer-checked:border-yellow-500 peer-checked:bg-yellow-500/20 transition-all duration-300">
                                     <div class="text-yellow-400 mb-1">
                                         <i class="fas fa-tools"></i>
                                     </div>
@@ -254,14 +254,14 @@
                     <!-- Foto Kamar -->
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 flex items-center">
-                            <i class="fas fa-camera text-primary-400 mr-2 w-5"></i>
+                            <i class="fas fa-camera text-sky-400 mr-2 w-5"></i>
                             Foto Kamar
                         </label>
                         
                         <!-- Current Photo Preview -->
                         @if($kamar->foto_kamar)
                         <div class="mb-4">
-                            <div class="relative rounded-xl overflow-hidden border border-dark-border mb-3">
+                            <div class="relative rounded-xl overflow-hidden border border-white/20 mb-3">
                                 <img src="{{ asset('storage/' . $kamar->foto_kamar) }}" 
                                      alt="Foto Kamar" 
                                      class="w-full h-48 object-cover">
@@ -269,14 +269,14 @@
                                     <div class="p-4">
                                         <a href="{{ asset('storage/' . $kamar->foto_kamar) }}" 
                                            target="_blank" 
-                                           class="inline-flex items-center text-sm text-white hover:text-primary-300 transition">
+                                           class="inline-flex items-center text-sm text-white hover:text-sky-300 transition">
                                             <i class="fas fa-expand mr-2"></i>
                                             Lihat Fullsize
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-xs text-dark-muted">
+                            <div class="text-xs text-slate-100">
                                 Foto saat ini
                             </div>
                         </div>
@@ -290,15 +290,15 @@
                                    class="hidden"
                                    accept="image/*">
                             <label for="foto_kamar" 
-                                   class="flex items-center justify-center w-full p-6 border-2 border-dashed border-dark-border rounded-xl cursor-pointer hover:border-primary-500/50 hover:bg-dark-border/10 transition-all duration-300">
+                                   class="flex items-center justify-center w-full p-6 border-2 border-dashed border-white/20 rounded-xl cursor-pointer hover:border-sky-500/50 hover:bg-white/10 transition-all duration-300">
                                 <div class="text-center">
-                                    <div class="w-12 h-12 bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
-                                        <i class="fas fa-cloud-upload-alt text-primary-400 text-xl"></i>
+                                    <div class="w-12 h-12 bg-sky-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <i class="fas fa-cloud-upload-alt text-sky-400 text-xl"></i>
                                     </div>
                                     <p class="text-sm text-white mb-1">
-                                        <span class="text-primary-300">Klik untuk upload</span> atau drag & drop
+                                        <span class="text-sky-300">Klik untuk upload</span> atau drag & drop
                                     </p>
-                                    <p class="text-xs text-dark-muted">
+                                    <p class="text-xs text-slate-100">
                                         Kosongkan jika tidak ingin mengubah foto
                                     </p>
                                 </div>
@@ -307,12 +307,12 @@
                         
                         <!-- File Preview -->
                         <div id="filePreview" class="hidden mt-3">
-                            <div class="flex items-center justify-between p-3 bg-dark-border/30 rounded-xl">
+                            <div class="flex items-center justify-between p-3 bg-white/5 border border-white/20 rounded-xl">
                                 <div class="flex items-center space-x-3">
-                                    <i class="fas fa-image text-primary-400"></i>
+                                    <i class="fas fa-image text-sky-400"></i>
                                     <div>
                                         <p class="text-sm font-medium text-white" id="fileName"></p>
-                                        <p class="text-xs text-dark-muted" id="fileSize"></p>
+                                        <p class="text-xs text-slate-100" id="fileSize"></p>
                                     </div>
                                 </div>
                                 <button type="button" 
@@ -327,12 +327,12 @@
             </div>
 
             <!-- Fasilitas Kamar -->
-            <div class="mt-8 pt-6 border-t border-dark-border">
+            <div class="mt-8 pt-6 border-t border-white/10">
                 <label class="block text-sm font-medium text-white mb-4 flex items-center">
-                    <i class="fas fa-list-check text-primary-400 mr-2 w-5"></i>
+                    <i class="fas fa-list-check text-sky-400 mr-2 w-5"></i>
                     Fasilitas Kamar
                 </label>
-                <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-4">
+                <div class="bg-white/5 border border-white/20 rounded-xl p-4">
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                         @php
                             $commonFacilities = [
@@ -366,9 +366,9 @@
                                    value="{{ $facility }}" 
                                    class="hidden peer"
                                    {{ in_array($facility, old('fasilitas_kamar', $currentFacilities)) ? 'checked' : '' }}>
-                            <div class="flex items-center space-x-3 p-3 rounded-xl border border-dark-border peer-checked:border-primary-500 peer-checked:bg-primary-900/20 transition-all duration-300 hover:border-dark-border/50">
-                                <div class="w-8 h-8 rounded-lg bg-primary-900/30 flex items-center justify-center">
-                                    <i class="fas {{ $facilityIcons[$facility] ?? 'fa-check' }} text-primary-400 text-sm"></i>
+                            <div class="flex items-center space-x-3 p-3 rounded-xl border border-white/20 peer-checked:border-sky-500 peer-checked:bg-sky-500/20 transition-all duration-300 hover:border-white/30">
+                                <div class="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center">
+                                    <i class="fas {{ $facilityIcons[$facility] ?? 'fa-check' }} text-sky-400 text-sm"></i>
                                 </div>
                                 <span class="text-sm text-white">{{ $facility }}</span>
                             </div>
@@ -379,14 +379,14 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="mt-8 pt-6 border-t border-dark-border flex flex-col sm:flex-row gap-4">
+            <div class="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-4">
                 <a href="{{ route('pemilik.kamar.index') }}" 
-                   class="flex-1 px-6 py-3 bg-dark-border text-white rounded-xl hover:bg-dark-border/80 transition-all duration-300 font-medium text-center flex items-center justify-center">
+                   class="flex-1 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition-all duration-300 font-medium text-center flex items-center justify-center">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Kembali
                 </a>
                 <button type="submit" 
-                        class="flex-1 px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white rounded-xl hover:from-primary-600 hover:to-indigo-600 transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
+                        class="flex-1 px-6 py-3 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-xl transition-all duration-300 font-medium">
                     <i class="fas fa-save mr-2"></i>
                     Update Kamar
                 </button>
@@ -438,9 +438,9 @@
         checkbox.addEventListener('change', function() {
             const container = this.closest('label').querySelector('div');
             if (this.checked) {
-                container.classList.add('ring-2', 'ring-primary-500/30');
+                container.classList.add('ring-2', 'ring-sky-500/30');
             } else {
-                container.classList.remove('ring-2', 'ring-primary-500/30');
+                container.classList.remove('ring-2', 'ring-sky-500/30');
             }
         });
     });
@@ -450,7 +450,7 @@
         document.querySelectorAll('input[name="fasilitas_kamar[]"]').forEach(checkbox => {
             if (checkbox.checked) {
                 const container = checkbox.closest('label').querySelector('div');
-                container.classList.add('ring-2', 'ring-primary-500/30');
+                container.classList.add('ring-2', 'ring-sky-500/30');
             }
         });
     });

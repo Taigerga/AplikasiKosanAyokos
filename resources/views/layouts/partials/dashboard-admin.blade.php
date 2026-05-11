@@ -1,14 +1,14 @@
 <!-- Dashboard Header -->
 <header class="bg-slate-800 border-b border-slate-700 h-16 flex items-center sticky top-0 z-[1002]">
-    <div id="dashboardHeader" class="flex-1 px-4 transition-all duration-300 md:ml-64">
+    <div id="dashboardHeader" class="flex-1 px-4 transition-all duration-300 ease-in-out">
         <div class="flex items-center justify-between">
-            <!-- Mobile Toggle -->
-            <button id="mobileSidebarToggle" class="md:hidden text-slate-400 hover:text-slate-100">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-
-            <!-- Logo and Title -->
             <div class="flex items-center gap-3">
+                <!-- Mobile Toggle -->
+                <button id="mobileSidebarToggle" class="md:hidden text-slate-400 hover:text-slate-100">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+
+                <!-- Logo and Title -->
                 <div class="hidden md:flex items-center gap-3">
                     <div
                         class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
@@ -198,7 +198,7 @@
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300">
+    <main id="mainContent" class="flex-1 transition-all duration-300 ease-in-out">
         <div class="p-4 md:p-6">
             @yield('content')
         </div>

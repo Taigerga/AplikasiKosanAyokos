@@ -3,28 +3,28 @@
 @section('title', $kos->nama_kos . ' - AyoKos')
 
 @section('content')
-<div class="pt-28 md:pt-32 pb-12 md:pb-16 bg-gradient-to-br from-slate-800 to-slate-900">
-    <div class="container mx-auto px-4 space-y-6">
+<div class="relative bg-gradient-to-br from-slate-800 to-slate-900 pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden min-h-screen">
+    <div class="container mx-auto px-4 space-y-6 relative z-10">
         <!-- Breadcrumb -->
-        <nav class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+        <nav class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4" data-aos="fade-down">
             <ol class="inline-flex items-center space-x-1 md:space-x-3 text-sm">
                 <li class="inline-flex items-center">
-                    <a href="{{ route('public.home') }}" class="text-slate-500 hover:text-sky-600 transition">
+                    <a href="{{ route('public.home') }}" class="text-slate-300 hover:text-white transition">
                         <i class="fas fa-home mr-1"></i> Home
                     </a>
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right mx-2 text-slate-300 text-xs"></i>
-                        <a href="{{ route('public.kos.index') }}" class="text-slate-500 hover:text-sky-600 transition">
+                        <i class="fas fa-chevron-right mx-2 text-slate-500 text-xs"></i>
+                        <a href="{{ route('public.kos.index') }}" class="text-slate-300 hover:text-white transition">
                             Kos
                         </a>
                     </div>
                 </li>
                 <li aria-current="page">
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right mx-2 text-slate-300 text-xs"></i>
-                        <span class="text-slate-800 font-medium truncate max-w-xs">
+                        <i class="fas fa-chevron-right mx-2 text-slate-500 text-xs"></i>
+                        <span class="text-white font-medium truncate max-w-xs">
                             {{ $kos->nama_kos }}
                         </span>
                     </div>
@@ -36,32 +36,32 @@
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Gallery -->
-                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-duration="800">
                     @if($kos->foto_utama)
                         <img src="{{ asset('storage/' . $kos->foto_utama) }}" 
                              alt="{{ $kos->nama_kos }}" 
                              class="w-full h-64 md:h-80 object-cover hover:scale-105 transition-transform duration-700">
                     @else
-                        <div class="w-full h-64 md:h-80 bg-slate-100 flex items-center justify-center">
-                            <i class="fas fa-home text-6xl text-slate-300"></i>
+                        <div class="w-full h-64 md:h-80 bg-white/5 flex items-center justify-center">
+                            <i class="fas fa-home text-6xl text-slate-400"></i>
                         </div>
                     @endif
                 </div>
 
                 <!-- Basic Info -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
                         <div class="flex-1">
-                            <h1 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">{{ $kos->nama_kos }}</h1>
-                            <div class="flex items-start text-slate-500 mb-4">
-                                <i class="fas fa-map-marker-alt text-sky-500 mr-2 mt-0.5 flex-shrink-0"></i>
+                            <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">{{ $kos->nama_kos }}</h1>
+                            <div class="flex items-start text-slate-300 mb-4">
+                                <i class="fas fa-map-marker-alt text-sky-400 mr-2 mt-0.5 flex-shrink-0"></i>
                                 <span class="leading-relaxed">{{ $kos->alamat }}, {{ $kos->kecamatan }}, {{ $kos->kota }}</span>
                             </div>
                             
                             @if($kos->reviews->count() > 0)
                             <div class="flex items-center">
                                 <div class="flex items-center">
-                                    <div class="flex text-amber-500 mr-2">
+                                    <div class="flex text-amber-400 mr-2">
                                         @for($i = 1; $i <= 5; $i++)
                                             @if($i <= floor($averageRating))
                                                 <i class="fas fa-star"></i>
@@ -72,23 +72,23 @@
                                             @endif
                                         @endfor
                                     </div>
-                                    <span class="text-lg font-semibold text-slate-800 mr-2">{{ number_format($averageRating, 1) }}</span>
+                                    <span class="text-lg font-semibold text-white mr-2">{{ number_format($averageRating, 1) }}</span>
                                 </div>
-                                <span class="text-slate-500">({{ $totalReviews }} ulasan)</span>
+                                <span class="text-slate-400">({{ $totalReviews }} ulasan)</span>
                             </div>
                             @endif
                         </div>
                         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                             <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-sky-50 text-sky-700 border border-sky-200 capitalize">
+                                <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-sky-500/20 text-sky-300 border border-sky-400/30 capitalize">
                                     {{ $kos->jenis_kos }}
                                 </span>
-                                <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
                                     {{ $kos->kamar->count() }} Kamar
                                 </span>
                             </div>
                             <button onclick="shareKos()" 
-                                    class="px-3 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition flex items-center">
+                                    class="px-3 py-1.5 rounded-full text-sm font-medium bg-white/10 text-white border border-white/20 hover:bg-white/20 transition flex items-center">
                                 <i class="fas fa-share-alt mr-1"></i> Bagikan
                             </button>
                         </div>
@@ -96,7 +96,7 @@
                     
                     <!-- Pemilik Info Card -->
                     @if($kos->pemilik)
-                    <div class="bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-100 rounded-xl p-4 mt-4">
+                    <div class="">
                         <div class="flex items-center space-x-4">
                             @if($kos->pemilik->foto_profil)
                                 @php
@@ -108,23 +108,23 @@
                                          alt="{{ $kos->pemilik->nama }}" 
                                          class="w-12 h-12 rounded-full object-cover border-2 border-sky-400">
                                 @else
-                                    <div class="w-12 h-12 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-full flex items-center justify-center">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center">
                                         <span class="text-white font-semibold text-lg">{{ strtoupper(substr($kos->pemilik->nama, 0, 1)) }}</span>
                                     </div>
                                 @endif
                             @else
-                                <div class="w-12 h-12 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-full flex items-center justify-center">
+                                <div class="w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full flex items-center justify-center">
                                     <i class="fas fa-user-tie text-white text-lg"></i>
                                 </div>
                             @endif
                             <div class="flex-1">
-                                <h3 class="font-semibold text-slate-800 text-lg">Pemilik Kos</h3>
-                                <p class="text-sm text-sky-700">{{ $kos->pemilik->nama }}</p>
-                                <p class="text-xs text-slate-500 mt-1">Terverifikasi • {{ $kos->created_at->format('Y') }}</p>
+                                <h3 class="font-semibold text-white text-lg">Pemilik Kos</h3>
+                                <p class="text-sm text-sky-300">{{ $kos->pemilik->nama }}</p>
+                                <p class="text-xs text-slate-400 mt-1">Terverifikasi • {{ $kos->created_at->format('Y') }}</p>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                                <span class="text-xs text-emerald-600 font-medium">Aktif</span>
+                                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                                <span class="text-xs text-emerald-300 font-medium">Aktif</span>
                             </div>
                         </div>
                     </div>
@@ -132,42 +132,42 @@
                 </div>
 
                 <!-- Description -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                    <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center">
-                        <i class="fas fa-file-alt text-sky-500 mr-3"></i>
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="150">
+                    <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                        <i class="fas fa-file-alt text-sky-400 mr-3"></i>
                         Deskripsi Kos
                     </h2>
-                    <div class="prose max-w-none text-slate-600 leading-relaxed whitespace-pre-line">
+                    <div class="prose max-w-none text-slate-300 leading-relaxed whitespace-pre-line">
                         {{ $kos->deskripsi }}
                     </div>
                 </div>
 
                 <!-- Facilities -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
-                        <i class="fas fa-th-large text-sky-500 mr-3"></i>
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="200">
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-th-large text-sky-400 mr-3"></i>
                         Fasilitas
                     </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach($kos->fasilitas->groupBy('kategori') as $kategori => $fasilitasList)
                         <div>
-                            <h3 class="font-semibold text-sky-700 mb-4 capitalize text-lg">
+                            <h3 class="font-semibold text-sky-300 mb-4 capitalize text-lg">
                                 {{ str_replace('_', ' ', $kategori) }}
                             </h3>
                             <div class="space-y-3">
                                 @foreach($fasilitasList as $fasilitas)
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600">
+                                    <div class="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center text-sky-400">
                                         @switch($fasilitas->kategori)
                                             @case('umum') <i class="fas fa-wifi"></i> @break
                                             @case('kamar_mandi') <i class="fas fa-shower"></i> @break
                                             @case('dapur') <i class="fas fa-utensils"></i> @break
                                             @case('parkir') <i class="fas fa-parking"></i> @break
                                             @case('keamanan') <i class="fas fa-shield-alt"></i> @break
-                                            @default <i class="fas fa-check text-emerald-500"></i>
+                                            @default <i class="fas fa-check text-emerald-400"></i>
                                         @endswitch
                                     </div>
-                                    <span class="text-slate-600">{{ $fasilitas->nama_fasilitas }}</span>
+                                    <span class="text-slate-300">{{ $fasilitas->nama_fasilitas }}</span>
                                 </div>
                                 @endforeach
                             </div>
@@ -177,26 +177,26 @@
                 </div>
 
                 <!-- Available Rooms -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
-                        <i class="fas fa-door-open text-sky-500 mr-3"></i>
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="250">
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-door-open text-sky-400 mr-3"></i>
                         Kamar Tersedia
                     </h2>
                     <div class="space-y-6">
                         @forelse($kos->kamar as $kamar)
-                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 hover:border-sky-300 transition-all duration-300">
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-sky-400/30 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                             <div class="flex flex-col lg:flex-row gap-6">
                                 <div class="flex-1">
                                     <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                                         <div>
-                                            <h3 class="text-xl font-semibold text-slate-900">Kamar {{ $kamar->nomor_kamar }}</h3>
+                                            <h3 class="text-xl font-semibold text-white">Kamar {{ $kamar->nomor_kamar }}</h3>
                                             <div class="flex items-center space-x-3 mt-2">
-                                                <span class="text-sm text-slate-500 bg-slate-200/70 px-3 py-1 rounded-lg">{{ $kamar->tipe_kamar }}</span>
-                                                <span class="text-sm text-slate-500 bg-slate-200/70 px-3 py-1 rounded-lg">{{ $kamar->luas_kamar }}</span>
-                                                <span class="text-sm text-slate-500 bg-slate-200/70 px-3 py-1 rounded-lg">Untuk {{ $kamar->kapasitas }} orang</span>
+                                                <span class="text-sm text-slate-300 bg-white/10 px-3 py-1 rounded-lg">{{ $kamar->tipe_kamar }}</span>
+                                                <span class="text-sm text-slate-300 bg-white/10 px-3 py-1 rounded-lg">{{ $kamar->luas_kamar }}</span>
+                                                <span class="text-sm text-slate-300 bg-white/10 px-3 py-1 rounded-lg">Untuk {{ $kamar->kapasitas }} orang</span>
                                             </div>
                                         </div>
-                                        <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
                                             Tersedia
                                         </span>
                                     </div>
@@ -223,11 +223,11 @@
 
                                     @if(count($fasilitasKamar) > 0)
                                     <div class="mb-4">
-                                        <h4 class="font-medium text-sky-700 mb-3">Fasilitas Kamar:</h4>
+                                        <h4 class="font-medium text-sky-300 mb-3">Fasilitas Kamar:</h4>
                                         <div class="flex flex-wrap gap-2">
                                             @foreach($fasilitasKamar as $fasilitas)
                                                 @if(is_string($fasilitas))
-                                                <span class="px-3 py-1.5 rounded-lg text-sm bg-sky-50 text-sky-700 border border-sky-200">
+                                                <span class="px-3 py-1.5 rounded-lg text-sm bg-sky-500/20 text-sky-300 border border-sky-400/30">
                                                     <i class="fas fa-check-circle mr-1"></i>
                                                     {{ $fasilitas }}
                                                 </span>
@@ -238,12 +238,12 @@
                                     @endif
                                 </div>
                                 
-                                <div class="lg:text-right lg:border-l lg:border-slate-200 lg:pl-6 lg:min-w-48">
+                                <div class="lg:text-right lg:border-l lg:border-white/10 lg:pl-6 lg:min-w-48">
                                     <div class="mb-4">
-                                        <p class="text-3xl font-bold text-emerald-600 mb-1">
+                                        <p class="text-3xl font-bold text-emerald-400 mb-1">
                                             Rp {{ number_format($kamar->harga, 0, ',', '.') }}
                                         </p>
-                                        <p class="text-sm text-slate-500">per 
+                                        <p class="text-sm text-white">per 
                                             @if($kos->tipe_sewa == 'harian') hari
                                             @elseif($kos->tipe_sewa == 'mingguan') minggu
                                             @elseif($kos->tipe_sewa == 'bulanan') bulan
@@ -261,18 +261,18 @@
                                         @endphp
                                         @if($isAllowed)
                                         <a href="{{ route('penghuni.kontrak.create', $kos->id_kos) }}" 
-                                           class="w-full lg:w-auto px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 font-semibold inline-block transition shadow-md hover:shadow-lg">
+                                           class="w-full lg:w-auto px-6 py-3 bg-sky-500 text-white rounded-xl hover:bg-sky-600 font-semibold inline-block transition shadow-lg">
                                             <i class="fas fa-check mr-2"></i> Pilih Kamar Ini
                                         </a>
                                         @else
                                         <button disabled 
-                                                class="w-full lg:w-auto px-6 py-3 bg-red-100 text-red-600 border border-red-200 rounded-xl font-semibold inline-block cursor-not-allowed">
+                                                class="w-full lg:w-auto px-6 py-3 bg-red-500/20 text-red-400 border border-red-400/30 rounded-xl font-semibold inline-block cursor-not-allowed">
                                             <i class="fas fa-ban mr-2"></i> Khusus {{ ucfirst($kos->jenis_kos) }}
                                         </button>
                                         @endif
                                     @else
                                         <a href="{{ route('login') }}" 
-                                           class="w-full lg:w-auto px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 font-semibold inline-block transition shadow-md hover:shadow-lg">
+                                           class="w-full lg:w-auto px-6 py-3 bg-sky-500 text-white rounded-xl hover:bg-sky-600 font-semibold inline-block transition shadow-lg">
                                             <i class="fas fa-sign-in-alt mr-2"></i> Login untuk Pesan
                                         </a>
                                     @endauth
@@ -280,14 +280,14 @@
                             </div>
                         </div>
                         @empty
-                        <div class="text-center py-12">
-                            <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div class="text-center py-12" data-aos="fade-up">
+                            <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <i class="fas fa-door-closed text-3xl text-slate-400"></i>
                             </div>
-                            <h3 class="text-xl font-semibold text-slate-800 mt-4">Tidak Ada Kamar Tersedia</h3>
-                            <p class="text-slate-500 mt-2">Semua kamar sudah terisi untuk saat ini.</p>
+                            <h3 class="text-xl font-semibold text-white mt-4">Tidak Ada Kamar Tersedia</h3>
+                            <p class="text-slate-400 mt-2">Semua kamar sudah terisi untuk saat ini.</p>
                             <a href="{{ route('public.kos.index') }}" 
-                               class="inline-block mt-6 px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition shadow-sm">
+                               class="inline-block mt-6 px-6 py-3 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition shadow-lg">
                                 <i class="fas fa-search mr-2"></i> Cari Kos Lainnya
                             </a>
                         </div>
@@ -296,19 +296,19 @@
                 </div>
 
                 <!-- Rules -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
-                        <i class="fas fa-clipboard-list text-sky-500 mr-3"></i>
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="300">
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-clipboard-list text-sky-400 mr-3"></i>
                         Peraturan Kos
                     </h2>
-                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
-                        <pre class="whitespace-pre-wrap font-sans text-slate-600 text-sm leading-relaxed">{{ $kos->peraturan }}</pre>
+                    <div class="bg-white/5 rounded-xl p-5 border border-white/10">
+                        <pre class="whitespace-pre-wrap font-sans text-slate-300 text-sm leading-relaxed">{{ $kos->peraturan }}</pre>
                     </div>
                 </div>
 
                 <!-- Reviews -->
                 @if($kos->reviews->count() > 0)
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="350">
                     <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
                         <i class="fas fa-comments text-sky-500 mr-3"></i>
                         Ulasan Penghuni
@@ -433,12 +433,12 @@
                     </div>
                 </div>
                 @else
-                <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center shadow-sm">
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center shadow-sm" data-aos="fade-up" data-aos-delay="350">
                     <div class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-comment text-3xl text-amber-400"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-slate-800">Belum Ada Ulasan</h3>
-                    <p class="text-slate-500 mt-2">Jadilah yang pertama memberikan ulasan untuk kos ini.</p>
+                    <h3 class="text-xl font-semibold text-white">Belum Ada Ulasan</h3>
+                    <p class="text-white mt-2">Jadilah yang pertama memberikan ulasan untuk kos ini.</p>
                      
                     @auth('penghuni')
                         @php
@@ -474,29 +474,29 @@
             </div>
 
             <!-- Sidebar -->
-            <div class="lg:col-span-1 space-y-6">
+            <div class="lg:col-span-1 space-y-6 ">
                 <!-- Action Card -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm sticky top-24">
-                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-left" data-aos-delay="0">
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center">
                         <i class="fas fa-calendar-check text-sky-500 mr-3"></i>
                         Informasi Booking
                     </h2>
                     
                     @if($kos->kamar->min('harga') > 0)
                         <div class="mb-6">
-                            <h3 class="font-semibold text-sky-700 mb-1">Harga Mulai Dari</h3>
-                            <p class="text-4xl font-bold text-emerald-600">Rp {{ number_format($kos->kamar->min('harga'), 0, ',', '.') }}</p>
-                            <p class="text-sm text-slate-500 mt-1">per {{ $kos->tipe_sewa ?? 'bulan' }}</p>
+                            <h3 class="font-semibold text-sky-500 mb-1">Harga Mulai Dari</h3>
+                            <p class="text-4xl font-bold text-emerald-400">Rp {{ number_format($kos->kamar->min('harga'), 0, ',', '.') }}</p>
+                            <p class="text-sm text-slate-300 mt-1">per {{ $kos->tipe_sewa ?? 'bulan' }}</p>
                         </div>
                     @else
                         <p class="text-lg font-bold text-red-500 bg-red-50 rounded-lg px-3 py-2 mb-6">Penuh</p>
                     @endif
 
                     <div class="space-y-3 mb-6 text-sm">
-                        <div class="flex justify-between"><span class="text-slate-500">Jenis Kos:</span><span class="font-medium text-slate-800 capitalize">{{ $kos->jenis_kos }}</span></div>
-                        <div class="flex justify-between"><span class="text-slate-500">Tipe Sewa:</span><span class="font-medium text-slate-800 capitalize">{{ $kos->tipe_sewa }}</span></div>
-                        <div class="flex justify-between"><span class="text-slate-500">Kamar Tersedia:</span><span class="font-medium text-emerald-600">{{ $kos->kamar->count() }} kamar</span></div>
-                        <div class="flex justify-between"><span class="text-slate-500">Lokasi:</span><span class="font-medium text-slate-800 text-right">{{ $kos->kota }}, {{ $kos->provinsi }}</span></div>
+                        <div class="flex justify-between"><span class="text-white">Jenis Kos:</span><span class="font-medium text-white capitalize">{{ $kos->jenis_kos }}</span></div>
+                        <div class="flex justify-between"><span class="text-white">Tipe Sewa:</span><span class="font-medium text-white capitalize">{{ $kos->tipe_sewa }}</span></div>
+                        <div class="flex justify-between"><span class="text-white">Kamar Tersedia:</span><span class="font-medium text-white">{{ $kos->kamar->count() }} kamar</span></div>
+                        <div class="flex justify-between"><span class="text-white">Lokasi:</span><span class="font-medium text-white text-right">{{ $kos->kota }}, {{ $kos->provinsi }}</span></div>
                     </div>
 
                     @auth('penghuni')
@@ -524,7 +524,7 @@
                         @endif
                     @else
                         <div class="text-center">
-                            <p class="text-slate-500 mb-4">Login untuk mendaftar</p>
+                            <p class="text-slate-300 mb-4">Login untuk mendaftar</p>
                             <div class="space-y-3">
                                 <a href="{{ route('login') }}" class="block w-full px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition">Login</a>
                                 <a href="{{ route('register') }}" class="block w-full px-6 py-3 bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition">Daftar Akun Baru</a>
@@ -571,7 +571,7 @@
                     <!-- Contact -->
                     @if($kos->pemilik)
                     <div class="mt-6 pt-6 border-t border-slate-200">
-                        <h3 class="font-semibold text-slate-800 mb-3 flex items-center"><i class="fas fa-headset text-sky-500 mr-2"></i>Butuh Bantuan?</h3>
+                        <h3 class="font-semibold text-white mb-3 flex items-center"><i class="fas fa-headset text-sky-500 mr-2"></i>Butuh Bantuan?</h3>
                         <div class="space-y-3">
                             @php
                                 $waNumber = $kos->pemilik->no_hp;
@@ -592,16 +592,16 @@
                 </div>
 
                 <!-- Location Card -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                    <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center">
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-left" data-aos-delay="100">
+                    <h2 class="text-xl font-bold text-white mb-4 flex items-center">
                         <i class="fas fa-map-marker-alt text-sky-500 mr-3"></i> Lokasi
                     </h2>
                     <div class="space-y-3 text-sm">
                         <div class="flex items-start space-x-3">
                             <i class="fas fa-location-dot text-sky-500 mt-1"></i>
                             <div>
-                                <p class="font-medium text-slate-800">{{ $kos->alamat }}</p>
-                                <p class="text-slate-500">{{ $kos->kecamatan }}, {{ $kos->kota }} - {{ $kos->kode_pos }}</p>
+                                <p class="font-medium text-white">{{ $kos->alamat }}</p>
+                                <p class="text-white">{{ $kos->kecamatan }}, {{ $kos->kota }} - {{ $kos->kode_pos }}</p>
                             </div>
                         </div>
                         @if($kos->latitude && $kos->longitude)
@@ -620,13 +620,13 @@
 
                 <!-- Similar Kos -->
                 @if($similarKos->count() > 0)
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                    <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center">
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-left" data-aos-delay="200">
+                    <h2 class="text-xl font-bold text-white mb-4 flex items-center">
                         <i class="fas fa-building text-sky-500 mr-3"></i> Kos Serupa
                     </h2>
                     <div class="space-y-4">
                         @foreach($similarKos as $similar)
-                        <a href="{{ route('public.kos.show', $similar->id_kos) }}" class="block bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-sky-300 transition">
+                        <a href="{{ route('public.kos.show', $similar->id_kos) }}" class="block bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 hover:border-sky-300 transition" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
                             <div class="flex space-x-4">
                                 @if($similar->foto_utama)
                                     <img src="{{ asset('storage/' . $similar->foto_utama) }}" alt="{{ $similar->nama_kos }}" class="w-16 h-16 rounded-lg object-cover flex-shrink-0">
@@ -634,7 +634,7 @@
                                     <div class="w-16 h-16 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400"><i class="fas fa-home"></i></div>
                                 @endif
                                 <div class="min-w-0">
-                                    <h4 class="font-semibold text-slate-800 text-sm truncate">{{ $similar->nama_kos }}</h4>
+                                    <h4 class="font-semibold text-white text-sm truncate">{{ $similar->nama_kos }}</h4>
                                     <p class="text-emerald-600 font-bold text-sm mt-1">
                                         @if($similar->kamar->count() > 0)
                                             Rp {{ number_format($similar->kamar->min('harga'), 0, ',', '.') }}
@@ -642,7 +642,7 @@
                                             Penuh
                                         @endif
                                     </p>
-                                    <div class="flex items-center mt-1 gap-2 text-xs text-slate-500">
+                                    <div class="flex items-center mt-1 gap-2 text-xs text-white">
                                         <span class="capitalize">{{ $similar->jenis_kos }}</span>
                                         <span>•</span>
                                         <span>{{ $similar->kota }}</span>

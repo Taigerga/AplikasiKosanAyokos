@@ -181,7 +181,7 @@
 </style>
 
 <!-- ==================== HERO BANNER FULL-WIDTH ==================== -->
-<section class="hero-full">
+<section class="relative bg-gradient-to-br from-slate-800 to-slate-900 pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden">
     <div class="container mx-auto px-4 hero-content text-center">
         <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
             <div class="w-20 h-20 md:w-24 md:h-24 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">

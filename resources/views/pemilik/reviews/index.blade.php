@@ -3,19 +3,19 @@
 @section('title', 'Ulasan Kos Saya - AyoKos')
 
 @section('content')
-<div class="space-y-6">
+<div class="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 space-y-6">
     <!-- Alerts -->
     @if(session('success'))
-    <div class="bg-gradient-to-r from-green-900/20 to-emerald-900/20 border border-green-800/30 rounded-2xl p-4 mb-6" role="alert">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4" role="alert">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-check text-green-400"></i>
+            <div class="w-10 h-10 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-sky-400"></i>
             </div>
             <div class="flex-1">
                 <strong class="font-semibold text-white">Berhasil!</strong>
-                <p class="text-green-300 text-sm mt-1">{{ session('success') }}</p>
+                <p class="text-slate-100 text-sm mt-1">{{ session('success') }}</p>
             </div>
-            <button type="button" class="text-green-400 hover:text-green-300" onclick="this.parentElement.parentElement.style.display='none'">
+            <button type="button" class="text-slate-100 hover:text-white" onclick="this.parentElement.parentElement.style.display='none'">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -23,16 +23,16 @@
     @endif
 
     @if(session('error'))
-    <div class="bg-gradient-to-r from-red-900/20 to-pink-900/20 border border-red-800/30 rounded-2xl p-4 mb-6" role="alert">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4" role="alert">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-red-900/30 rounded-full flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-exclamation text-red-400"></i>
+            <div class="w-10 h-10 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-exclamation text-red-300"></i>
             </div>
             <div class="flex-1">
                 <strong class="font-semibold text-white">Error!</strong>
-                <p class="text-red-300 text-sm mt-1">{{ session('error') }}</p>
+                <p class="text-slate-100 text-sm mt-1">{{ session('error') }}</p>
             </div>
-            <button type="button" class="text-red-400 hover:text-red-300" onclick="this.parentElement.parentElement.style.display='none'">
+            <button type="button" class="text-slate-100 hover:text-white" onclick="this.parentElement.parentElement.style.display='none'">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -40,18 +40,18 @@
     @endif
 
     <!-- Breadcrumb -->
-    <div class="bg-dark-card/50 border border-dark-border rounded-xl p-4 mb-6">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="{{ route('pemilik.dashboard') }}" class="inline-flex items-center text-sm font-medium text-dark-muted hover:text-white transition-colors">
+                    <a href="{{ route('pemilik.dashboard') }}" class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
                         <i class="fas fa-home mr-2"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="inline-flex items-center">
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-dark-muted text-xs mx-2"></i>
+                        <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
                         <a href="{{ route('pemilik.reviews.index') }}" class="inline-flex items-center text-sm font-medium text-white">
                             <i class="fas fa-star mr-2"></i>
                             Kelola Reviews
@@ -63,7 +63,7 @@
     </div>   
     
     <!-- Header Section -->
-    <div class="bg-gradient-to-r from-primary-900/30 to-indigo-900/30 border border-primary-800/30 rounded-2xl p-6 mb-6">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
 
@@ -71,61 +71,61 @@
                     <i class="fas fa-star mr-3"></i>
                     Ulasan untuk Kos Saya
                 </h1>
-                <p class="text-dark-muted">Semua ulasan yang diberikan penghuni untuk kos yang Anda miliki</p>
+                <p class="text-slate-100">Semua ulasan yang diberikan penghuni untuk kos yang Anda miliki</p>
             </div>
         </div>
     </div>
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-5">
+        <div class="card-hover bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-3 rounded-lg bg-primary-900/30">
-                    <i class="fas fa-comment-alt text-primary-400 text-xl"></i>
+                <div class="p-3 rounded-lg bg-white/5 backdrop-blur-sm">
+                    <i class="fas fa-comment-alt text-white text-xl"></i>
                 </div>
-                <span class="text-sm font-medium px-2 py-1 rounded-full bg-primary-900/20 text-primary-300">
+                <span class="text-sm font-medium px-2 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     Total
                 </span>
             </div>
             <h3 class="text-2xl font-bold text-white mb-1">{{ $reviews->total() }}</h3>
-            <p class="text-sm text-dark-muted">Total Ulasan</p>
+            <p class="text-sm text-slate-100">Total Ulasan</p>
         </div>
 
-        <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-5">
+        <div class="card-hover bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-3 rounded-lg bg-yellow-900/30">
+                <div class="p-3 rounded-lg bg-white/5 backdrop-blur-sm">
                     <i class="fas fa-star text-yellow-400 text-xl"></i>
                 </div>
-                <span class="text-sm font-medium px-2 py-1 rounded-full bg-yellow-900/20 text-yellow-300">
+                <span class="text-sm font-medium px-2 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     Rata-rata
                 </span>
             </div>
              <h3 class="text-2xl font-bold text-white mb-1">{{ number_format($overall_avg_rating ?? 0, 1) }}</h3>
-            <p class="text-sm text-dark-muted">Rating Rata-rata</p>
+            <p class="text-sm text-slate-100">Rating Rata-rata</p>
         </div>
 
-        <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-5">
+        <div class="card-hover bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-3 rounded-lg bg-green-900/30">
-                    <i class="fas fa-calendar-alt text-green-400 text-xl"></i>
+                <div class="p-3 rounded-lg bg-white/5 backdrop-blur-sm">
+                    <i class="fas fa-calendar-alt text-white text-xl"></i>
                 </div>
-                <span class="text-sm font-medium px-2 py-1 rounded-full bg-green-900/20 text-green-300">
+                <span class="text-sm font-medium px-2 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
                     Terbaru
                 </span>
             </div>
              <h3 class="text-2xl font-bold text-white mb-1">
                  {{ $latest_review ? $latest_review->created_at->format('d M Y') : '-' }}
              </h3>
-            <p class="text-sm text-dark-muted">Terakhir Diterima</p>
+            <p class="text-sm text-slate-100">Terakhir Diterima</p>
         </div>
     </div>
 
     <!-- Reviews List -->
-    <div class="bg-dark-card border border-dark-border rounded-2xl overflow-hidden">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden">
         @if($reviews->count() > 0)
-            <div class="divide-y divide-dark-border">
+            <div class="divide-y divide-white/20">
                 @foreach($reviews as $review)
-                <div class="p-6 hover:bg-dark-bg/30 transition-all duration-300">
+                <div class="p-6 hover:bg-white/5 transition-all duration-300">
                     <div class="flex flex-col lg:flex-row lg:items-start gap-6">
                         <!-- Left Content -->
                         <div class="flex-1">
@@ -140,15 +140,15 @@
                                         @if($fileExists)
                                             <img src="{{ url('storage/' . $review->kos->foto_utama) }}" 
                                                  alt="{{ $review->kos->nama_kos }}" 
-                                                 class="w-20 h-20 object-cover rounded-xl border border-dark-border">
+                                                 class="w-20 h-20 object-cover rounded-xl border border-white/20">
                                         @else
-                                            <div class="w-20 h-20 bg-gradient-to-br from-dark-border to-dark-bg rounded-xl border border-dark-border flex items-center justify-center">
-                                                <i class="fas fa-home text-2xl text-dark-muted"></i>
+                                            <div class="w-20 h-20 bg-white/5 rounded-xl border border-white/20 flex items-center justify-center">
+                                                <i class="fas fa-home text-2xl text-white/50"></i>
                                             </div>
                                         @endif
                                     @else
-                                        <div class="w-20 h-20 bg-gradient-to-br from-dark-border to-dark-bg rounded-xl border border-dark-border flex items-center justify-center">
-                                            <i class="fas fa-home text-2xl text-dark-muted"></i>
+                                        <div class="w-20 h-20 bg-white/5 rounded-xl border border-white/20 flex items-center justify-center">
+                                            <i class="fas fa-home text-2xl text-white/50"></i>
                                         </div>
                                     @endif
                                 </div>
@@ -157,11 +157,11 @@
                                 <div class="flex-1">
                                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                                         <div>
-                                            <h3 class="font-semibold text-white text-lg hover:text-primary-300 transition cursor-pointer">
+                                            <h3 class="font-semibold text-white text-lg hover:text-sky-400 transition cursor-pointer">
                                                 {{ optional($review->kos)->nama_kos ?? '—' }}
                                             </h3>
-                                            <div class="flex items-center text-sm text-dark-muted mt-1">
-                                                <i class="fas fa-map-marker-alt mr-2 text-primary-400"></i>
+                                            <div class="flex items-center text-sm text-slate-100 mt-1">
+                                                <i class="fas fa-map-marker-alt mr-2 text-sky-400"></i>
                                                 {{ optional($review->kos)->alamat ?? '-' }}, {{ optional($review->kos)->kota ?? '-' }}
                                             </div>
                                         </div>
@@ -179,13 +179,13 @@
                                             @endfor
                                         </div>
                                         <span class="text-sm font-medium text-white">{{ $review->rating }}/5</span>
-                                        <span class="text-dark-muted">•</span>
-                                        <span class="text-sm text-dark-muted">{{ $review->created_at->format('d M Y H:i') }}</span>
+                                        <span class="text-slate-100">•</span>
+                                        <span class="text-sm text-slate-100">{{ $review->created_at->format('d M Y H:i') }}</span>
                                     </div>
 
                                     <!-- Comment -->
-                                    <p class="text-dark-text mt-3 bg-dark-bg/50 p-4 rounded-xl border border-dark-border">
-                                        <i class="fas fa-quote-left text-primary-400/50 mr-2"></i>
+                                    <p class="text-white mt-3 bg-white/5 p-4 rounded-xl border border-white/20">
+                                        <i class="fas fa-quote-left text-sky-400/50 mr-2"></i>
                                         {{ $review->komentar }}
                                     </p>
 
@@ -194,9 +194,9 @@
                                     <div class="mt-4">
                                         <img src="{{ asset('storage/' . $review->foto_review) }}" 
                                              alt="Foto review" 
-                                             class="w-24 h-24 object-cover rounded-xl border-2 border-dark-border hover:border-primary-500 cursor-pointer transition-all duration-300 hover:scale-105"
+                                             class="w-24 h-24 object-cover rounded-xl border-2 border-white/20 hover:border-sky-500 cursor-pointer transition-all duration-300 hover:scale-105"
                                              onclick="openImage('{{ asset('storage/' . $review->foto_review) }}')">
-                                        <p class="text-xs text-dark-muted mt-1">Klik untuk memperbesar</p>
+                                        <p class="text-xs text-slate-100 mt-1">Klik untuk memperbesar</p>
                                     </div>
                                     @endif
                                 </div>
@@ -206,12 +206,12 @@
                         <!-- Right Actions -->
                         <div class="lg:w-48 flex flex-col space-y-3">
                             <a href="{{ route('pemilik.kos.show', optional($review->kos)->id_kos) }}" 
-                               class="flex items-center justify-center space-x-2 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white rounded-xl transition-all duration-300 hover:shadow-lg">
+                               class="flex items-center justify-center space-x-2 px-4 py-2.5 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-xl transition-all duration-300">
                                 <i class="fas fa-eye"></i>
                                 <span>Lihat Kos</span>
                             </a>
                             
-                            <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-3">
+                            <div class="bg-white/5 border border-white/20 rounded-xl p-3">
                                 <div class="flex items-center space-x-2">
                                     @if($review->penghuni && $review->penghuni->foto_profil)
                                         <?php
@@ -221,19 +221,19 @@
                                         @if($fileExists)
                                             <img src="{{ url('storage/' . $review->penghuni->foto_profil) }}" 
                                                  alt="{{ $review->penghuni->nama }}" 
-                                                 class="w-8 h-8 rounded-full object-cover border-2 border-green-400">
+                                                 class="w-8 h-8 rounded-full object-cover border-2 border-emerald-400">
                                         @else
-                                            <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                                            <div class="w-8 h-8 bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 rounded-full flex items-center justify-center">
                                                 <span class="text-white font-medium text-xs">{{ strtoupper(substr($review->penghuni->nama, 0, 1)) }}</span>
                                             </div>
                                         @endif
                                     @else
-                                        <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                                        <div class="w-8 h-8 bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 rounded-full flex items-center justify-center">
                                             <i class="fas fa-user text-white text-xs"></i>
                                         </div>
                                     @endif
                                     <div>
-                                        <p class="text-xs text-dark-muted">Penghuni</p>
+                                        <p class="text-xs text-slate-100">Penghuni</p>
                                         <p class="text-sm font-medium text-white">{{ optional($review->penghuni)->nama ?? 'Penghuni' }}</p>
                                     </div>
                                 </div>
@@ -246,9 +246,9 @@
 
             <!-- Table Footer -->
             @if($reviews->hasPages())
-                <div class="px-6 py-4 border-t border-dark-border">
+                <div class="px-6 py-4 border-t border-white/20">
                     <div class="flex items-center justify-between">
-                        <div class="text-sm text-dark-muted">
+                        <div class="text-sm text-slate-100">
                             Menampilkan {{ $reviews->firstItem() }} - {{ $reviews->lastItem() }} dari {{ $reviews->total() }} ulasan
                         </div>
                         <div class="flex space-x-2">
@@ -260,15 +260,15 @@
         @else
         <!-- Empty State -->
         <div class="text-center py-16">
-            <div class="w-24 h-24 bg-gradient-to-br from-dark-border to-dark-bg rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-comment-slash text-4xl text-dark-muted"></i>
+            <div class="w-24 h-24 bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-comment-slash text-4xl text-slate-100"></i>
             </div>
             <h3 class="text-xl font-semibold text-white mb-2">Belum Ada Ulasan</h3>
-            <p class="text-dark-muted max-w-md mx-auto mb-6">
+            <p class="text-slate-100 max-w-md mx-auto mb-6">
                 Belum ada ulasan untuk kos Anda. Ulasan akan muncul di sini setelah penghuni memberikan rating.
             </p>
             <a href="{{ route('pemilik.kos.index') }}" 
-               class="inline-flex items-center space-x-2 px-6 py-3 bg-dark-bg border border-dark-border text-white rounded-xl hover:border-primary-500 hover:text-primary-300 transition-all duration-300">
+               class="inline-flex items-center space-x-2 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-home"></i>
                 <span>Kelola Kos Anda</span>
             </a>
@@ -335,23 +335,23 @@
         min-width: 40px;
         height: 40px;
         padding: 0 12px;
-        border: 1px solid #334155;
+        border: 1px solid rgba(255,255,255,0.2);
         border-radius: 10px;
-        background: #1e293b;
-        color: #e2e8f0;
+        background: rgba(255,255,255,0.05);
+        color: #f1f5f9;
         font-weight: 500;
         transition: all 0.2s ease;
     }
     
     .pagination li a:hover {
-        background: #334155;
-        border-color: #475569;
+        background: rgba(255,255,255,0.1);
+        border-color: rgba(255,255,255,0.3);
         color: #ffffff;
     }
     
     .pagination li.active span {
-        background: linear-gradient(135deg, #0ea5e9, #6366f1);
-        border-color: #0ea5e9;
+        background: rgba(14, 165, 233, 0.2);
+        border-color: rgba(14, 165, 233, 0.3);
         color: white;
     }
     

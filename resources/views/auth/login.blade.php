@@ -241,7 +241,7 @@
 @endif
 
 <!-- Login Section -->
-<section class="login-bg">
+<section class="relative bg-gradient-to-br from-slate-800 to-slate-900 pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden min-h-screen">
     <div class="container mx-auto px-4 relative z-10 py-6">
         <div class="flex justify-center">
             <div class="login-card w-full max-w-md">
