@@ -134,45 +134,45 @@
 
                 @if($kos->count() > 0)
                     <div class="space-y-4">
-                        @foreach($kos->take(3) as $k)
-                                <div
-                                    class="bg-slate-100/50 border border-slate-200 rounded-xl p-4 hover:border-blue-400 transition-all duration-300">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex-1">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h3 class="font-semibold text-slate-800">{{ $k->nama_kos }}</h3>
-                                                <span class="text-xs px-2 py-1 rounded-full 
-                                                    {{ $k->status_kos == 'aktif' ? 'bg-green-50 text-green-600' :
-                            ($k->status_kos == 'pending' ? 'bg-yellow-50 text-yellow-600' :
-                                'bg-red-50 text-red-600') }}">
-                                                    {{ ucfirst($k->status_kos) }}
-                                                </span>
-                                            </div>
-                                            <p class="text-sm text-slate-500 mb-3">{{ $k->alamat }}</p>
-                                            <div class="flex items-center space-x-4 text-xs">
-                                                <span class="flex items-center text-slate-500">
-                                                    <i class="fas fa-bed mr-1"></i>
-                                                    {{ $k->kamar_count }} Kamar
-                                                </span>
-                                                <span class="flex items-center text-slate-500">
-                                                    <i class="fas fa-users mr-1"></i>
-                                                    {{ $k->jenis_kos }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="flex space-x-2 ml-4">
-                                            <a href="{{ route('pemilik.kos.show', $k->id_kos) }}"
-                                                class="p-2 text-green-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('pemilik.kos.edit', $k->id_kos) }}"
-                                                class="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </div>
+                    @foreach($kos->take(3) as $k)
+                        <div class="relative bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl p-4 hover:border-sky-500 transition-all duration-300">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-semibold text-white">{{ $k->nama_kos }}</h3>
+                                    </div>
+                                    <p class="text-sm text-white mb-3">{{ $k->alamat }}</p>
+                                    <div class="flex items-center space-x-4 text-xs">
+                                        <span class="flex items-center text-slate-400">
+                                            <i class="fas fa-bed mr-1"></i>
+                                            {{ $k->kamar_count }} Kamar
+                                        </span>
+                                        <span class="flex items-center text-slate-400">
+                                            <i class="fas fa-users mr-1"></i>
+                                            {{ $k->jenis_kos }}
+                                        </span>
                                     </div>
                                 </div>
-                        @endforeach
+                                <div class="flex space-x-2 ml-4">
+                                    <a href="{{ route('pemilik.kos.show', $k->id_kos) }}"
+                                    class="p-2 text-sky-600 hover:text-sky-700 hover:bg-sky-50 rounded-lg transition">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('pemilik.kos.edit', $k->id_kos) }}"
+                                    class="p-2 text-sky-600 hover:text-sky-700 hover:bg-sky-50 rounded-lg transition">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <span class="absolute bottom-3 right-3 text-xs px-2 py-1 rounded-full
+                                {{ $k->status_kos == 'aktif' ? 'bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 text-white' :
+                                ($k->status_kos == 'nonaktif' ? 'bg-yellow-500/20 backdrop-blur-sm border border-yellow-500/20 text-white' :
+                                    'bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-white') }}">
+                                {{ ucfirst($k->status_kos) }}
+                            </span>
+                        </div>
+                    @endforeach
 
                         @if($kos->count() > 3)
                             <div class="text-center pt-2">
@@ -217,24 +217,24 @@
                     <div class="space-y-4">
                         @foreach($kamar->take(3) as $km)
                                 <div
-                                    class="bg-slate-100/50 border border-slate-200 rounded-xl p-4 hover:border-green-500/50 transition-all duration-300">
+                                    class="relative bg-slate-900/50 backdrop-blur-sm border border-emerald-900/50 rounded-xl p-4 hover:border-sky-500 transition-all duration-300">
                                     <div class="flex items-start justify-between">
                                         <div class="flex-1">
                                             <div class="flex items-center justify-between mb-2">
-                                                <h3 class="font-semibold text-slate-800">Kamar {{ $km->nomor_kamar }}</h3>
+                                                <h3 class="font-semibold text-white">Kamar {{ $km->nomor_kamar }}</h3>
                                                 <span class="text-xs px-2 py-1 rounded-full 
-                                                    {{ $km->status_kamar == 'tersedia' ? 'bg-green-50 text-green-600' :
-                            ($km->status_kamar == 'terisi' ? 'bg-blue-50 text-blue-600' :
+                                                    {{ $km->status_kamar == 'tersedia' ? 'bg-emerald-50 text-emerald-600' :
+                            ($km->status_kamar == 'terisi' ? 'bg-red-50 text-red-600' :
                                 'bg-yellow-50 text-yellow-600') }}">
                                                     {{ ucfirst($km->status_kamar) }}
                                                 </span>
                                             </div>
-                                            <p class="text-sm text-slate-500 mb-2">{{ $km->kos->nama_kos }}</p>
+                                            <p class="text-sm text-slate-200 mb-2">{{ $km->kos->nama_kos }}</p>
                                             <div class="flex items-center justify-between">
-                                                <span class="text-sm text-slate-500">
+                                                <span class="text-sm text-slate-400">
                                                     {{ $km->tipe_kamar }}
                                                 </span>
-                                                <span class="text-sm font-bold text-slate-800">
+                                                <span class="text-sm font-bold text-white">
                                                     Rp {{ number_format($km->harga, 0, ',', '.') }}
                                                 </span>
                                             </div>

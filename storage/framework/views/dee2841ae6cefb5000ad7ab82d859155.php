@@ -18,27 +18,27 @@
         </div>
         
         <div class="content">
-            <p>Halo <strong>{{ $penghuni->nama }}</strong>,</p>
+            <p>Halo <strong><?php echo e($penghuni->nama); ?></strong>,</p>
             
-            <p>Selamat! Pengajuan sewa kamar Anda untuk <strong>{{ $kontrak->kos->nama_kos }}</strong> telah <strong>DISETUJUI</strong>.</p>
+            <p>Selamat! Pengajuan sewa kamar Anda untuk <strong><?php echo e($kontrak->kos->nama_kos); ?></strong> telah <strong>DISETUJUI</strong>.</p>
             
             <div style="background: white; padding: 15px; border-left: 4px solid #4CAF50; margin: 20px 0;">
                 <p><strong>Detail Kontrak:</strong></p>
                 <ul>
-                    <li>Kos: {{ $kontrak->kos->nama_kos }}</li>
-                    <li>Kamar: {{ $kontrak->kamar->nomor_kamar }}</li>
-                    <li>Tipe: {{ $kontrak->kamar->tipe_kamar }}</li>
-                    <li>Tanggal Mulai: {{ date('d F Y', strtotime($kontrak->tanggal_mulai)) }}</li>
-                    <li>Tanggal Selesai: {{ date('d F Y', strtotime($kontrak->tanggal_selesai)) }}</li>
-                    <li>Durasi: {{ $kontrak->durasi_sewa }} {{ $kontrak->unit_label_lower }}</li>
-                    <li>Harga Sewa: Rp {{ number_format($kontrak->harga_sewa, 0, ',', '.') }}/{{ $kontrak->unit_label_lower }}</li>
+                    <li>Kos: <?php echo e($kontrak->kos->nama_kos); ?></li>
+                    <li>Kamar: <?php echo e($kontrak->kamar->nomor_kamar); ?></li>
+                    <li>Tipe: <?php echo e($kontrak->kamar->tipe_kamar); ?></li>
+                    <li>Tanggal Mulai: <?php echo e(date('d F Y', strtotime($kontrak->tanggal_mulai))); ?></li>
+                    <li>Tanggal Selesai: <?php echo e(date('d F Y', strtotime($kontrak->tanggal_selesai))); ?></li>
+                    <li>Durasi: <?php echo e($kontrak->durasi_sewa); ?> <?php echo e($kontrak->unit_label_lower); ?></li>
+                    <li>Harga Sewa: Rp <?php echo e(number_format($kontrak->harga_sewa, 0, ',', '.')); ?>/<?php echo e($kontrak->unit_label_lower); ?></li>
                 </ul>
             </div>
             
             <p>Silakan melakukan pembayaran pertama Anda sesuai dengan ketentuan yang berlaku.</p>
             
             <p style="text-align: center; margin: 30px 0;">
-                <a href="{{ url('/penghuni/kontrak/' . $kontrak->id_kontrak) }}" class="button">
+                <a href="<?php echo e(url('/penghuni/kontrak/' . $kontrak->id_kontrak)); ?>" class="button">
                     Lihat Detail Kontrak
                 </a>
             </p>
@@ -51,8 +51,8 @@
         
         <div class="footer">
             <p>Email ini dikirim secara otomatis. Mohon tidak membalas email ini.</p>
-            <p>&copy; {{ date('Y') }} AyoKos. All rights reserved.</p>
+            <p>&copy; <?php echo e(date('Y')); ?> AyoKos. All rights reserved.</p>
         </div>
     </div>
 </body>
-</html>
+</html><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/emails/penghuni/kontrak_diterima.blade.php ENDPATH**/ ?>

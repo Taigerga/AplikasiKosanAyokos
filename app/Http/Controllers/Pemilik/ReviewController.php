@@ -15,7 +15,8 @@ class ReviewController extends Controller
      */
     public function index(Request $request)
     {
-        $pemilik = Auth::user();
+        $user = Auth::user();
+        $pemilik = $user->pemilik;
 
         if (!$pemilik) {
             abort(403, 'Unauthorized');

@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Ajukan Kontrak - AyoKos'); ?>
 
-@section('title', 'Ajukan Kontrak - AyoKos')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
         <div class="max-w-4xl mx-auto space-y-6">
             <!-- Breadcrumb -->
@@ -10,7 +8,7 @@
                 <nav aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
-                            <a href="{{ route('penghuni.dashboard') }}"
+                            <a href="<?php echo e(route('penghuni.dashboard')); ?>"
                                 class="inline-flex items-center text-sm text-slate-400 hover:text-white transition">
                                 <i class="fas fa-gauge mr-2"></i>
                                 Dashboard
@@ -19,10 +17,11 @@
                         <li>
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-slate-500 text-xs"></i>
-                                <a href="{{ route('public.kos.show', $kos->id_kos) }}"
+                                <a href="<?php echo e(route('public.kos.show', $kos->id_kos)); ?>"
                                     class="ml-1 md:ml-3 text-sm text-slate-400 hover:text-white transition">
                                     <i class="fas fa-file-contract mr-2"></i>
-                                    {{ Str::limit($kos->nama_kos, 20) }}
+                                    <?php echo e(Str::limit($kos->nama_kos, 20)); ?>
+
                                 </a>
                             </div>
                         </li>
@@ -47,7 +46,7 @@
                         <p class="text-slate-100">Lengkapi formulir untuk mengajukan kontrak sewa kamar</p>
                     </div>
                     <div class="mt-4 md:mt-0">
-                        <a href="{{ route('public.kos.show', $kos->id_kos) }}"
+                        <a href="<?php echo e(route('public.kos.show', $kos->id_kos)); ?>"
                             class="inline-flex items-center px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-lg hover:bg-white/10 transition">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Kembali ke Detail Kos
@@ -56,14 +55,15 @@
                 </div>
             </div>
 
-            @if(session('error'))
+            <?php if(session('error')): ?>
                 <div class="bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-white px-4 py-3 rounded-xl">
                     <div class="flex items-center">
                         <i class="fas fa-exclamation-circle mr-2"></i>
-                        {{ session('error') }}
+                        <?php echo e(session('error')); ?>
+
                     </div>
                 </div>
-            @endif
+            <?php endif; ?>
 
             <!-- Informasi Kos -->
             <div class="bg-sky-500/10 backdrop-blur-sm border border-sky-500/20 rounded-2xl p-6">
@@ -76,21 +76,21 @@
                         <i class="fas fa-building text-sky-500 mr-3 w-5"></i>
                         <div>
                             <p class="text-sm text-slate-400">Nama Kos</p>
-                            <p class="font-medium text-white">{{ $kos->nama_kos }}</p>
+                            <p class="font-medium text-white"><?php echo e($kos->nama_kos); ?></p>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-map-marker-alt text-sky-500 mr-3 w-5"></i>
                         <div>
                             <p class="text-sm text-slate-400">Lokasi</p>
-                            <p class="font-medium text-white">{{ $kos->alamat }}, {{ $kos->kota }}</p>
+                            <p class="font-medium text-white"><?php echo e($kos->alamat); ?>, <?php echo e($kos->kota); ?></p>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-users text-sky-500 mr-3 w-5"></i>
                         <div>
                             <p class="text-sm text-slate-400">Jenis Kos</p>
-                            <p class="font-medium text-white">{{ ucfirst($kos->jenis_kos) }}</p>
+                            <p class="font-medium text-white"><?php echo e(ucfirst($kos->jenis_kos)); ?></p>
                         </div>
                     </div>
                     <div class="flex items-center">
@@ -98,7 +98,8 @@
                         <div>
                             <p class="text-sm text-slate-400">Status</p>
                             <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-600">
-                                {{ ucfirst($kos->status_kos) }}
+                                <?php echo e(ucfirst($kos->status_kos)); ?>
+
                             </span>
                         </div>
                     </div>
@@ -112,23 +113,23 @@
                     Formulir Pengajuan Kontrak
                 </h2>
 
-                @if($errors->any())
+                <?php if($errors->any()): ?>
                     <div class="bg-red-500/10 backdrop-blur-sm border border-red-500/20 text-white px-4 py-3 rounded-xl mb-6">
                         <div class="flex items-center">
                             <i class="fas fa-exclamation-triangle mr-2"></i>
                             <span>Terjadi kesalahan. Silakan periksa formulir Anda.</span>
                         </div>
                         <ul class="mt-2 ml-6 list-disc text-sm text-slate-400">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                @endif
+                <?php endif; ?>
 
-                <form method="POST" action="{{ route('penghuni.kontrak.store') }}" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="id_kos" value="{{ $kos->id_kos }}">
+                <form method="POST" action="<?php echo e(route('penghuni.kontrak.store')); ?>" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
+                    <input type="hidden" name="id_kos" value="<?php echo e($kos->id_kos); ?>">
 
                     <div class="space-y-6">
                         <!-- Pilih Kamar -->
@@ -141,34 +142,42 @@
                                 class="w-full px-4 py-3 bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                 required>
                                 <option value="" class="bg-slate-900">-- Pilih Kamar --</option>
-                                @foreach($kos->kamar as $kamar)
-                                    @if($kamar->status_kamar == 'tersedia')
-                                        <option value="{{ $kamar->id_kamar }}" data-harga="{{ $kamar->harga }}"
-                                            data-tipe="{{ $kamar->tipe_kamar }}" data-luas="{{ $kamar->luas_kamar }}"
-                                            data-nomor="{{ $kamar->nomor_kamar }}" data-kapasitas="{{ $kamar->kapasitas }}">
-                                            Kamar {{ $kamar->nomor_kamar }} - {{ $kamar->tipe_kamar }}
-                                            @if($kamar->luas_kamar)
-                                                ({{ $kamar->luas_kamar }})
-                                            @endif
-                                            - Rp {{ number_format($kamar->harga, 0, ',', '.') }}/
-                                            @if($kos->tipe_sewa == 'harian')
+                                <?php $__currentLoopData = $kos->kamar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kamar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if($kamar->status_kamar == 'tersedia'): ?>
+                                        <option value="<?php echo e($kamar->id_kamar); ?>" data-harga="<?php echo e($kamar->harga); ?>"
+                                            data-tipe="<?php echo e($kamar->tipe_kamar); ?>" data-luas="<?php echo e($kamar->luas_kamar); ?>"
+                                            data-nomor="<?php echo e($kamar->nomor_kamar); ?>" data-kapasitas="<?php echo e($kamar->kapasitas); ?>">
+                                            Kamar <?php echo e($kamar->nomor_kamar); ?> - <?php echo e($kamar->tipe_kamar); ?>
+
+                                            <?php if($kamar->luas_kamar): ?>
+                                                (<?php echo e($kamar->luas_kamar); ?>)
+                                            <?php endif; ?>
+                                            - Rp <?php echo e(number_format($kamar->harga, 0, ',', '.')); ?>/
+                                            <?php if($kos->tipe_sewa == 'harian'): ?>
                                                 hari
-                                            @elseif($kos->tipe_sewa == 'mingguan')
+                                            <?php elseif($kos->tipe_sewa == 'mingguan'): ?>
                                                 minggu
-                                            @elseif($kos->tipe_sewa == 'bulanan')
+                                            <?php elseif($kos->tipe_sewa == 'bulanan'): ?>
                                                 bulan
-                                            @elseif($kos->tipe_sewa == 'tahunan')
+                                            <?php elseif($kos->tipe_sewa == 'tahunan'): ?>
                                                 tahun
-                                            @else
+                                            <?php else: ?>
                                                 bulan
-                                            @endif
+                                            <?php endif; ?>
                                         </option>
-                                    @endif
-                                @endforeach
+                                    <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
-                            @error('id_kamar')
-                                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['id_kamar'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-1"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 
                             <!-- Kamar Detail Info -->
                             <div id="kamar-detail" class="mt-4 p-4 bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl hidden">
@@ -203,12 +212,19 @@
                                 <i class="fas fa-calendar-day text-sky-500 mr-2"></i>
                                 Tanggal Mulai Sewa *
                             </label>
-                            <input type="date" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai', date('Y-m-d')) }}"
+                            <input type="date" id="tanggal_mulai" name="tanggal_mulai" value="<?php echo e(old('tanggal_mulai', date('Y-m-d'))); ?>"
                                 class="w-full px-4 py-3 bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                 required>
-                            @error('tanggal_mulai')
-                                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['tanggal_mulai'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-1"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Durasi Sewa -->
@@ -222,9 +238,16 @@
                                 required>
                                 <option value="">-- Pilih Durasi --</option>
                             </select>
-                            @error('durasi_sewa')
-                                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['durasi_sewa'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-1"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Preview Tanggal Selesai -->
@@ -254,17 +277,17 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <p class="text-sm text-slate-400">Harga/
-                                        @if($kos->tipe_sewa == 'harian')
+                                        <?php if($kos->tipe_sewa == 'harian'): ?>
                                             Hari
-                                        @elseif($kos->tipe_sewa == 'mingguan')
+                                        <?php elseif($kos->tipe_sewa == 'mingguan'): ?>
                                             Minggu
-                                        @elseif($kos->tipe_sewa == 'bulanan')
+                                        <?php elseif($kos->tipe_sewa == 'bulanan'): ?>
                                             Bulan
-                                        @elseif($kos->tipe_sewa == 'tahunan')
+                                        <?php elseif($kos->tipe_sewa == 'tahunan'): ?>
                                             Tahun
-                                        @else
+                                        <?php else: ?>
                                             Bulan
-                                        @endif
+                                        <?php endif; ?>
                                     </p>
                                     <p id="harga-per-bulan" class="text-lg font-bold text-white">Rp 0</p>
                                 </div>
@@ -288,12 +311,12 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl p-4">
                                     <p class="text-sm text-slate-400 mb-1">No. Handphone</p>
-                                    <p class="font-medium text-white">{{ auth('penghuni')->user()->penghuni->no_hp }}</p>
+                                    <p class="font-medium text-white"><?php echo e(auth('penghuni')->user()->penghuni->no_hp); ?></p>
 
                                 </div>
                                 <div class="bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl p-4">
                                     <p class="text-sm text-slate-400 mb-1">Email</p>
-                                    <p class="font-medium text-white">{{ auth('penghuni')->user()->penghuni->email }}</p>
+                                    <p class="font-medium text-white"><?php echo e(auth('penghuni')->user()->penghuni->email); ?></p>
                                     <p class="text-xs text-slate-400 mt-2">
                                         <i class="fas fa-envelope text-sky-500 mr-1"></i>
                                         Notifikasi Email akan dikirim ke kontak ini
@@ -338,9 +361,16 @@
                                                 class="max-h-40 mx-auto rounded-lg border border-sky-900/50">
                                         </div>
                                     </div>
-                                    @error('foto_ktp')
-                                        <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
-                                    @enderror
+                                    <?php $__errorArgs = ['foto_ktp'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <p class="text-red-400 text-sm mt-1"><?php echo e($message); ?></p>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
@@ -381,7 +411,8 @@
                                     </div>
                                     <div>
                                         <span class="text-sm text-slate-400">Notifikasi akan dikirim ke:</span>
-                                        <p class="text-sm font-medium text-white mt-1">{{ auth('penghuni')->user()->penghuni->email }}
+                                        <p class="text-sm font-medium text-white mt-1"><?php echo e(auth('penghuni')->user()->penghuni->email); ?>
+
                                         </p>
                                     </div>
                                 </li>
@@ -391,7 +422,7 @@
 
                     <!-- Submit Button -->
                     <div class="mt-8 pt-6 border-t border-white/20 flex flex-col sm:flex-row gap-4">
-                        <a href="{{ route('public.kos.show', $kos->id_kos) }}"
+                        <a href="<?php echo e(route('public.kos.show', $kos->id_kos)); ?>"
                             class="flex-1 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition text-center">
                             <i class="fas fa-times mr-2"></i>
                             Batal
@@ -412,7 +443,7 @@
             // ========================================
             // KONFIGURASI TIPE SEWA
             // ========================================
-            const TIPE_SEWA = '{{ $kos->tipe_sewa }}';
+            const TIPE_SEWA = '<?php echo e($kos->tipe_sewa); ?>';
             const DURATION_CONFIG = {
                 harian:  { label: 'Hari',  unit: 'day',    max: 30,  step: 1 },
                 mingguan:{ label: 'Minggu',unit: 'week',   max: 52,  step: 1 },
@@ -447,17 +478,18 @@
 
             // Kamar data from server
             const kamarData = {};
-            @foreach($kos->kamar as $kamar)
-                @if($kamar->status_kamar == 'tersedia')
-                    kamarData[{{ $kamar->id_kamar }}] = {
-                        nomor: "{{ $kamar->nomor_kamar }}",
-                        tipe: "{{ $kamar->tipe_kamar }}",
-                        luas: "{{ $kamar->luas_kamar }}",
-                        harga: {{ $kamar->harga }},
-                        kapasitas: {{ $kamar->kapasitas }}
+            <?php $__currentLoopData = $kos->kamar; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kamar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php if($kamar->status_kamar == 'tersedia'): ?>
+                    kamarData[<?php echo e($kamar->id_kamar); ?>] = {
+                        nomor: "<?php echo e($kamar->nomor_kamar); ?>",
+                        tipe: "<?php echo e($kamar->tipe_kamar); ?>",
+                        luas: "<?php echo e($kamar->luas_kamar); ?>",
+                        harga: <?php echo e($kamar->harga); ?>,
+                        kapasitas: <?php echo e($kamar->kapasitas); ?>
+
                     };
-                @endif
-            @endforeach
+                <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             // ========================================
             // HELPER FUNCTIONS
@@ -658,4 +690,6 @@
             });
         });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/penghuni/kontrak/create.blade.php ENDPATH**/ ?>

@@ -256,8 +256,8 @@
                                         @php
                                             $user = Auth::guard('penghuni')->user();
                                             $isAllowed = true;
-                                            if ($kos->jenis_kos == 'putra' && $user->jenis_kelamin != 'L') $isAllowed = false;
-                                            if ($kos->jenis_kos == 'putri' && $user->jenis_kelamin != 'P') $isAllowed = false;
+                                            if ($kos->jenis_kos == 'putra' && $user->penghuni->jenis_kelamin != 'L') $isAllowed = false;
+                                            if ($kos->jenis_kos == 'putri' && $user->penghuni->jenis_kelamin != 'P') $isAllowed = false;
                                         @endphp
                                         @if($isAllowed)
                                         <a href="{{ route('penghuni.kontrak.create', $kos->id_kos) }}" 
@@ -309,15 +309,15 @@
                 <!-- Reviews -->
                 @if($kos->reviews->count() > 0)
                 <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="350">
-                    <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center">
                         <i class="fas fa-comments text-sky-500 mr-3"></i>
                         Ulasan Penghuni
                     </h2>
                     
-                    <div class="bg-slate-50 rounded-xl p-6 mb-8 border border-slate-200">
+                    <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6 mb-8 border border-white/10">
                         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                             <div class="text-center md:text-left">
-                                <div class="text-5xl font-bold text-slate-800 mb-2">{{ number_format($averageRating, 1) }}</div>
+                                    <div class="text-5xl font-bold text-white mb-2">{{ number_format($averageRating, 1) }}</div>
                                 <div class="flex justify-center md:justify-start text-amber-500 text-xl mb-3">
                                     @for($i = 1; $i <= 5; $i++)
                                         @if($i <= floor($averageRating))
@@ -329,7 +329,7 @@
                                         @endif
                                     @endfor
                                 </div>
-                                <div class="text-slate-500">Berdasarkan {{ $totalReviews }} ulasan</div>
+                                <div class="text-slate-400">Berdasarkan {{ $totalReviews }} ulasan</div>
                             </div>
                             <div class="w-full md:w-64">
                                 @for($rating = 5; $rating >= 1; $rating--)
@@ -338,11 +338,11 @@
                                     $percentage = $totalReviews > 0 ? ($count / $totalReviews) * 100 : 0;
                                 @endphp
                                 <div class="flex items-center mb-3">
-                                    <span class="text-sm text-slate-500 w-8">{{ $rating }} <i class="fas fa-star text-amber-500"></i></span>
-                                    <div class="flex-1 bg-slate-200 rounded-full h-2 mx-3">
+                                    <span class="text-sm text-slate-400 w-8">{{ $rating }} <i class="fas fa-star text-amber-500"></i></span>
+                                    <div class="flex-1 bg-white/10 rounded-full h-2 mx-3">
                                         <div class="bg-amber-500 h-2 rounded-full" style="width: {{ $percentage }}%"></div>
                                     </div>
-                                    <span class="text-sm text-slate-500 w-8 text-right">{{ $count }}</span>
+                                    <span class="text-sm text-slate-400 w-8 text-right">{{ $count }}</span>
                                 </div>
                                 @endfor
                             </div>
@@ -351,7 +351,7 @@
 
                     <div class="space-y-6">
                         @foreach($kos->reviews as $review)
-                        <div class="border-b border-slate-200 pb-6 last:border-b-0">
+                        <div class="border-b border-white/20 pb-6 last:border-b-0">
                             <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                                 <div class="flex items-center space-x-4">
                                     @if($review->penghuni->foto_profil)
@@ -362,20 +362,20 @@
                                         @if($fileExists)
                                             <img src="{{ url('storage/' . $review->penghuni->foto_profil) }}" 
                                                  alt="{{ $review->penghuni->nama }}" 
-                                                 class="w-12 h-12 rounded-full object-cover border-2 border-sky-200">
+                                                 class="w-12 h-12 rounded-full object-cover border-2 border-sky-400">
                                         @else
-                                            <div class="w-12 h-12 bg-gradient-to-br from-sky-100 to-indigo-100 rounded-full flex items-center justify-center text-sky-600 font-semibold text-lg">
+                                        <div class="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white font-semibold text-lg">
                                                 {{ strtoupper(substr($review->penghuni->nama, 0, 1)) }}
                                             </div>
                                         @endif
                                     @else
-                                        <div class="w-12 h-12 bg-gradient-to-br from-sky-100 to-indigo-100 rounded-full flex items-center justify-center text-sky-600 font-semibold text-lg">
+                                        <div class="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white font-semibold text-lg">
                                             {{ strtoupper(substr($review->penghuni->nama, 0, 1)) }}
                                         </div>
                                     @endif
                                     <div>
-                                        <h4 class="font-semibold text-slate-800">{{ $review->penghuni->nama }}</h4>
-                                        <p class="text-sm text-slate-500">
+                                        <h4 class="font-semibold text-white">{{ $review->penghuni->nama }}</h4>
+                                        <p class="text-sm text-slate-400">
                                             {{ $review->created_at->format('d M Y') }}
                                             @if($review->updated_at->gt($review->created_at))
                                             <span class="text-xs text-slate-400 ml-1">(diedit)</span>
@@ -395,20 +395,21 @@
                                     </div>
                                     
                                     @auth('penghuni')
-                                        @if(Auth::guard('penghuni')->id() == $review->id_penghuni)
+                                        @php $authPenghuni = Auth::guard('penghuni')->user()->penghuni; @endphp
+                                        @if($authPenghuni && $authPenghuni->id_penghuni == $review->id_penghuni)
                                         <div class="relative review-action-btn">
                                             <button type="button" 
-                                                    class="text-slate-400 hover:text-slate-600 focus:outline-none px-2 py-1 rounded-lg hover:bg-slate-100">
+                                                    class="text-slate-400 hover:text-white focus:outline-none px-2 py-1 rounded-lg hover:bg-white/10">
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </button>
-                                            <div class="absolute right-0 mt-2 w-40 bg-white border border-slate-200 rounded-xl shadow-lg hidden group-hover:block z-10">
+                                            <div class="absolute right-0 mt-2 w-40 bg-slate-800 border border-white/20 rounded-xl shadow-lg hidden group-hover:block z-10">
                                                 <a href="{{ route('penghuni.reviews.edit', $review->id_review) }}" 
-                                                   class="flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition">
+                                                   class="flex items-center px-4 py-3 text-sm text-slate-300 hover:bg-white/10 transition">
                                                     <i class="fas fa-edit mr-3 text-sky-500"></i> Edit
                                                 </a>
                                                 <form action="{{ route('penghuni.reviews.destroy', $review->id_review) }}" method="POST" onsubmit="return confirmDeleteReview()">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" class="flex items-center w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 transition">
+                                                    <button type="submit" class="flex items-center w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-white/10 transition">
                                                         <i class="fas fa-trash mr-3"></i> Hapus
                                                     </button>
                                                 </form>
@@ -418,7 +419,7 @@
                                     @endauth
                                 </div>
                             </div>
-                            <p class="text-slate-600 leading-relaxed whitespace-pre-line">{{ $review->komentar }}</p>
+                            <p class="text-slate-300 leading-relaxed whitespace-pre-line">{{ $review->komentar }}</p>
                             
                             @if($review->foto_review)
                             <div class="mt-4">
@@ -434,41 +435,43 @@
                 </div>
                 @else
                 <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center shadow-sm" data-aos="fade-up" data-aos-delay="350">
-                    <div class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div class="w-20 h-20 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-comment text-3xl text-amber-400"></i>
                     </div>
                     <h3 class="text-xl font-semibold text-white">Belum Ada Ulasan</h3>
-                    <p class="text-white mt-2">Jadilah yang pertama memberikan ulasan untuk kos ini.</p>
+                    <p class="text-slate-300 mt-2">Jadilah yang pertama memberikan ulasan untuk kos ini.</p>
                      
-                    @auth('penghuni')
-                        @php
-                            $penghuni = Auth::guard('penghuni')->user();
-                            $canReview = false;
-                            $hasReviewed = false;
-                            $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
-                                ->where('id_kos', $kos->id_kos)
-                                ->whereIn('status_kontrak', ['aktif', 'selesai'])
-                                ->first();
-                            if ($kontrak) {
-                                $canReview = true;
-                                $existingReview = \App\Models\Review::where('id_penghuni', $penghuni->id_penghuni)
-                                    ->where('id_kos', $kos->id_kos)
-                                    ->first();
-                                if ($existingReview) $hasReviewed = true;
-                            }
-                        @endphp
-                        
-                        @if($canReview && !$hasReviewed)
-                        <div class="mt-6">
-                            <a href="{{ route('penghuni.reviews.create', $kos->id_kos) }}" 
-                               class="inline-flex items-center px-6 py-3 bg-amber-500 text-white rounded-xl hover:bg-amber-600 font-semibold transition shadow-sm">
-                                <i class="fas fa-star mr-2"></i> Beri Review Pertama
-                            </a>
-                        </div>
-                        @elseif($hasReviewed)
-                        <p class="text-emerald-600 mt-6">✅ Anda sudah memberikan review untuk kos ini.</p>
-                        @endif
-                    @endauth
+                     @auth('penghuni')
+                         @php
+                             $penghuni = Auth::guard('penghuni')->user()->penghuni;
+                             $canReview = false;
+                             $hasReviewed = false;
+                             if ($penghuni) {
+                                 $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
+                                     ->where('id_kos', $kos->id_kos)
+                                     ->whereIn('status_kontrak', ['aktif', 'selesai'])
+                                     ->first();
+                                 if ($kontrak) {
+                                     $canReview = true;
+                                     $existingReview = \App\Models\Review::where('id_penghuni', $penghuni->id_penghuni)
+                                         ->where('id_kos', $kos->id_kos)
+                                         ->first();
+                                     if ($existingReview) $hasReviewed = true;
+                                 }
+                             }
+                         @endphp
+                         
+                         @if($canReview && !$hasReviewed)
+                         <div class="mt-6">
+                             <a href="{{ route('penghuni.reviews.create', $kos->id_kos) }}" 
+                                class="inline-flex items-center px-6 py-3 bg-amber-500 text-white rounded-xl hover:bg-amber-600 font-semibold transition shadow-sm">
+                                 <i class="fas fa-star mr-2"></i> Beri Review Pertama
+                             </a>
+                         </div>
+                         @elseif($hasReviewed)
+                         <p class="text-emerald-500 mt-6">✅ Anda sudah memberikan review untuk kos ini.</p>
+                         @endif
+                     @endauth
                 </div>
                 @endif
             </div>
@@ -489,7 +492,7 @@
                             <p class="text-sm text-slate-300 mt-1">per {{ $kos->tipe_sewa ?? 'bulan' }}</p>
                         </div>
                     @else
-                        <p class="text-lg font-bold text-red-500 bg-red-50 rounded-lg px-3 py-2 mb-6">Penuh</p>
+                        <p class="text-lg font-bold text-red-400 bg-red-500/20 rounded-lg px-3 py-2 mb-6">Penuh</p>
                     @endif
 
                     <div class="space-y-3 mb-6 text-sm">
@@ -503,8 +506,8 @@
                         @php
                             $user = Auth::guard('penghuni')->user();
                             $isAllowed = true;
-                            if ($kos->jenis_kos == 'putra' && $user->jenis_kelamin != 'L') $isAllowed = false;
-                            if ($kos->jenis_kos == 'putri' && $user->jenis_kelamin != 'P') $isAllowed = false;
+                            if ($kos->jenis_kos == 'putra' && $user->penghuni->jenis_kelamin != 'L') $isAllowed = false;
+                            if ($kos->jenis_kos == 'putri' && $user->penghuni->jenis_kelamin != 'P') $isAllowed = false;
                         @endphp
                         @if($kos->kamar->count() > 0)
                             @if($isAllowed)
@@ -513,12 +516,12 @@
                                 <i class="fas fa-home mr-2"></i> Daftar Sekarang
                             </a>
                             @else
-                            <button disabled class="block w-full px-6 py-3 bg-red-50 text-red-600 border border-red-200 rounded-xl font-semibold cursor-not-allowed">
+                            <button disabled class="block w-full px-6 py-3 bg-red-500/20 text-red-400 border border-red-500/20 rounded-xl font-semibold cursor-not-allowed">
                                 <i class="fas fa-ban mr-2"></i> Khusus {{ ucfirst($kos->jenis_kos) }}
                             </button>
                             @endif
                         @else
-                        <button disabled class="block w-full px-6 py-3 bg-slate-100 text-slate-400 border border-slate-200 rounded-xl font-semibold cursor-not-allowed">
+                        <button disabled class="block w-full px-6 py-3 bg-white/5 text-slate-400 border border-white/20 rounded-xl font-semibold cursor-not-allowed">
                             <i class="fas fa-times mr-2"></i> Penuh
                         </button>
                         @endif
@@ -535,31 +538,33 @@
                     <!-- Review Section for Sidebar -->
                     @auth('penghuni')
                         @php
-                            $penghuni = Auth::guard('penghuni')->user();
+                            $penghuni = Auth::guard('penghuni')->user()->penghuni;
                             $canReview = false;
                             $hasReviewed = false;
-                            $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
-                                ->where('id_kos', $kos->id_kos)
-                                ->whereIn('status_kontrak', ['aktif', 'selesai'])
-                                ->first();
-                            if ($kontrak) {
-                                $canReview = true;
-                                $existingReview = \App\Models\Review::where('id_penghuni', $penghuni->id_penghuni)
+                            if ($penghuni) {
+                                $kontrak = \App\Models\KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
                                     ->where('id_kos', $kos->id_kos)
+                                    ->whereIn('status_kontrak', ['aktif', 'selesai'])
                                     ->first();
-                                if ($existingReview) $hasReviewed = true;
+                                if ($kontrak) {
+                                    $canReview = true;
+                                    $existingReview = \App\Models\Review::where('id_penghuni', $penghuni->id_penghuni)
+                                        ->where('id_kos', $kos->id_kos)
+                                        ->first();
+                                    if ($existingReview) $hasReviewed = true;
+                                }
                             }
                         @endphp
                         @if($canReview && !$hasReviewed)
-                        <div class="mt-6 pt-6 border-t border-slate-200">
+                        <div class="mt-6 pt-6 border-t border-white/20">
                             <a href="{{ route('penghuni.reviews.create', $kos->id_kos) }}" 
                                class="block w-full px-6 py-3 bg-amber-500 text-white text-center rounded-xl hover:bg-amber-600 font-semibold transition">
                                 <i class="fas fa-star mr-2"></i> Beri Review
                             </a>
                         </div>
                         @elseif($hasReviewed)
-                        <div class="mt-6 pt-6 border-t border-slate-200">
-                            <p class="text-sm text-slate-500 mb-3">Review Anda:</p>
+                        <div class="mt-6 pt-6 border-t border-white/20">
+                            <p class="text-sm text-slate-400 mb-3">Review Anda:</p>
                             <a href="{{ route('penghuni.reviews.edit', $existingReview->id_review) }}" 
                                class="block w-full px-6 py-3 bg-emerald-500 text-white text-center rounded-xl hover:bg-emerald-600 font-semibold transition">
                                 <i class="fas fa-edit mr-2"></i> Edit Review
@@ -570,7 +575,7 @@
 
                     <!-- Contact -->
                     @if($kos->pemilik)
-                    <div class="mt-6 pt-6 border-t border-slate-200">
+                    <div class="mt-6 pt-6 border-t border-white/20">
                         <h3 class="font-semibold text-white mb-3 flex items-center"><i class="fas fa-headset text-sky-500 mr-2"></i>Butuh Bantuan?</h3>
                         <div class="space-y-3">
                             @php
@@ -583,7 +588,7 @@
                                class="flex items-center justify-center px-4 py-3 bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition">
                                 <i class="fab fa-whatsapp mr-2"></i> WhatsApp
                             </a>
-                            <button onclick="showContactModal()" class="w-full px-4 py-3 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition border border-slate-200">
+                            <button onclick="showContactModal()" class="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition">
                                 <i class="fas fa-phone mr-2"></i> Telepon
                             </button>
                         </div>

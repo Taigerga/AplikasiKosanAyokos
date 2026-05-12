@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Edit Profil - Penghuni'); ?>
 
-@section('title', 'Edit Profil - Penghuni')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="space-y-6">
         <!-- Header -->
         <div class="bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-800/30 rounded-2xl p-6 mb-6">
@@ -14,7 +12,7 @@
                     </h1>
                     <p class="text-green-100">Perbarui informasi profil Anda dengan data terbaru</p>
                 </div>
-                <a href="{{ route('penghuni.profile.show') }}"
+                <a href="<?php echo e(route('penghuni.profile.show')); ?>"
                 class="inline-flex items-center px-4 py-2 bg-dark-card/50 border border-dark-border text-white rounded-xl hover:border-green-500 hover:text-green-300 transition mt-4 md:mt-0">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Kembali ke Profil
@@ -24,10 +22,10 @@
 
         <!-- Edit Form -->
         <div class="bg-dark-card border border-dark-border rounded-2xl overflow-hidden">
-            <form action="{{ route('penghuni.profile.update') }}" method="POST" class="p-6 md:p-8"
+            <form action="<?php echo e(route('penghuni.profile.update')); ?>" method="POST" class="p-6 md:p-8"
                 enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('PUT'); ?>
 
                 
 
@@ -49,13 +47,20 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="fas fa-user text-dark-muted"></i>
                                 </div>
-                                <input type="text" id="nama" name="nama" value="{{ old('nama', $penghuni->nama) }}"
+                                <input type="text" id="nama" name="nama" value="<?php echo e(old('nama', $penghuni->nama)); ?>"
                                     class="w-full pl-10 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                     required placeholder="Masukkan nama lengkap">
                             </div>
-                            @error('nama')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['nama'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Username -->
@@ -68,13 +73,20 @@
                                     <i class="fas fa-at text-dark-muted"></i>
                                 </div>
                                 <input type="text" id="username" name="username"
-                                    value="{{ old('username', $user->username) }}"
+                                    value="<?php echo e(old('username', $user->username)); ?>"
                                     class="w-full pl-10 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                     required placeholder="username">
                             </div>
-                            @error('username')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['username'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Jenis Kelamin -->
@@ -85,12 +97,19 @@
                             <select id="jenis_kelamin" name="jenis_kelamin"
                                 class="w-full px-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition appearance-none">
                                 <option value="">Pilih Jenis Kelamin</option>
-                                <option value="L" {{ old('jenis_kelamin', $penghuni->jenis_kelamin) == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                                <option value="P" {{ old('jenis_kelamin', $penghuni->jenis_kelamin) == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                <option value="L" <?php echo e(old('jenis_kelamin', $penghuni->jenis_kelamin) == 'L' ? 'selected' : ''); ?>>Laki-laki</option>
+                                <option value="P" <?php echo e(old('jenis_kelamin', $penghuni->jenis_kelamin) == 'P' ? 'selected' : ''); ?>>Perempuan</option>
                             </select>
-                            @error('jenis_kelamin')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['jenis_kelamin'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Tanggal Lahir -->
@@ -103,12 +122,19 @@
                                     <i class="fas fa-birthday-cake text-dark-muted"></i>
                                 </div>
                                 <input type="date" id="tanggal_lahir" name="tanggal_lahir"
-                                    value="{{ old('tanggal_lahir', $penghuni->tanggal_lahir ? \Carbon\Carbon::parse($penghuni->tanggal_lahir)->format('Y-m-d') : '') }}"
+                                    value="<?php echo e(old('tanggal_lahir', $penghuni->tanggal_lahir ? \Carbon\Carbon::parse($penghuni->tanggal_lahir)->format('Y-m-d') : '')); ?>"
                                     class="w-full pl-10 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
                             </div>
-                            @error('tanggal_lahir')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['tanggal_lahir'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
                     </div>
                 </div>
@@ -131,13 +157,20 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="fas fa-envelope text-dark-muted"></i>
                                 </div>
-                                <input type="email" id="email" name="email" value="{{ old('email', $penghuni->email) }}"
+                                <input type="email" id="email" name="email" value="<?php echo e(old('email', $penghuni->email)); ?>"
                                     class="w-full pl-10 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                                     required placeholder="email@contoh.com">
                             </div>
-                            @error('email')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Nomor HP -->
@@ -149,13 +182,20 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-dark-muted">+62</span>
                                 </div>
-                                <input type="tel" id="no_hp" name="no_hp" value="{{ old('no_hp', $penghuni->no_hp) }}"
+                                <input type="tel" id="no_hp" name="no_hp" value="<?php echo e(old('no_hp', $penghuni->no_hp)); ?>"
                                     class="w-full pl-14 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                                     required placeholder="81234567890">
                             </div>
-                            @error('no_hp')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['no_hp'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Alamat -->
@@ -165,10 +205,17 @@
                             </label>
                             <textarea id="alamat" name="alamat" rows="3"
                                 class="w-full px-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-none"
-                                placeholder="Alamat lengkap tempat tinggal">{{ old('alamat', $penghuni->alamat) }}</textarea>
-                            @error('alamat')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                                placeholder="Alamat lengkap tempat tinggal"><?php echo e(old('alamat', $penghuni->alamat)); ?></textarea>
+                            <?php $__errorArgs = ['alamat'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
                     </div>
                 </div>
@@ -192,13 +239,20 @@
                                     <i class="fas fa-university text-dark-muted"></i>
                                 </div>
                                 <input type="text" id="nama_bank" name="nama_bank"
-                                    value="{{ old('nama_bank', $penghuni->nama_bank) }}"
+                                    value="<?php echo e(old('nama_bank', $penghuni->nama_bank)); ?>"
                                     class="w-full pl-10 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                     placeholder="Contoh: BCA, Mandiri">
                             </div>
-                            @error('nama_bank')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['nama_bank'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Nomor Rekening -->
@@ -211,13 +265,20 @@
                                     <i class="fas fa-credit-card text-dark-muted"></i>
                                 </div>
                                 <input type="text" id="nomor_rekening" name="nomor_rekening"
-                                    value="{{ old('nomor_rekening', $penghuni->nomor_rekening) }}"
+                                    value="<?php echo e(old('nomor_rekening', $penghuni->nomor_rekening)); ?>"
                                     class="w-full pl-10 pr-4 py-3 bg-dark-bg border border-dark-border text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                     placeholder="Masukkan nomor rekening">
                             </div>
-                            @error('nomor_rekening')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['nomor_rekening'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
                     </div>
                 </div>
@@ -261,9 +322,16 @@
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
-                            @error('password')
-                                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="text-red-400 text-sm mt-2"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Confirm Password -->
@@ -291,7 +359,7 @@
                 <div
                     class="flex flex-col-reverse md:flex-row justify-between items-center pt-8 border-t border-dark-border">
                     <div class="mt-4 md:mt-0">
-                        <a href="{{ route('penghuni.profile.show') }}"
+                        <a href="<?php echo e(route('penghuni.profile.show')); ?>"
                             class="px-6 py-3 border border-dark-border text-white rounded-xl hover:bg-dark-border/50 transition inline-flex items-center">
                             <i class="fas fa-times mr-2"></i>
                             Batalkan
@@ -314,7 +382,7 @@
     </div>
 </div>
 
-    @push('scripts')
+    <?php $__env->startPush('scripts'); ?>
         <script>
             // Toggle password visibility
             function togglePassword(fieldId) {
@@ -391,6 +459,7 @@
                 }
             });
         </script>
-    @endpush
+    <?php $__env->stopPush(); ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/penghuni/profile/edit.blade.php ENDPATH**/ ?>

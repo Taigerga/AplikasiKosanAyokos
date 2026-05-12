@@ -186,9 +186,9 @@ class KontrakController extends Controller
         $kontrak = KontrakSewa::with(['penghuni', 'kos', 'kamar'])->findOrFail($idKontrak);
 
         // Verifikasi pemilik
-        if ($kontrak->kos->id_pemilik != auth('pemilik')->id()) {
-            abort(403, 'Anda tidak memiliki akses!');
-        }
+            if ($kontrak->kos->id_pemilik != auth()->user()->pemilik->id_pemilik) {
+                abort(403, 'Anda tidak memiliki akses!');
+            }
 
         return view('pemilik.kontrak.show', compact('kontrak'));
     }
@@ -281,7 +281,7 @@ class KontrakController extends Controller
     public function destroy($id)
     {
         $kontrak = KontrakSewa::findOrFail($id);
-        $pemilikId = auth()->user()->id_pemilik;
+        $pemilikId = auth()->user()->pemilik->id_pemilik;
 
         // Pastikan kontrak milik pemilik yang login
         if ($kontrak->kos->id_pemilik != $pemilikId) {

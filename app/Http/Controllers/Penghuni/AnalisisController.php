@@ -15,7 +15,7 @@ class AnalisisController extends Controller
 {
     public function index()
     {
-        $penghuniId = auth()->user()->id_penghuni;
+        $penghuniId = auth()->user()->penghuni->id_penghuni;
         
         // 1. Data Riwayat Kontrak
         $riwayatKontrak = KontrakSewa::with(['kos', 'kamar'])
@@ -109,7 +109,7 @@ class AnalisisController extends Controller
             'rata_rata_rating' => Review::where('id_penghuni', $penghuniId)->avg('rating') ?? 0,
         ];
 
-        $penghuni = auth()->user();
+        $penghuni = auth()->user()->penghuni;
 
         return view('penghuni.analisis.index', compact(
             'riwayatKontrak',
@@ -126,7 +126,7 @@ class AnalisisController extends Controller
 
     public function getSpendingAnalysis()
     {
-        $penghuniId = auth()->user()->id_penghuni;
+        $penghuniId = auth()->user()->penghuni->id_penghuni;
         
         // Analisis pengeluaran per kategori
         $spendingByMonth = Pembayaran::selectRaw('

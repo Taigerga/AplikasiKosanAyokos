@@ -54,11 +54,38 @@ class PemilikKontrakController extends Controller
             ], 422);
         }
 
-        $kontrak->update([
-            'status_kontrak' => 'aktif',
-            'tanggal_mulai' => now(),
-            'tanggal_selesai' => now()->addMonths($kontrak->durasi_sewa)
-        ]);
+        // Jika tanggal_mulai sudah diisi (sistem baru), gunakan yang sudah ada
+        // Jika belum (legacy API), hitung berdasarkan tipe_sewa
+        if ($kontrak->tanggal_mulai && $kontrak->tanggal_selesai) {
+            $updateData = ['status_kontrak' => 'aktif'];
+        } else {
+            $tipeSewa = $kontrak->kos->tipe_sewa;
+            $durasi = $kontrak->durasi_sewa;
+            $tanggalMulai = now();
+
+            switch ($tipeSewa) {
+                case 'harian':
+                    $tanggalSelesai = $tanggalMulai->copy()->addDays($durasi);
+                    break;
+                case 'mingguan':
+                    $tanggalSelesai = $tanggalMulai->copy()->addWeeks($durasi);
+                    break;
+                case 'tahunan':
+                    $tanggalSelesai = $tanggalMulai->copy()->addYears($durasi);
+                    break;
+                default: // bulanan
+                    $tanggalSelesai = $tanggalMulai->copy()->addMonths($durasi);
+                    break;
+            }
+
+            $updateData = [
+                'status_kontrak' => 'aktif',
+                'tanggal_mulai' => $tanggalMulai,
+                'tanggal_selesai' => $tanggalSelesai,
+            ];
+        }
+
+        $kontrak->update($updateData);
 
         // Update kamar status
         $kontrak->kamar->update(['status_kamar' => 'terisi']);

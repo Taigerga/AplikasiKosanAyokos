@@ -19,6 +19,8 @@ class Pembayaran extends Model
         'tanggal_jatuh_tempo',
         'tanggal_bayar',
         'jumlah',
+        'denda',
+        'total_bayar',
         'bukti_pembayaran',
         'metode_pembayaran',
         'status_pembayaran',

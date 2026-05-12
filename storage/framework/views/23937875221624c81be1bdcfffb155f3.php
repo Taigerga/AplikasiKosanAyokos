@@ -135,47 +135,47 @@
 
                 <?php if($kos->count() > 0): ?>
                     <div class="space-y-4">
-                        <?php $__currentLoopData = $kos->take(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div
-                                    class="bg-slate-100/50 border border-slate-200 rounded-xl p-4 hover:border-blue-400 transition-all duration-300">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex-1">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h3 class="font-semibold text-slate-800"><?php echo e($k->nama_kos); ?></h3>
-                                                <span class="text-xs px-2 py-1 rounded-full 
-                                                    <?php echo e($k->status_kos == 'aktif' ? 'bg-green-50 text-green-600' :
-                            ($k->status_kos == 'pending' ? 'bg-yellow-50 text-yellow-600' :
-                                'bg-red-50 text-red-600')); ?>">
-                                                    <?php echo e(ucfirst($k->status_kos)); ?>
+                    <?php $__currentLoopData = $kos->take(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="relative bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl p-4 hover:border-sky-500 transition-all duration-300">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-semibold text-white"><?php echo e($k->nama_kos); ?></h3>
+                                    </div>
+                                    <p class="text-sm text-white mb-3"><?php echo e($k->alamat); ?></p>
+                                    <div class="flex items-center space-x-4 text-xs">
+                                        <span class="flex items-center text-slate-400">
+                                            <i class="fas fa-bed mr-1"></i>
+                                            <?php echo e($k->kamar_count); ?> Kamar
+                                        </span>
+                                        <span class="flex items-center text-slate-400">
+                                            <i class="fas fa-users mr-1"></i>
+                                            <?php echo e($k->jenis_kos); ?>
 
-                                                </span>
-                                            </div>
-                                            <p class="text-sm text-slate-500 mb-3"><?php echo e($k->alamat); ?></p>
-                                            <div class="flex items-center space-x-4 text-xs">
-                                                <span class="flex items-center text-slate-500">
-                                                    <i class="fas fa-bed mr-1"></i>
-                                                    <?php echo e($k->kamar_count); ?> Kamar
-                                                </span>
-                                                <span class="flex items-center text-slate-500">
-                                                    <i class="fas fa-users mr-1"></i>
-                                                    <?php echo e($k->jenis_kos); ?>
-
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="flex space-x-2 ml-4">
-                                            <a href="<?php echo e(route('pemilik.kos.show', $k->id_kos)); ?>"
-                                                class="p-2 text-green-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="<?php echo e(route('pemilik.kos.edit', $k->id_kos)); ?>"
-                                                class="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </div>
+                                        </span>
                                     </div>
                                 </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <div class="flex space-x-2 ml-4">
+                                    <a href="<?php echo e(route('pemilik.kos.show', $k->id_kos)); ?>"
+                                    class="p-2 text-sky-600 hover:text-sky-700 hover:bg-sky-50 rounded-lg transition">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="<?php echo e(route('pemilik.kos.edit', $k->id_kos)); ?>"
+                                    class="p-2 text-sky-600 hover:text-sky-700 hover:bg-sky-50 rounded-lg transition">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <span class="absolute bottom-3 right-3 text-xs px-2 py-1 rounded-full
+                                <?php echo e($k->status_kos == 'aktif' ? 'bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 text-white' :
+                                ($k->status_kos == 'nonaktif' ? 'bg-yellow-500/20 backdrop-blur-sm border border-yellow-500/20 text-white' :
+                                    'bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-white')); ?>">
+                                <?php echo e(ucfirst($k->status_kos)); ?>
+
+                            </span>
+                        </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                         <?php if($kos->count() > 3): ?>
                             <div class="text-center pt-2">
@@ -220,26 +220,26 @@
                     <div class="space-y-4">
                         <?php $__currentLoopData = $kamar->take(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $km): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div
-                                    class="bg-slate-100/50 border border-slate-200 rounded-xl p-4 hover:border-green-500/50 transition-all duration-300">
+                                    class="relative bg-slate-900/50 backdrop-blur-sm border border-emerald-900/50 rounded-xl p-4 hover:border-sky-500 transition-all duration-300">
                                     <div class="flex items-start justify-between">
                                         <div class="flex-1">
                                             <div class="flex items-center justify-between mb-2">
-                                                <h3 class="font-semibold text-slate-800">Kamar <?php echo e($km->nomor_kamar); ?></h3>
+                                                <h3 class="font-semibold text-white">Kamar <?php echo e($km->nomor_kamar); ?></h3>
                                                 <span class="text-xs px-2 py-1 rounded-full 
-                                                    <?php echo e($km->status_kamar == 'tersedia' ? 'bg-green-50 text-green-600' :
-                            ($km->status_kamar == 'terisi' ? 'bg-blue-50 text-blue-600' :
+                                                    <?php echo e($km->status_kamar == 'tersedia' ? 'bg-emerald-50 text-emerald-600' :
+                            ($km->status_kamar == 'terisi' ? 'bg-red-50 text-red-600' :
                                 'bg-yellow-50 text-yellow-600')); ?>">
                                                     <?php echo e(ucfirst($km->status_kamar)); ?>
 
                                                 </span>
                                             </div>
-                                            <p class="text-sm text-slate-500 mb-2"><?php echo e($km->kos->nama_kos); ?></p>
+                                            <p class="text-sm text-slate-200 mb-2"><?php echo e($km->kos->nama_kos); ?></p>
                                             <div class="flex items-center justify-between">
-                                                <span class="text-sm text-slate-500">
+                                                <span class="text-sm text-slate-400">
                                                     <?php echo e($km->tipe_kamar); ?>
 
                                                 </span>
-                                                <span class="text-sm font-bold text-slate-800">
+                                                <span class="text-sm font-bold text-white">
                                                     Rp <?php echo e(number_format($km->harga, 0, ',', '.')); ?>
 
                                                 </span>

@@ -3,20 +3,20 @@
 @section('title', 'Riwayat Kontrak - AyoKos')
 
 @section('content')
-<div class="space-y-6">
+<div class="p-4 md:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
     <!-- Breadcrumb -->
-    <div class="bg-dark-card/50 border border-dark-border rounded-xl p-4">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="{{ route('penghuni.dashboard') }}" class="inline-flex items-center text-sm font-medium text-dark-muted hover:text-white transition-colors">
+                    <a href="{{ route('penghuni.dashboard') }}" class="inline-flex items-center text-sm font-medium text-slate-400 hover:text-white transition-colors">
                         <i class="fas fa-gauge mr-2"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="inline-flex items-center">
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-dark-muted text-xs mx-2"></i>
+                        <i class="fas fa-chevron-right text-slate-500 text-xs mx-2"></i>
                         <a href="{{ route('penghuni.kontrak.index') }}" class="inline-flex items-center text-sm font-medium text-white">
                             <i class="fas fa-file-contract mr-2"></i>
                             Riwayat Kontrak
@@ -26,34 +26,36 @@
             </ol>
         </nav>
     </div>
+
     <!-- Header Section -->
-    <div class="bg-gradient-to-r from-green-900/50 to-emerald-900/50 border border-green-800/30 rounded-2xl p-6 mb-6">
+    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">
                 <i class="fas fa-file-contract mr-3"></i>
                     Riwayat Kontrak Saya</h1>
-                <p class="text-dark-muted">Kelola dan pantau semua kontrak kos Anda</p>
+                <p class="text-slate-100">Kelola dan pantau semua kontrak kos Anda</p>
             </div>
             <a href="{{ route('public.kos.index') }}" 
-            class="mt-4 md:mt-0 px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white font-semibold rounded-xl hover:from-primary-600 hover:to-indigo-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+            class="mt-4 md:mt-0 px-6 py-3 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white font-semibold rounded-xl transition-all duration-300">
                 <i class="fas fa-plus mr-2"></i>
                 Ajukan Kontrak Baru
             </a>
         </div>
     </div>
+
     <!-- Notifications -->
     @if(session('success'))
-    <div class="bg-green-900/30 border border-green-800/50 text-green-300 px-4 py-3 rounded-xl backdrop-blur-sm">
+    <div class="bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 text-white px-4 py-3 rounded-xl">
         <div class="flex items-center">
-            <i class="fas fa-check-circle mr-3 text-green-400"></i>
+            <i class="fas fa-check-circle mr-3 text-emerald-400"></i>
             <span>{{ session('success') }}</span>
         </div>
     </div>
     @endif
 
     @if(session('error'))
-    <div class="bg-red-900/30 border border-red-800/50 text-red-300 px-4 py-3 rounded-xl backdrop-blur-sm">
+    <div class="bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-white px-4 py-3 rounded-xl">
         <div class="flex items-center">
             <i class="fas fa-exclamation-circle mr-3 text-red-400"></i>
             <span>{{ session('error') }}</span>
@@ -64,10 +66,10 @@
     <!-- Kontrak List -->
     <div class="space-y-4">
         @forelse($kontrak as $k)
-        <div class="card-hover bg-dark-card border border-dark-border rounded-2xl p-5 transition-all duration-300
-            {{ $k->status_kontrak == 'aktif' ? 'hover:border-green-500/50' : 
-               ($k->status_kontrak == 'pending' ? 'hover:border-yellow-500/50' : 
-               ($k->status_kontrak == 'ditolak' ? 'hover:border-red-500/50' : 'hover:border-gray-500/50')) }}">
+        <div class="card-hover bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-5 transition-all duration-300
+            {{ $k->status_kontrak == 'aktif' ? 'hover:border-emerald-500/50' : 
+               ($k->status_kontrak == 'pending' ? 'hover:border-amber-500/50' : 
+               ($k->status_kontrak == 'ditolak' ? 'hover:border-red-500/50' : 'hover:border-slate-500/50')) }}">
             
             <div class="flex flex-col lg:flex-row lg:items-start justify-between">
                 <!-- Left Content -->
@@ -75,26 +77,19 @@
                     <!-- Header with Status -->
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
                         <div class="flex items-center space-x-3 mb-3 md:mb-0">
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br 
-                                {{ $k->status_kontrak == 'aktif' ? 'from-green-900/30 to-green-800/30' : 
-                                   ($k->status_kontrak == 'pending' ? 'from-yellow-900/30 to-yellow-800/30' : 
-                                   ($k->status_kontrak == 'ditolak' ? 'from-red-900/30 to-red-800/30' : 'from-gray-900/30 to-gray-800/30')) }}
-                                flex items-center justify-center">
-                                <i class="fas fa-home 
-                                    {{ $k->status_kontrak == 'aktif' ? 'text-green-400' : 
-                                       ($k->status_kontrak == 'pending' ? 'text-yellow-400' : 
-                                       ($k->status_kontrak == 'ditolak' ? 'text-red-400' : 'text-gray-400')) }}"></i>
+                            <div class="w-12 h-12 rounded-xl bg-white/5 backdrop-blur-sm flex items-center justify-center">
+                                <i class="fas fa-home text-white"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-white">{{ $k->kos->nama_kos }}</h3>
                                 <div class="flex items-center space-x-3 mt-1">
                                     <span class="px-3 py-1 rounded-full text-xs font-medium
-                                        {{ $k->status_kontrak == 'aktif' ? 'bg-green-900/30 text-green-300 border border-green-800/30' : 
-                                           ($k->status_kontrak == 'pending' ? 'bg-yellow-900/30 text-yellow-300 border border-yellow-800/30' : 
-                                           ($k->status_kontrak == 'ditolak' ? 'bg-red-900/30 text-red-300 border border-red-800/30' : 'bg-gray-900/30 text-gray-300 border border-gray-800/30')) }}">
+                                        {{ $k->status_kontrak == 'aktif' ? 'bg-emerald-50 text-emerald-600' : 
+                                           ($k->status_kontrak == 'pending' ? 'bg-yellow-50 text-yellow-600' : 
+                                           ($k->status_kontrak == 'ditolak' ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-slate-500')) }}">
                                         {{ ucfirst($k->status_kontrak) }}
                                     </span>
-                                    <span class="text-xs text-dark-muted">
+                                    <span class="text-xs text-slate-400">
                                         {{ $k->created_at->format('d M Y, H:i') }}
                                     </span>
                                 </div>
@@ -106,37 +101,37 @@
                             <div class="text-xl font-bold text-white">
                                 Rp {{ number_format($k->harga_sewa, 0, ',', '.') }}
                             </div>
-                            <div class="text-sm text-dark-muted">per bulan</div>
+                            <div class="text-sm text-slate-400">per bulan</div>
                         </div>
                     </div>
 
                     <!-- Details Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                         <!-- Kamar Info -->
-                        <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-3">
+                        <div class="bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl p-3">
                             <div class="flex items-center space-x-2 mb-1">
-                                <i class="fas fa-door-closed text-primary-400 text-sm"></i>
-                                <span class="text-sm text-dark-muted">Kamar</span>
+                                <i class="fas fa-door-closed text-sky-500 text-sm"></i>
+                                <span class="text-sm text-slate-400">Kamar</span>
                             </div>
                             <div class="text-white font-medium">{{ $k->kamar->nomor_kamar }}</div>
-                            <div class="text-xs text-dark-muted">{{ $k->kamar->tipe_kamar }}</div>
+                            <div class="text-xs text-slate-400">{{ $k->kamar->tipe_kamar }}</div>
                         </div>
 
                         <!-- Durasi -->
-                        <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-3">
+                        <div class="bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl p-3">
                             <div class="flex items-center space-x-2 mb-1">
-                                <i class="fas fa-calendar-alt text-green-400 text-sm"></i>
-                                <span class="text-sm text-dark-muted">Durasi</span>
+                                <i class="fas fa-calendar-alt text-emerald-500 text-sm"></i>
+                                <span class="text-sm text-slate-400">Durasi</span>
                             </div>
-                            <div class="text-white font-medium">{{ $k->durasi_sewa }} bulan</div>
+                            <div class="text-white font-medium">{{ $k->durasi_sewa }} {{ $k->unit_label_lower }}</div>
                         </div>
 
                         <!-- Tanggal Mulai -->
                         @if($k->tanggal_mulai)
-                        <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-3">
+                        <div class="bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl p-3">
                             <div class="flex items-center space-x-2 mb-1">
-                                <i class="fas fa-play-circle text-blue-400 text-sm"></i>
-                                <span class="text-sm text-dark-muted">Mulai</span>
+                                <i class="fas fa-play-circle text-blue-500 text-sm"></i>
+                                <span class="text-sm text-slate-400">Mulai</span>
                             </div>
                             <div class="text-white font-medium">{{ $k->tanggal_mulai ? $k->tanggal_mulai->format('d M Y') : '-' }}</div>
                         </div>
@@ -144,10 +139,10 @@
 
                         <!-- Tanggal Selesai -->
                         @if($k->tanggal_selesai)
-                        <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-3">
+                        <div class="bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 rounded-xl p-3">
                             <div class="flex items-center space-x-2 mb-1">
-                                <i class="fas fa-flag-checkered text-purple-400 text-sm"></i>
-                                <span class="text-sm text-dark-muted">Selesai</span>
+                                <i class="fas fa-flag-checkered text-indigo-500 text-sm"></i>
+                                <span class="text-sm text-slate-400">Selesai</span>
                             </div>
                             <div class="text-white font-medium">{{ $k->tanggal_selesai ? $k->tanggal_selesai->format('d M Y') : '-' }}</div>
                         </div>
@@ -156,12 +151,12 @@
 
                     <!-- Rejection Reason -->
                     @if($k->alasan_ditolak)
-                    <div class="mt-4 p-4 bg-red-900/20 border border-red-800/30 rounded-xl">
+                    <div class="mt-4 p-4 bg-red-500/10 backdrop-blur-sm border border-red-500/20 rounded-xl">
                         <div class="flex items-start space-x-3">
                             <i class="fas fa-exclamation-triangle text-red-400 mt-1"></i>
                             <div>
-                                <div class="text-sm font-medium text-red-300 mb-1">Alasan Penolakan</div>
-                                <p class="text-sm text-red-200/80">{{ $k->alasan_ditolak }}</p>
+                                <div class="text-sm font-medium text-white mb-1">Alasan Penolakan</div>
+                                <p class="text-sm text-slate-400">{{ $k->alasan_ditolak }}</p>
                             </div>
                         </div>
                     </div>
@@ -171,7 +166,7 @@
                 <!-- Action Buttons -->
                 <div class="mt-4 lg:mt-0 lg:ml-4 flex lg:flex-col space-x-2 lg:space-x-0 lg:space-y-2">
                     <a href="{{ route('penghuni.kontrak.show', $k->id_kontrak) }}" 
-                       class="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-primary-500 to-indigo-500 hover:from-primary-600 hover:to-indigo-600 text-white rounded-lg transition-all duration-300 hover:shadow-lg">
+                       class="flex items-center justify-center px-4 py-2 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-lg transition-all duration-300">
                         <i class="fas fa-eye mr-2"></i>
                         <span class="hidden lg:inline">Detail</span>
                     </a>
@@ -179,7 +174,7 @@
                     <!-- Additional actions based on status -->
                     @if($k->status_kontrak == 'aktif' && $k->tanggal_selesai > now())
                     <a href="{{ route('penghuni.pembayaran.create') }}?kontrak={{ $k->id_kontrak }}" 
-                       class="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-lg transition-all duration-300 hover:shadow-lg">
+                       class="flex items-center justify-center px-4 py-2 bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 hover:bg-emerald-500/10 text-white rounded-lg transition-all duration-300">
                         <i class="fas fa-credit-card mr-2"></i>
                         <span class="hidden lg:inline">Bayar</span>
                     </a>
@@ -189,16 +184,16 @@
         </div>
         @empty
         <!-- Empty State -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-8 text-center">
-            <div class="w-24 h-24 bg-gradient-to-br from-primary-900/30 to-indigo-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-home text-4xl text-primary-400"></i>
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center">
+            <div class="w-24 h-24 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-home text-4xl text-white"></i>
             </div>
             <h3 class="text-xl font-semibold text-white mb-3">Belum Ada Kontrak</h3>
-            <p class="text-dark-muted mb-6 max-w-md mx-auto">
+            <p class="text-slate-100 mb-6 max-w-md mx-auto">
                 Anda belum memiliki riwayat kontrak kos. Mulai cari kos yang sesuai dengan kebutuhan Anda.
             </p>
             <a href="{{ route('public.kos.index') }}" 
-               class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-primary-500 to-indigo-500 text-white font-semibold rounded-xl hover:from-primary-600 hover:to-indigo-600 transition-all duration-300 shadow-lg hover:shadow-xl">
+               class="inline-flex items-center justify-center px-6 py-3 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white font-semibold rounded-xl transition-all duration-300">
                 <i class="fas fa-search mr-2"></i>
                 Cari Kos Sekarang
             </a>
@@ -206,9 +201,9 @@
         @endforelse
         
         <!-- Pagination -->
-        <div class="px-6 py-4 border-t border-dark-border">
+        <div class="px-6 py-4 border-t border-white/20">
             <div class="flex items-center justify-between">
-                <div class="text-sm text-dark-muted">
+                <div class="text-sm text-slate-400">
                     Menampilkan {{ $kontrak->firstItem() }} - {{ $kontrak->lastItem() }} dari {{ $kontrak->total() }} kontrak
                 </div>
                 <div class="flex space-x-2">
@@ -221,42 +216,42 @@
     <!-- Stats Summary -->
     @if($kontrak->count() > 0)
     <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-dark-card border border-dark-border rounded-xl p-4">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4">
             <div class="flex items-center justify-between">
                 <div>
                     <div class="text-2xl font-bold text-white">{{ $kontrak->count() }}</div>
-                    <div class="text-sm text-dark-muted">Total Kontrak</div>
+                    <div class="text-sm text-slate-100">Total Kontrak</div>
                 </div>
-                <div class="w-10 h-10 rounded-lg bg-blue-900/30 flex items-center justify-center">
-                    <i class="fas fa-file-contract text-blue-400"></i>
+                <div class="w-10 h-10 rounded-lg bg-white/5 backdrop-blur-sm flex items-center justify-center">
+                    <i class="fas fa-file-contract text-white"></i>
                 </div>
             </div>
         </div>
         
-        <div class="bg-dark-card border border-dark-border rounded-xl p-4">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4">
             <div class="flex items-center justify-between">
                 <div>
                     <div class="text-2xl font-bold text-white">
                         {{ $kontrak->where('status_kontrak', 'aktif')->count() }}
                     </div>
-                    <div class="text-sm text-dark-muted">Aktif</div>
+                    <div class="text-sm text-slate-100">Aktif</div>
                 </div>
-                <div class="w-10 h-10 rounded-lg bg-green-900/30 flex items-center justify-center">
-                    <i class="fas fa-check-circle text-green-400"></i>
+                <div class="w-10 h-10 rounded-lg bg-white/5 backdrop-blur-sm flex items-center justify-center">
+                    <i class="fas fa-check-circle text-white"></i>
                 </div>
             </div>
         </div>
         
-        <div class="bg-dark-card border border-dark-border rounded-xl p-4">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4">
             <div class="flex items-center justify-between">
                 <div>
                     <div class="text-2xl font-bold text-white">
                         {{ $kontrak->where('status_kontrak', 'pending')->count() }}
                     </div>
-                    <div class="text-sm text-dark-muted">Menunggu</div>
+                    <div class="text-sm text-slate-100">Menunggu</div>
                 </div>
-                <div class="w-10 h-10 rounded-lg bg-yellow-900/30 flex items-center justify-center">
-                    <i class="fas fa-clock text-yellow-400"></i>
+                <div class="w-10 h-10 rounded-lg bg-white/5 backdrop-blur-sm flex items-center justify-center">
+                    <i class="fas fa-clock text-white"></i>
                 </div>
             </div>
         </div>

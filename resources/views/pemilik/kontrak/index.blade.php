@@ -147,13 +147,13 @@
                             <div class="lg:text-center">
                                 <div class="text-sm font-medium text-white">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
                                 <div class="text-xs text-slate-100">Kamar {{ $kontrak->kamar->nomor_kamar ?? '-' }}</div>
-                                <div class="text-xs text-slate-100 mt-1">{{ $kontrak->durasi_sewa ?? 0 }} bulan</div>
+                                <div class="text-xs text-slate-100 mt-1">{{ $kontrak->durasi_sewa ?? 0 }} {{ $kontrak->unit_label_lower ?? 'bulan' }}</div>
                             </div>
                             
                             <!-- Price -->
                             <div class="lg:text-right">
                                 <div class="text-lg font-bold text-white">Rp {{ number_format($kontrak->harga_sewa ?? 0, 0, ',', '.') }}</div>
-                                <div class="text-xs text-slate-100">per bulan</div>
+                                <div class="text-xs text-slate-100">per {{ $kontrak->unit_label_lower ?? 'bulan' }}</div>
                             </div>
                             
                             <!-- Actions -->

@@ -26,8 +26,8 @@ class PembayaranController extends Controller
         $pemilik = $user->pemilik;
 
         $query = Pembayaran::with(['penghuni', 'kontrak.kos'])
-            ->whereHas('kontrak.kos', function ($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            ->whereHas('kontrak.kos', function ($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             });
 
         $statistics = [
@@ -49,8 +49,8 @@ class PembayaranController extends Controller
         $pemilik = $user->pemilik;
 
         $pembayaran = Pembayaran::with(['penghuni', 'kontrak.kos', 'kontrak.kamar'])
-            ->whereHas('kontrak.kos', function ($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            ->whereHas('kontrak.kos', function ($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })
             ->where('status_pembayaran', 'pending')
             ->findOrFail($id);
@@ -66,34 +66,28 @@ class PembayaranController extends Controller
             $tipeSewa = strtolower($kontrak->kos->tipe_sewa);
 
             if (!$kontrak->tanggal_mulai) {
-                // FIRST PAYMENT SIGN-IN: Start from NOW (Approval date)
+                // LEGACY FALLBACK: Kontrak lama tanpa tanggal_mulai (dibuat sebelum sistem baru)
                 $startDate = now();
-
-                // Calculate duration from the gaps in original payment record
                 $origStart = Carbon::parse($pembayaran->tanggal_mulai_sewa);
                 $origEnd = Carbon::parse($pembayaran->tanggal_akhir_sewa);
-
-                // End date = Start date + (Original Duration)
-                // Using days approach for exactness
-                $diffInDays = $origStart->diffInDays($origEnd) + 1;
-                $endDate = $startDate->copy()->addDays($diffInDays - 1);
+                $diffInDays = $origStart->diffInDays($origEnd);
+                $endDate = $startDate->copy()->addDays($diffInDays);
 
                 $kontrak->update([
                     'tanggal_mulai' => $startDate,
                     'tanggal_selesai' => $endDate
                 ]);
 
-                // Synchronize payment period to match official contract start
                 $pembayaran->update([
                     'tanggal_mulai_sewa' => $startDate,
                     'tanggal_akhir_sewa' => $endDate,
                     'bulan_tahun' => $startDate->format('Y-m'),
                 ]);
 
-                Log::info('Contract initialized on approval', ['id' => $kontrak->id_kontrak, 'start' => $startDate->toDateString()]);
+                Log::info('Contract initialized on approval (legacy)', ['id' => $kontrak->id_kontrak, 'start' => $startDate->toDateString()]);
             } else {
-                // EXTENSION: Just move the end date forward
-                // The start date of this payment period was already calculated relative to previous end
+                // Sistem baru: tanggal_mulai sudah diisi saat pembuatan kontrak
+                // Perpanjang tanggal_selesai sesuai periode pembayaran
                 $kontrak->update([
                     'tanggal_selesai' => $pembayaran->tanggal_akhir_sewa
                 ]);
@@ -119,10 +113,11 @@ class PembayaranController extends Controller
     public function reject($id)
     {
         $user = Auth::user();
+        $pemilik = $user->pemilik;
 
         $pembayaran = Pembayaran::with(['penghuni', 'kontrak.kos', 'kontrak.kamar'])
-            ->whereHas('kontrak.kos', function ($query) use ($user) {
-                $query->where('id_pemilik', $user->id_pemilik);
+            ->whereHas('kontrak.kos', function ($query) use ($pemilik) {
+                $query->where('id_pemilik', $pemilik->id_pemilik);
             })
             ->where('status_pembayaran', 'pending')
             ->findOrFail($id);

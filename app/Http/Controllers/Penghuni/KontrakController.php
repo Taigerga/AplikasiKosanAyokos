@@ -10,7 +10,11 @@ use App\Services\NotificationService;
 use App\Services\NotificationEmailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\Fasilitas;
+use Carbon\Carbon;
+
+
 class KontrakController extends Controller
 {
     protected $notificationService;
@@ -44,7 +48,13 @@ class KontrakController extends Controller
      */
     public function cariKos()
     {
-        $kos = Kos::with(['kamar', 'fasilitas', 'reviews'])
+        $kos = Kos::with(['fasilitas', 'reviews'])
+            ->addSelect([
+                'harga_terendah_tersedia' => DB::table('kamar')
+                    ->select(DB::raw('MIN(harga)'))
+                    ->whereColumn('kamar.id_kos', 'kos.id_kos')
+                    ->where('status_kamar', 'tersedia')
+            ])
             ->withCount(['kamar as kamar_tersedia_count' => function ($q) {
                 $q->where('status_kamar', 'tersedia');
             }])
@@ -65,29 +75,48 @@ class KontrakController extends Controller
                 'id_kos' => 'required|exists:kos,id_kos',
                 'id_kamar' => 'required|exists:kamar,id_kamar',
                 'foto_ktp' => 'required|image|max:2048',
-                'durasi_sewa' => 'required|integer|min:1'
+                'durasi_sewa' => 'required|integer|min:1',
+                'tanggal_mulai' => 'required|date|after_or_equal:today'
             ]);
 
             // Upload file KTP saja
             $fotoKtpPath = $request->file('foto_ktp')->store('ktp', 'public');
-            $buktiPembayaranPath = null; // Belum ada bukti pembayaran di awal
+            $buktiPembayaranPath = null;
 
-            // Ambil harga kamar
-            $kamar = Kamar::find($request->id_kamar);
-            
-            // Deposit hanya untuk 1 bulan pertama
-            $depositAmount = $kamar->harga; 
+            // Ambil data kamar & kos untuk harga dan tipe_sewa
+            $kamar = Kamar::with('kos')->find($request->id_kamar);
+            $tipeSewa = $kamar->kos->tipe_sewa;
+
+            // Hitung tanggal_selesai berdasarkan tanggal_mulai, durasi, dan tipe_sewa
+            $tanggalMulai = Carbon::parse($request->tanggal_mulai);
+            $durasi = (int) $request->durasi_sewa;
+
+            switch ($tipeSewa) {
+                case 'harian':
+                    $tanggalSelesai = $tanggalMulai->copy()->addDays($durasi);
+                    break;
+                case 'mingguan':
+                    $tanggalSelesai = $tanggalMulai->copy()->addWeeks($durasi);
+                    break;
+                case 'tahunan':
+                    $tanggalSelesai = $tanggalMulai->copy()->addYears($durasi);
+                    break;
+                default: // bulanan
+                    $tanggalSelesai = $tanggalMulai->copy()->addMonths($durasi);
+                    break;
+            }
 
             // Buat kontrak baru
             $kontrak = KontrakSewa::create([
-                'id_penghuni' => auth('penghuni')->id(),
+                'id_penghuni' => auth('penghuni')->user()->penghuni->id_penghuni,
                 'id_kos' => $request->id_kos,
                 'id_kamar' => $request->id_kamar,
                 'foto_ktp' => $fotoKtpPath,
-                // 'bukti_pembayaran' dihapus
                 'tanggal_daftar' => now(),
-                'durasi_sewa' => $request->durasi_sewa,
-                'harga_sewa' => $depositAmount,
+                'tanggal_mulai' => $tanggalMulai,
+                'tanggal_selesai' => $tanggalSelesai,
+                'durasi_sewa' => $durasi,
+                'harga_sewa' => $kamar->harga,
                 'status_kontrak' => 'pending'
             ]);
 
@@ -119,9 +148,10 @@ class KontrakController extends Controller
     public function index()
     {
         $user = auth('penghuni')->user();
+        $penghuni = $user->penghuni;
 
         $kontrak = KontrakSewa::with(['kos', 'kamar'])
-            ->where('id_penghuni', $user->id_penghuni)
+            ->where('id_penghuni', $penghuni->id_penghuni)
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
@@ -135,7 +165,7 @@ class KontrakController extends Controller
     {
         $kontrak = KontrakSewa::with(['kos', 'kamar'])
             ->where('id_kontrak', $id)
-            ->where('id_penghuni', auth('penghuni')->id())
+            ->where('id_penghuni', auth('penghuni')->user()->penghuni->id_penghuni)
             ->firstOrFail();
 
         return view('penghuni.kontrak.show', compact('kontrak'));
@@ -148,17 +178,36 @@ class KontrakController extends Controller
     {
         try {
             $kontrak = KontrakSewa::where('id_kontrak', $id)
-                ->where('id_penghuni', auth('penghuni')->id())
+                ->where('id_penghuni', auth('penghuni')->user()->penghuni->id_penghuni)
                 ->firstOrFail();
             
             $request->validate([
                 'durasi_perpanjangan' => 'required|integer|min:1'
             ]);
 
-            // Update tanggal selesai
+            // Hitung tanggal selesai baru berdasarkan tipe_sewa
+            $tipeSewa = $kontrak->kos->tipe_sewa;
+            $durasiTambahan = (int)$request->durasi_perpanjangan;
+            $tanggalSelesaiBaru = Carbon::parse($kontrak->tanggal_selesai);
+
+            switch ($tipeSewa) {
+                case 'harian':
+                    $tanggalSelesaiBaru = $tanggalSelesaiBaru->addDays($durasiTambahan);
+                    break;
+                case 'mingguan':
+                    $tanggalSelesaiBaru = $tanggalSelesaiBaru->addWeeks($durasiTambahan);
+                    break;
+                case 'tahunan':
+                    $tanggalSelesaiBaru = $tanggalSelesaiBaru->addYears($durasiTambahan);
+                    break;
+                default: // bulanan
+                    $tanggalSelesaiBaru = $tanggalSelesaiBaru->addMonths($durasiTambahan);
+                    break;
+            }
+
             $kontrak->update([
-                'tanggal_selesai' => $kontrak->tanggal_selesai->addMonths((int)$request->durasi_perpanjangan),
-                'durasi_sewa' => $kontrak->durasi_sewa + (int)$request->durasi_perpanjangan
+                'tanggal_selesai' => $tanggalSelesaiBaru,
+                'durasi_sewa' => $kontrak->durasi_sewa + $durasiTambahan
             ]);
             
             // TAMBAHKAN: Kirim EMAIL notifikasi ke pemilik tentang perpanjangan
@@ -180,8 +229,9 @@ class KontrakController extends Controller
         $user = auth('penghuni')->user();
         
         // Ambil kontrak aktif yang mendekati tenggat waktu
+        $penghuni = $user->penghuni;
         $kontrakAktif = KontrakSewa::with(['kos', 'kamar'])
-            ->where('id_penghuni', $user->id_penghuni)
+            ->where('id_penghuni', $penghuni->id_penghuni)
             ->where('status_kontrak', 'aktif')
             ->orderBy('tanggal_selesai', 'asc')
             ->get();

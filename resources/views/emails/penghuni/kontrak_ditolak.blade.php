@@ -36,7 +36,7 @@
                     <li>Kos: {{ $kontrak->kos->nama_kos }}</li>
                     <li>Kamar: {{ $kontrak->kamar->nomor_kamar }}</li>
                     <li>Tipe: {{ $kontrak->kamar->tipe_kamar }}</li>
-                    <li>Harga Sewa: Rp {{ number_format($kontrak->harga_sewa, 0, ',', '.') }}/bulan</li>
+                    <li>Harga Sewa: Rp {{ number_format($kontrak->harga_sewa, 0, ',', '.') }}/{{ $kontrak->unit_label_lower }}</li>
                 </ul>
             </div>
             

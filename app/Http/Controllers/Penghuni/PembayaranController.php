@@ -26,15 +26,16 @@ class PembayaranController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $penghuni = $user->penghuni;
 
         $pembayaran = Pembayaran::with(['kontrak.kos'])
-            ->where('id_penghuni', $user->id_penghuni)
+            ->where('id_penghuni', $penghuni->id_penghuni)
             ->orderBy('bulan_tahun', 'desc')
             ->paginate(10, ['*'], 'pembayaran_page')
             ->withQueryString();
 
         $kontrakAktif = KontrakSewa::with(['kos'])
-            ->where('id_penghuni', $user->id_penghuni)
+            ->where('id_penghuni', $penghuni->id_penghuni)
             ->where('status_kontrak', 'aktif')
             ->paginate(5, ['*'], 'kontrak_page')
             ->withQueryString();
@@ -45,9 +46,10 @@ class PembayaranController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
+        $penghuni = $user->penghuni;
 
         $kontrakAktif = KontrakSewa::with(['kos', 'kamar', 'kos.pemilik'])
-            ->where('id_penghuni', $user->id_penghuni)
+            ->where('id_penghuni', $penghuni->id_penghuni)
             ->where('status_kontrak', 'aktif')
             ->get();
 
@@ -142,7 +144,22 @@ class PembayaranController extends Controller
                 break;
         }
 
-        return view('penghuni.pembayaran.create', compact('kontrakAktif', 'selectedKontrak', 'paymentOptions', 'user', 'unitLabel', 'maxLimit', 'tipeSewa'));
+        $isFirstPayment = !Pembayaran::where('id_kontrak', $selectedKontrak->id_kontrak)
+            ->whereIn('status_pembayaran', ['lunas', 'pending'])
+            ->exists();
+
+        if ($isFirstPayment && $selectedKontrak->tanggal_mulai && $selectedKontrak->tanggal_selesai) {
+            $paymentOptions = [];
+            $paymentOptions[] = [
+                'value' => $selectedKontrak->durasi_sewa,
+                'label' => $selectedKontrak->durasi_sewa . ' ' . $unitLabel,
+                'total' => $selectedKontrak->harga_sewa * $selectedKontrak->durasi_sewa,
+                'max_date' => $selectedKontrak->tanggal_selesai
+            ];
+            $maxLimit = $selectedKontrak->durasi_sewa;
+        }
+
+        return view('penghuni.pembayaran.create', compact('kontrakAktif', 'selectedKontrak', 'paymentOptions', 'user', 'unitLabel', 'maxLimit', 'tipeSewa', 'isFirstPayment'));
     }
 
     public function store(Request $request)
@@ -155,6 +172,7 @@ class PembayaranController extends Controller
             ]);
 
             $user = Auth::user();
+            $penghuni = $user->penghuni;
 
             Log::debug('Store validation started');
             $validated = $request->validate([
@@ -165,7 +183,7 @@ class PembayaranController extends Controller
             ]);
 
             $kontrak = KontrakSewa::with(['kos.pemilik', 'kamar'])
-                ->where('id_penghuni', $user->id_penghuni)
+                ->where('id_penghuni', $penghuni->id_penghuni)
                 ->where('id_kontrak', $request->id_kontrak)
                 ->firstOrFail();
 
@@ -194,14 +212,19 @@ class PembayaranController extends Controller
 
             // Calculate End Date based on type
             $tanggalAkhir = $tanggalMulai->copy();
-            if ($tipeSewa == 'harian') {
-                $tanggalAkhir = $tanggalAkhir->addDays($jumlahWaktu - 1);
-            } elseif ($tipeSewa == 'mingguan') {
-                $tanggalAkhir = $tanggalAkhir->addWeeks($jumlahWaktu)->subDay();
-            } elseif ($tipeSewa == 'tahunan') {
-                $tanggalAkhir = $tanggalAkhir->addYears($jumlahWaktu)->subDay();
-            } else { // bulanan
-                $tanggalAkhir = $tanggalAkhir->addMonths($jumlahWaktu)->subDay();
+            switch ($tipeSewa) {
+                case 'harian':
+                    $tanggalAkhir = $tanggalAkhir->addDays($jumlahWaktu);
+                    break;
+                case 'mingguan':
+                    $tanggalAkhir = $tanggalAkhir->addWeeks($jumlahWaktu);
+                    break;
+                case 'tahunan':
+                    $tanggalAkhir = $tanggalAkhir->addYears($jumlahWaktu);
+                    break;
+                default: // bulanan
+                    $tanggalAkhir = $tanggalAkhir->addMonths($jumlahWaktu);
+                    break;
             }
 
             // Determine payment type
@@ -221,7 +244,7 @@ class PembayaranController extends Controller
             // Upload bukti pembayaran
             if ($request->hasFile('bukti_pembayaran')) {
                 $buktiPembayaran = $request->file('bukti_pembayaran');
-                $fileName = time() . '_' . $user->id_penghuni . '_' . uniqid() . '.' . $buktiPembayaran->getClientOriginalExtension();
+                $fileName = time() . '_' . $penghuni->id_penghuni . '_' . uniqid() . '.' . $buktiPembayaran->getClientOriginalExtension();
                 $buktiPembayaranPath = $buktiPembayaran->storeAs('bukti_pembayaran', $fileName, 'public');
 
                 if (!$buktiPembayaranPath) {
@@ -236,7 +259,7 @@ class PembayaranController extends Controller
             try {
                 $pembayaran = Pembayaran::create([
                     'id_kontrak' => $kontrak->id_kontrak,
-                    'id_penghuni' => $user->id_penghuni,
+                    'id_penghuni' => $penghuni->id_penghuni,
                     'bulan_tahun' => $tanggalMulai->format('Y-m'),
                     'tanggal_mulai_sewa' => $tanggalMulai,
                     'tanggal_akhir_sewa' => $tanggalAkhir,
@@ -280,9 +303,10 @@ class PembayaranController extends Controller
     public function show($id)
     {
         $user = Auth::user();
+        $penghuni = $user->penghuni;
 
         $pembayaran = Pembayaran::with(['kontrak.kos'])
-            ->where('id_penghuni', $user->id_penghuni)
+            ->where('id_penghuni', $penghuni->id_penghuni)
             ->findOrFail($id);
 
         return view('penghuni.pembayaran.show', compact('pembayaran'));
@@ -325,15 +349,19 @@ class PembayaranController extends Controller
 
         $endDate = $startDate->copy();
 
-        if ($tipeSewa == 'harian') {
-            $endDate->addDays((int) $jumlah - 1);
-        } elseif ($tipeSewa == 'mingguan') {
-            $totalHari = (int) $jumlah * 7;
-            $endDate->addDays($totalHari - 1);
-        } elseif ($tipeSewa == 'tahunan') {
-            $endDate->addYears((int) $jumlah)->subDay();
-        } else {
-            $endDate->addMonths((int) $jumlah)->subDay();
+        switch ($tipeSewa) {
+            case 'harian':
+                $endDate->addDays((int) $jumlah);
+                break;
+            case 'mingguan':
+                $endDate->addWeeks((int) $jumlah);
+                break;
+            case 'tahunan':
+                $endDate->addYears((int) $jumlah);
+                break;
+            default: // bulanan
+                $endDate->addMonths((int) $jumlah);
+                break;
         }
 
         return $endDate;

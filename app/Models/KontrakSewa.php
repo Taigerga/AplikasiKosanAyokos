@@ -90,6 +90,28 @@ class KontrakSewa extends Model
 
 
 
+    public function getUnitLabelAttribute()
+    {
+        $map = [
+            'harian' => 'Hari',
+            'mingguan' => 'Minggu',
+            'bulanan' => 'Bulan',
+            'tahunan' => 'Tahun',
+        ];
+        return $map[$this->kos->tipe_sewa] ?? 'Bulan';
+    }
+
+    public function getUnitLabelLowerAttribute()
+    {
+        $map = [
+            'harian' => 'hari',
+            'mingguan' => 'minggu',
+            'bulanan' => 'bulan',
+            'tahunan' => 'tahun',
+        ];
+        return $map[$this->kos->tipe_sewa] ?? 'bulan';
+    }
+
     // Model event untuk otomatis update status kamar saat kontrak selesai ()
     protected static function booted()
     {

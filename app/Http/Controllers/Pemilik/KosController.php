@@ -132,6 +132,7 @@ class KosController extends Controller
             'peraturan' => 'nullable|string',
             'jenis_kos' => 'required|in:putra,putri,campuran',
             'tipe_sewa' => 'required|in:harian,mingguan,bulanan,tahunan',
+            'status_kos' => 'required|in:aktif,nonaktif,pending',
             'foto_utama' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',

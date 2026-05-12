@@ -18,7 +18,7 @@ class ReviewController extends Controller
     public function create(Kos $kos)
     {
         // Cek apakah penghuni pernah menyewa kos ini
-        $penghuni = Auth::user();
+        $penghuni = Auth::user()->penghuni;
         
         $kontrakAktif = KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
             ->where('id_kos', $kos->id_kos)
@@ -61,7 +61,7 @@ class ReviewController extends Controller
             'foto_review' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $penghuni = Auth::user();
+        $penghuni = Auth::user()->penghuni;
         
         // Cek apakah penghuni pernah menyewa kos ini
         $kontrak = KontrakSewa::where('id_penghuni', $penghuni->id_penghuni)
@@ -115,7 +115,7 @@ class ReviewController extends Controller
     public function edit(Review $review)
     {
         // Authorization: hanya pemilik review yang bisa edit
-        $penghuni = Auth::user();
+        $penghuni = Auth::user()->penghuni;
         
         if ($review->id_penghuni != $penghuni->id_penghuni) {
             abort(403, 'Anda tidak memiliki izin untuk mengedit review ini.');
@@ -130,7 +130,7 @@ class ReviewController extends Controller
     public function update(Request $request, Review $review)
     {
         // Authorization: hanya pemilik review yang bisa update
-        $penghuni = Auth::user();
+        $penghuni = Auth::user()->penghuni;
         
         if ($review->id_penghuni != $penghuni->id_penghuni) {
             abort(403, 'Anda tidak memiliki izin untuk mengedit review ini.');
@@ -183,7 +183,7 @@ class ReviewController extends Controller
     public function destroy(Review $review)
     {
         // Authorization: hanya pemilik review yang bisa hapus
-        $penghuni = Auth::user();
+        $penghuni = Auth::user()->penghuni;
         
         if ($review->id_penghuni != $penghuni->id_penghuni) {
             abort(403, 'Anda tidak memiliki izin untuk menghapus review ini.');
@@ -205,7 +205,7 @@ class ReviewController extends Controller
      */
     public function history()
     {
-        $penghuni = Auth::user();
+        $penghuni = Auth::user()->penghuni;
         $reviews = Review::with('kos')
             ->where('id_penghuni', $penghuni->id_penghuni)
             ->orderBy('created_at', 'desc')

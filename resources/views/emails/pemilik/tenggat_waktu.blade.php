@@ -96,8 +96,8 @@
                     <li>Kamar: {{ $kontrak->kamar->nomor_kamar }} ({{ $kontrak->kamar->tipe_kamar }})</li>
                     <li>Tanggal Mulai: {{ date('d F Y', strtotime($kontrak->tanggal_mulai)) }}</li>
                     <li>Tanggal Selesai: {{ date('d F Y', strtotime($kontrak->tanggal_selesai)) }}</li>
-                    <li>Durasi: {{ $kontrak->durasi_sewa }} bulan</li>
-                    <li>Harga Sewa: Rp {{ number_format($kontrak->harga_sewa, 0, ',', '.') }}/bulan</li>
+                    <li>Durasi: {{ $kontrak->durasi_sewa }} {{ $kontrak->unit_label_lower }}</li>
+                    <li>Harga Sewa: Rp {{ number_format($kontrak->harga_sewa, 0, ',', '.') }}/{{ $kontrak->unit_label_lower }}</li>
                 </ul>
             </div>
             

@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Bayar Sewa - AyoKos'); ?>
 
-@section('title', 'Bayar Sewa - AyoKos')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
         <div class="max-w-4xl mx-auto space-y-6">
             <!-- Breadcrumb -->
@@ -10,7 +8,7 @@
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
-                            <a href="{{ route('penghuni.dashboard') }}"
+                            <a href="<?php echo e(route('penghuni.dashboard')); ?>"
                                 class="inline-flex items-center text-sm font-medium text-slate-400 hover:text-white transition-colors">
                                 <i class="fas fa-gauge mr-2"></i>
                                 Dashboard
@@ -19,7 +17,7 @@
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-slate-500 text-xs mx-2"></i>
-                                <a href="{{ route('penghuni.pembayaran.index') }}"
+                                <a href="<?php echo e(route('penghuni.pembayaran.index')); ?>"
                                     class="inline-flex items-center text-sm font-medium text-slate-400 hover:text-white transition-colors">
                                     <i class="fas fa-credit-card mr-2"></i>
                                     Riwayat Pembayaran
@@ -54,23 +52,25 @@
             </div>
 
             <!-- Success/Error Messages from Session -->
-            @if(session('success'))
+            <?php if(session('success')): ?>
                 <div class="bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 text-white px-4 py-3 rounded-xl">
                     <div class="flex items-center">
                         <i class="fas fa-check-circle mr-3 text-emerald-400"></i>
-                        {{ session('success') }}
+                        <?php echo e(session('success')); ?>
+
                     </div>
                 </div>
-            @endif
+            <?php endif; ?>
 
-            @if(session('error'))
+            <?php if(session('error')): ?>
                 <div class="bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-white px-4 py-3 rounded-xl">
                     <div class="flex items-center">
                         <i class="fas fa-exclamation-circle mr-3 text-red-400"></i>
-                        {{ session('error') }}
+                        <?php echo e(session('error')); ?>
+
                     </div>
                 </div>
-            @endif
+            <?php endif; ?>
 
             <!-- Info Kontrak -->
             <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
@@ -79,32 +79,33 @@
                     Informasi Kontrak
                 </h2>
 
-                @if($kontrakAktif->count() > 1)
+                <?php if($kontrakAktif->count() > 1): ?>
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-white mb-3">Pilih Kontrak *</label>
                         <div class="relative">
                             <i class="fas fa-home absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
                             <select id="kontrak-select"
                                 class="w-full pl-12 pr-10 py-3 bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
-                                @foreach($kontrakAktif as $k)
-                                    <option value="{{ $k->id_kontrak }}" data-harga="{{ $k->harga_sewa }}"
-                                        data-mulai="{{ $k->tanggal_mulai ? $k->tanggal_mulai->format('d M Y') : '-' }}"
-                                        data-selesai="{{ $k->tanggal_selesai ? $k->tanggal_selesai->format('d M Y') : '-' }}"
-                                        data-pemilik="{{ $k->kos->pemilik->nama }}" data-kos="{{ $k->kos->nama_kos }}"
-                                        data-kamar="{{ $k->kamar->nomor_kamar }}"
-                                        data-grace-period="{{ $k->tanggal_selesai ? \Carbon\Carbon::parse($k->tanggal_selesai)->addDays(7)->format('d M Y') : '-' }}"
-                                        data-nama-bank="{{ $k->kos->pemilik->nama_bank ?? 'Belum Diatur' }}"
-                                        data-nomor-rekening="{{ $k->kos->pemilik->nomor_rekening ?? '-' }}"
-                                        @if($k->id_kontrak == $selectedKontrak->id_kontrak) selected @endif>
-                                        {{ $k->kos->nama_kos }} - Kamar {{ $k->kamar->nomor_kamar }}
+                                <?php $__currentLoopData = $kontrakAktif; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($k->id_kontrak); ?>" data-harga="<?php echo e($k->harga_sewa); ?>"
+                                        data-mulai="<?php echo e($k->tanggal_mulai ? $k->tanggal_mulai->format('d M Y') : '-'); ?>"
+                                        data-selesai="<?php echo e($k->tanggal_selesai ? $k->tanggal_selesai->format('d M Y') : '-'); ?>"
+                                        data-pemilik="<?php echo e($k->kos->pemilik->nama); ?>" data-kos="<?php echo e($k->kos->nama_kos); ?>"
+                                        data-kamar="<?php echo e($k->kamar->nomor_kamar); ?>"
+                                        data-grace-period="<?php echo e($k->tanggal_selesai ? \Carbon\Carbon::parse($k->tanggal_selesai)->addDays(7)->format('d M Y') : '-'); ?>"
+                                        data-nama-bank="<?php echo e($k->kos->pemilik->nama_bank ?? 'Belum Diatur'); ?>"
+                                        data-nomor-rekening="<?php echo e($k->kos->pemilik->nomor_rekening ?? '-'); ?>"
+                                        <?php if($k->id_kontrak == $selectedKontrak->id_kontrak): ?> selected <?php endif; ?>>
+                                        <?php echo e($k->kos->nama_kos); ?> - Kamar <?php echo e($k->kamar->nomor_kamar); ?>
+
                                     </option>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                             <i
                                 class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 pointer-events-none"></i>
                         </div>
                     </div>
-                @endif
+                <?php endif; ?>
 
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm kontrak-info bg-slate-900/50 backdrop-blur-sm p-4 rounded-xl border border-sky-900/50">
@@ -112,14 +113,15 @@
                         <i class="fas fa-building text-sky-500 w-5"></i>
                         <div>
                             <div class="text-slate-400 text-xs">Kos</div>
-                            <div class="font-medium text-white" id="info-kos">{{ $selectedKontrak->kos->nama_kos }}</div>
+                            <div class="font-medium text-white" id="info-kos"><?php echo e($selectedKontrak->kos->nama_kos); ?></div>
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-door-closed text-emerald-500 w-5"></i>
                         <div>
                             <div class="text-slate-400 text-xs">Kamar</div>
-                            <div class="font-medium text-white" id="info-kamar">{{ $selectedKontrak->kamar->nomor_kamar }}
+                            <div class="font-medium text-white" id="info-kamar"><?php echo e($selectedKontrak->kamar->nomor_kamar); ?>
+
                             </div>
                         </div>
                     </div>
@@ -128,7 +130,8 @@
                         <div>
                             <div class="text-slate-400 text-xs">Harga Sewa</div>
                             <div class="font-medium text-white">Rp <span
-                                    id="info-harga">{{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}</span>/{{ strtolower($unitLabel) }}
+                                    id="info-harga"><?php echo e(number_format($selectedKontrak->harga_sewa, 0, ',', '.')); ?></span>/<?php echo e(strtolower($unitLabel)); ?>
+
                             </div>
                         </div>
                     </div>
@@ -137,12 +140,13 @@
                         <div>
                             <div class="text-slate-400 text-xs">Periode Kontrak</div>
                             <div class="font-medium text-white" id="info-periode">
-                                @if($selectedKontrak->tanggal_mulai && $selectedKontrak->tanggal_selesai)
-                                    {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }} -
-                                    {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
-                                @else
+                                <?php if($selectedKontrak->tanggal_mulai && $selectedKontrak->tanggal_selesai): ?>
+                                    <?php echo e(\Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y')); ?> -
+                                    <?php echo e(\Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y')); ?>
+
+                                <?php else: ?>
                                     <span class="text-amber-400">Menunggu pembayaran pertama</span>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -151,11 +155,12 @@
                         <div>
                             <div class="text-slate-400 text-xs">Tenggat Pembayaran</div>
                             <div class="font-medium text-amber-400" id="info-grace-period">
-                                @if($selectedKontrak->tanggal_selesai)
-                                    {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->addDays(7)->format('d M Y') }}
-                                @else
+                                <?php if($selectedKontrak->tanggal_selesai): ?>
+                                    <?php echo e(\Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->addDays(7)->format('d M Y')); ?>
+
+                                <?php else: ?>
                                     -
-                                @endif
+                                <?php endif; ?>
                             </div>
                             <div class="text-xs text-slate-400 mt-1">(7 hari setelah kontrak berakhir)</div>
                         </div>
@@ -170,29 +175,29 @@
                     Formulir Pembayaran
                 </h2>
 
-                @if($errors->any())
+                <?php if($errors->any()): ?>
                     <div class="bg-red-500/10 backdrop-blur-sm border border-red-500/20 text-white px-4 py-3 rounded-xl mb-6">
                         <div class="flex items-center">
                             <i class="fas fa-exclamation-circle mr-3 text-red-400"></i>
                             <div>
-                                @foreach($errors->all() as $error)
-                                    <p>{{ $error }}</p>
-                                @endforeach
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <p><?php echo e($error); ?></p>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
                     </div>
-                @endif
+                <?php endif; ?>
 
-                <form method="POST" action="{{ route('penghuni.pembayaran.store') }}" enctype="multipart/form-data"
+                <form method="POST" action="<?php echo e(route('penghuni.pembayaran.store')); ?>" enctype="multipart/form-data"
                     id="paymentForm">
-                    @csrf
-                    <input type="hidden" id="id_kontrak" name="id_kontrak" value="{{ $selectedKontrak->id_kontrak }}">
+                    <?php echo csrf_field(); ?>
+                    <input type="hidden" id="id_kontrak" name="id_kontrak" value="<?php echo e($selectedKontrak->id_kontrak); ?>">
 
                     <div class="space-y-6">
 
-                        @if(isset($isFirstPayment) && $isFirstPayment)
+                        <?php if(isset($isFirstPayment) && $isFirstPayment): ?>
                             <!-- Pembayaran Pertama: Fixed sesuai kontrak -->
-                            <input type="hidden" name="jumlah_waktu" value="{{ $paymentOptions[0]['value'] ?? $selectedKontrak->durasi_sewa }}">
+                            <input type="hidden" name="jumlah_waktu" value="<?php echo e($paymentOptions[0]['value'] ?? $selectedKontrak->durasi_sewa); ?>">
 
                             <div class="bg-emerald-500/10 backdrop-blur-sm border border-emerald-500/20 rounded-xl p-5">
                                 <h3 class="font-semibold text-emerald-400 mb-4 flex items-center">
@@ -203,19 +208,22 @@
                                     <div>
                                         <p class="text-sm text-emerald-400/80">Periode Mulai</p>
                                         <p class="text-lg font-bold text-white">
-                                            {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }}
+                                            <?php echo e(\Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y')); ?>
+
                                         </p>
                                     </div>
                                     <div>
                                         <p class="text-sm text-emerald-400/80">Periode Selesai</p>
                                         <p class="text-lg font-bold text-white">
-                                            {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
+                                            <?php echo e(\Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y')); ?>
+
                                         </p>
                                     </div>
                                     <div>
                                         <p class="text-sm text-emerald-400/80">Total Pembayaran</p>
                                         <p class="text-lg font-bold text-emerald-400">
-                                            Rp {{ number_format($paymentOptions[0]['total'] ?? ($selectedKontrak->harga_sewa * $selectedKontrak->durasi_sewa), 0, ',', '.') }}
+                                            Rp <?php echo e(number_format($paymentOptions[0]['total'] ?? ($selectedKontrak->harga_sewa * $selectedKontrak->durasi_sewa), 0, ',', '.')); ?>
+
                                         </p>
                                     </div>
                                 </div>
@@ -236,48 +244,51 @@
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Mulai</div>
                                         <div id="preview-mulai" class="font-medium text-white">
-                                            {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }}
+                                            <?php echo e(\Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y')); ?>
+
                                         </div>
                                     </div>
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Selesai</div>
                                         <div id="preview-selesai" class="font-medium">
-                                            {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
+                                            <?php echo e(\Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y')); ?>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @else
+                        <?php else: ?>
                             <!-- Jumlah Waktu Pembayaran (Perpanjangan) -->
                             <div>
-                                <label class="block text-sm font-medium text-white mb-3">Bayar Berapa {{ $unitLabel }}?
+                                <label class="block text-sm font-medium text-white mb-3">Bayar Berapa <?php echo e($unitLabel); ?>?
                                     *</label>
                                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                    @foreach($paymentOptions as $option)
+                                    <?php $__currentLoopData = $paymentOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <label
                                             class="flex items-center p-3 border-2 border-sky-900/50 rounded-xl cursor-pointer hover:border-sky-500/50 bg-slate-900/50 transition-all duration-200 jumlah-bulan-option group">
-                                            <input type="radio" name="jumlah_waktu" value="{{ $option['value'] }}"
-                                                data-harga="{{ $option['total'] }}"
-                                                data-max-date="{{ $option['max_date'] ? $option['max_date']->format('d M Y') : '' }}"
-                                                class="mr-3 jumlah-bulan-radio" @if($loop->first) checked @endif>
+                                            <input type="radio" name="jumlah_waktu" value="<?php echo e($option['value']); ?>"
+                                                data-harga="<?php echo e($option['total']); ?>"
+                                                data-max-date="<?php echo e($option['max_date'] ? $option['max_date']->format('d M Y') : ''); ?>"
+                                                class="mr-3 jumlah-bulan-radio" <?php if($loop->first): ?> checked <?php endif; ?>>
                                             <div class="flex-1">
-                                                <div class="font-semibold text-white text-sm">{{ $option['label'] }}</div>
+                                                <div class="font-semibold text-white text-sm"><?php echo e($option['label']); ?></div>
                                                 <div class="text-xs text-slate-400">Rp
-                                                    {{ number_format($option['total'], 0, ',', '.') }}</div>
-                                                @if($option['max_date'])
+                                                    <?php echo e(number_format($option['total'], 0, ',', '.')); ?></div>
+                                                <?php if($option['max_date']): ?>
                                                     <div class="text-xs text-amber-400 mt-1 hidden md:block"
-                                                        id="max-date-{{ $option['value'] }}">
+                                                        id="max-date-<?php echo e($option['value']); ?>">
                                                         <i class="fas fa-clock mr-1"></i>
-                                                        Max: {{ $option['max_date']->format('d M Y') }}
+                                                        Max: <?php echo e($option['max_date']->format('d M Y')); ?>
+
                                                     </div>
-                                                @endif
+                                                <?php endif; ?>
                                             </div>
                                             <div
                                                 class="w-6 h-6 rounded-full border-2 border-sky-900/50 group-hover:border-sky-500 flex items-center justify-center">
                                                 <div class="w-3 h-3 rounded-full bg-sky-500 hidden radio-checked"></div>
                                             </div>
                                         </label>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
 
@@ -291,7 +302,7 @@
                                 <div class="text-sm text-amber-200 grid grid-cols-2 gap-2">
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Mulai</div>
-                                        <div id="preview-mulai">{{ $unitLabel == 'Hari' ? 'Hari berikutnya yang belum dibayar' : ($unitLabel == 'Minggu' ? 'Minggu berikutnya yang belum dibayar' : ($unitLabel == 'Tahun' ? 'Tahun berikutnya yang belum dibayar' : 'Bulan berikutnya yang belum dibayar')) }}</div>
+                                        <div id="preview-mulai"><?php echo e($unitLabel == 'Hari' ? 'Hari berikutnya yang belum dibayar' : ($unitLabel == 'Minggu' ? 'Minggu berikutnya yang belum dibayar' : ($unitLabel == 'Tahun' ? 'Tahun berikutnya yang belum dibayar' : 'Bulan berikutnya yang belum dibayar'))); ?></div>
                                     </div>
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Selesai</div>
@@ -299,22 +310,23 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        <?php endif; ?>
 
                         <!-- Total Pembayaran Summary -->
                         <div
                             class="bg-emerald-500/10 backdrop-blur-sm border border-emerald-500/20 rounded-xl p-5">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <p class="text-sm text-emerald-400 mb-1">Harga/{{ $unitLabel }}:</p>
+                                    <p class="text-sm text-emerald-400 mb-1">Harga/<?php echo e($unitLabel); ?>:</p>
                                     <p id="harga-per-bulan" class="text-xl md:text-2xl font-bold text-white">
-                                        Rp {{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}
+                                        Rp <?php echo e(number_format($selectedKontrak->harga_sewa, 0, ',', '.')); ?>
+
                                     </p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-emerald-400 mb-1">Total Pembayaran:</p>
                                     <p id="total-bayar" class="text-xl md:text-2xl font-bold text-emerald-500">Rp
-                                        {{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}</p>
+                                        <?php echo e(number_format($selectedKontrak->harga_sewa, 0, ',', '.')); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -364,17 +376,17 @@
                                 <div>
                                     <div class="text-emerald-400/80 text-xs mb-1">Bank</div>
                                     <div class="text-white font-medium" id="info-nama-bank">
-                                        {{ $selectedKontrak->kos->pemilik->nama_bank ?? 'Belum Diatur' }}</div>
+                                        <?php echo e($selectedKontrak->kos->pemilik->nama_bank ?? 'Belum Diatur'); ?></div>
                                 </div>
                                 <div>
                                     <div class="text-emerald-400/80 text-xs mb-1">No. Rekening</div>
                                     <div class="text-white font-medium" id="info-nomor-rekening">
-                                        {{ $selectedKontrak->kos->pemilik->nomor_rekening ?? '-' }}</div>
+                                        <?php echo e($selectedKontrak->kos->pemilik->nomor_rekening ?? '-'); ?></div>
                                 </div>
                                 <div class="md:col-span-2">
                                     <div class="text-emerald-400/80 text-xs mb-1">Atas Nama</div>
                                     <div class="text-white font-medium" id="info-pemilik">
-                                        {{ $selectedKontrak->kos->pemilik->nama }}</div>
+                                        <?php echo e($selectedKontrak->kos->pemilik->nama); ?></div>
                                 </div>
                             </div>
                             <div class="mt-3 text-xs text-emerald-400/80 bg-emerald-500/10 p-2 rounded-lg">
@@ -411,9 +423,16 @@
                                     <div id="preview-container" class="mt-4"></div>
                                 </div>
                             </div>
-                            @error('bukti_pembayaran')
-                                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
-                            @enderror
+                            <?php $__errorArgs = ['bukti_pembayaran'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <p class="mt-2 text-sm text-red-400"><?php echo e($message); ?></p>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Info Penting -->
@@ -423,22 +442,22 @@
                                 Informasi Pembayaran
                             </h3>
                             <ul class="space-y-2">
-                                @if(isset($isFirstPayment) && $isFirstPayment)
+                                <?php if(isset($isFirstPayment) && $isFirstPayment): ?>
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-file-contract text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Pembayaran pertama sesuai durasi kontrak awal (<strong class="text-white">{{ $selectedKontrak->durasi_sewa }} {{ strtolower($unitLabel) }}</strong>)</span>
+                                    <span>Pembayaran pertama sesuai durasi kontrak awal (<strong class="text-white"><?php echo e($selectedKontrak->durasi_sewa); ?> <?php echo e(strtolower($unitLabel)); ?></strong>)</span>
                                 </li>
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-redo text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Setelah periode ini berakhir, Anda bisa <strong class="text-white">memperpanjang</strong> dengan jumlah {{ strtolower($unitLabel) }} berapa pun</span>
+                                    <span>Setelah periode ini berakhir, Anda bisa <strong class="text-white">memperpanjang</strong> dengan jumlah <?php echo e(strtolower($unitLabel)); ?> berapa pun</span>
                                 </li>
-                                @else
+                                <?php else: ?>
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-calendar text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Anda dapat membayar maksimal <strong class="text-white">{{ $maxLimit }} {{ strtolower($unitLabel) }} ke
+                                    <span>Anda dapat membayar maksimal <strong class="text-white"><?php echo e($maxLimit); ?> <?php echo e(strtolower($unitLabel)); ?> ke
                                              depan</strong></span>
                                 </li>
-                                @endif
+                                <?php endif; ?>
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-clock text-sky-500 mr-3 mt-0.5"></i>
                                     <span>Setelah kontrak berakhir, ada <strong class="text-white">grace period 7
@@ -455,14 +474,14 @@
                                 </li>
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-check-circle text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Satu pembayaran = satu bukti transfer untuk multiple {{ strtolower($unitLabel) }}</span>
+                                    <span>Satu pembayaran = satu bukti transfer untuk multiple <?php echo e(strtolower($unitLabel)); ?></span>
                                 </li>
                             </ul>
                         </div>
 
                         <!-- Submit Button -->
                         <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                            <a href="{{ route('penghuni.pembayaran.index') }}"
+                            <a href="<?php echo e(route('penghuni.pembayaran.index')); ?>"
                                 class="flex-1 bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 text-white px-6 py-3 rounded-xl hover:bg-slate-900/80 transition-all duration-200 font-medium text-center">
                                 <i class="fas fa-arrow-left mr-2"></i>
                                 Kembali
@@ -503,7 +522,7 @@
             const totalBayarElement = document.getElementById('total-bayar');
             const previewSelesai = document.getElementById('preview-selesai');
             const jumlahTimeInputs = document.querySelectorAll('input[name="jumlah_waktu"]');
-            const unitLabel = "{{ $unitLabel ?? 'Bulan' }}";
+            const unitLabel = "<?php echo e($unitLabel ?? 'Bulan'); ?>";
 
             // File Upload Elements
             const fileInput = document.getElementById('bukti_pembayaran');
@@ -953,4 +972,6 @@
         });
     </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/penghuni/pembayaran/create.blade.php ENDPATH**/ ?>

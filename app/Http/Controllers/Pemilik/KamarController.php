@@ -44,7 +44,7 @@ class KamarController extends Controller
         ];
 
         $kamar = $query->orderBy('created_at', 'desc')->paginate(10);
-        $kos = Kos::where('id_pemilik', $user->id_pemilik)->get();
+        $kos = Kos::where('id_pemilik', $pemilik->id_pemilik)->get();
 
         return view('pemilik.kamar.index', compact('kamar', 'kos', 'stats'));
     }

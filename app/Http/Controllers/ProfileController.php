@@ -56,6 +56,8 @@ class ProfileController extends Controller
             'alamat' => 'nullable|string',
             'username' => 'required|string|max:50|unique:users,username,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'nama_bank' => 'nullable|string|max:50',
+            'nomor_rekening' => 'nullable|string|max:50',
         ]);
 
         // Update username in users table

@@ -15,7 +15,7 @@ class AnalisisController extends Controller
 {
     public function index()
     {
-        $pemilikId = auth()->user()->id_pemilik;
+        $pemilikId = auth()->user()->pemilik->id_pemilik;
         
         // 1. Data Pendapatan per Bulan (12 bulan terakhir)
         $pendapatanPerBulan = Pembayaran::selectRaw('

@@ -224,6 +224,32 @@
                     </div>
                 </div>
 
+                <!-- Bank Information -->
+                <div class="bg-dark-bg/50 p-5 md:p-6 rounded-xl border border-dark-border lg:col-span-2">
+                    <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                        <i class="fas fa-university text-green-400 mr-3"></i>
+                        Data Rekening Bank
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-dark-muted">Nama Bank</p>
+                            <p class="font-medium text-white flex items-center">
+                                <i class="fas fa-money-check mr-2 text-green-400"></i>
+                                <?php echo e($penghuni->nama_bank ?: 'Belum diisi'); ?>
+
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-dark-muted">Nomor Rekening</p>
+                            <p class="font-medium text-white flex items-center">
+                                <i class="fas fa-credit-card mr-2 text-blue-400"></i>
+                                <?php echo e($penghuni->nomor_rekening ?: 'Belum diisi'); ?>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Account Information -->
                 <div class="bg-dark-bg/50 p-5 md:p-6 rounded-xl border border-dark-border lg:col-span-2">
                     <h3 class="text-lg font-semibold text-white mb-4 flex items-center">

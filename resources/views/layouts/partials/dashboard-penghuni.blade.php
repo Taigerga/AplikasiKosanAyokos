@@ -1,5 +1,5 @@
 <!-- Dashboard Header -->
-<header class="bg-white border-b border-slate-200 h-16 flex items-center sticky top-0 z-[1002]">
+<header class="bg-slate-900 border-b border-slate-700 h-16 flex items-center sticky top-0 z-[1002]">
     <div id="dashboardHeader" class="flex-1 px-4 transition-all duration-300 ease-in-out">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -11,12 +11,12 @@
                 <!-- Logo and Title -->
                 <div class="hidden md:flex items-center gap-3">
                     <div
-                        class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                        class="w-10 h-10 bg-white/10 backdrop-blur-md rounded-lg flex items-center justify-center">
                         <i class="fas fa-user text-white"></i>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold text-slate-800">Dashboard Penghuni</h1>
-                        <p class="text-xs text-slate-500">Kelola hunian Anda</p>
+                        <h1 class="text-lg font-bold text-white">Dashboard Penghuni</h1>
+                        <p class="text-xs text-slate-400">Kelola hunian Anda</p>
                     </div>
                 </div>
             </div>
@@ -32,11 +32,11 @@
                 <!-- Profile Menu -->
                 <div class="profile-menu relative">
                     @php $user = auth('penghuni')->user(); @endphp
-                    <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100">
+                    <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-700">
                         @if($user && $user->penghuni && $user->penghuni->foto_profil)
                             <img src="{{ asset('storage/' . $user->penghuni->foto_profil) }}"
                                  alt="{{ $user->penghuni->nama ?? $user->nama }}"
-                                 class="w-8 h-8 rounded-full object-cover border-2 border-blue-400">
+                                 class="w-8 h-8 rounded-full object-cover border-2 border-slate-400">
                         @else
                             <div
                                 class="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center">
@@ -45,8 +45,8 @@
                             </div>
                         @endif
                         <span
-                            class="text-sm font-medium text-slate-800 hidden md:inline">{{ $user->penghuni->nama ?? $user->nama ?? 'User' }}</span>
-                        <i class="fas fa-chevron-down text-slate-400 text-xs"></i>
+                            class="text-sm font-medium text-white hidden md:inline">{{ $user->penghuni->nama ?? $user->nama ?? 'User' }}</span>
+                        <i class="fas fa-chevron-down text-white text-xs"></i>
                     </button>
 
                     <!-- Profile Dropdown -->
@@ -112,20 +112,7 @@
 <div class="flex min-h-[calc(100vh-64px)] relative">
     <!-- Sidebar -->
     <aside id="sidebar"
-        class="bg-white border-r border-slate-200 w-64 md:w-64 flex-shrink-0 fixed md:relative h-full md:h-auto z-[1005] -translate-x-full md:translate-x-0 transition-all duration-300 ease-in-out">
-        <!-- Sidebar Header -->
-        <div class="p-4 border-b border-slate-200">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-user text-white text-sm"></i>
-                    </div>
-                    <span class="logo-text font-bold text-slate-800">AyoKos</span>
-                </div>
-                <!-- Toggle Button Moved to Main Content -->
-            </div>
-        </div>
+        class="bg-slate-900 border-r border-slate-700 w-64 md:w-64 flex-shrink-0 fixed md:relative h-full md:h-auto z-[1005] -translate-x-full md:translate-x-0 transition-all duration-300 ease-in-out">
 
         <!-- Navigation -->
         <nav class="p-4">
@@ -176,7 +163,7 @@
         </nav>
 
         <!-- Quick Stats -->
-        <div class="p-4 border-t border-slate-200">
+        <div class="p-4 border-t">
             <div class="text-xs text-slate-500 mb-2">Status Anda</div>
                 <div class="space-y-2">
                 <div class="flex items-center justify-between text-sm">
@@ -207,7 +194,7 @@
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300 ease-in-out bg-slate-800">
+    <main id="mainContent" class="flex-1 transition-all duration-300 ease-in-out bg-slate-700">
 
             @yield('content')
 

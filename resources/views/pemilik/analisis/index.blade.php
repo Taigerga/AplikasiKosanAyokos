@@ -365,7 +365,7 @@
       </div>
 
         <!-- Insight Section -->
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 card-hover">
+        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 card-hover">
             <h2 class="text-xl font-bold text-white mb-6 flex items-center">
                 <i class="fas fa-lightbulb text-yellow-400 mr-3"></i>
                 Insight Bisnis Anda
