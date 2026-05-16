@@ -8,7 +8,7 @@
     <nav class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li class="inline-flex items-center">
-                <a href="{{ route('penghuni.dashboard') }}" class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-gray-700 font-bold transition-colors">
+                <a href="{{ route('penghuni.dashboard') }}" class="inline-flex items-center text-sm font-black text-gray-600 hover:text-gray-700 font-black transition-colors">
                     <i class="fas fa-gauge mr-2"></i>
                     Dashboard
                 </a>
@@ -16,7 +16,7 @@
             <li class="inline-flex items-center">
                 <div class="flex items-center">
                     <i class="fas fa-chevron-right text-gray-600 text-xs mx-2"></i>
-                    <a href="{{ route('penghuni.kontrak.index') }}" class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-gray-700 font-bold transition-colors">
+                    <a href="{{ route('penghuni.kontrak.index') }}" class="inline-flex items-center text-sm font-black text-gray-600 hover:text-gray-700 font-black transition-colors">
                         <i class="fas fa-file-contract mr-2"></i>
                         Riwayat Kontrak
                     </a>
@@ -25,7 +25,7 @@
             <li class="inline-flex items-center">
                 <div class="flex items-center">
                     <i class="fas fa-chevron-right text-gray-600 text-xs mx-2"></i>
-                    <span class="inline-flex items-center text-sm font-bold text-black">
+                    <span class="inline-flex items-center text-sm font-black text-black">
                         <i class="fas fa-pencil mr-2"></i>
                         Detail Kontrak
                     </span>
@@ -60,17 +60,17 @@
             <div class="flex items-center justify-between">
                 <div>
                     @if($kontrak->status_kontrak === 'pending')
-                    <span class="inline-flex items-center px-4 py-2  font-black bg-yellow-900/30 text-yellow-300 border border-yellow-800/30">
+                    <span class="inline-flex items-center px-4 py-2  font-black bg-yellow-900/30 text-black border border-yellow-800/30">
                         <i class="fas fa-clock mr-2"></i>
                         Menunggu Persetujuan
                     </span>
                     @elseif($kontrak->status_kontrak === 'aktif')
-                    <span class="inline-flex items-center px-4 py-2  font-black bg-green-900/30 text-green-300 border border-green-800/30">
+                    <span class="inline-flex items-center px-4 py-2  font-black bg-green-900/30 text-black border border-green-800/30">
                         <i class="fas fa-check-circle mr-2"></i>
                         Kontrak Aktif
                     </span>
                     @elseif($kontrak->status_kontrak === 'selesai')
-                    <span class="inline-flex items-center px-4 py-2  font-black bg-blue-900/30 text-blue-300 border border-blue-800/30">
+                    <span class="inline-flex items-center px-4 py-2  font-black bg-blue-900/30 text-black border border-blue-800/30">
                         <i class="fas fa-check-double mr-2"></i>
                         Kontrak Selesai
                     </span>
@@ -103,7 +103,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600 mb-1">Alamat</p>
-                                <p class="font-bold text-black">{{ $kontrak->kos->alamat }}</p>
+                                <p class="font-black text-black">{{ $kontrak->kos->alamat }}</p>
                             </div>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                             <div>
                                 <p class="text-sm text-gray-600 mb-1">Kamar</p>
                                 <div class="flex items-center space-x-2">
-                                    <span class="font-bold text-black">Kamar {{ $kontrak->kamar->nomor_kamar }}</span>
+                                    <span class="font-black text-black">Kamar {{ $kontrak->kamar->nomor_kamar }}</span>
                                     <span class="text-xs px-2 py-1  bg-gray-100 border-2 border-black text-gray-600">
                                         {{ $kontrak->kamar->tipe_kamar }}
                                     </span>
@@ -142,7 +142,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600 mb-1">Tanggal Pendaftaran</p>
-                                <p class="font-bold text-black">{{ $kontrak->tanggal_daftar->format('d M Y') }}</p>
+                                <p class="font-black text-black">{{ $kontrak->tanggal_daftar->format('d M Y') }}</p>
                             </div>
                         </div>
                         
@@ -152,7 +152,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600 mb-1">Durasi Sewa</p>
-                                <p class="font-bold text-black">{{ $kontrak->durasi_sewa }} {{ $kontrak->unit_label_lower }}</p>
+                                <p class="font-black text-black">{{ $kontrak->durasi_sewa }} {{ $kontrak->unit_label_lower }}</p>
                             </div>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600 mb-1">Tanggal Mulai</p>
-                                <p class="font-bold text-black">{{ $kontrak->tanggal_mulai ? $kontrak->tanggal_mulai->format('d M Y') : 'Menunggu pembayaran pertama' }}</p>
+                                <p class="font-black text-black">{{ $kontrak->tanggal_mulai ? $kontrak->tanggal_mulai->format('d M Y') : 'Menunggu pembayaran pertama' }}</p>
                             </div>
                         </div>
                         
@@ -175,7 +175,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600 mb-1">Tanggal Selesai</p>
-                                <p class="font-bold text-black">{{ $kontrak->tanggal_selesai ? $kontrak->tanggal_selesai->format('d M Y') : 'Menunggu pembayaran pertama' }}</p>
+                                <p class="font-black text-black">{{ $kontrak->tanggal_selesai ? $kontrak->tanggal_selesai->format('d M Y') : 'Menunggu pembayaran pertama' }}</p>
                             </div>
                         </div>
                     </div>
@@ -243,7 +243,7 @@
             @if($kontrak->status_kontrak === 'ditolak' && $kontrak->alasan_ditolak)
             <div class="bg-red-100 border-2 border-black  p-6">
                 <div class="flex items-start">
-                    <div class="p-3 bg-rose-500/20   mr-4">
+                    <div class="p-3 bg-red-400   mr-4">
                         <i class="fas fa-times-circle text-rose-400 text-xl"></i>
                     </div>
                     <div>
@@ -265,7 +265,7 @@
  
                     
                     <a href="{{ route('penghuni.pembayaran.create', ['kontrak_id' => $kontrak->id_kontrak]) }}" 
-                       class="px-6 py-3 bg-lime-400 border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:from-green-600 hover:to-emerald-600 transition-all duration-300 hover:shadow-[2px_2px_0px_#000]">
+                       class="px-6 py-3 bg-lime-400 border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:bg-yellow-500  transition-all duration-300 hover:shadow-[2px_2px_0px_#000]">
                         <i class="fas fa-credit-card mr-2"></i>
                         Bayar Sewa
                     </a>
@@ -329,7 +329,7 @@
                     <div class="flex items-center">
                         <div class="w-3 h-3  bg-green-500 mr-3"></div>
                         <div>
-                            <p class="text-sm font-bold text-black">Pendaftaran</p>
+                            <p class="text-sm font-black text-black">Pendaftaran</p>
                             <p class="text-xs text-gray-600">{{ $kontrak->tanggal_daftar->format('d M Y H:i') }}</p>
                         </div>
                     </div>
@@ -338,7 +338,7 @@
                     <div class="flex items-center">
                         <div class="w-3 h-3  bg-blue-500 mr-3"></div>
                         <div>
-                            <p class="text-sm font-bold text-black">Mulai Kontrak</p>
+                            <p class="text-sm font-black text-black">Mulai Kontrak</p>
                             <p class="text-xs text-gray-600">{{ $kontrak->tanggal_mulai->format('d M Y') }}</p>
                         </div>
                     </div>
@@ -347,7 +347,7 @@
                      <div class="flex items-center">
                          <div class="w-3 h-3  bg-yellow-500 mr-3"></div>
                          <div>
-                             <p class="text-sm font-bold text-black">Berakhir Kontrak</p>
+                             <p class="text-sm font-black text-black">Berakhir Kontrak</p>
                              <p class="text-xs text-gray-600">{{ $kontrak->tanggal_selesai->format('d M Y') }}</p>
                          </div>
                      </div>
@@ -413,7 +413,7 @@
             @csrf
             
             <div class="mb-6">
-                <label class="block text-black font-bold mb-3">
+                <label class="block text-black font-black mb-3">
                     Durasi Perpanjangan <span class="text-rose-400">*</span>
                 </label>
                 
@@ -426,7 +426,7 @@
                            min="1" 
                            max="24"
                            required 
-                           class="w-full pl-12 pr-4 py-3 bg-black/20 border border-black text-black  focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
+                           class="w-full pl-12 pr-4 py-3 bg-gray-100 border-2 border-black text-black  focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30 transition"
                            placeholder="Masukkan jumlah bulan">
                 </div>
                 

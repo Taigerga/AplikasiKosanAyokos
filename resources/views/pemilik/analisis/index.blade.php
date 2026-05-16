@@ -153,7 +153,7 @@
             <div class="grid grid-cols-3 gap-3 mt-4">
                 @foreach($statusKamar as $status)
                     <div class="flex items-center">
-                        <div class="w-3 h-3 mr-2 border border-black
+                        <div class="w-3 h-3 mr-2 border-2 border-black
                             @if($status->status_kamar == 'tersedia') bg-green-500
                             @elseif($status->status_kamar == 'terisi') bg-blue-500
                             @else bg-yellow-500 @endif">
@@ -271,7 +271,7 @@
                                 <p class="text-lg font-black text-emerald-600">
                                     Rp {{ number_format($kos->total_pendapatan, 0, ',', '.') }}
                                 </p>
-                                 <div class="w-32 h-1 bg-gray-200 border border-black overflow-hidden mt-1">
+                                 <div class="w-32 h-1 bg-gray-200 border-2 border-black overflow-hidden mt-1">
                                       <div class="h-full bg-emerald-500"
                                            style="width: {{ ($pendapatanPerKosFull->max('total_pendapatan') > 0 ? ($kos->total_pendapatan / $pendapatanPerKosFull->max('total_pendapatan')) * 100 : 0) }}%">
                                       </div>
@@ -332,7 +332,7 @@
                             </div>
                             <div class="text-right">
                                 <div class="flex items-center justify-end">
-                                     <div class="w-24 h-6 bg-gray-200 border border-black overflow-hidden mr-3">
+                                     <div class="w-24 h-6 bg-gray-200 border-2 border-black overflow-hidden mr-3">
                                           <div class="h-full bg-blue-500"
                                                style="width: {{ ($penghuniPerKosFull->max('jumlah_penghuni') > 0 ? ($kos->jumlah_penghuni / $penghuniPerKosFull->max('jumlah_penghuni')) * 100 : 0) }}%">
                                           </div>

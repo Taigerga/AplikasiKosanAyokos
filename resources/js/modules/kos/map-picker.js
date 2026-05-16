@@ -28,7 +28,7 @@ export function initKosMap() {
 
     function markerIcon() {
         return L.divIcon({
-            html: '<div class="relative"><div class="w-10 h-10 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 rounded-full flex items-center justify-center shadow-lg"><i class="fas fa-home text-sky-400 text-sm"></i></div><div class="w-3 h-3 bg-sky-500 rounded-full absolute -bottom-1 left-1/2 transform -translate-x-1/2 rotate-45"></div></div>',
+            html: '<div class="relative"><div class="w-10 h-10 bg-sky-400 border-2 border-black flex items-center justify-center shadow-[3px_3px_0px_#000]"><i class="fas fa-home text-black text-sm"></i></div><div class="w-3 h-3 bg-sky-400 border-2 border-black absolute -bottom-1 left-1/2 transform -translate-x-1/2 rotate-45"></div></div>',
             className: 'custom-marker', iconSize: [40, 40], iconAnchor: [20, 40]
         });
     }
@@ -36,7 +36,7 @@ export function initKosMap() {
     function updateMarker(lat, lng, title) {
         if (marker) map.removeLayer(marker);
         marker = L.marker([lat, lng], { icon: markerIcon(), draggable: true }).addTo(map);
-        marker.bindPopup(`<div class="text-sm p-2" style="max-width:250px"><div class="font-semibold text-slate-800 mb-1">📍 ${title}</div><div class="text-gray-600 text-xs">Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}</div></div>`).openPopup();
+        marker.bindPopup(`<div class="text-sm p-2" style="max-width:250px"><div class="font-black text-black mb-1">📍 ${title}</div><div class="text-gray-600 text-xs">Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}</div></div>`).openPopup();
         marker.on('dragend', () => { const p = marker.getLatLng(); setCoords(p.lat, p.lng); reverseGeocode(p.lat, p.lng); });
         map.setView([lat, lng], 16);
     }
@@ -44,10 +44,10 @@ export function initKosMap() {
     function showNotif(msg, type) {
         const el = document.querySelector('.map-notification');
         if (el) el.remove();
-        const colors = { info: 'bg-blue-500/20 border-blue-500/20', success: 'bg-green-500/20 border-green-500/20', error: 'bg-red-500/20 border-red-500/20', warning: 'bg-yellow-500/20 border-yellow-500/20' };
+        const colors = { info: 'bg-sky-400 border-black', success: 'bg-emerald-400 border-black', error: 'bg-red-400 border-black', warning: 'bg-yellow-400 border-black' };
         const n = document.createElement('div');
-        n.className = `map-notification fixed bottom-4 right-4 px-6 py-3 rounded-xl border ${colors[type] || colors.info} text-white z-[9999] shadow-2xl`;
-        n.innerHTML = `<div class="flex items-center"><span class="font-medium">${msg}</span></div>`;
+        n.className = `map-notification fixed bottom-4 right-4 px-6 py-3 border-2 ${colors[type] || colors.info} text-black z-[9999] shadow-[6px_6px_0px_#000]`;
+        n.innerHTML = `<div class="flex items-center"><span class="font-black">${msg}</span></div>`;
         document.body.appendChild(n);
         setTimeout(() => { n.style.opacity = '0'; n.style.transform = 'translateY(20px)'; setTimeout(() => n.remove(), 300); }, 4000);
     }
@@ -161,12 +161,12 @@ export function initKosMap() {
         const modal = document.createElement('div');
         modal.id = 'nearby-places-modal';
         modal.className = 'fixed inset-0 bg-black/70 z-[10000] flex items-center justify-center p-4';
-        modal.innerHTML = `<div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden shadow-2xl">
-            <div class="bg-white border-b border-slate-200 p-6"><div class="flex items-center justify-between"><div><h3 class="text-xl font-bold text-slate-800 mb-1">📍 Tempat Terdekat</h3><p class="text-sm text-slate-500">Pilih lokasi terdekat untuk kos Anda</p></div><button type="button" id="close-modal" class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center hover:bg-slate-200 transition"><i class="fas fa-times text-slate-500"></i></button></div></div>
-            <div class="p-6 overflow-y-auto max-h-[60vh]">${places.length === 0 ? '<div class="text-center py-8"><p class="text-slate-500">Tidak ada tempat terdeteksi</p></div>' : '<div class="space-y-3">' + places.map((p, i) => `<div class="place-item bg-slate-50 border border-slate-200 rounded-xl p-4 hover:border-sky-500/50 transition cursor-pointer" data-lat="${p.lat}" data-lng="${p.lon}" data-name="${p.tags.name}"><div class="flex items-start"><div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 mt-1"><i class="fas fa-map-pin text-purple-500"></i></div><div class="flex-1"><h4 class="font-semibold text-slate-800">${p.tags.name}</h4><p class="text-sm text-slate-500 mt-1">${p.tags.amenity || p.tags.shop || 'tempat'}</p></div></div></div>`).join('')}</div>
-            <div class="border-t border-slate-200 p-4 bg-slate-50 flex justify-between">
-                <button type="button" id="use-my-exact-location" class="px-4 py-2 bg-sky-100 text-sky-600 rounded-lg hover:bg-sky-200 transition flex items-center"><i class="fas fa-crosshairs mr-2"></i>Gunakan Posisi Tepat Saya</button>
-                <button type="button" id="cancel-modal" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">Tutup</button>
+        modal.innerHTML = `<div class="bg-white border-4 border-black w-full max-w-2xl max-h-[80vh] overflow-hidden shadow-[6px_6px_0px_#000]">
+            <div class="bg-white border-b-4 border-black p-6"><div class="flex items-center justify-between"><div><h3 class="text-xl font-black text-black mb-1">📍 Tempat Terdekat</h3><p class="text-sm text-gray-600 font-bold">Pilih lokasi terdekat untuk kos Anda</p></div><button type="button" id="close-modal" class="w-10 h-10 bg-red-400 border-2 border-black flex items-center justify-center hover:bg-red-500 transition"><i class="fas fa-times text-black"></i></button></div></div>
+            <div class="p-6 overflow-y-auto max-h-[60vh]">${places.length === 0 ? '<div class="text-center py-8"><p class="text-gray-600 font-bold">Tidak ada tempat terdeteksi</p></div>' : '<div class="space-y-3">' + places.map((p, i) => `<div class="place-item bg-gray-100 border-2 border-black p-4 hover:bg-yellow-100 transition cursor-pointer" data-lat="${p.lat}" data-lng="${p.lon}" data-name="${p.tags.name}"><div class="flex items-start"><div class="w-10 h-10 bg-purple-400 border-2 border-black flex items-center justify-center mr-3 mt-1"><i class="fas fa-map-pin text-black"></i></div><div class="flex-1"><h4 class="font-black text-black">${p.tags.name}</h4><p class="text-sm text-gray-600 font-bold mt-1">${p.tags.amenity || p.tags.shop || 'tempat'}</p></div></div></div>`).join('')}</div>
+            <div class="border-t-4 border-black p-4 bg-gray-100 flex justify-between gap-3">
+                <button type="button" id="use-my-exact-location" class="px-4 py-2 bg-sky-400 hover:bg-sky-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] transition flex items-center"><i class="fas fa-crosshairs mr-2"></i>Gunakan Posisi Tepat Saya</button>
+                <button type="button" id="cancel-modal" class="px-4 py-2 bg-white text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-gray-100 transition">Tutup</button>
             </div></div>`;
         document.body.appendChild(modal);
 
@@ -200,7 +200,7 @@ export function initKosMap() {
             if (!preview) return;
             const reader = new FileReader();
             reader.onload = ev => {
-                preview.innerHTML = `<img src="${ev.target.result}" class="w-full h-48 object-cover rounded-xl border border-white/20"><button type="button" class="mt-2 px-4 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/10 transition text-sm w-full fotodelete"><i class="fas fa-trash mr-2"></i>Hapus Foto</button>`;
+                preview.innerHTML = `<img src="${ev.target.result}" class="w-full h-48 object-cover border-2 border-black"><button type="button" class="mt-2 px-4 py-2 bg-red-400 hover:bg-red-500 text-white font-black border-2 border-black shadow-[2px_2px_0px_#000] transition text-sm w-full fotodelete"><i class="fas fa-trash mr-2"></i>Hapus Foto</button>`;
                 preview.querySelector('.fotodelete')?.addEventListener('click', () => { this.value = ''; preview.innerHTML = ''; });
             };
             reader.readAsDataURL(file);

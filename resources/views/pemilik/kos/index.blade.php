@@ -10,7 +10,7 @@
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
                         <a href="{{ route('pemilik.dashboard') }}"
-                            class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-black transition-colors">
+                            class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
                             <i class="fas fa-home mr-2"></i>
                             Dashboard
                         </a>
@@ -19,7 +19,7 @@
                         <div class="flex items-center">
                             <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
                             <a href="{{ route('pemilik.kos.index') }}"
-                                class="inline-flex items-center text-sm font-medium text-black">
+                                class="inline-flex items-center text-sm font-bold text-black">
                                 <i class="fas fa-file-contract mr-2"></i>
                                 Kelola Kos
                             </a>
@@ -32,7 +32,7 @@
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 mb-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between">
                 <div>
-                    <h1 class="text-2xl md:text-3xl font-bold text-black mb-2">
+                    <h1 class="text-2xl md:text-3xl font-black text-black mb-2">
                         <i class="fas fa-home mr-3"></i>
                         Kelola Kos</h1>
                     <p class="text-gray-600">Kelola semua properti kos Anda di satu tempat</p>
@@ -53,7 +53,7 @@
                         <div class="relative">
                             <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                             <input type="text" name="search" value="{{ request('search') }}"
-                                class="w-full pl-10 pr-4 py-3 bg-white border-2 border-black text-black font-bold focus:shadow-[3px_3px_0px_#000] outline-none"
+                                class="w-full pl-10 pr-4 py-3 bg-white border-2 border-black text-black font-black focus:shadow-[3px_3px_0px_#000] outline-none"
                                 placeholder="Cari nama kos, alamat, kecamatan, atau kota...">
                         </div>
                     </div>
@@ -76,7 +76,7 @@
         </div>
 
         @if(session('success'))
-            <div class="bg-emerald-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
+            <div class="bg-emerald-400 border-2 border-black text-black font-black px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
                 <div class="flex items-center">
                     <i class="fas fa-check-circle mr-3"></i>
                     {{ session('success') }}
@@ -85,7 +85,7 @@
         @endif
 
         @if(session('error'))
-            <div class="bg-red-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
+            <div class="bg-red-400 border-2 border-black text-black font-black px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
                 <div class="flex items-center">
                     <i class="fas fa-exclamation-circle mr-3"></i>
                     {{ session('error') }}
@@ -123,14 +123,14 @@
 
                             <!-- Overlay on Hover -->
                             <div
-                                class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                class="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-opacity duration-300">
                             </div>
                         </div>
 
                         <!-- Info Kos -->
                         <div class="p-5">
                             <div class="flex items-start justify-between mb-3">
-                                <h3 class="text-lg font-semibold text-black truncate">{{ $item->nama_kos }}</h3>
+                                <h3 class="text-lg font-black text-black truncate">{{ $item->nama_kos }}</h3>
                             </div>
 
                             <div class="flex items-center text-gray-600 text-sm mb-3">
@@ -149,7 +149,7 @@
                                         {{ ucfirst($item->jenis_kos) }}
                                     </span>
                                 </div>
-                                <span class="font-bold text-gray-900">
+                                <span class="font-black text-gray-900">
                                     {{ ucfirst($item->tipe_sewa) }}
                                 </span>
                             </div>
@@ -201,7 +201,7 @@
                         class="w-24 h-24 bg-white border-2 border-black flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-home text-4xl text-black"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-black mb-3">Belum Ada Kos</h3>
+                    <h3 class="text-xl font-black text-black mb-3">Belum Ada Kos</h3>
                     <p class="text-gray-600 mb-6 max-w-md mx-auto">
                         Mulai dengan menambahkan kos pertama Anda untuk mengelola properti Anda
                     </p>

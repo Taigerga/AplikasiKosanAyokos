@@ -11,7 +11,7 @@
                     <h1 class="text-2xl md:text-3xl font-black text-black mb-2">
                         <i class="fas fa-home mr-3"></i>
                         Halo, {{ $user->penghuni->nama }}!</h1>
-                    <p class="text-gray-700 font-bold">Kelola hunian dan aktivitas sewa Anda dengan mudah</p>
+                    <p class="text-gray-700 font-black">Kelola hunian dan aktivitas sewa Anda dengan mudah</p>
                 </div>
                 <div class="mt-4 md:mt-0">
                     <span
@@ -24,12 +24,12 @@
         </div>
 
         @if(session('success'))
-            <div class="bg-emerald-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000]">
+            <div class="bg-emerald-400 border-2 border-black text-black font-black px-4 py-3 shadow-[3px_3px_0px_#000]">
                 <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
             </div>
         @endif
         @if(session('error'))
-            <div class="bg-red-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000]">
+            <div class="bg-red-400 border-2 border-black text-black font-black px-4 py-3 shadow-[3px_3px_0px_#000]">
                 <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
             </div>
         @endif
@@ -47,7 +47,7 @@
                     </span>
                 </div>
                 <h3 class="text-2xl font-black text-black mb-1">{{ $kontrakAktif->count() }}</h3>
-                <p class="text-sm text-gray-700 font-bold">Kos Aktif</p>
+                <p class="text-sm text-gray-700 font-black">Kos Aktif</p>
             </div>
 
             <!-- Total Pembayaran Card -->
@@ -61,7 +61,7 @@
                     </span>
                 </div>
                 <h3 class="text-2xl font-black text-black mb-1">Rp {{ number_format($totalPembayaran, 0, ',', '.') }}</h3>
-                <p class="text-sm text-gray-700 font-bold">Total Pembayaran</p>
+                <p class="text-sm text-gray-700 font-black">Total Pembayaran</p>
             </div>
 
             <!-- Status Penghuni Card -->
@@ -70,15 +70,15 @@
                     <div class="p-3 bg-black border-2 border-black flex items-center justify-center">
                         <i
                             class="fas 
-                            {{ $user->status_penghuni == 'aktif' ? 'fa-check-circle' :
-        ($user->status_penghuni == 'calon' ? 'fa-clock' : 'fa-times-circle') }} text-white text-xl"></i>
+                            {{ $user->penghuni->status_penghuni == 'aktif' ? 'fa-check-circle' :
+                            ($user->penghuni->status_penghuni == 'calon' ? 'fa-clock' : 'fa-times-circle') }} text-white text-xl"></i>
                     </div>
                     <span class="text-xs font-black px-2 py-1 border-2 border-black bg-yellow-400 text-black">
                         Status
                     </span>
                 </div>
-                <h3 class="text-2xl font-black text-black mb-1 capitalize">{{ ucfirst($user->status_penghuni) }}</h3>
-                <p class="text-sm text-gray-700 font-bold">Status Penghuni</p>
+                <h3 class="text-2xl font-black text-black mb-1 capitalize">{{ ucfirst($user->penghuni->status_penghuni) }}</h3>
+                <p class="text-sm text-gray-700 font-black">Status Penghuni</p>
             </div>
 
             <!-- Kontrak Berakhir Card -->
@@ -97,7 +97,7 @@
                     </span>
                 </div>
                 <h3 class="text-2xl font-black text-black mb-1">{{ $berakhirSegera }}</h3>
-                <p class="text-sm text-gray-700 font-bold">Akan Berakhir</p>
+                <p class="text-sm text-gray-700 font-black">Akan Berakhir</p>
             </div>
         </div>
 
@@ -212,9 +212,9 @@
                         <div class="w-16 h-16 bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000]  flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-home text-black text-2xl"></i>
                         </div>
-                        <p class="text-gray-700 font-bold mb-3">Belum ada kontrak aktif</p>
+                        <p class="text-gray-700 font-black mb-3">Belum ada kontrak aktif</p>
                         <a href="{{ route('public.kos.index') }}"
-                            class="text-emerald-500 hover:text-emerald-600 text-sm font-bold">
+                            class="text-emerald-500 hover:text-emerald-600 text-sm font-black">
                             <i class="fas fa-search mr-1"></i>
                             Cari kos sekarang
                         </a>
@@ -251,7 +251,7 @@
                                             <i class="fas fa-{{ $pembayaran->status_pembayaran == 'lunas' ? 'check' : 'clock' }} text-black"></i>
                                         </div>
                                         <div>
-                                            <p class="font-bold text-black">{{ $pembayaran->kontrak->kos->nama_kos }}</p>
+                                            <p class="font-black text-black">{{ $pembayaran->kontrak->kos->nama_kos }}</p>
                                             <p class="text-xs text-gray-600">{{ $pembayaran->bulan_tahun }}</p>
                                         </div>
                                     </div>
@@ -273,10 +273,10 @@
                         <div class="w-16 h-16 bg-purple-400 border-2 border-black shadow-[2px_2px_0px_#000]  flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-credit-card text-black text-2xl"></i>
                         </div>
-                        <p class="text-gray-700 font-bold mb-3">Belum ada pembayaran</p>
+                        <p class="text-gray-700 font-black mb-3">Belum ada pembayaran</p>
                         @if($kontrakAktif->count() > 0)
                             <a href="{{ route('penghuni.pembayaran.create') }}"
-                                class="text-indigo-500 hover:text-indigo-600 text-sm font-bold">
+                                class="text-indigo-500 hover:text-indigo-600 text-sm font-black">
                                 <i class="fas fa-credit-card mr-1"></i>
                                 Bayar sekarang
                             </a>
@@ -331,7 +331,7 @@
                         @if($kontrakBerakhirSegera->count() > 3)
                             <div class="text-center pt-2">
                                 <a href="{{ route('penghuni.kontrak.index') }}"
-                                    class="inline-flex items-center text-amber-600 hover:text-amber-700 text-sm font-bold">
+                                    class="inline-flex items-center text-amber-600 hover:text-amber-700 text-sm font-black">
                                     Lihat semua {{ $kontrakBerakhirSegera->count() }} kontrak
                                     <i class="fas fa-arrow-right ml-1"></i>
                                 </a>
@@ -343,7 +343,7 @@
                         <div class="w-16 h-16 bg-yellow-400 border-2 border-black shadow-[2px_2px_0px_#000]  flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-check-circle text-black text-2xl"></i>
                         </div>
-                        <p class="text-gray-700 font-bold">Tidak ada kontrak yang akan berakhir</p>
+                        <p class="text-gray-700 font-black">Tidak ada kontrak yang akan berakhir</p>
                         <p class="text-sm text-gray-600">Semua kontrak masih memiliki waktu yang cukup</p>
                     </div>
                 @endif

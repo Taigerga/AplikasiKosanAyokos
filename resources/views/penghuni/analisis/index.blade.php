@@ -19,7 +19,7 @@
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('penghuni.dashboard') }}" class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
+                        <a href="{{ route('penghuni.dashboard') }}" class="inline-flex items-center text-sm font-black text-gray-600 hover:text-black transition-colors">
                             <i class="fas fa-gauge mr-2"></i>
                             Dashboard
                         </a>
@@ -27,7 +27,7 @@
                     <li class="inline-flex items-center">
                         <div class="flex items-center">
                             <i class="fas fa-chevron-right text-gray-500 text-xs mx-2"></i>
-                            <a href="{{ route('penghuni.analisis.index') }}" class="inline-flex items-center text-sm font-bold text-black">
+                            <a href="{{ route('penghuni.analisis.index') }}" class="inline-flex items-center text-sm font-black text-black">
                                 <i class="fas fa-chart-bar mr-2"></i>
                                 Analisis Data Saya
                             </a>
@@ -73,7 +73,7 @@
                         <i class="fas fa-file-contract text-black text-xl"></i>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-sm font-bold text-gray-600">Total Kontrak</h3>
+                        <h3 class="text-sm font-black text-gray-600">Total Kontrak</h3>
                         <p class="text-2xl font-black text-black">{{ $statistikRingkasan['total_kontrak'] }}</p>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                         <i class="fas fa-wallet text-black text-xl"></i>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-sm font-bold text-gray-600">Total Pengeluaran</h3>
+                        <h3 class="text-sm font-black text-gray-600">Total Pengeluaran</h3>
                         <p class="text-2xl font-black text-black">
                             Rp {{ number_format($statistikRingkasan['total_pembayaran'], 0, ',', '.') }}
                         </p>
@@ -99,7 +99,7 @@
                         <i class="fas fa-star text-black text-xl"></i>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-sm font-bold text-gray-600">Review Diberikan</h3>
+                        <h3 class="text-sm font-black text-gray-600">Review Diberikan</h3>
                         <p class="text-2xl font-black text-black">{{ $statistikRingkasan['jumlah_review'] }}</p>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                         <i class="fas fa-chart-line text-black text-xl"></i>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-sm font-bold text-gray-600">Rating Rata-rata</h3>
+                        <h3 class="text-sm font-black text-gray-600">Rating Rata-rata</h3>
                         <p class="text-2xl font-black text-black">{{ number_format($statistikRingkasan['rata_rata_rating'], 1) }}/5</p>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                                 @elseif($status->status_pembayaran == 'terlambat') bg-rose-500
                                 @else bg-gray-500 @endif">
                             </div>
-                            <div class="text-xs font-bold text-gray-600">
+                            <div class="text-xs font-black text-gray-600">
                                 {{ ucfirst($status->status_pembayaran) }}
                             </div>
                             <div class="text-xs font-black text-black">
@@ -230,20 +230,20 @@
                     <i class="fas fa-history text-black mr-3"></i>
                     Riwayat Kontrak
                 </h2>
-                <div class="overflow-x-auto  border border-black">
+                <div class="overflow-x-auto  border-2 border-black">
                     <table class="min-w-full divide-y divide-black">
                         <thead class="bg-gray-100 border-2 border-black">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Kos</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Durasi</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Status</th>
+                                <th class="px-4 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">Kos</th>
+                                <th class="px-4 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">Durasi</th>
+                                <th class="px-4 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">Status</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-black">
                             @foreach($riwayatKontrak->take(5) as $kontrak)
                                 <tr class="hover:bg-gray-100 transition">
                                     <td class="px-4 py-3">
-                                        <div class="text-sm font-bold text-black">{{ $kontrak->kos->nama_kos }}</div>
+                                        <div class="text-sm font-black text-black">{{ $kontrak->kos->nama_kos }}</div>
                                         <div class="text-xs text-gray-600">Kamar {{ $kontrak->kamar->nomor_kamar }}</div>
                                     </td>
                                     <td class="px-4 py-3">
@@ -269,7 +269,7 @@
                 @if($riwayatKontrak->count() > 5)
                 <div class="text-center pt-4 border-t border-black mt-4">
                     <a href="{{ route('penghuni.kontrak.index') }}"
-                       class="inline-flex items-center text-emerald-400 hover:text-emerald-300 text-sm font-bold">
+                       class="inline-flex items-center text-emerald-400 hover:text-emerald-300 text-sm font-black">
                         Lihat semua {{ $riwayatKontrak->count() }} kontrak
                         <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
                     </a>
@@ -283,20 +283,20 @@
                     <i class="fas fa-bed text-black mr-3"></i>
                     Preferensi Tipe Kamar
                 </h2>
-                <div class="overflow-x-auto  border border-black">
+                <div class="overflow-x-auto  border-2 border-black">
                     <table class="min-w-full divide-y divide-black">
                         <thead class="bg-gray-100 border-2 border-black">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Tipe Kamar</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Jumlah Sewa</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Harga Rata-rata</th>
+                                <th class="px-4 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">Tipe Kamar</th>
+                                <th class="px-4 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">Jumlah Sewa</th>
+                                <th class="px-4 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">Harga Rata-rata</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-black">
                             @foreach($tipeKamarDisewa as $tipe)
                                 <tr class="hover:bg-gray-100 transition">
                                     <td class="px-4 py-3">
-                                        <div class="text-sm font-bold text-black">{{ $tipe->tipe_kamar }}</div>
+                                        <div class="text-sm font-black text-black">{{ $tipe->tipe_kamar }}</div>
                                     </td>
                                     <td class="px-4 py-3">
                                         <div class="text-sm text-black">{{ $tipe->jumlah_sewa }} kali</div>

@@ -21,7 +21,7 @@
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
                         <a href="{{ route('penghuni.dashboard') }}"
-                            class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
+                            class="inline-flex items-center text-sm font-black text-gray-600 hover:text-black transition-colors">
                             <i class="fas fa-gauge mr-2"></i>
                             Dashboard
                         </a>
@@ -30,7 +30,7 @@
                         <div class="flex items-center">
                             <i class="fas fa-chevron-right text-gray-500 text-xs mx-2"></i>
                             <a href="{{ route('penghuni.pembayaran.index') }}"
-                                class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
+                                class="inline-flex items-center text-sm font-black text-gray-600 hover:text-black transition-colors">
                                 <i class="fas fa-credit-card mr-2"></i>
                                 Riwayat Pembayaran
                             </a>
@@ -39,7 +39,7 @@
                     <li class="inline-flex items-center">
                         <div class="flex items-center">
                             <i class="fas fa-chevron-right text-gray-500 text-xs mx-2"></i>
-                            <span class="ml-1 text-sm font-bold text-black">
+                            <span class="ml-1 text-sm font-black text-black">
                                 <i class="fas fa-eye mr-2"></i>
                                 Detail Pembayaran
                             </span>
@@ -77,9 +77,9 @@
                    'bg-gray-500/10')) }}">
                 <div class="flex flex-col md:flex-row md:items-center justify-between">
                     <div>
-                        <span class="text-xs font-bold text-black/70">Status Pembayaran</span>
+                        <span class="text-xs font-black text-black/70">Status Pembayaran</span>
                         <div class="flex items-center gap-3 mt-2">
-                            <span class="px-4 py-2  text-sm font-bold
+                            <span class="px-4 py-2  text-sm font-black
                                 {{ $pembayaran->status_pembayaran == 'lunas' ? 'bg-emerald-50 text-emerald-600' :
                                    ($pembayaran->status_pembayaran == 'pending' ? 'bg-yellow-50 text-yellow-600' :
                                    ($pembayaran->status_pembayaran == 'terlambat' ? 'bg-rose-50 text-rose-600' :
@@ -112,15 +112,15 @@
                             <div class="space-y-3">
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600">Nama Kos</span>
-                                    <span class="font-bold text-black">{{ $pembayaran->kontrak->kos->nama_kos ?? '-' }}</span>
+                                    <span class="font-black text-black">{{ $pembayaran->kontrak->kos->nama_kos ?? '-' }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600">Alamat</span>
-                                    <span class="font-bold text-black text-right">{{ $pembayaran->kontrak->kos->alamat ?? '-' }}</span>
+                                    <span class="font-black text-black text-right">{{ $pembayaran->kontrak->kos->alamat ?? '-' }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600">Kamar</span>
-                                    <span class="font-bold text-black">No. {{ $pembayaran->kontrak->kamar->nomor_kamar ?? '-' }}</span>
+                                    <span class="font-black text-black">No. {{ $pembayaran->kontrak->kamar->nomor_kamar ?? '-' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                             text-black"></i>
                                     </div>
                                     <div>
-                                        <span class="block font-bold text-black capitalize">{{ $pembayaran->metode_pembayaran }}</span>
+                                        <span class="block font-black text-black capitalize">{{ $pembayaran->metode_pembayaran }}</span>
                                         <span class="text-xs text-gray-600">Metode yang digunakan</span>
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm text-gray-600">Jatuh Tempo</span>
-                                            <span class="text-black font-bold">{{ \Carbon\Carbon::parse($pembayaran->tanggal_jatuh_tempo)->format('d M Y') }}</span>
+                                            <span class="text-black font-black">{{ \Carbon\Carbon::parse($pembayaran->tanggal_jatuh_tempo)->format('d M Y') }}</span>
                                         </div>
                                     </div>
                                     <span class="text-xs px-2 py-1  bg-gray-100 border-2 border-black text-gray-600">Tanggal</span>
@@ -173,14 +173,14 @@
                                 <div class="flex justify-between items-center">
                                     <div class="flex items-center space-x-3">
                                         <div class="w-8 h-8 
-                                            {{ $pembayaran->tanggal_bayar ? 'bg-emerald-500/20' : 'bg-gray-100 border-2 border-black' }} flex items-center justify-center">
+                                            {{ $pembayaran->tanggal_bayar ? 'bg-emerald-400' : 'bg-gray-100 border-2 border-black' }} flex items-center justify-center">
                                             <i class="fas
                                                 {{ $pembayaran->tanggal_bayar ? 'fa-check text-emerald-400' : 'fa-clock text-black' }}
                                                 text-sm"></i>
                                         </div>
                                         <div>
                                             <span class="block text-sm text-gray-600">Tanggal Bayar</span>
-                                            <span class="text-black font-bold">
+                                            <span class="text-black font-black">
                                                 {{ $pembayaran->tanggal_bayar ? $pembayaran->tanggal_bayar->format('d M Y H:i') : 'Menunggu pembayaran' }}
                                             </span>
                                         </div>
@@ -198,7 +198,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm text-gray-600">Periode</span>
-                                            <span class="text-black font-bold">{{ \Carbon\Carbon::createFromFormat('Y-m', $pembayaran->bulan_tahun)->format('F Y') }}</span>
+                                            <span class="text-black font-black">{{ \Carbon\Carbon::createFromFormat('Y-m', $pembayaran->bulan_tahun)->format('F Y') }}</span>
                                         </div>
                                     </div>
                                     <span class="text-xs px-2 py-1  bg-gray-100 border-2 border-black text-gray-600">Bulan</span>
@@ -215,15 +215,15 @@
                             <div class="space-y-3">
                                 <div class="flex justify-between items-start">
                                     <span class="text-gray-600">Keterangan</span>
-                                    <span class="font-bold text-black text-right">{{ $pembayaran->keterangan ?? 'Tidak ada keterangan' }}</span>
+                                    <span class="font-black text-black text-right">{{ $pembayaran->keterangan ?? 'Tidak ada keterangan' }}</span>
                                 </div>
                                 <div class="flex justify-between items-start">
                                     <span class="text-gray-600">Dibuat pada</span>
-                                    <span class="font-bold text-black">{{ $pembayaran->created_at->format('d M Y H:i') }}</span>
+                                    <span class="font-black text-black">{{ $pembayaran->created_at->format('d M Y H:i') }}</span>
                                 </div>
                                 <div class="flex justify-between items-start">
                                     <span class="text-gray-600">Terakhir diupdate</span>
-                                    <span class="font-bold text-black">{{ $pembayaran->updated_at->format('d M Y H:i') }}</span>
+                                    <span class="font-black text-black">{{ $pembayaran->updated_at->format('d M Y H:i') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +241,7 @@
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                             <div>
                                 <span class="block text-sm text-gray-600 mb-1">File Bukti Pembayaran</span>
-                                <span class="text-black font-bold">bukti_pembayaran_{{ $pembayaran->id_pembayaran }}.jpg</span>
+                                <span class="text-black font-black">bukti_pembayaran_{{ $pembayaran->id_pembayaran }}.jpg</span>
                             </div>
                             <a href="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}"
                                target="_blank"
@@ -251,7 +251,7 @@
                             </a>
                         </div>
 
-                        <div class="border border-black  overflow-hidden">
+                        <div class="border-2 border-black  overflow-hidden">
                             <img src="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}"
                                  alt="Bukti Pembayaran"
                                  class="w-full h-auto max-h-96 object-contain bg-gray-100 border-2 border-black">
@@ -269,7 +269,7 @@
                         <div class="w-16 h-16 bg-gray-100 border-2 border-black  flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-image text-black text-2xl"></i>
                         </div>
-                        <h4 class="text-lg font-bold text-black mb-2">Tidak Ada Bukti Pembayaran</h4>
+                        <h4 class="text-lg font-black text-black mb-2">Tidak Ada Bukti Pembayaran</h4>
                         <p class="text-gray-600">Bukti pembayaran belum diunggah</p>
                     </div>
                 </div>

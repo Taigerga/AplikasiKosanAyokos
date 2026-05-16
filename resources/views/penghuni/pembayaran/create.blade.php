@@ -11,7 +11,7 @@
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
                             <a href="{{ route('penghuni.dashboard') }}"
-                                class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
+                                class="inline-flex items-center text-sm font-black text-gray-600 hover:text-black font-black transition-colors">
                                 <i class="fas fa-gauge mr-2"></i>
                                 Dashboard
                             </a>
@@ -20,7 +20,7 @@
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-gray-600 text-xs mx-2"></i>
                                 <a href="{{ route('penghuni.pembayaran.index') }}"
-                                    class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
+                                    class="inline-flex items-center text-sm font-black text-gray-600 hover:text-black font-black transition-colors">
                                     <i class="fas fa-credit-card mr-2"></i>
                                     Riwayat Pembayaran
                                 </a>
@@ -29,7 +29,7 @@
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-gray-600 text-xs mx-2"></i>
-                                <span class="ml-1 text-sm font-bold text-black">
+                                <span class="ml-1 text-sm font-black text-black">
                                     <i class="fas fa-plus mr-2"></i>
                                     Buat Pembayaran
                                 </span>
@@ -44,7 +44,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h1 class="text-2xl md:text-3xl font-black text-black mb-2">Bayar Sewa Kos</h1>
-                        <p class="text-gray-700 font-bold">Bayar sewa bulanan atau bayar di muka untuk beberapa bulan</p>
+                        <p class="text-gray-700 font-black">Bayar sewa bulanan atau bayar di muka untuk beberapa bulan</p>
                     </div>
                     <div
                         class="w-12 h-12 bg-gray-100 border-2 border-black  flex items-center justify-center">
@@ -81,11 +81,11 @@
 
                 @if($kontrakAktif->count() > 1)
                     <div class="mb-6">
-                        <label class="block text-sm font-bold text-black mb-3">Pilih Kontrak *</label>
+                        <label class="block text-sm font-black text-black mb-3">Pilih Kontrak *</label>
                         <div class="relative">
                             <i class="fas fa-home absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
                             <select id="kontrak-select"
-                                class="w-full pl-12 pr-10 py-3 bg-gray-100 border-2 border-black border border-sky-900/50 text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
+                                class="w-full pl-12 pr-10 py-3 bg-gray-100 border-2 border-black text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
                                 @foreach($kontrakAktif as $k)
                                     <option value="{{ $k->id_kontrak }}" data-harga="{{ $k->harga_sewa }}"
                                         data-mulai="{{ $k->tanggal_mulai ? $k->tanggal_mulai->format('d M Y') : '-' }}"
@@ -107,19 +107,19 @@
                 @endif
 
                 <div
-                    class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm kontrak-info bg-gray-100 border-2 border-black p-4  border border-sky-900/50">
+                    class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm kontrak-info bg-gray-100 border-2 border-black p-4  border-2 border-black">
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-building text-sky-500 w-5"></i>
                         <div>
                             <div class="text-gray-600 text-xs">Kos</div>
-                            <div class="font-bold text-black" id="info-kos">{{ $selectedKontrak->kos->nama_kos }}</div>
+                            <div class="font-black text-black" id="info-kos">{{ $selectedKontrak->kos->nama_kos }}</div>
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-door-closed text-emerald-500 w-5"></i>
                         <div>
                             <div class="text-gray-600 text-xs">Kamar</div>
-                            <div class="font-bold text-black" id="info-kamar">{{ $selectedKontrak->kamar->nomor_kamar }}
+                            <div class="font-black text-black" id="info-kamar">{{ $selectedKontrak->kamar->nomor_kamar }}
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                         <i class="fas fa-tag text-amber-500 w-5"></i>
                         <div>
                             <div class="text-gray-600 text-xs">Harga Sewa</div>
-                            <div class="font-bold text-black">Rp <span
+                            <div class="font-black text-black">Rp <span
                                     id="info-harga">{{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}</span>/{{ strtolower($unitLabel) }}
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                         <i class="fas fa-calendar-alt text-blue-500 w-5"></i>
                         <div>
                             <div class="text-gray-600 text-xs">Periode Kontrak</div>
-                            <div class="font-bold text-black" id="info-periode">
+                            <div class="font-black text-black" id="info-periode">
                                 @if($selectedKontrak->tanggal_mulai && $selectedKontrak->tanggal_selesai)
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }} -
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
@@ -150,7 +150,7 @@
                         <i class="fas fa-clock text-amber-500 w-5"></i>
                         <div>
                             <div class="text-gray-600 text-xs">Tenggat Pembayaran</div>
-                            <div class="font-bold text-amber-400" id="info-grace-period">
+                            <div class="font-black text-amber-400" id="info-grace-period">
                                 @if($selectedKontrak->tanggal_selesai)
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->addDays(7)->format('d M Y') }}
                                 @else
@@ -235,13 +235,13 @@
                                 <div class="text-sm text-amber-200 grid grid-cols-2 gap-2">
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Mulai</div>
-                                        <div id="preview-mulai" class="font-bold text-black">
+                                        <div id="preview-mulai" class="font-black text-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Selesai</div>
-                                        <div id="preview-selesai" class="font-bold">
+                                        <div id="preview-selesai" class="font-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
                                         </div>
                                     </div>
@@ -250,12 +250,12 @@
                         @else
                             <!-- Jumlah Waktu Pembayaran (Perpanjangan) -->
                             <div>
-                                <label class="block text-sm font-bold text-black mb-3">Bayar Berapa {{ $unitLabel }}?
+                                <label class="block text-sm font-black text-black mb-3">Bayar Berapa {{ $unitLabel }}?
                                     *</label>
                                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                                     @foreach($paymentOptions as $option)
                                         <label
-                                            class="flex items-center p-3 border-2 border-sky-900/50  cursor-pointer hover:border-sky-500/50 bg-slate-900/50 transition-all duration-200 jumlah-bulan-option group">
+                                            class="flex items-center p-3 border-2 border-black  cursor-pointer hover:border-black bg-gray-100 transition-all duration-200 jumlah-bulan-option group">
                                             <input type="radio" name="jumlah_waktu" value="{{ $option['value'] }}"
                                                 data-harga="{{ $option['total'] }}"
                                                 data-max-date="{{ $option['max_date'] ? $option['max_date']->format('d M Y') : '' }}"
@@ -273,7 +273,7 @@
                                                 @endif
                                             </div>
                                             <div
-                                                class="w-6 h-6  border-2 border-sky-900/50 group-hover:border-sky-500 flex items-center justify-center">
+                                                class="w-6 h-6  border-2 border-black group-hover:border-sky-500 flex items-center justify-center">
                                                 <div class="w-3 h-3  bg-sky-500 hidden radio-checked"></div>
                                             </div>
                                         </label>
@@ -295,7 +295,7 @@
                                     </div>
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Selesai</div>
-                                        <div id="preview-selesai" class="font-bold">-</div>
+                                        <div id="preview-selesai" class="font-black">-</div>
                                     </div>
                                 </div>
                             </div>
@@ -321,33 +321,33 @@
 
                         <!-- Metode Pembayaran -->
                         <div>
-                            <label class="block text-sm font-bold text-black mb-3">Metode Pembayaran *</label>
+                            <label class="block text-sm font-black text-black mb-3">Metode Pembayaran *</label>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 <label
-                                    class="flex items-center p-3 border border-sky-900/50  cursor-pointer hover:border-sky-500 bg-slate-900/50 transition-all duration-200">
+                                    class="flex items-center p-3 border-2 border-black  cursor-pointer hover:border-sky-500 bg-gray-100 transition-all duration-200">
                                     <input type="radio" name="metode_pembayaran" value="transfer" class="mr-3" checked>
                                     <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8 bg-sky-500/20  flex items-center justify-center">
+                                        <div class="w-8 h-8 bg-sky-400  flex items-center justify-center">
                                             <i class="fas fa-university text-sky-500"></i>
                                         </div>
                                         <span class="text-black">Transfer Bank</span>
                                     </div>
                                     <div
-                                        class="ml-auto w-4 h-4  border-2 border-sky-900/50 flex items-center justify-center">
+                                        class="ml-auto w-4 h-4  border-2 border-black flex items-center justify-center">
                                         <div class="w-2 h-2  bg-sky-500 radio-checked"></div>
                                     </div>
                                 </label>
                                 <label
-                                    class="flex items-center p-3 border border-sky-900/50  cursor-pointer hover:border-emerald-500 bg-slate-900/50 transition-all duration-200">
+                                    class="flex items-center p-3 border-2 border-black  cursor-pointer hover:border-emerald-500 bg-gray-100 transition-all duration-200">
                                     <input type="radio" name="metode_pembayaran" value="qris" class="mr-3">
                                     <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8 bg-emerald-500/20  flex items-center justify-center">
+                                        <div class="w-8 h-8 bg-emerald-400  flex items-center justify-center">
                                             <i class="fas fa-qrcode text-emerald-500"></i>
                                         </div>
                                         <span class="text-black">QRIS</span>
                                     </div>
                                     <div
-                                        class="ml-auto w-4 h-4  border-2 border-sky-900/50 flex items-center justify-center">
+                                        class="ml-auto w-4 h-4  border-2 border-black flex items-center justify-center">
                                         <div class="w-2 h-2  bg-emerald-500 hidden"></div>
                                     </div>
                                 </label>
@@ -366,17 +366,17 @@
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
                                     <div class="text-emerald-400/80 text-xs mb-1">Bank</div>
-                                    <div class="text-black font-bold" id="info-nama-bank">
+                                    <div class="text-black font-black" id="info-nama-bank">
                                         {{ $selectedKontrak->kos->pemilik->nama_bank ?? 'Belum Diatur' }}</div>
                                 </div>
                                 <div>
                                     <div class="text-emerald-400/80 text-xs mb-1">No. Rekening</div>
-                                    <div class="text-black font-bold" id="info-nomor-rekening">
+                                    <div class="text-black font-black" id="info-nomor-rekening">
                                         {{ $selectedKontrak->kos->pemilik->nomor_rekening ?? '-' }}</div>
                                 </div>
                                 <div class="md:col-span-2">
                                     <div class="text-emerald-400/80 text-xs mb-1">Atas Nama</div>
-                                    <div class="text-black font-bold" id="info-pemilik">
+                                    <div class="text-black font-black" id="info-pemilik">
                                         {{ $selectedKontrak->kos->pemilik->nama }}</div>
                                 </div>
                             </div>
@@ -388,20 +388,20 @@
 
                         <!-- Bukti Pembayaran -->
                         <div class="mt-6">
-                            <label class="block text-sm font-bold text-black mb-3">
+                            <label class="block text-sm font-black text-black mb-3">
                                 Upload Bukti Pembayaran *
                                 <span class="text-xs text-gray-600">(Format: JPG, PNG, maksimal 2MB)</span>
                             </label>
                             <div id="upload-area"
-                                class="mt-1 border-2 border-dashed border-sky-900/50  hover:border-sky-500/50 transition-all duration-200 cursor-pointer bg-slate-900/50 overflow-hidden @error('bukti_pembayaran') border-rose-500 focus:ring-rose-500/30 @enderror">
+                                class="mt-1 border-2 border-dashed border-black  hover:border-black transition-all duration-200 cursor-pointer bg-gray-100 overflow-hidden @error('bukti_pembayaran') border-rose-500 focus:ring-rose-500/30 @enderror">
                                 <div class="p-6 text-center">
                                     <div
-                                        class="w-16 h-16 bg-sky-500/20  flex items-center justify-center mx-auto mb-4">
+                                        class="w-16 h-16 bg-sky-400  flex items-center justify-center mx-auto mb-4">
                                         <i class="fas fa-cloud-upload-alt text-2xl text-sky-500"></i>
                                     </div>
                                     <div class="flex text-sm text-gray-600 justify-center">
                                         <label for="bukti_pembayaran"
-                                            class="relative cursor-pointer bg-slate-900/50 px-4 py-2  font-bold text-sky-500 hover:text-sky-400 transition">
+                                            class="relative cursor-pointer bg-gray-100 px-4 py-2  font-black text-sky-500 hover:text-sky-400 transition">
                                             <span>Klik untuk upload file</span>
                                             <input id="bukti_pembayaran" name="bukti_pembayaran" type="file" class="sr-only"
                                                 accept="image/jpeg,image/png,image/jpg" required>
@@ -466,12 +466,12 @@
                         <!-- Submit Button -->
                         <div class="mt-8 flex flex-col sm:flex-row gap-4">
                             <a href="{{ route('penghuni.pembayaran.index') }}"
-                                class="flex-1 bg-gray-100 border-2 border-black border border-sky-900/50 text-black px-6 py-3  hover:bg-slate-900/80 transition-all duration-200 font-bold text-center">
+                                class="flex-1 bg-gray-100 border-2 border-black text-black px-6 py-3  hover:bg-black transition-all duration-200 font-black text-center">
                                 <i class="fas fa-arrow-left mr-2"></i>
                                 Kembali
                             </a>
                             <button type="submit"
-                                class="flex-1 bg-sky-400 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-sky-500/10 text-black px-6 py-3  transition-all duration-200 font-black">
+                                class="flex-1 bg-sky-400 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-sky-500 text-black px-6 py-3  transition-all duration-200 font-black">
                                 <i class="fas fa-upload mr-2"></i>
                                 Upload Bukti Bayar
                             </button>
@@ -550,11 +550,11 @@
                     if (radio && checkIndicator) {
                         if (radio.checked) {
                             option.classList.add('border-sky-500', 'bg-sky-500/10');
-                            option.classList.remove('border-sky-900/50');
+                            option.classList.remove('border-black');
                             checkIndicator.classList.remove('hidden');
                         } else {
                             option.classList.remove('border-sky-500', 'bg-sky-500/10');
-                            option.classList.add('border-sky-900/50');
+                            option.classList.add('border-black');
                             checkIndicator.classList.add('hidden');
                         }
                     }
@@ -675,7 +675,7 @@
 
                 if (uploadArea) {
                     uploadArea.classList.remove('border-sky-500', 'border-rose-500');
-                    uploadArea.classList.add('border-sky-900/50');
+                    uploadArea.classList.add('border-black');
                 }
 
                 if (previewContainer) {
@@ -699,7 +699,7 @@
 
                 if (uploadArea) {
                     uploadArea.classList.add('border-rose-500');
-                    uploadArea.classList.remove('border-sky-900/50');
+                    uploadArea.classList.remove('border-black');
                 }
             }
 
@@ -715,7 +715,7 @@
                     fileNameDisplay.innerHTML = `
                         <div class="flex items-center text-emerald-400">
                             <i class="fas fa-check-circle mr-2"></i>
-                            <span class="font-bold">File berhasil dipilih</span>
+                            <span class="font-black">File berhasil dipilih</span>
                         </div>
                         <div class="text-sm text-gray-600 mt-1 ml-7">
                             ${fileName} (${fileSize} MB)
@@ -726,7 +726,7 @@
                 // Update upload area styling
                 if (uploadArea) {
                     uploadArea.classList.add('border-sky-500');
-                    uploadArea.classList.remove('border-sky-900/50');
+                    uploadArea.classList.remove('border-black');
                 }
 
                 // Buat preview gambar
@@ -736,8 +736,8 @@
                         previewContainer.innerHTML = `
                             <div class="relative inline-block">
                                 <img src="${e.target.result}" 
-                                     class="max-w-full max-h-64  shadow-[2px_2px_0px_#000] border-2 border-sky-500/50">
-                                <div class="absolute top-2 right-2 bg-slate-900/80   w-8 h-8 flex items-center justify-center">
+                                     class="max-w-full max-h-64  shadow-[2px_2px_0px_#000] border-2 border-black">
+                                <div class="absolute top-2 right-2 bg-black   w-8 h-8 flex items-center justify-center">
                                     <i class="fas fa-image text-sky-500"></i>
                                 </div>
                             </div>

@@ -11,7 +11,7 @@
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
                             <a href="{{ route('penghuni.dashboard') }}"
-                                class="inline-flex items-center text-sm text-gray-600 hover:text-black transition">
+                                class="inline-flex items-center text-sm text-gray-600 hover:text-black font-black transition">
                                 <i class="fas fa-gauge mr-2"></i>
                                 Dashboard
                             </a>
@@ -20,7 +20,7 @@
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-gray-600 text-xs"></i>
                                 <a href="{{ route('public.kos.show', $kos->id_kos) }}"
-                                    class="ml-1 md:ml-3 text-sm text-gray-600 hover:text-black transition">
+                                    class="ml-1 md:ml-3 text-sm text-gray-600 hover:text-black font-black transition">
                                     <i class="fas fa-file-contract mr-2"></i>
                                     {{ Str::limit($kos->nama_kos, 20) }}
                                 </a>
@@ -29,7 +29,7 @@
                         <li aria-current="page">
                             <div class="flex items-center">
                                 <i class="fas fa-chevron-right text-gray-600 text-xs"></i>
-                                <span class="ml-1 md:ml-3 text-sm font-bold text-black">
+                                <span class="ml-1 md:ml-3 text-sm font-black text-black">
                                     <i class="fas fa-plus mr-2"></i>
                                     Ajukan Kontrak
                                 </span>
@@ -44,7 +44,7 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between">
                     <div>
                         <h1 class="text-2xl md:text-3xl font-black text-black mb-2">Ajukan Kontrak Kos</h1>
-                        <p class="text-gray-700 font-bold">Lengkapi formulir untuk mengajukan kontrak sewa kamar</p>
+                        <p class="text-gray-700 font-black">Lengkapi formulir untuk mengajukan kontrak sewa kamar</p>
                     </div>
                     <div class="mt-4 md:mt-0">
                         <a href="{{ route('public.kos.show', $kos->id_kos) }}"
@@ -85,28 +85,28 @@
                         <i class="fas fa-building text-sky-500 mr-3 w-5"></i>
                         <div>
                             <p class="text-sm text-gray-600">Nama Kos</p>
-                            <p class="font-bold text-black">{{ $kos->nama_kos }}</p>
+                            <p class="font-black text-black">{{ $kos->nama_kos }}</p>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-map-marker-alt text-sky-500 mr-3 w-5"></i>
                         <div>
                             <p class="text-sm text-gray-600">Lokasi</p>
-                            <p class="font-bold text-black">{{ $kos->alamat }}, {{ $kos->kota }}</p>
+                            <p class="font-black text-black">{{ $kos->alamat }}, {{ $kos->kota }}</p>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-users text-sky-500 mr-3 w-5"></i>
                         <div>
                             <p class="text-sm text-gray-600">Jenis Kos</p>
-                            <p class="font-bold text-black">{{ ucfirst($kos->jenis_kos) }}</p>
+                            <p class="font-black text-black">{{ ucfirst($kos->jenis_kos) }}</p>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-check-circle text-sky-500 mr-3 w-5"></i>
                         <div>
                             <p class="text-sm text-gray-600">Status</p>
-                            <span class="px-3 py-1  text-xs font-bold bg-emerald-50 text-emerald-600">
+                            <span class="px-3 py-1  text-xs font-black bg-emerald-50 text-emerald-600">
                                 {{ ucfirst($kos->status_kos) }}
                             </span>
                         </div>
@@ -142,14 +142,14 @@
                     <div class="space-y-6">
                         <!-- Pilih Kamar -->
                         <div>
-                            <label class="block text-sm font-bold text-black mb-2">
+                            <label class="block text-sm font-black text-black mb-2">
                                 <i class="fas fa-bed text-sky-500 mr-2"></i>
                                 Pilih Kamar *
                             </label>
                             <select id="id_kamar" name="id_kamar"
-                                class="w-full px-4 py-3 bg-gray-100 border-2 border-black border border-sky-900/50 text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition @error('id_kamar') border-rose-500 focus:ring-rose-500/30 @enderror"
+                                class="w-full px-4 py-3 bg-gray-100 border-2 border-black text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition @error('id_kamar') border-rose-500 focus:ring-rose-500/30 @enderror"
                                 required>
-                                <option value="" class="bg-slate-900">-- Pilih Kamar --</option>
+                                <option value="" class="bg-white">-- Pilih Kamar --</option>
                                 @foreach($kos->kamar as $kamar)
                                     @if($kamar->status_kamar == 'tersedia')
                                         <option value="{{ $kamar->id_kamar }}" data-harga="{{ $kamar->harga }}"
@@ -181,26 +181,26 @@
 
                             <!-- Kamar Detail Info -->
                             <div id="kamar-detail" class="mt-4 p-4 bg-gray-100 border-2 border-black hidden">
-                                <h3 class="font-bold text-black mb-3 flex items-center">
+                                <h3 class="font-black text-black mb-3 flex items-center">
                                     <i class="fas fa-info-circle text-sky-500 mr-2"></i>
                                     Detail Kamar
                                 </h3>
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                                     <div>
                                         <p class="text-gray-600">Nomor Kamar</p>
-                                        <p id="detail-nomor" class="font-bold text-black">-</p>
+                                        <p id="detail-nomor" class="font-black text-black">-</p>
                                     </div>
                                     <div>
                                         <p class="text-gray-600">Tipe Kamar</p>
-                                        <p id="detail-tipe" class="font-bold text-black">-</p>
+                                        <p id="detail-tipe" class="font-black text-black">-</p>
                                     </div>
                                     <div>
                                         <p class="text-gray-600">Luas</p>
-                                        <p id="detail-luas" class="font-bold text-black">-</p>
+                                        <p id="detail-luas" class="font-black text-black">-</p>
                                     </div>
                                     <div>
                                         <p class="text-gray-600">Kapasitas</p>
-                                        <p id="detail-kapasitas" class="font-bold text-black">-</p>
+                                        <p id="detail-kapasitas" class="font-black text-black">-</p>
                                     </div>
                                 </div>
                             </div>
@@ -208,12 +208,12 @@
 
                         <!-- Tanggal Mulai Sewa -->
                         <div>
-                            <label class="block text-sm font-bold text-black mb-2">
+                            <label class="block text-sm font-black text-black mb-2">
                                 <i class="fas fa-calendar-day text-sky-500 mr-2"></i>
                                 Tanggal Mulai Sewa *
                             </label>
                             <input type="date" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai', date('Y-m-d')) }}"
-                                class="w-full px-4 py-3 bg-gray-100 border-2 border-black border border-sky-900/50 text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
+                                class="w-full px-4 py-3 bg-gray-100 border-2 border-black text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                 required>
                             @error('tanggal_mulai')
                                 <p class="text-rose-400 text-sm mt-1">{{ $message }}</p>
@@ -222,12 +222,12 @@
 
                         <!-- Durasi Sewa -->
                         <div>
-                            <label class="block text-sm font-bold text-black mb-2">
+                            <label class="block text-sm font-black text-black mb-2">
                                 <i class="fas fa-calendar-alt text-sky-500 mr-2"></i>
                                 Durasi Sewa *
                             </label>
                             <select id="durasi_sewa" name="durasi_sewa"
-                                class="w-full px-4 py-3 bg-gray-100 border-2 border-black border border-sky-900/50 text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
+                                class="w-full px-4 py-3 bg-gray-100 border-2 border-black text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 transition"
                                 required>
                                 <option value="">-- Pilih Durasi --</option>
                             </select>
@@ -297,12 +297,12 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="bg-gray-100 border-2 border-black p-4">
                                     <p class="text-sm text-gray-600 mb-1">No. Handphone</p>
-                                    <p class="font-bold text-black">{{ auth()->user()->penghuni->no_hp }}</p>
+                                    <p class="font-black text-black">{{ auth()->user()->penghuni->no_hp }}</p>
 
                                 </div>
                                 <div class="bg-gray-100 border-2 border-black p-4">
                                     <p class="text-sm text-gray-600 mb-1">Email</p>
-                                    <p class="font-bold text-black">{{ auth()->user()->penghuni->email }}</p>
+                                    <p class="font-black text-black">{{ auth()->user()->penghuni->email }}</p>
                                     <p class="text-xs text-gray-600 mt-2">
                                         <i class="fas fa-envelope text-sky-500 mr-1"></i>
                                         Notifikasi Email akan dikirim ke kontak ini
@@ -321,22 +321,22 @@
                             <div class="space-y-4">
                                 <!-- KTP Upload -->
                                 <div>
-                                    <label class="block text-sm font-bold text-black mb-2">
+                                    <label class="block text-sm font-black text-black mb-2">
                                         Foto KTP *
                                         <span class="text-xs text-gray-600 ml-2">(JPG/PNG, max 2MB)</span>
                                     </label>
                                     <div
-                                        class="border-2 border-dashed border-sky-900/50  p-6 text-center hover:border-sky-500/50 transition @error('foto_ktp') border-rose-500 focus:ring-rose-500/30 @enderror">
+                                        class="border-2 border-dashed border-black  p-6 text-center hover:border-black transition @error('foto_ktp') border-rose-500 focus:ring-rose-500/30 @enderror">
                                         <input type="file" name="foto_ktp" id="foto_ktp" class="hidden" accept="image/*"
                                             required>
                                         <label for="foto_ktp" class="cursor-pointer">
                                             <div class="mb-3">
                                                 <div
-                                                    class="w-16 h-16 bg-sky-500/20  flex items-center justify-center mx-auto">
+                                                    class="w-16 h-16 bg-sky-400  flex items-center justify-center mx-auto">
                                                     <i class="fas fa-id-card text-2xl text-sky-500"></i>
                                                 </div>
                                             </div>
-                                            <div class="text-sky-500 font-bold">Upload Foto KTP</div>
+                                            <div class="text-sky-500 font-black">Upload Foto KTP</div>
                                             <div class="text-xs text-gray-600 mt-1">
                                                 Klik atau drag & drop file ke sini
                                             </div>
@@ -344,7 +344,7 @@
                                         <div id="ktp-preview" class="mt-4 hidden">
                                             <p class="text-sm text-gray-600 mb-2">Preview:</p>
                                             <img src="" alt="Preview KTP"
-                                                class="max-h-40 mx-auto  border border-sky-900/50">
+                                                class="max-h-40 mx-auto  border-2 border-black">
                                         </div>
                                     </div>
                                     @error('foto_ktp')
@@ -363,7 +363,7 @@
                             <ul class="space-y-3">
                                 <li class="flex items-start">
                                     <div
-                                        class="w-6 h-6  bg-emerald-500/20 flex items-center justify-center mr-3 flex-shrink-0">
+                                        class="w-6 h-6  bg-emerald-400 flex items-center justify-center mr-3 flex-shrink-0">
                                         <i class="fas fa-check text-emerald-500 text-xs"></i>
                                     </div>
                                     <span class="text-sm text-gray-600">Setelah mengajukan, Anda akan menerima notifikasi
@@ -371,26 +371,26 @@
                                 </li>
                                 <li class="flex items-start">
                                     <div
-                                        class="w-6 h-6  bg-sky-500/20 flex items-center justify-center mr-3 flex-shrink-0">
+                                        class="w-6 h-6  bg-sky-400 flex items-center justify-center mr-3 flex-shrink-0">
                                         <i class="fas fa-clock text-sky-500 text-xs"></i>
                                     </div>
                                     <span class="text-sm text-gray-600">Pemilik akan meninjau dalam 1-3 hari kerja</span>
                                 </li>
                                 <li class="flex items-start">
                                     <div
-                                        class="w-6 h-6  bg-indigo-500/20 flex items-center justify-center mr-3 flex-shrink-0">
+                                        class="w-6 h-6  bg-purple-400 flex items-center justify-center mr-3 flex-shrink-0">
                                         <i class="fas fa-chart-line text-indigo-500 text-xs"></i>
                                     </div>
                                     <span class="text-sm text-gray-600">Status bisa dipantau di dashboard Anda</span>
                                 </li>
                                 <li class="flex items-start">
                                     <div
-                                        class="w-6 h-6  bg-sky-500/20 flex items-center justify-center mr-3 flex-shrink-0">
+                                        class="w-6 h-6  bg-sky-400 flex items-center justify-center mr-3 flex-shrink-0">
                                         <i class="fas fa-envelope text-sky-500 text-xs"></i>
                                     </div>
                                     <div>
                                         <span class="text-sm text-gray-600">Notifikasi akan dikirim ke:</span>
-                                        <p class="text-sm font-bold text-black mt-1">{{ auth()->user()->penghuni->email }}
+                                        <p class="text-sm font-black text-black mt-1">{{ auth()->user()->penghuni->email }}
                                         </p>
                                     </div>
                                 </li>
@@ -406,7 +406,7 @@
                             Batal
                         </a>
                         <button type="submit"
-                            class="flex-1 px-6 py-3 bg-sky-400 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-sky-500/10 text-black  font-black transition">
+                            class="flex-1 px-6 py-3 bg-sky-400 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-sky-500 text-black  font-black transition">
                             <i class="fas fa-paper-plane mr-2"></i>
                             Ajukan Kontrak
                         </button>

@@ -10,7 +10,7 @@
             <ol class="inline-flex items-center space-x-2 md:space-x-4">
                 <li class="inline-flex items-center">
                     <a href="{{ route('public.home') }}"
-                       class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition">
+                       class="inline-flex items-center text-sm font-black text-gray-600 hover:text-black transition">
                         <i class="fas fa-gauge mr-2"></i>
                         Home
                     </a>
@@ -19,7 +19,7 @@
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-black/20 mx-2 text-sm"></i>
                         <a href="{{ route('public.kos.show', $kos->id_kos) }}"
-                           class="ml-1 text-sm font-bold text-gray-600 hover:text-black transition">
+                           class="ml-1 text-sm font-black text-gray-600 hover:text-black transition">
                             <i class="fas fa-home mr-2"></i>
                             {{ $kos->nama_kos }}
                         </a>
@@ -28,7 +28,7 @@
                 <li aria-current="page">
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-black/20 mx-2 text-sm"></i>
-                        <span class="ml-1 text-sm font-bold text-black">
+                        <span class="ml-1 text-sm font-black text-black">
                             <i class="fas fa-plus mr-2"></i>
                             Beri Review
                         </span>
@@ -40,7 +40,7 @@
 
     <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
         <!-- Header -->
-        <div class="bg-gray-100 border-2 border-black border-b border-black p-6">
+        <div class="bg-gray-100 border-b-2 border-black p-6">
             <div class="text-center">
                 <div class="w-16 h-16 bg-gray-100 border-2 border-black  flex items-center justify-center mx-auto mb-4">
                     <i class="fas fa-star text-black text-2xl"></i>
@@ -198,7 +198,7 @@
                                 <div class="flex items-center space-x-4">
                                     <img id="preview-image" class="w-16 h-16 object-cover " />
                                     <div>
-                                        <p class="text-black font-bold">Foto terpilih</p>
+                                        <p class="text-black font-black">Foto terpilih</p>
                                         <p id="file-name" class="text-sm text-gray-600"></p>
                                     </div>
                                 </div>
@@ -387,7 +387,7 @@
         star.addEventListener('mouseenter', () => {
             stars.forEach((s, i) => {
                 if (i <= index) {
-                    s.classList.add('text-yellow-300');
+                    s.classList.add('text-black');
                 }
             });
         });
@@ -395,7 +395,7 @@
         star.addEventListener('mouseleave', () => {
             stars.forEach((s, i) => {
                 if (currentRating === 0 || i >= currentRating) {
-                    s.classList.remove('text-yellow-300');
+                    s.classList.remove('text-black');
                 }
             });
         });

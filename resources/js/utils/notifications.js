@@ -1,13 +1,13 @@
 export function showToast(message, type = 'success') {
     const colors = {
-        success: 'bg-green-500',
-        error: 'bg-red-500',
-        warning: 'bg-yellow-500',
-        info: 'bg-blue-500',
+        success: 'bg-emerald-400 text-black',
+        error: 'bg-red-500 text-white',
+        warning: 'bg-yellow-400 text-black',
+        info: 'bg-sky-400 text-black',
     };
 
     const toast = document.createElement('div');
-    toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg text-white shadow-lg ${colors[type] || colors.info} transition-all duration-300 transform translate-x-full`;
+    toast.className = `fixed top-4 right-4 z-50 px-6 py-3 border-2 border-black shadow-[4px_4px_0px_#000] font-black ${colors[type] || colors.info} transition-all duration-300 transform translate-x-full`;
     toast.textContent = message;
     document.body.appendChild(toast);
 

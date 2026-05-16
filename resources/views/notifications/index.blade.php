@@ -3,76 +3,77 @@
 @section('title', 'Notifikasi - AyoKos')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 pt-24 pb-12">
-    <div class="max-w-4xl mx-auto px-4">
-        @if(session('success'))
-            <div class="bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 text-emerald-300 px-4 py-3 rounded-xl mb-6">
-                <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="bg-rose-500/20 backdrop-blur-sm border border-rose-500/20 text-rose-300 px-4 py-3 rounded-xl mb-6">
-                <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
-            </div>
-        @endif
-        <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-bold text-white flex items-center">
-                <i class="fas fa-bell mr-3 text-sky-400"></i>
+<div class="p-4 md:p-6 lg:p-8 max-w-4xl mx-auto space-y-6">
+    @if(session('success'))
+        <div class="bg-emerald-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000]">
+            <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="bg-red-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000]">
+            <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
+        </div>
+    @endif
+
+    <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <h1 class="text-2xl font-black text-black flex items-center">
+                <i class="fas fa-bell mr-3 text-yellow-500"></i>
                 Notifikasi
             </h1>
             <button onclick="markAllRead()"
-                class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm transition">
+                class="px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all uppercase tracking-wide text-sm">
                 <i class="fas fa-check-double mr-2"></i>
                 Tandai Semua Dibaca
             </button>
         </div>
-
-        @if($notifications->count() > 0)
-            <div class="space-y-3">
-                @foreach($notifications as $notif)
-                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-sky-500/50 transition-all duration-300 {{ !$notif->is_read ? 'border-l-4 border-l-sky-500' : '' }}">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span class="text-sm font-semibold text-white">{{ $notif->title }}</span>
-                                    @if(!$notif->is_read)
-                                        <span class="w-2 h-2 bg-sky-400 rounded-full"></span>
-                                    @endif
-                                </div>
-                                <p class="text-sm text-slate-300 mb-2">{{ $notif->body }}</p>
-                                <div class="flex items-center gap-3 text-xs text-slate-500">
-                                    <span>{{ $notif->created_at->diffForHumans() }}</span>
-                                    @if($notif->link)
-                                        <a href="{{ $notif->link }}" class="text-sky-400 hover:text-sky-300">
-                                            <i class="fas fa-external-link-alt mr-1"></i>Lihat Detail
-                                        </a>
-                                    @endif
-                                </div>
-                            </div>
-                            @if(!$notif->is_read)
-                                <button onclick="markRead('{{ $notif->id_notifikasi }}')"
-                                    class="ml-4 text-slate-400 hover:text-white transition">
-                                    <i class="fas fa-check"></i>
-                                </button>
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="mt-6">
-                {{ $notifications->links() }}
-            </div>
-        @else
-            <div class="text-center py-16">
-                <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-bell-slash text-white text-3xl"></i>
-                </div>
-                <h3 class="text-white font-semibold mb-2">Belum ada notifikasi</h3>
-                <p class="text-slate-400 text-sm">Notifikasi akan muncul di sini setelah ada aktivitas</p>
-            </div>
-        @endif
     </div>
+
+    @if($notifications->count() > 0)
+        <div class="space-y-3">
+            @foreach($notifications as $notif)
+                <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 {{ !$notif->is_read ? 'border-l-8 border-l-sky-500' : '' }}">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-sm font-black text-black">{{ $notif->title }}</span>
+                                @if(!$notif->is_read)
+                                    <span class="w-3 h-3 bg-sky-400 border-2 border-black"></span>
+                                @endif
+                            </div>
+                            <p class="text-sm text-gray-700 font-bold mb-2">{{ $notif->body }}</p>
+                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 font-bold">
+                                <span>{{ $notif->created_at->diffForHumans() }}</span>
+                                @if($notif->link)
+                                    <a href="{{ $notif->link }}" class="text-sky-600 hover:text-black font-black">
+                                        <i class="fas fa-external-link-alt mr-1"></i>Lihat Detail
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                        @if(!$notif->is_read)
+                            <button onclick="markRead('{{ $notif->id_notifikasi }}')"
+                                class="px-3 py-2 bg-emerald-400 hover:bg-emerald-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] transition-all">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="mt-6">
+            {{ $notifications->links('vendor.pagination.custom-dark') }}
+        </div>
+    @else
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] text-center py-16 px-6">
+            <div class="w-20 h-20 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-bell-slash text-black text-3xl"></i>
+            </div>
+            <h3 class="text-black font-black mb-2">Belum ada notifikasi</h3>
+            <p class="text-gray-600 text-sm font-bold">Notifikasi akan muncul di sini setelah ada aktivitas</p>
+        </div>
+    @endif
 </div>
 
 @push('scripts')

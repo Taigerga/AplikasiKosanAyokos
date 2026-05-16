@@ -10,7 +10,7 @@
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
                     <a href="{{ route('public.home') }}"
-                       class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition">
+                       class="inline-flex items-center text-sm font-black text-gray-600 hover:text-black transition">
                         <i class="fas fa-gauge mr-2"></i>
                         Home
                     </a>
@@ -19,7 +19,7 @@
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-black/20 mx-2 text-xs"></i>
                         <a href="{{ route('penghuni.reviews.history') }}"
-                           class="ml-1 text-sm font-bold text-gray-600 hover:text-black transition">
+                           class="ml-1 text-sm font-black text-gray-600 hover:text-black transition">
                            <i class="fas fa-star mr-2"></i>
                             Review Saya
                         </a>
@@ -28,7 +28,7 @@
                 <li aria-current="page">
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-black/20 mx-2 text-xs"></i>
-                        <span class="ml-1 text-sm font-bold text-black">
+                        <span class="ml-1 text-sm font-black text-black">
                             <i class="fas fa-pencil mr-2"></i>
                             Edit Review
                         </span>
@@ -54,7 +54,7 @@
     <!-- Main Card -->
     <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
         <!-- Header -->
-        <div class="bg-gray-100 border-2 border-black border-b border-black p-6">
+        <div class="bg-gray-100 border-b-2 border-black p-6">
             <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 bg-gray-100 border-2 border-black  flex items-center justify-center">
                     <i class="fas fa-star text-black text-xl"></i>
@@ -78,14 +78,14 @@
                         @if($fileExists)
                             <img src="{{ url('storage/' . $review->kos->foto_utama) }}"
                                  alt="{{ $review->kos->nama_kos }}"
-                                 class="w-16 h-16 object-cover  border border-black">
+                                 class="w-16 h-16 object-cover  border-2 border-black">
                         @else
-                            <div class="w-16 h-16 bg-gray-100 border-2 border-black  border border-black flex items-center justify-center">
+                            <div class="w-16 h-16 bg-gray-100 border-2 border-black  border-2 border-black flex items-center justify-center">
                                 <i class="fas fa-home text-gray-500 text-xl"></i>
                             </div>
                         @endif
                     @else
-                        <div class="w-16 h-16 bg-gray-100 border-2 border-black  border border-black flex items-center justify-center">
+                        <div class="w-16 h-16 bg-gray-100 border-2 border-black  border-2 border-black flex items-center justify-center">
                             <i class="fas fa-home text-gray-500 text-xl"></i>
                         </div>
                     @endif
@@ -111,7 +111,7 @@
 
                 <!-- Rating -->
                 <div class="mb-6">
-                    <label class="block text-black font-bold mb-3 flex items-center">
+                    <label class="block text-black font-black mb-3 flex items-center">
                         <i class="fas fa-star text-yellow-400 mr-2"></i>
                         Rating Anda
                     </label>
@@ -154,7 +154,7 @@
 
                 <!-- Komentar -->
                 <div class="mb-6">
-                    <label for="komentar" class="block text-black font-bold mb-3 flex items-center">
+                    <label for="komentar" class="block text-black font-black mb-3 flex items-center">
                         <i class="fas fa-edit text-emerald-400 mr-2"></i>
                         Komentar
                     </label>
@@ -179,7 +179,7 @@
 
                 <!-- Foto Review -->
                 <div class="mb-8">
-                    <label class="block text-black font-bold mb-3 flex items-center">
+                    <label class="block text-black font-black mb-3 flex items-center">
                         <i class="fas fa-camera text-purple-400 mr-2"></i>
                         Foto Review
                     </label>
@@ -195,9 +195,9 @@
                             @if($reviewFileExists)
                                 <img src="{{ url('storage/' . $review->foto_review) }}"
                                      alt="Foto review"
-                                     class="w-24 h-24 object-cover  border border-black">
+                                     class="w-24 h-24 object-cover  border-2 border-black">
                             @else
-                                <div class="w-24 h-24 bg-gray-100 border-2 border-black  border border-black flex items-center justify-center">
+                                <div class="w-24 h-24 bg-gray-100 border-2 border-black  border-2 border-black flex items-center justify-center">
                                     <i class="fas fa-image text-gray-500 text-2xl"></i>
                                 </div>
                             @endif
@@ -206,7 +206,7 @@
                                     <label class="flex items-center space-x-2 cursor-pointer group">
                                         <div class="relative">
                                             <input type="checkbox" name="hapus_foto" value="1" class="sr-only peer">
-                                            <div class="w-6 h-6 bg-gray-100 border-2 border-black border-2 border-black rounded-md peer-checked:bg-rose-500 peer-checked:border-rose-500 transition-all duration-200 group-hover:border-rose-400"></div>
+                                            <div class="w-6 h-6 bg-gray-100 border-2 border-black rounded-md peer-checked:bg-rose-500 peer-checked:border-rose-500 transition-all duration-200 group-hover:border-rose-400"></div>
                                             <i class="fas fa-check absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-xs opacity-0 peer-checked:opacity-100 transition-opacity"></i>
                                         </div>
                                         <span class="text-sm text-rose-400 group-hover:text-rose-300 transition">Hapus foto ini</span>
@@ -236,7 +236,7 @@
                     <div id="image-preview" class="mt-4 hidden">
                         <p class="text-sm text-gray-600 mb-2">Pratinjau foto baru:</p>
                         <div class="relative inline-block">
-                            <img id="preview-image" class="w-32 h-32 object-cover  border border-black" />
+                            <img id="preview-image" class="w-32 h-32 object-cover  border-2 border-black" />
                             <button type="button" onclick="removePreview()"
                                     class="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 text-black  flex items-center justify-center hover:bg-rose-600 transition">
                                 <i class="fas fa-times text-xs"></i>
@@ -278,9 +278,9 @@
 
 <!-- Delete Confirmation Modal -->
 <div id="deleteModal" class="fixed inset-0 bg-black/90  overflow-y-auto h-full w-full hidden z-50">
-    <div class="relative top-20 mx-auto p-5 border border-black w-96 shadow-[4px_4px_0px_#000]  bg-gray-100 border-2 border-black">
+    <div class="relative top-20 mx-auto p-5 border-2 border-black w-96 shadow-[4px_4px_0px_#000]  bg-gray-100 border-2 border-black">
         <div class="mt-3">
-            <div class="w-16 h-16 bg-rose-500/20  flex items-center justify-center mx-auto mb-4">
+            <div class="w-16 h-16 bg-red-400  flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-exclamation-triangle text-rose-400 text-2xl"></i>
             </div>
             <h3 class="text-lg font-black text-black text-center mb-3">Hapus Review</h3>

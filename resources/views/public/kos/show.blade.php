@@ -121,7 +121,7 @@
                                 <p class="text-xs font-bold text-gray-500 mt-1">Terverifikasi • {{ $kos->created_at->format('Y') }}</p>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-emerald-500 border border-black"></div>
+                                <div class="w-2 h-2 bg-emerald-500 border-2 border-black"></div>
                                 <span class="text-xs font-black text-emerald-600">Aktif</span>
                             </div>
                         </div>
@@ -771,7 +771,7 @@
         }).addTo(map);
 
         const houseIcon = L.divIcon({
-            html: `<div class="relative"><div class="absolute -inset-1 bg-black/20 animate-ping"></div><div class="relative bg-pink-600 w-10 h-10 flex items-center justify-center shadow-lg border-2 border-black"><i class="fas fa-home text-white text-sm"></i></div></div>`,
+            html: `<div class="relative"><div class="absolute -inset-1 bg-gray-100 animate-ping"></div><div class="relative bg-pink-600 w-10 h-10 flex items-center justify-center shadow-lg border-2 border-black"><i class="fas fa-home text-white text-sm"></i></div></div>`,
             iconSize: [40, 40],
             iconAnchor: [20, 40],
             popupAnchor: [0, -40]
@@ -787,7 +787,7 @@
                     const userLng = position.coords.longitude;
                     if (window.userMarker) map.removeLayer(window.userMarker);
                     const userIcon = L.divIcon({
-                        html: `<div class="relative"><div class="absolute -inset-1 bg-black/20 animate-ping"></div><div class="relative bg-black w-8 h-8 flex items-center justify-center shadow-lg border-2 border-white"><i class="fas fa-location-dot text-white text-xs"></i></div></div>`,
+                        html: `<div class="relative"><div class="absolute -inset-1 bg-gray-100 animate-ping"></div><div class="relative bg-black w-8 h-8 flex items-center justify-center shadow-lg border-2 border-white"><i class="fas fa-location-dot text-white text-xs"></i></div></div>`,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32]
                     });

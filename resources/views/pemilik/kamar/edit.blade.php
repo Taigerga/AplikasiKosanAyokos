@@ -57,7 +57,7 @@
     </div>
 
     @if($errors->any())
-        <div class="bg-red-400 border-2 border-black text-black font-bold px-6 py-4 shadow-[3px_3px_0px_#000]">
+        <div class="bg-red-400 border-2 border-black text-black font-black px-6 py-4 shadow-[3px_3px_0px_#000]">
             <div class="flex items-center mb-2">
                 <i class="fas fa-exclamation-circle mr-2"></i>
                 <span class="font-black">Terjadi kesalahan:</span>
@@ -74,13 +74,13 @@
     @endif
 
     @if(session('success'))
-        <div class="bg-emerald-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
+        <div class="bg-emerald-400 border-2 border-black text-black font-black px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
             <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
         </div>
     @endif
 
     @if(session('error'))
-        <div class="bg-red-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
+        <div class="bg-red-400 border-2 border-black text-black font-black px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
             <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
         </div>
     @endif
@@ -103,7 +103,7 @@
                         <div class="relative">
                             <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                             <select name="id_kos" 
-                                    class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition" required>
+                                    class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition" required>
                                 <option value="">Pilih Kos</option>
                                 @foreach($kos as $k)
                                 <option value="{{ $k->id_kos }}" {{ old('id_kos', $kamar->id_kos) == $k->id_kos ? 'selected' : '' }}>
@@ -126,7 +126,7 @@
                             <input type="text" 
                                    name="nomor_kamar" 
                                    value="{{ old('nomor_kamar', $kamar->nomor_kamar) }}" 
-                                   class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
+                                   class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
                                    placeholder="Contoh: A1, B2, 101"
                                    required maxlength="10">
                         </div>
@@ -141,7 +141,7 @@
                         <div class="relative">
                             <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                             <select name="tipe_kamar" 
-                                    class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition" required>
+                                    class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition" required>
                                 <option value="">Pilih Tipe Kamar</option>
                                 <option value="Standar" {{ old('tipe_kamar', $kamar->tipe_kamar) == 'Standar' ? 'selected' : '' }}>Standar</option>
                                 <option value="Deluxe" {{ old('tipe_kamar', $kamar->tipe_kamar) == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
@@ -164,7 +164,7 @@
                             <input type="number" 
                                    name="harga" 
                                    value="{{ old('harga', $kamar->harga) }}" 
-                                   class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
+                                   class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
                                    required min="0">
                             <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">/bulan</span>
                         </div>
@@ -181,7 +181,7 @@
                             <input type="text" 
                                    name="luas_kamar" 
                                    value="{{ old('luas_kamar', $kamar->luas_kamar) }}" 
-                                   class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
+                                   class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
                                    placeholder="Contoh: 3x4 m²"
                                    required
                                    maxlength="20">
@@ -200,7 +200,7 @@
                         <div class="relative">
                             <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                             <select name="kapasitas" 
-                                    class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition" required>
+                                    class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition" required>
                                 <option value="">Pilih Kapasitas</option>
                                 @for($i = 1; $i <= 4; $i++)
                                 <option value="{{ $i }}" {{ old('kapasitas', $kamar->kapasitas) == $i ? 'selected' : '' }}>
@@ -277,7 +277,7 @@
                                 <img src="{{ asset('storage/' . $kamar->foto_kamar) }}" 
                                      alt="Foto Kamar" 
                                      class="w-full h-48 object-cover">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
+                                <div class="absolute inset-0 bg-black/60 flex items-end">
                                     <div class="p-4">
                                         <a href="{{ asset('storage/' . $kamar->foto_kamar) }}" 
                                            target="_blank" 

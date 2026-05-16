@@ -17,7 +17,7 @@
             Peta <span class="bg-black text-white px-3">Kos</span> Tersedia
         </h1>
 
-        <p class="text-lg md:text-xl text-gray-800 font-bold max-w-3xl mx-auto leading-relaxed mb-10">
+        <p class="text-lg md:text-xl text-gray-800 font-black max-w-3xl mx-auto leading-relaxed mb-10">
             Temukan kos terdekat di lokasi yang Anda inginkan dengan peta interaktif. 
             Filter berdasarkan jenis, tipe sewa, dan rentang harga.
         </p>
@@ -26,19 +26,19 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="0">
                 <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->count() }}</div>
-                <div class="text-sm font-bold text-gray-600">Total Kos</div>
+                <div class="text-sm font-black text-gray-600">Total Kos</div>
             </div>
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="100">
                 <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'putra')->count() }}</div>
-                <div class="text-sm font-bold text-gray-600">Kos Putra</div>
+                <div class="text-sm font-black text-gray-600">Kos Putra</div>
             </div>
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="200">
                 <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'putri')->count() }}</div>
-                <div class="text-sm font-bold text-gray-600">Kos Putri</div>
+                <div class="text-sm font-black text-gray-600">Kos Putri</div>
             </div>
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="300">
                 <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'campuran')->count() }}</div>
-                <div class="text-sm font-bold text-gray-600">Kos Campuran</div>
+                <div class="text-sm font-black text-gray-600">Kos Campuran</div>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
             <form method="GET" action="{{ route('public.kos.peta') }}" class="space-y-5" id="filter-form">
                 <div>
                     <label class="block text-sm font-black text-black mb-2">Jenis Kos</label>
-                    <select name="jenis_kos" class="w-full px-4 py-3 border-2 border-black text-black font-bold focus:outline-none focus:shadow-[3px_3px_0px_#000] transition bg-white">
+                    <select name="jenis_kos" class="w-full px-4 py-3 border-2 border-black text-black font-black focus:outline-none focus:shadow-[3px_3px_0px_#000] transition bg-white">
                         <option value="">Semua Jenis</option>
                         <option value="putra" {{ request('jenis_kos') == 'putra' ? 'selected' : '' }}>Putra</option>
                         <option value="putri" {{ request('jenis_kos') == 'putri' ? 'selected' : '' }}>Putri</option>
@@ -68,7 +68,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-black text-black mb-2">Tipe Sewa</label>
-                    <select name="tipe_sewa" class="w-full px-4 py-3 border-2 border-black text-black font-bold focus:outline-none focus:shadow-[3px_3px_0px_#000] transition bg-white">
+                    <select name="tipe_sewa" class="w-full px-4 py-3 border-2 border-black text-black font-black focus:outline-none focus:shadow-[3px_3px_0px_#000] transition bg-white">
                         <option value="">Semua Tipe</option>
                         <option value="harian" {{ request('tipe_sewa') == 'harian' ? 'selected' : '' }}>Harian</option>
                         <option value="mingguan" {{ request('tipe_sewa') == 'mingguan' ? 'selected' : '' }}>Mingguan</option>
@@ -78,11 +78,11 @@
                 </div>
                 <div>
                     <label class="block text-sm font-black text-black mb-2">Kota</label>
-                    <input type="text" name="kota" value="{{ request('kota') }}" placeholder="Nama kota..." class="w-full px-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
+                    <input type="text" name="kota" value="{{ request('kota') }}" placeholder="Nama kota..." class="w-full px-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
                 </div>
                 <div>
                     <label class="block text-sm font-black text-black mb-2">Harga Maksimal</label>
-                    <input type="number" name="max_harga" value="{{ request('max_harga') }}" placeholder="Rp..." class="w-full px-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
+                    <input type="number" name="max_harga" value="{{ request('max_harga') }}" placeholder="Rp..." class="w-full px-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
                 </div>
                 <button type="submit" class="w-full px-6 py-3 bg-black hover:bg-gray-800 text-white font-black border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:translate-y-[-1px] transition-all uppercase tracking-wide flex items-center justify-center">
                     <i class="fas fa-search mr-2"></i> Terapkan Filter
@@ -99,7 +99,7 @@
                     <i class="fas fa-location-arrow text-lg"></i>
                     <span>Cari Kos Terdekat</span>
                 </button>
-                <p class="text-xs font-bold text-gray-500 mt-2 text-center">(Maksimal 1 km dari lokasi Anda)</p>
+                <p class="text-xs font-black text-gray-500 mt-2 text-center">(Maksimal 1 km dari lokasi Anda)</p>
             </div>
 
             <!-- Nearby Info -->
@@ -110,7 +110,7 @@
                     Kos Terdekat Ditemukan
                 </h3>
                 <div id="nearby-count" class="text-2xl font-black text-black">0</div>
-                <p class="text-sm font-bold text-gray-700 mt-1">kos dalam radius 1 km</p>
+                <p class="text-sm font-black text-gray-700 mt-1">kos dalam radius 1 km</p>
                 <button id="clear-nearby"
                     class="w-full mt-3 bg-black hover:bg-gray-800 text-white font-black py-2 text-sm border-2 border-black transition-all flex items-center justify-center gap-2 uppercase tracking-wide">
                     <i class="fas fa-times"></i>
@@ -126,7 +126,7 @@
                 </h3>
                 <div class="space-y-3">
                     <a href="{{ route('public.kos.index') }}"
-                        class="flex items-center text-gray-700 hover:text-black font-bold text-sm transition-colors">
+                        class="flex items-center text-gray-700 hover:text-black font-black text-sm transition-colors">
                         <div class="w-9 h-9 bg-yellow-200 border-2 border-black flex items-center justify-center mr-3">
                             <i class="fas fa-search text-black"></i>
                         </div>
@@ -136,7 +136,7 @@
 @auth
 @if(auth()->user()->role === 'penghuni')
 <a href="{{ route('penghuni.dashboard') }}"
-    class="flex items-center text-gray-700 hover:text-black font-bold text-sm transition-colors">
+    class="flex items-center text-gray-700 hover:text-black font-black text-sm transition-colors">
     <div class="w-9 h-9 bg-emerald-200 border-2 border-black flex items-center justify-center mr-3">
         <i class="fas fa-home text-black"></i>
     </div>
@@ -144,7 +144,7 @@
 </a>
 @elseif(auth()->user()->role === 'pemilik')
 <a href="{{ route('pemilik.dashboard') }}"
-    class="flex items-center text-gray-700 hover:text-black font-bold text-sm transition-colors">
+    class="flex items-center text-gray-700 hover:text-black font-black text-sm transition-colors">
     <div class="w-9 h-9 bg-sky-200 border-2 border-black flex items-center justify-center mr-3">
         <i class="fas fa-user-tie text-black"></i>
     </div>
@@ -153,7 +153,7 @@
 @endif
 @else
 <a href="{{ route('login') }}"
-    class="flex items-center text-gray-700 hover:text-black font-bold text-sm transition-colors">
+    class="flex items-center text-gray-700 hover:text-black font-black text-sm transition-colors">
     <div class="w-9 h-9 bg-amber-200 border-2 border-black flex items-center justify-center mr-3">
         <i class="fas fa-lock text-black"></i>
     </div>
@@ -175,7 +175,7 @@
                             <i class="fas fa-route mr-2 text-lime-600"></i>
                             <span id="route-title">Rute Menuju Kos</span>
                         </h3>
-                        <p id="route-distance" class="text-sm font-bold text-gray-700 mt-1">Memuat rute...</p>
+                        <p id="route-distance" class="text-sm font-black text-gray-700 mt-1">Memuat rute...</p>
                     </div>
                     <div class="flex gap-2">
                         <button id="print-route"
@@ -188,7 +188,7 @@
                         </button>
                     </div>
                 </div>
-                <div id="route-instructions" class="mt-3 text-sm text-gray-700 font-medium max-h-32 overflow-y-auto pr-2">
+                <div id="route-instructions" class="mt-3 text-sm text-gray-700 font-bold max-h-32 overflow-y-auto pr-2">
                     <!-- Instruksi rute akan ditampilkan di sini -->
                 </div>
             </div>
@@ -200,28 +200,28 @@
             <!-- Legend -->
             <div class="mt-4 flex flex-wrap gap-4 justify-center">
                 <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 bg-blue-500 border border-black"></div>
-                    <span class="text-sm font-bold text-gray-600">Kos Putra</span>
+                    <div class="w-4 h-4 bg-blue-500 border-2 border-black"></div>
+                    <span class="text-sm font-black text-gray-600">Kos Putra</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 bg-pink-500 border border-black"></div>
-                    <span class="text-sm font-bold text-gray-600">Kos Putri</span>
+                    <div class="w-4 h-4 bg-pink-500 border-2 border-black"></div>
+                    <span class="text-sm font-black text-gray-600">Kos Putri</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 bg-purple-500 border border-black"></div>
-                    <span class="text-sm font-bold text-gray-600">Kos Campuran</span>
+                    <div class="w-4 h-4 bg-purple-500 border-2 border-black"></div>
+                    <span class="text-sm font-black text-gray-600">Kos Campuran</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 bg-emerald-500 border border-black"></div>
-                    <span class="text-sm font-bold text-gray-600">Lokasi Anda</span>
+                    <div class="w-4 h-4 bg-emerald-500 border-2 border-black"></div>
+                    <span class="text-sm font-black text-gray-600">Lokasi Anda</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 bg-yellow-500 border border-black"></div>
-                    <span class="text-sm font-bold text-gray-600">Radius 1 km</span>
+                    <div class="w-4 h-4 bg-yellow-500 border-2 border-black"></div>
+                    <span class="text-sm font-black text-gray-600">Radius 1 km</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 bg-black border border-black"></div>
-                    <span class="text-sm font-bold text-gray-600">Rute</span>
+                    <div class="w-4 h-4 bg-black border-2 border-black"></div>
+                    <span class="text-sm font-black text-gray-600">Rute</span>
                 </div>
             </div>
         </div>
@@ -257,7 +257,7 @@
                     <div class="flex items-start justify-between">
                         <div class="flex-1">
                             <h3 class="font-black text-black">{{ $k->nama_kos }}</h3>
-                            <p class="text-sm font-bold text-gray-600 mt-1">{{ $k->alamat }}</p>
+                            <p class="text-sm font-black text-gray-600 mt-1">{{ $k->alamat }}</p>
                             <div class="flex items-center gap-4 mt-2">
                                 <span class="text-xs font-black px-2.5 py-1 border-2 border-black
                                     {{ $k->jenis_kos == 'putra' ? 'bg-blue-200 text-black' :
@@ -265,7 +265,7 @@
                                             'bg-purple-200 text-black') }}">
                                     {{ ucfirst($k->jenis_kos) }}
                                 </span>
-                                <span class="text-xs font-bold text-gray-500">{{ $k->kamar_count ?? 0 }} Kamar</span>
+                                <span class="text-xs font-black text-gray-500">{{ $k->kamar_count ?? 0 }} Kamar</span>
                             </div>
                         </div>
                         <div class="text-right ml-4">
@@ -439,7 +439,7 @@
                     } mr-3"></i>
                             <span>${message}</span>
                         </div>
-                        <button onclick="this.parentElement.remove()" class="ml-4 text-slate-400 hover:text-white">
+                        <button onclick="this.parentElement.remove()" class="ml-4 text-gray-600 hover:text-white">
                             <i class="fas fa-times"></i>
                         </button>
                     `;
@@ -517,7 +517,7 @@
                                         <div class="text-emerald-400 text-lg mb-1 text-center">
                                             <i class="fas fa-map-marker-alt"></i>
                                         </div>
-                                        <div class="font-medium text-black">📍 Lokasi Anda</div>
+                                        <div class="font-bold text-black">📍 Lokasi Anda</div>
                                     </div>
                                 `);
                         } else {
@@ -674,16 +674,16 @@
             function createKosPopupContent(kos) {
                 return `
                         <div class="p-3" style="min-width: 250px; background: #1e293b; color: #e2e8f0;">
-                            <h3 class="font-bold text-lg text-white mb-2">${kos.nama}</h3>
-                            <p class="text-sm text-slate-400 mb-3">${kos.alamat}</p>
+                            <h3 class="font-black text-lg text-white mb-2">${kos.nama}</h3>
+                            <p class="text-sm text-gray-600 mb-3">${kos.alamat}</p>
                             <div class="flex items-center gap-2 mb-3">
-                                <span class="px-2 py-1 text-xs rounded-full 
-                                    ${kos.jenis == 'putra' ? 'bg-blue-900/30 text-blue-300' :
+                                <span class="px-2 py-1 text-xs  
+                                    ${kos.jenis == 'putra' ? 'bg-blue-900/30 text-black' :
                         (kos.jenis == 'putri' ? 'bg-pink-900/30 text-pink-300' :
                             'bg-purple-900/30 text-purple-300')}">
                                     ${kos.jenis.charAt(0).toUpperCase() + kos.jenis.slice(1)}
                                 </span>
-                                <span class="px-2 py-1 text-xs rounded-full bg-emerald-900/30 text-emerald-300">
+                                <span class="px-2 py-1 text-xs  bg-emerald-900/30 text-emerald-300">
                                     ${kos.tipe.charAt(0).toUpperCase() + kos.tipe.slice(1)}
                                 </span>
                             </div>
@@ -692,24 +692,24 @@
                                 <div class="flex justify-between items-center">
                                     <div>
                                         ${kos.minHarga > 0 ?
-                        `<span class="text-sm font-bold text-white">
+                        `<span class="text-sm font-black text-white">
                                                 Mulai Rp ${kos.minHarga.toLocaleString('id-ID')}
                                             </span>` :
-                        `<span class="text-sm font-bold text-red-400">
+                        `<span class="text-sm font-black text-red-400">
                                                 Kamar tidak tersedia
                                             </span>`
                     }
                                     </div>
-                                    <span class="text-xs text-slate-400">${kos.kamarCount} Kamar</span>
+                                    <span class="text-xs text-gray-600">${kos.kamarCount} Kamar</span>
                                 </div>
                                 <div class="grid grid-cols-2 gap-2 mt-2">
                                     <a href="${kos.detailUrl}" 
-                                    class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-3 py-2 rounded-lg text-sm transition-all duration-300 inline-flex items-center justify-center shadow hover:shadow-md" style="color: white !important;">
+                                    class="bg-yellow-400 hover:bg-yellow-500  text-white px-3 py-2  text-sm transition-all duration-300 inline-flex items-center justify-center shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000]" style="color: white !important;">
                                         <i class="fas fa-eye mr-1 text-xs"></i>
                                         Detail
                                     </a>
                                     <button onclick="window.showRouteToKos(${kos.lat}, ${kos.lng}, '${kos.nama.replace(/'/g, "\\'")}', '${kos.alamat.replace(/'/g, "\\'")}')" 
-                                    class="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white px-3 py-2 rounded-lg text-sm transition-all duration-300 inline-flex items-center justify-center shadow hover:shadow-md">
+                                    class="bg-yellow-400 hover:bg-yellow-500  text-white px-3 py-2  text-sm transition-all duration-300 inline-flex items-center justify-center shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000]">
                                         <i class="fas fa-route mr-1 text-xs"></i>
                                         Rute
                                     </button>
@@ -857,18 +857,18 @@
                 // Add each nearby kos
                 nearbyKos.forEach(kos => {
                     const kosElement = document.createElement('div');
-                    kosElement.className = 'bg-white border border-slate-200 rounded-xl p-4 hover:border-emerald-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 card-hover';
+                    kosElement.className = 'bg-white border-2 border-black  p-4 hover:border-emerald-300 transition-all duration-300 hover:shadow-[3px_3px_0px_#000] hover:-translate-y-1 card-hover';
                     kosElement.innerHTML = `
                             <div class="flex items-start justify-between">
                                 <div class="flex-1">
-                                    <h3 class="font-semibold text-slate-900 mb-2">${kos.nama}</h3>
-                                    <p class="text-sm text-slate-500 mb-3">${kos.alamat}</p>
+                                    <h3 class="font-black text-black mb-2">${kos.nama}</h3>
+                                    <p class="text-sm text-gray-600 mb-3">${kos.alamat}</p>
                                     <div class="flex items-center gap-3">
-                                        <span class="text-xs px-2 py-1 rounded-full ${kos.jenis == 'putra' ? 'bg-blue-50 text-blue-700 border border-blue-100' : (kos.jenis == 'putri' ? 'bg-pink-50 text-pink-700 border border-pink-100' : 'bg-purple-50 text-purple-700 border border-purple-100')}">
+                                        <span class="text-xs px-2 py-1  ${kos.jenis == 'putra' ? 'bg-blue-50 text-blue-700 border border-blue-100' : (kos.jenis == 'putri' ? 'bg-pink-50 text-pink-700 border border-pink-100' : 'bg-purple-50 text-purple-700 border border-purple-100')}">
                                             ${kos.jenis.charAt(0).toUpperCase() + kos.jenis.slice(1)}
                                         </span>
-                                        <span class="text-xs text-slate-400">${kos.kamarCount} Kamar</span>
-                                        <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full border border-emerald-100">
+                                        <span class="text-xs text-gray-600">${kos.kamarCount} Kamar</span>
+                                        <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-1  border border-emerald-100">
                                             <i class="fas fa-ruler mr-1"></i>
                                             ${formatDistance(kos.distance)}
                                         </span>
@@ -877,22 +877,22 @@
                                 <div class="text-right ml-4">
                                     <div class="mb-2">
                                         ${kos.minHarga > 0 ?
-                            `<span class="text-sm font-bold text-slate-900">
+                            `<span class="text-sm font-black text-black">
                                                 Rp ${kos.minHarga.toLocaleString('id-ID')}
                                             </span>` :
-                            `<span class="text-sm font-bold text-rose-500">
+                            `<span class="text-sm font-black text-rose-500">
                                                 Kamar tidak tersedia
                                             </span>`
                         }
                                     </div>
                                     <div class="flex flex-col space-y-1">
                                         <a href="${kos.detailUrl}" 
-                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm transition-all duration-300 shadow-sm hover:shadow-md">
+                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white  text-sm transition-all duration-300 shadow-[2px_2px_0px_#000] hover:shadow-md">
                                             <i class="fas fa-eye mr-1 text-xs"></i>
                                             Detail
                                         </a>
                                         <button onclick="window.showRouteToKos(${kos.lat}, ${kos.lng}, '${kos.nama.replace(/'/g, "\\'")}', '${kos.alamat.replace(/'/g, "\\'")}')" 
-                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-sm transition-all duration-300 shadow-sm hover:shadow-md">
+                                        class="inline-flex items-center justify-center px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white  text-sm transition-all duration-300 shadow-[2px_2px_0px_#000] hover:shadow-md">
                                             <i class="fas fa-route mr-1 text-xs"></i>
                                             Rute
                                         </button>
@@ -1018,8 +1018,8 @@
                                     <div class="text-emerald-400 text-lg mb-1">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
-                                    <div class="font-medium text-black">📍 Lokasi Anda Sekarang</div>
-                                    <div class="text-xs text-slate-400 mt-1">${lat.toFixed(6)}, ${lng.toFixed(6)}</div>
+                                    <div class="font-bold text-black">📍 Lokasi Anda Sekarang</div>
+                                    <div class="text-xs text-gray-600 mt-1">${lat.toFixed(6)}, ${lng.toFixed(6)}</div>
                                 </div>
                             `).openPopup();
 

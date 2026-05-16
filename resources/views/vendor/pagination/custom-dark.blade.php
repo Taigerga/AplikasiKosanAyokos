@@ -4,14 +4,14 @@
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <li>
-                    <span class="px-3 py-1.5 border border-white/20 text-white/50 rounded-lg cursor-not-allowed">
+                    <span class="px-3 py-1.5 border-2 border-black bg-gray-200 text-gray-500 font-black cursor-not-allowed">
                         <i class="fas fa-chevron-left"></i>
                     </span>
                 </li>
             @else
                 <li>
                     <a href="{{ $paginator->previousPageUrl() }}" 
-                       class="px-3 py-1.5 border border-white/20 text-white rounded-lg hover:border-sky-500 hover:text-sky-400 transition">
+                       class="px-3 py-1.5 border-2 border-black bg-white text-black font-black shadow-[2px_2px_0px_#000] hover:bg-yellow-400 hover:shadow-[3px_3px_0px_#000] transition-all">
                         <i class="fas fa-chevron-left"></i>
                     </a>
                 </li>
@@ -22,7 +22,7 @@
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
                     <li>
-                        <span class="px-3 py-1.5 text-white/50">...</span>
+                        <span class="px-3 py-1.5 text-gray-600 font-black">...</span>
                     </li>
                 @endif
 
@@ -31,14 +31,14 @@
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
                             <li>
-                                <span class="px-3 py-1.5 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 text-white rounded-lg font-medium">
+                                <span class="px-3 py-1.5 bg-yellow-400 border-2 border-black text-black font-black shadow-[2px_2px_0px_#000]">
                                     {{ $page }}
                                 </span>
                             </li>
                         @else
                             <li>
                                 <a href="{{ $url }}" 
-                                   class="px-3 py-1.5 border border-white/20 text-white rounded-lg hover:border-sky-500 hover:text-sky-400 transition">
+                                   class="px-3 py-1.5 border-2 border-black bg-white text-black font-black shadow-[2px_2px_0px_#000] hover:bg-yellow-400 hover:shadow-[3px_3px_0px_#000] transition-all">
                                     {{ $page }}
                                 </a>
                             </li>
@@ -51,13 +51,13 @@
             @if ($paginator->hasMorePages())
                 <li>
                     <a href="{{ $paginator->nextPageUrl() }}" 
-                       class="px-3 py-1.5 border border-white/20 text-white rounded-lg hover:border-sky-500 hover:text-sky-400 transition">
+                       class="px-3 py-1.5 border-2 border-black bg-white text-black font-black shadow-[2px_2px_0px_#000] hover:bg-yellow-400 hover:shadow-[3px_3px_0px_#000] transition-all">
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 </li>
             @else
                 <li>
-                    <span class="px-3 py-1.5 border border-white/20 text-white/50 rounded-lg cursor-not-allowed">
+                    <span class="px-3 py-1.5 border-2 border-black bg-gray-200 text-gray-500 font-black cursor-not-allowed">
                         <i class="fas fa-chevron-right"></i>
                     </span>
                 </li>

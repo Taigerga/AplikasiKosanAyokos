@@ -39,18 +39,18 @@
                 <div class="relative">
                     @if($penghuni->foto_profil)
                         <img src="{{ Storage::url($penghuni->foto_profil) }}" alt="Foto Profil"
-                            class="w-32 h-32 md:w-40 md:h-40  border-4 border-dark-card shadow-[4px_4px_0px_#000] object-cover">
+                            class="w-32 h-32 md:w-40 md:h-40  border-4 border-black shadow-[4px_4px_0px_#000] object-cover">
                     @else
                         <div
-                            class="w-32 h-32 md:w-40 md:h-40  border-4 border-dark-card bg-emerald-100 shadow-[4px_4px_0px_#000] flex items-center justify-center">
+                            class="w-32 h-32 md:w-40 md:h-40  border-4 border-black bg-emerald-100 shadow-[4px_4px_0px_#000] flex items-center justify-center">
                             <span
-                                class="text-4xl md:text-5xl text-green-300 font-black">{{ substr($penghuni->nama, 0, 1) }}</span>
+                                class="text-4xl md:text-5xl text-black font-black">{{ substr($penghuni->nama, 0, 1) }}</span>
                         </div>
                     @endif
 
                     <!-- Upload Button -->
                     <button onclick="openUploadModal()"
-                        class="absolute -bottom-2 -right-2 bg-lime-400 border-2 border-black shadow-[2px_2px_0px_#000] text-black p-2 md:p-3  hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-[3px_3px_0px_#000] hover:scale-110">
+                        class="absolute -bottom-2 -right-2 bg-lime-400 border-2 border-black shadow-[2px_2px_0px_#000] text-black p-2 md:p-3  hover:bg-yellow-500  transition-all duration-300 shadow-[3px_3px_0px_#000] hover:scale-110">
                         <i class="fas fa-camera text-sm md:text-base"></i>
                     </button>
                 </div>
@@ -64,12 +64,12 @@
                     <div class="flex items-center space-x-3 mb-2">
                         <h2 class="text-xl md:text-2xl font-black text-black">{{ $penghuni->nama }}</h2>
                         @if($penghuni->status_penghuni == 'aktif')
-                            <span class="px-2 py-1 bg-green-900/30 text-green-300 text-xs  font-bold">
+                            <span class="px-2 py-1 bg-green-900/30 text-black text-xs  font-black">
                                 <i class="fas fa-check-circle mr-1"></i>
                                 Aktif
                             </span>
                         @elseif($penghuni->status_penghuni == 'calon')
-                            <span class="px-2 py-1 bg-yellow-900/30 text-yellow-300 text-xs  font-bold">
+                            <span class="px-2 py-1 bg-yellow-900/30 text-black text-xs  font-black">
                                 <i class="fas fa-clock mr-1"></i>
                                 Calon
                             </span>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="flex space-x-3">
                     <a href="{{ route('penghuni.profile.edit') }}"
-                        class="px-4 py-2 md:px-5 md:py-2.5 bg-lime-400 border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:from-green-600 hover:to-emerald-600 transition-all duration-300 flex items-center shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:-translate-y-1">
+                        class="px-4 py-2 md:px-5 md:py-2.5 bg-lime-400 border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:bg-yellow-500  transition-all duration-300 flex items-center shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:-translate-y-1">
                         <i class="fas fa-edit mr-2"></i>
                         Edit Profil
                     </a>
@@ -115,7 +115,7 @@
                             <i class="fas fa-file-contract text-green-400 text-lg md:text-xl"></i>
                         </div>
                         <div>
-                            <p class="text-xs md:text-sm text-green-300">Kontrak Aktif</p>
+                            <p class="text-xs md:text-sm text-black">Kontrak Aktif</p>
                             <p class="text-xl md:text-2xl font-black text-black">{{ $kontrakAktif }}</p>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                             <i class="fas fa-star text-yellow-400 text-lg md:text-xl"></i>
                         </div>
                         <div>
-                            <p class="text-xs md:text-sm text-yellow-300">Total Review</p>
+                            <p class="text-xs md:text-sm text-black">Total Review</p>
                             <p class="text-xl md:text-2xl font-black text-black">{{ $totalReview }}</p>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                             <i class="fas fa-credit-card text-blue-400 text-lg md:text-xl"></i>
                         </div>
                         <div>
-                            <p class="text-xs md:text-sm text-blue-300">Pembayaran Lunas</p>
+                            <p class="text-xs md:text-sm text-black">Pembayaran Lunas</p>
                             <p class="text-xl md:text-2xl font-black text-black">{{ $totalPembayaran }}</p>
                         </div>
                     </div>
@@ -175,12 +175,12 @@
                     <div class="space-y-4">
                         <div>
                             <p class="text-sm text-gray-600">Username</p>
-                            <p class="font-bold text-black">{{ $user->username }}</p>
+                            <p class="font-black text-black">{{ $user->username }}</p>
                         </div>
 
                         <div>
                             <p class="text-sm text-gray-600">Jenis Kelamin</p>
-                            <p class="font-bold text-black">
+                            <p class="font-black text-black">
                                 @if($penghuni->jenis_kelamin == 'L')
                                     <i class="fas fa-mars text-blue-400 mr-1"></i>Laki-laki
                                 @elseif($penghuni->jenis_kelamin == 'P')
@@ -193,7 +193,7 @@
 
                         <div>
                             <p class="text-sm text-gray-600">Tanggal Lahir</p>
-                            <p class="font-bold text-black">
+                            <p class="font-black text-black">
                                 {{ $penghuni->tanggal_lahir ? \Carbon\Carbon::parse($penghuni->tanggal_lahir)->format('d M Y') : '<span class="text-gray-600">Belum diisi</span>' }}
                             </p>
                         </div>
@@ -209,21 +209,21 @@
                     <div class="space-y-4">
                         <div>
                             <p class="text-sm text-gray-600">Nomor HP</p>
-                            <p class="font-bold text-black flex items-center">
+                            <p class="font-black text-black flex items-center">
                                 <i class="fas fa-phone text-green-400 mr-2"></i>
                                 {{ $penghuni->no_hp }}
                             </p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-600">Email</p>
-                            <p class="font-bold text-black flex items-center">
+                            <p class="font-black text-black flex items-center">
                                 <i class="fas fa-envelope text-green-400 mr-2"></i>
                                 {{ $penghuni->email }}
                             </p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-600">Alamat</p>
-                            <p class="font-bold text-black">
+                            <p class="font-black text-black">
                                 {{ $penghuni->alamat ?: '<span class="text-gray-600">Belum diisi</span>' }}
                             </p>
                         </div>
@@ -239,14 +239,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <p class="text-sm text-gray-600">Nama Bank</p>
-                            <p class="font-bold text-black flex items-center">
+                            <p class="font-black text-black flex items-center">
                                 <i class="fas fa-money-check mr-2 text-green-400"></i>
                                 {{ $penghuni->nama_bank ?: 'Belum diisi' }}
                             </p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-600">Nomor Rekening</p>
-                            <p class="font-bold text-black flex items-center">
+                            <p class="font-black text-black flex items-center">
                                 <i class="fas fa-credit-card mr-2 text-blue-400"></i>
                                 {{ $penghuni->nomor_rekening ?: 'Belum diisi' }}
                             </p>
@@ -265,20 +265,20 @@
                             <div class="space-y-4">
                                 <div>
                                     <p class="text-sm text-gray-600">Role</p>
-                                    <p class="font-bold text-black">
+                                    <p class="font-black text-black">
                                         <span
-                                            class="px-3 py-1  text-sm font-bold bg-green-900/30 text-green-300">
+                                            class="px-3 py-1  text-sm font-black bg-green-900/30 text-black">
                                             {{ ucfirst($penghuni->role) }}
                                         </span>
                                     </p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-600">Status Akun</p>
-                                    <p class="font-bold text-black">
+                                    <p class="font-black text-black">
                                         <span
-                                            class="px-3 py-1  text-sm font-bold 
-                                            {{ $penghuni->status_penghuni == 'aktif' ? 'bg-green-900/30 text-green-300' :
-                        ($penghuni->status_penghuni == 'calon' ? 'bg-yellow-900/30 text-yellow-300' : 'bg-rose-900/30 text-rose-300') }}">
+                                            class="px-3 py-1  text-sm font-black 
+                                            {{ $penghuni->status_penghuni == 'aktif' ? 'bg-green-900/30 text-black' :
+                        ($penghuni->status_penghuni == 'calon' ? 'bg-yellow-900/30 text-black' : 'bg-rose-900/30 text-rose-300') }}">
                                             {{ ucfirst($penghuni->status_penghuni) }}
                                         </span>
                                     </p>
@@ -289,14 +289,14 @@
                             <div class="space-y-4">
                                 <div>
                                     <p class="text-sm text-gray-600">Terakhir Login</p>
-                                    <p class="font-bold text-black">
+                                    <p class="font-black text-black">
                                         <i class="fas fa-clock text-gray-600 mr-2"></i>
                                         {{ $penghuni->updated_at->format('d M Y H:i') }}
                                     </p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-600">Member Sejak</p>
-                                    <p class="font-bold text-black">
+                                    <p class="font-black text-black">
                                         <i class="fas fa-calendar-check text-gray-600 mr-2"></i>
                                         {{ $penghuni->created_at->format('d M Y') }}
                                     </p>
@@ -318,7 +318,7 @@
                     <i class="fas fa-file-contract text-green-400"></i>
                 </div>
                 <div>
-                    <h4 class="font-bold text-black group-hover:text-green-300">Kontrak Saya</h4>
+                    <h4 class="font-black text-black group-hover:text-black">Kontrak Saya</h4>
                     <p class="text-xs text-gray-600">{{ $kontrakAktif ?? 0 }} kontrak aktif</p>
                 </div>
             </div>
@@ -331,7 +331,7 @@
                     <i class="fas fa-credit-card text-blue-400"></i>
                 </div>
                 <div>
-                    <h4 class="font-bold text-black group-hover:text-blue-300">Pembayaran</h4>
+                    <h4 class="font-black text-black group-hover:text-black">Pembayaran</h4>
                     <p class="text-xs text-gray-600">{{ $totalPembayaran ?? 0 }} pembayaran lunas</p>
                 </div>
             </div>
@@ -344,7 +344,7 @@
                     <i class="fas fa-star text-yellow-400"></i>
                 </div>
                 <div>
-                    <h4 class="font-bold text-black group-hover:text-yellow-300">Review Saya</h4>
+                    <h4 class="font-black text-black group-hover:text-black">Review Saya</h4>
                     <p class="text-xs text-gray-600">{{ $totalReview ?? 0 }} review ditulis</p>
                 </div>
             </div>
@@ -367,9 +367,9 @@
 
                         <div class="text-center mb-4">
                             <label for="photoInput" 
-                                   class="block w-full h-40 border-2 border-dashed border-slate-700  flex items-center justify-center cursor-pointer hover:border-green-500 transition">
+                                   class="block w-full h-40 border-2 border-dashed border-black  flex items-center justify-center cursor-pointer hover:border-green-500 transition">
                                 <div id="photoPreview"
-                            class="w-32 h-32 mx-auto  border-2 border-dashed border-slate-700 bg-slate-900/50 flex items-center justify-center mb-4">
+                            class="w-32 h-32 mx-auto  border-2 border-dashed border-black bg-gray-100 flex items-center justify-center mb-4">
                             <i class="fas fa-user-circle text-4xl text-gray-600"></i>
                         </div>
                         <p class="text-sm text-gray-600">Pratinjau foto profil</p>
@@ -379,9 +379,9 @@
                     <div class="relative">
                         <input type="file" name="foto_profil" id="photoInput" accept="image/*" class="hidden" required>
                         <label for="photoInput"
-                            class="block w-full px-4 py-3 border-2 border-dashed border-slate-700  text-center cursor-pointer hover:border-green-500 transition">
+                            class="block w-full px-4 py-3 border-2 border-dashed border-black  text-center cursor-pointer hover:border-green-500 transition">
                             <i class="fas fa-cloud-upload-alt text-green-400 text-xl mb-2"></i>
-                            <p class="text-black font-bold">Pilih Foto</p>
+                            <p class="text-black font-black">Pilih Foto</p>
                             <p class="text-xs text-gray-600 mt-1">Format: JPG, PNG, GIF. Max: 2MB</p>
                         </label>
                     </div>
@@ -389,11 +389,11 @@
 
                 <div class="flex justify-end space-x-3">
                     <button type="button" onclick="closeUploadModal()"
-                        class="px-4 py-2.5 border border-slate-700 text-gray-600  hover:text-black hover:border-slate-700/80 transition">
+                        class="px-4 py-2.5 border-2 border-black text-gray-600  hover:text-black hover:border-black/80 transition">
                         Batal
                     </button>
                     <button type="submit"
-                        class="px-4 py-2.5 bg-lime-400 border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:from-green-600 hover:to-emerald-600 transition-all duration-300 flex items-center">
+                        class="px-4 py-2.5 bg-lime-400 border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:bg-yellow-500  transition-all duration-300 flex items-center">
                         <i class="fas fa-upload mr-2"></i>
                         Upload
                     </button>
@@ -457,7 +457,7 @@
                     .then(data => {
                         if (data.success) {
                             submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Success!';
-                            submitBtn.classList.remove('from-green-500', 'to-emerald-500', 'hover:from-green-600', 'hover:to-emerald-600');
+                            submitBtn.classList.remove('from-green-500', 'to-emerald-500', 'hover:bg-yellow-500', '');
                             submitBtn.classList.add('from-green-500', 'to-green-600');
 
                             setTimeout(() => {

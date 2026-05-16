@@ -47,7 +47,7 @@
         
 
     @if($errors->any())
-        <div class="mb-6 p-4 bg-red-400 border-2 border-black text-black font-bold shadow-[3px_3px_0px_#000]">
+        <div class="mb-6 p-4 bg-red-400 border-2 border-black text-black font-black shadow-[3px_3px_0px_#000]">
             <div class="flex items-start space-x-3">
                 <div class="p-2 bg-red-400 border-2 border-black">
                     <i class="fas fa-exclamation-circle text-black"></i>
@@ -68,13 +68,13 @@
     @endif
 
     @if(session('success'))
-        <div class="bg-emerald-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
+        <div class="bg-emerald-400 border-2 border-black text-black font-black px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
             <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
         </div>
     @endif
 
     @if(session('error'))
-        <div class="bg-red-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
+        <div class="bg-red-400 border-2 border-black text-black font-black px-4 py-3 shadow-[3px_3px_0px_#000] mb-6">
             <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
         </div>
     @endif
@@ -103,7 +103,7 @@
                                 <div class="relative">
                                     <i class="fas fa-home absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                     <select name="id_kos" 
-                                            class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition"
+                                            class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition"
                                             required>
                                         <option value="">Pilih Kos...</option>
                                         @foreach($kos as $k)
@@ -127,7 +127,7 @@
                                     <input type="text" 
                                            name="nomor_kamar" 
                                            value="{{ old('nomor_kamar') }}" 
-                                           class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
+                                           class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
                                            placeholder="A1, B2, 101"
                                            required 
                                            maxlength="10">
@@ -183,7 +183,7 @@
                                     <input type="number" 
                                            name="harga" 
                                            value="{{ old('harga') }}" 
-                                           class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
+                                           class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
                                            placeholder="1500000"
                                            required 
                                            min="0">
@@ -201,7 +201,7 @@
                                     <input type="text" 
                                            name="luas_kamar" 
                                            value="{{ old('luas_kamar') }}" 
-                                           class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
+                                           class="w-full pl-12 pr-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white transition"
                                            placeholder="3x4, 4x4"
                                            required
                                            maxlength="20">
@@ -442,7 +442,7 @@
                     Batal
                 </button>
                 <button type="button" id="confirmResetBtn"
-                        class="flex-1 px-6 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 text-white font-black border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] transition uppercase tracking-wide">
+                        class="flex-1 px-6 py-2.5 bg-yellow-400 text-white font-black border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] transition uppercase tracking-wide">
                     Ya, Reset Form
                 </button>
             </div>

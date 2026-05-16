@@ -10,7 +10,7 @@
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
                     <a href="{{ route('penghuni.dashboard') }}"
-                        class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
+                        class="inline-flex items-center text-sm font-black text-gray-600 hover:text-black transition-colors">
                         <i class="fas fa-gauge mr-2"></i>
                         Dashboard
                     </a>
@@ -19,7 +19,7 @@
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-gray-500 text-xs mx-2"></i>
                         <a href="{{ route('penghuni.pembayaran.index') }}"
-                            class="inline-flex items-center text-sm font-bold text-black">
+                            class="inline-flex items-center text-sm font-black text-black">
                             <i class="fas fa-credit-card  mr-2"></i>
                             Riwayat Pembayaran
                         </a>
@@ -76,7 +76,7 @@
                 <h2 class="text-xl font-black text-black flex items-center">
                     <i class="fas fa-file-contract text-black mr-3"></i>
                     Kontrak Aktif
-                    <span class="ml-3 bg-blue-50 text-blue-600 px-3 py-1  text-sm font-bold">
+                    <span class="ml-3 bg-blue-50 text-blue-600 px-3 py-1  text-sm font-black">
                         {{ $kontrakAktif->count() }} kontrak
                     </span>
                 </h2>
@@ -84,7 +84,7 @@
 
             <div class="space-y-4">
                 @foreach($kontrakAktif as $kontrak)
-                    <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-5 hover:border-emerald-500/50 transition-all duration-300">
+                    <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-5 hover:border-black transition-all duration-300">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="flex items-start space-x-3">
                                 <div class="w-10 h-10 bg-gray-100 border-2 border-black  flex items-center justify-center">
@@ -92,7 +92,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-600 mb-1">Kos</p>
-                                    <p class="font-bold text-black truncate">{{ $kontrak->kos->nama_kos }}</p>
+                                    <p class="font-black text-black truncate">{{ $kontrak->kos->nama_kos }}</p>
                                 </div>
                             </div>
 
@@ -102,7 +102,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-600 mb-1">Harga Sewa</p>
-                                    <p class="font-bold text-black">Rp
+                                    <p class="font-black text-black">Rp
                                         {{ number_format($kontrak->harga_sewa, 0, ',', '.') }}/{{ $kontrak->unit_label_lower }}
                                     </p>
                                 </div>
@@ -114,7 +114,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-600 mb-1">Periode</p>
-                                    <p class="font-bold text-black">
+                                    <p class="font-black text-black">
                                         @if($kontrak->tanggal_mulai && $kontrak->tanggal_selesai)
                                             {{ $kontrak->tanggal_mulai->format('d M Y') }} -
                                             {{ $kontrak->tanggal_selesai->format('d M Y') }}
@@ -147,7 +147,7 @@
             </div>
             <h3 class="text-xl font-black text-black mb-2">Tidak Ada Kontrak Aktif</h3>
             <p class="text-gray-600 mb-4">Anda harus memiliki kontrak aktif untuk melakukan pembayaran.</p>
-            <a href="{{ route('public.kos.index') }}" class="text-blue-400 hover:text-blue-300 text-sm font-bold">
+            <a href="{{ route('public.kos.index') }}" class="text-blue-400 hover:text-black text-sm font-black">
                 <i class="fas fa-search mr-1"></i>
                 Cari kos sekarang
             </a>
@@ -168,37 +168,37 @@
                 <table class="w-full">
                     <thead class="bg-gray-100 border-2 border-black">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-calendar mr-2"></i>
                                     Bulan
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-money-bill-wave mr-2"></i>
                                     Jumlah
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-credit-card mr-2"></i>
                                     Metode
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-tag mr-2"></i>
                                     Status
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-clock mr-2"></i>
                                     Tanggal
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-cog mr-2"></i>
                                     Aksi
@@ -211,12 +211,12 @@
                             <tr class="hover:bg-gray-100 transition-colors">
                                 <td class="px-6 py-4">
                                     <div>
-                                        <div class="text-sm font-bold text-black">
+                                        <div class="text-sm font-black text-black">
                                             {{ \Carbon\Carbon::createFromFormat('Y-m', $bayar->bulan_tahun)->format('F Y') }}
                                         </div>
                                         @if($bayar->keterangan == 'Pembayaran di muka')
                                             <div class="mt-1">
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-orange-50 text-orange-600">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-black bg-orange-50 text-orange-600">
                                                     <i class="fas fa-rocket mr-1 text-xs"></i>
                                                     Advance
                                                 </span>
@@ -232,7 +232,7 @@
                                 </td>
 
                                 <td class="px-6 py-4">
-                                    <span class="inline-flex items-center px-3 py-1  text-xs font-bold bg-blue-50 text-blue-600 capitalize">
+                                    <span class="inline-flex items-center px-3 py-1  text-xs font-black bg-blue-50 text-blue-600 capitalize">
                                         <i class="fas {{ $bayar->metode_pembayaran == 'transfer' ? 'fa-university' :
                                         ($bayar->metode_pembayaran == 'cash' ? 'fa-money-bill' : 'fa-qrcode') }} mr-1 text-xs">
                                         </i>
@@ -241,7 +241,7 @@
                                 </td>
 
                                 <td class="px-6 py-4">
-                                    <span class="inline-flex items-center px-3 py-1  text-xs font-bold
+                                    <span class="inline-flex items-center px-3 py-1  text-xs font-black
                                         {{ $bayar->status_pembayaran == 'lunas' ? 'bg-emerald-50 text-emerald-600' :
                                         ($bayar->status_pembayaran == 'pending' ? 'bg-yellow-50 text-yellow-600' :
                                             ($bayar->status_pembayaran == 'terlambat' ? 'bg-rose-50 text-rose-600' :
@@ -269,7 +269,7 @@
 
                                 <td class="px-6 py-4">
                                     <a href="{{ route('penghuni.pembayaran.show', $bayar->id_pembayaran) }}"
-                                        class="inline-flex items-center px-3 py-1.5 bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black  text-sm font-bold hover:bg-emerald-500/30 transition-all duration-300">
+                                        class="inline-flex items-center px-3 py-1.5 bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black  text-sm font-black hover:bg-emerald-500/30 transition-all duration-300">
                                         <i class="fas fa-eye mr-1 text-xs"></i>
                                         Detail
                                     </a>

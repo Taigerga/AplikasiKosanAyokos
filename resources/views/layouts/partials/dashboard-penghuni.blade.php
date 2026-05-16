@@ -25,7 +25,7 @@
                 <!-- Notifications -->
                 <a href="{{ route('notifications.index') }}" class="relative p-2 text-black hover:text-yellow-500 transition-colors">
                     <i class="fas fa-bell text-lg"></i>
-                    <span id="notifBadge" class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 border border-black text-[10px] text-white font-black flex items-center justify-center hidden"></span>
+                    <span id="notifBadge" class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 border-2 border-black text-[10px] text-white font-black flex items-center justify-center hidden"></span>
                 </a>
 
                 <!-- Profile Menu -->
