@@ -1,0 +1,142 @@
+/* ===== penghuni/analisis/index.blade.php ===== */
+.chart-container {
+    position: relative;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+    height: 6px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.grid > div:hover {
+    transform: translateY(-3px);
+    transition: transform 0.3s ease;
+}
+
+/* ===== penghuni/reviews/create.blade.php ===== */
+.rating-star {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.rating-star:hover {
+    transform: scale(1.15);
+}
+
+textarea {
+    resize: none;
+}
+
+#char-count {
+    transition: color 0.2s ease;
+}
+
+textarea::-webkit-scrollbar {
+    width: 6px;
+}
+
+textarea::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== penghuni/reviews/edit.blade.php ===== */
+.rating-star {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rating-star:hover {
+    transform: scale(1.15);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-slideIn {
+    animation: slideIn 0.3s ease-out;
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+}
+
+input[type="checkbox"]:checked + div {
+    background-color: #f43f5e;
+    border-color: #f43f5e;
+}
+
+/* ===== penghuni/reviews/history.blade.php ===== */
+#image-modal img {
+    scrollbar-width: thin;
+    scrollbar-color: #475569 transparent;
+}
+
+#image-modal img::-webkit-scrollbar {
+    width: 8px;
+}
+
+#image-modal img::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#image-modal img::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 4px;
+}
+
+/* ===== penghuni/pembayaran/index.blade.php ===== */
+table {
+    min-width: 1000px;
+}
+
+@media (max-width: 1024px) {
+    table {
+        min-width: unset;
+    }
+}
+
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}

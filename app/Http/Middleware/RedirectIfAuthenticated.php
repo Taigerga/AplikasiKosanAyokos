@@ -21,17 +21,16 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                // Cek role user yang login
                 $user = Auth::guard($guard)->user();
-                
-                if ($guard === 'penghuni' || (isset($user->role) && $user->role === 'penghuni')) {
+
+                if ($user->role === 'penghuni') {
                     return redirect()->route('penghuni.dashboard');
                 }
-                
-                if ($guard === 'pemilik' || (isset($user->role) && $user->role === 'pemilik')) {
+
+                if ($user->role === 'pemilik') {
                     return redirect()->route('pemilik.dashboard');
                 }
-                
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }

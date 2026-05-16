@@ -1,17 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\{LoginController, RegisterController};
-use App\Http\Controllers\Public\{HomeController, KosController, PageController};
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Penghuni\{
+use App\Http\Controllers\Web\Auth\{LoginController, RegisterController};
+use App\Http\Controllers\Web\Public\{HomeController, KosController, PageController};
+use App\Http\Controllers\Web\ProfileController;
+use App\Http\Controllers\Web\NotificationController;
+use App\Http\Controllers\Web\Penghuni\{
     DashboardController as PenghuniDashboard,
     KontrakController as PenghuniKontrak,
     PembayaranController as PenghuniPembayaran,
     ReviewController as PenghuniReview,
     AnalisisController as PenghuniAnalisis
 };
-use App\Http\Controllers\Pemilik\{
+use App\Http\Controllers\Web\Pemilik\{
     DashboardController as PemilikDashboard,
     KontrakController as PemilikKontrak,
     PembayaranController as PemilikPembayaran,
@@ -69,15 +70,16 @@ Route::get('/files/{folder}/{filename}', function ($folder, $filename) {
  * -------------------------------------------------------------------------- */
 Route::prefix('test')->group(function () {
     Route::get('/auth', function () {
-        $penghuni = auth('penghuni')->check();
-        $pemilik  = auth('pemilik')->check();
+        if (auth()->check()) {
+            $user = auth()->user();
+            return [
+                'role' => $user->role,
+                'user' => $user->only(['id', 'username', 'role']),
+            ];
+        }
 
         return [
-            'penghuni' => $penghuni ? 'Logged in' : 'Not logged in',
-            'pemilik'  => $pemilik  ? 'Logged in' : 'Not logged in',
-            'user'     => $penghuni
-                ? auth('penghuni')->user()->only(['nama', 'email'])
-                : ($pemilik ? auth('pemilik')->user()->only(['nama', 'email']) : null)
+            'status' => 'Not logged in',
         ];
     });
 
@@ -86,17 +88,29 @@ Route::prefix('test')->group(function () {
 });
 
 Route::get('/redirect', function () {
-    return auth('penghuni')->check() ? redirect()->route('penghuni.dashboard')
-         : (auth('pemilik')->check()  ? redirect()->route('pemilik.dashboard')
-         : redirect('/'));
+    if (auth()->check()) {
+        $success = session('success');
+        $route = auth()->user()->role === 'penghuni' ? route('penghuni.dashboard')
+               : (auth()->user()->role === 'pemilik' ? route('pemilik.dashboard')
+               : '/');
+        return redirect($route)->with('success', $success);
+    }
+    return redirect('/');
 })->name('redirect');
+
+/* --------------------------------------------------------------------------
+ *  NOTIFICATIONS (auth)
+ * -------------------------------------------------------------------------- */
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+});
 
 /* --------------------------------------------------------------------------
  *  PENGHUNI ROUTES
  * -------------------------------------------------------------------------- */
 Route::prefix('penghuni')->as('penghuni.')->group(function () {
     /* --- protected routes --- */
-    Route::middleware('auth:penghuni')->group(function () {
+    Route::middleware(['auth', 'penghuni'])->group(function () {
         Route::get('/dashboard', [PenghuniDashboard::class, 'index'])->name('dashboard');
 
         // Kontrak
@@ -141,7 +155,7 @@ Route::prefix('penghuni')->as('penghuni.')->group(function () {
  * -------------------------------------------------------------------------- */
 Route::prefix('pemilik')->as('pemilik.')->group(function () {
     /* --- protected routes --- */
-    Route::middleware('auth:pemilik')->group(function () {
+    Route::middleware(['auth', 'pemilik'])->group(function () {
         Route::get('/dashboard', [PemilikDashboard::class, 'index'])->name('dashboard');
 
         // Kontrak
@@ -191,13 +205,15 @@ Route::prefix('pemilik')->as('pemilik.')->group(function () {
  /* --------------------------------------------------------------------------
  *  HELPERS
  * -------------------------------------------------------------------------- */
-function testMail(string $mailable, int $id): string
-{
-    $kontrak = \App\Models\KontrakSewa::find($id);
-    if (!$kontrak) return 'Kontrak tidak ditemukan';
+if (!function_exists('testMail')) {
+    function testMail(string $mailable, int $id): string
+    {
+        $kontrak = \App\Models\KontrakSewa::find($id);
+        if (!$kontrak) return 'Kontrak tidak ditemukan';
 
-    \Mail::to('test@example.com')->send(new $mailable($kontrak));
-    $short = class_basename($mailable);
-    return "Email {$short} berhasil dikirim!";
+        \Mail::to('test@example.com')->send(new $mailable($kontrak));
+        $short = class_basename($mailable);
+        return "Email {$short} berhasil dikirim!";
+    }
 }
 

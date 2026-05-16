@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\NotificationEmailService;
+use App\Services\Notification\KontrakNotificationService;
 use Illuminate\Console\Command;
 
 class SendEmailNotifications extends Command
@@ -10,20 +10,17 @@ class SendEmailNotifications extends Command
     protected $signature = 'notifications:send-emails';
     protected $description = 'Kirim notifikasi email untuk kontrak dan tenggat waktu';
 
-    protected $emailService;
-
-    public function __construct(NotificationEmailService $emailService)
-    {
+    public function __construct(
+        protected KontrakNotificationService $notificationService
+    ) {
         parent::__construct();
-        $this->emailService = $emailService;
     }
 
     public function handle()
     {
         $this->info('Memulai pengiriman notifikasi email...');
         
-        // Kirim notifikasi tenggat waktu
-        $this->emailService->checkAndSendTenggatWaktuNotifications();
+        $this->notificationService->checkAndSendTenggatWaktuNotifications();
         
         $this->info('Notifikasi email telah dikirim.');
         

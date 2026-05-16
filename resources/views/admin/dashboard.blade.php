@@ -4,8 +4,18 @@
 
 @section('content')
 <div class="space-y-6">
+    @if(session('success'))
+        <div class="bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 text-emerald-300 px-4 py-3 rounded-xl mb-6">
+            <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="bg-rose-500/20 backdrop-blur-sm border border-rose-500/20 text-rose-300 px-4 py-3 rounded-xl mb-6">
+            <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
+        </div>
+    @endif
     <!-- Welcome Section -->
-    <div class="bg-gradient-to-br from-red-900/30 to-pink-900/30 rounded-2xl p-6 border border-red-700/50">
+    <div class="bg-gradient-to-br from-rose-900/30 to-pink-900/30 rounded-2xl p-6 border border-rose-700/50">
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-white mb-2">Selamat Datang, {{ Auth::user()->nama ?? Auth::user()->name }}!</h1>
@@ -89,12 +99,12 @@
 
         <div class="bg-slate-800 rounded-xl p-6 border border-slate-700">
             <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-user-shield text-red-400"></i>
+                <div class="w-10 h-10 bg-rose-500/20 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-user-shield text-rose-400"></i>
                 </div>
                 <h3 class="text-lg font-semibold text-white">Admin</h3>
             </div>
-            <p class="text-3xl font-bold text-red-400">{{ $stats['total_admin'] }}</p>
+            <p class="text-3xl font-bold text-rose-400">{{ $stats['total_admin'] }}</p>
         </div>
     </div>
 

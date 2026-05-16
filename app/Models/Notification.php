@@ -4,44 +4,55 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Notification extends Model
 {
     use HasFactory;
 
     protected $table = 'notifications';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_notifikasi';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id',
+        'id_notifikasi',
+        'id_user',
         'type',
-        'notifiable_type',
-        'notifiable_id',
-        'data',
-        'read_at'
+        'title',
+        'body',
+        'link',
+        'is_read',
     ];
 
     protected $casts = [
-        'data' => 'array',
-        'read_at' => 'datetime',
+        'is_read' => 'boolean',
         'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+        'updated_at' => 'datetime',
     ];
 
-    public function notifiable()
+    public static function boot()
     {
-        return $this->morphTo();
+        parent::boot();
+        static::creating(function ($model) {
+            if (empty($model->id_notifikasi)) {
+                $model->id_notifikasi = (string) Str::uuid();
+            }
+        });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
     }
 
     public function scopeUnread($query)
     {
-        return $query->whereNull('read_at');
+        return $query->where('is_read', false);
     }
 
     public function markAsRead()
     {
-        $this->update(['read_at' => now()]);
+        $this->update(['is_read' => true]);
     }
 }

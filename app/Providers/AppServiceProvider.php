@@ -3,19 +3,15 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\ALLNotificationService;
-use App\Services\NotificationService;
+use App\Services\Notification\KontrakNotificationService;
+use App\Services\Notification\PembayaranNotificationService;
 
 class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton(ALLNotificationService::class, function ($app) {
-            return new ALLNotificationService();
-        });
-
-        $this->app->singleton(NotificationService::class, function ($app) {
-            return new NotificationService();
+        $this->app->singleton(PembayaranNotificationService::class, function ($app) {
+            return new PembayaranNotificationService();
         });
     }
 

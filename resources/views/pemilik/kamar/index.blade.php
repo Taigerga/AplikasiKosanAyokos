@@ -5,21 +5,21 @@
 @section('content')
     <div class="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 space-y-6">
         <!-- Breadcrumb -->
-        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
                         <a href="{{ route('pemilik.dashboard') }}"
-                            class="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white transition-colors">
+                            class="inline-flex items-center text-sm font-black text-gray-700 hover:text-black transition-colors">
                             <i class="fas fa-home mr-2"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="inline-flex items-center">
                         <div class="flex items-center">
-                            <i class="fas fa-chevron-right text-white/50 text-xs mx-2"></i>
+                            <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
                             <a href="{{ route('pemilik.kamar.index') }}"
-                                class="inline-flex items-center text-sm font-medium text-white">
+                                class="inline-flex items-center text-sm font-black text-black">
                                 <i class="fas fa-bed mr-2"></i>
                                 Kelola Kamar
                             </a>
@@ -29,16 +29,16 @@
             </nav>
         </div>
         <!-- Header -->
-        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 mb-6">
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 mb-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between">
                 <div>
-                    <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">
+                    <h1 class="text-2xl md:text-3xl font-black text-black mb-2">
                         <i class="fas fa-bed mr-3"></i>
                         Kelola Kamar</h1>
-                    <p class="text-slate-100">Kelola semua kamar kos Anda di satu tempat yang terorganisir</p>
+                    <p class="text-gray-700">Kelola semua kamar kos Anda di satu tempat yang terorganisir</p>
                 </div>
                 <a href="{{ route('pemilik.kamar.create') }}"
-                    class="mt-4 md:mt-0 px-6 py-3 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center">
+                    class="mt-4 md:mt-0 px-6 py-3 bg-sky-400 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all uppercase tracking-wide text-sm flex items-center justify-center">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Kamar Baru
                 </a>
@@ -46,26 +46,33 @@
         </div>
 
         @if(session('success'))
-            <div class="bg-white/5 backdrop-blur-sm border border-white/20 text-slate-100 px-4 py-3 rounded-xl mb-6 flex items-center">
-                <i class="fas fa-check-circle mr-3 text-sky-400"></i>
+            <div class="bg-emerald-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000] mb-6 flex items-center">
+                <i class="fas fa-check-circle mr-3"></i>
                 {{ session('success') }}
             </div>
         @endif
 
+        @if(session('error'))
+            <div class="bg-red-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000] mb-6 flex items-center">
+                <i class="fas fa-exclamation-circle mr-3"></i>
+                {{ session('error') }}
+            </div>
+        @endif
+
         <!-- Filter Section -->
-        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
-            <h2 class="text-lg font-semibold text-white mb-4 flex items-center">
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
+            <h2 class="text-lg font-black text-black mb-4 flex items-center">
                 <i class="fas fa-filter text-sky-400 mr-3"></i>
                 Filter Kamar
             </h2>
             <form method="GET" action="{{ route('pemilik.kamar.index') }}"
                 class="space-y-4 md:space-y-0 md:grid md:grid-cols-4 md:gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-white mb-2">Pilih Kos</label>
+                    <label class="block text-sm font-black text-black mb-2">Pilih Kos</label>
                     <div class="relative">
-                        <i class="fas fa-home absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
+                        <i class="fas fa-home absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <select name="kos"
-                            class="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/20 text-white rounded-lg focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
+                            class="w-full pl-10 pr-4 py-2.5 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition">
                             <option value="">Semua Kos</option>
                             @foreach($kos as $k)
                                 <option value="{{ $k->id_kos }}" {{ request('kos') == $k->id_kos ? 'selected' : '' }}>
@@ -74,15 +81,15 @@
                             @endforeach
                         </select>
                         <i
-                            class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
+                            class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-white mb-2">Status</label>
+                    <label class="block text-sm font-black text-black mb-2">Status</label>
                     <div class="relative">
-                        <i class="fas fa-circle absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
+                        <i class="fas fa-circle absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <select name="status"
-                            class="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/20 text-white rounded-lg focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
+                            class="w-full pl-10 pr-4 py-2.5 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition">
                             <option value="">Semua Status</option>
                             <option value="tersedia" {{ request('status') == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
                             <option value="terisi" {{ request('status') == 'terisi' ? 'selected' : '' }}>Terisi</option>
@@ -90,15 +97,15 @@
                             </option>
                         </select>
                         <i
-                            class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
+                            class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-white mb-2">Tipe Kamar</label>
+                    <label class="block text-sm font-black text-black mb-2">Tipe Kamar</label>
                     <div class="relative">
-                        <i class="fas fa-bed absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50"></i>
+                        <i class="fas fa-bed absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <select name="tipe"
-                            class="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/20 text-white rounded-lg focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
+                            class="w-full pl-10 pr-4 py-2.5 border-2 border-black text-black font-bold placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition">
                             <option value="">Semua Tipe</option>
                             <option value="Standar" {{ request('tipe') == 'Standar' ? 'selected' : '' }}>Standar</option>
                             <option value="Deluxe" {{ request('tipe') == 'Deluxe' ? 'selected' : '' }}>Deluxe</option>
@@ -107,12 +114,12 @@
                             <option value="Ekonomi" {{ request('tipe') == 'Ekonomi' ? 'selected' : '' }}>Ekonomi</option>
                         </select>
                         <i
-                            class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 pointer-events-none"></i>
+                            class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                     </div>
                 </div>
                 <div class="flex items-end">
                     <button type="submit"
-                        class="w-full px-6 py-2.5 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white font-medium rounded-lg transition-all duration-300">
+                        class="w-full px-6 py-2.5 bg-sky-400 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all uppercase tracking-wide text-sm">
                         <i class="fas fa-filter mr-2"></i>
                         Terapkan Filter
                     </button>
@@ -123,119 +130,119 @@
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <!-- Total Kamar -->
-            <div class="card-hover bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+            <div class="card-hover bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 rounded-lg bg-white/5 backdrop-blur-sm">
-                        <i class="fas fa-bed text-white text-xl"></i>
+                    <div class="p-3 bg-gray-100 border-2 border-black">
+                        <i class="fas fa-bed text-black text-xl"></i>
                     </div>
-                     <span class="text-sm font-medium px-2 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
+                     <span class="text-sm font-black px-2 py-1 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000]">
                          {{ $stats['tersedia'] }}
                      </span>
                 </div>
-                 <h3 class="text-2xl font-bold text-white mb-1">{{ $stats['total_kamar'] }}</h3>
-                <p class="text-sm text-slate-100">Total Kamar</p>
+                 <h3 class="text-2xl font-black text-black mb-1">{{ $stats['total_kamar'] }}</h3>
+                <p class="text-sm text-gray-700">Total Kamar</p>
             </div>
 
             <!-- Tersedia -->
-            <div class="card-hover bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+            <div class="card-hover bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 rounded-lg bg-white/5 backdrop-blur-sm">
-                        <i class="fas fa-door-open text-white text-xl"></i>
+                    <div class="p-3 bg-gray-100 border-2 border-black">
+                        <i class="fas fa-door-open text-black text-xl"></i>
                     </div>
-                    <span class="text-sm font-medium px-2 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
+                    <span class="text-sm font-black px-2 py-1 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000]">
                         {{ $kamar->where('status_kamar', 'tersedia')->count() }}
                     </span>
                 </div>
-                 <h3 class="text-2xl font-bold text-white mb-1">{{ $stats['tersedia'] }}</h3>
-                <p class="text-sm text-slate-100">Tersedia</p>
+                 <h3 class="text-2xl font-black text-black mb-1">{{ $stats['tersedia'] }}</h3>
+                <p class="text-sm text-gray-700">Tersedia</p>
             </div>
 
             <!-- Terisi -->
-            <div class="card-hover bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+            <div class="card-hover bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 rounded-lg bg-white/5 backdrop-blur-sm">
-                        <i class="fas fa-users text-white text-xl"></i>
+                    <div class="p-3 bg-gray-100 border-2 border-black">
+                        <i class="fas fa-users text-black text-xl"></i>
                     </div>
-                     <span class="text-sm font-medium px-2 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
+                     <span class="text-sm font-black px-2 py-1 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000]">
                          {{ $stats['terisi'] }}
                      </span>
                 </div>
-                 <h3 class="text-2xl font-bold text-white mb-1">{{ $stats['terisi'] }}</h3>
-                <p class="text-sm text-slate-100">Terisi</p>
+                 <h3 class="text-2xl font-black text-black mb-1">{{ $stats['terisi'] }}</h3>
+                <p class="text-sm text-gray-700">Terisi</p>
             </div>
 
             <!-- Maintenance -->
-            <div class="card-hover bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+            <div class="card-hover bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 rounded-lg bg-white/5 backdrop-blur-sm">
-                        <i class="fas fa-tools text-white text-xl"></i>
+                    <div class="p-3 bg-gray-100 border-2 border-black">
+                        <i class="fas fa-tools text-black text-xl"></i>
                     </div>
-                     <span class="text-sm font-medium px-2 py-1 rounded-full bg-white/5 backdrop-blur-sm text-white">
+                     <span class="text-sm font-black px-2 py-1 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000]">
                          {{ $stats['maintenance'] }}
                      </span>
                 </div>
-                 <h3 class="text-2xl font-bold text-white mb-1">{{ $stats['maintenance'] }}
+                 <h3 class="text-2xl font-black text-black mb-1">{{ $stats['maintenance'] }}
                  </h3>
-                <p class="text-sm text-slate-100">Maintenance</p>
+                <p class="text-sm text-gray-700">Maintenance</p>
             </div>
         </div>
 
         <!-- Kamar List -->
-        <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden">
-            <div class="p-6 border-b border-white/20">
-                <h2 class="text-lg font-semibold text-white flex items-center">
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
+            <div class="p-6 border-b-2 border-gray-200">
+                <h2 class="text-lg font-black text-black flex items-center">
                     <i class="fas fa-list mr-3 text-sky-400"></i>
                     Daftar Kamar ({{ $kamar->count() }})
                 </h2>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-white/20">
+            <div class="overflow-x-auto w-full">
+                <table class="w-full divide-y-2 divide-gray-200">
                     <thead>
-                        <tr class="bg-white/5">
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-100 uppercase tracking-wider">
+                        <tr class="bg-black">
+                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
                                 <i class="fas fa-bed mr-2"></i>Kamar & Kos
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-100 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
                                 <i class="fas fa-cogs mr-2"></i>Tipe & Fasilitas
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-100 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
                                 <i class="fas fa-money-bill-wave mr-2"></i>Harga
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-100 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
                                 <i class="fas fa-circle mr-2"></i>Status
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-slate-100 uppercase tracking-wider">
+                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
                                 <i class="fas fa-edit mr-2"></i>Aksi
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-white/20">
+                    <tbody class="divide-y-2 divide-gray-200">
                         @forelse($kamar as $item)
-                                        <tr class="hover:bg-white/5 transition-colors duration-200">
+                                        <tr class="hover:bg-gray-100 transition-colors duration-200">
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
                                                     <div
-                                                        class="flex-shrink-0 w-14 h-14 bg-white/5 border border-white/20 rounded-lg overflow-hidden">
+                                                        class="flex-shrink-0 w-14 h-14 bg-gray-200 border-2 border-black overflow-hidden">
                                                         @if($item->foto_kamar)
                                                             <img src="{{ asset('storage/' . $item->foto_kamar) }}" alt="Foto Kamar"
                                                                 class="w-full h-full object-cover">
                                                         @else
-                                                            <div class="w-full h-full bg-white/5 flex items-center justify-center">
-                                                                <i class="fas fa-bed text-white/50 text-lg"></i>
+                                                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                                                <i class="fas fa-bed text-gray-400 text-lg"></i>
                                                             </div>
                                                         @endif
                                                     </div>
                                                     <div class="ml-4">
                                                         <div class="flex items-center">
-                                                            <div class="text-sm font-bold text-white">
+                                                            <div class="text-sm font-black text-black">
                                                                 Kamar {{ $item->nomor_kamar }}
                                                             </div>
                                                         </div>
-                                                        <div class="text-sm text-sky-400 font-medium mt-1">
+                                                        <div class="text-sm text-sky-600 font-black mt-1">
                                                             {{ $item->kos->nama_kos }}
                                                         </div>
-                                                        <div class="text-xs text-slate-100 mt-1">
+                                                        <div class="text-xs text-gray-700 mt-1">
                                                             <i class="fas fa-ruler-combined mr-1"></i>
                                                             {{ $item->luas_kamar ?? 'N/A' }} •
                                                             <i class="fas fa-user mr-1 ml-2"></i>
@@ -247,12 +254,12 @@
                                             <td class="px-6 py-4">
                                                 <div class="mb-2">
                                                     <span
-                                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/5 backdrop-blur-sm text-sky-400 border border-sky-500/30">
+                                                        class="inline-flex items-center px-3 py-1 text-xs font-black bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000] text-sky-600">
                                                         <i class="fas fa-star mr-1 text-xs"></i>
                                                         {{ $item->tipe_kamar }}
                                                     </span>
                                                 </div>
-                                                <div class="text-sm text-slate-100 max-w-xs truncate">
+                                                <div class="text-sm text-gray-700 max-w-xs truncate">
                                                     @if($item->fasilitas_kamar)
                                                         @php
                                                             if (is_array($item->fasilitas_kamar)) {
@@ -264,40 +271,40 @@
 
                                                             @if(is_array($fasilitas) && count($fasilitas) > 0)
                                                             @foreach(array_slice($fasilitas, 0, 2) as $fasilitasItem)
-                                                                <span class="inline-block text-xs px-2 py-1 rounded-lg bg-white/5 backdrop-blur-sm mr-1 mb-1">
+                                                                <span class="inline-block text-xs px-2 py-1 bg-gray-100 border-2 border-black mr-1 mb-1">
                                                                     <i class="fas fa-check text-emerald-400 mr-1"></i>
                                                                     {{ $fasilitasItem }}
                                                                 </span>
                                                             @endforeach
                                                             @if(count($fasilitas) > 2)
-                                                                <span class="text-xs text-slate-100/70">
+                                                                <span class="text-xs text-gray-500">
                                                                     +{{ count($fasilitas) - 2 }} lagi
                                                                 </span>
                                                             @endif
                                                         @else
-                                                            <span class="text-slate-400">-</span>
+                                                            <span class="text-gray-500">-</span>
                                                         @endif
                                                     @else
-                                                        <span class="text-slate-400">-</span>
+                                                        <span class="text-gray-500">-</span>
                                                     @endif
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-lg font-bold text-white">
+                                                <div class="text-lg font-black text-black">
                                                     Rp {{ number_format($item->harga, 0, ',', '.') }}
                                                 </div>
-                                                <div class="text-xs text-slate-100">
+                                                <div class="text-xs text-gray-500">
                                                     per bulan
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded-full 
-                                                    {{ $item->status_kamar == 'tersedia' ? 'bg-emerald-500/20 backdrop-blur-sm text-emerald-300 border border-emerald-500/20' :
-                            ($item->status_kamar == 'terisi' ? 'bg-blue-500/20 backdrop-blur-sm text-blue-300 border border-blue-500/20' :
-                                'bg-yellow-500/20 backdrop-blur-sm text-yellow-300 border border-yellow-500/20') }}">
-                                                    <i class="fas 
+                                                <span class="inline-flex items-center px-3 py-1.5 text-xs font-black border-2 border-black
+                                                    {{ $item->status_kamar == 'tersedia' ? 'bg-emerald-400 text-black' :
+                            ($item->status_kamar == 'terisi' ? 'bg-blue-400 text-black' :
+                                'bg-yellow-400 text-black') }}">
+                                                    <i class="fas
                                                         {{ $item->status_kamar == 'tersedia' ? 'fa-door-open' :
-                            ($item->status_kamar == 'terisi' ? 'fa-user-check' : 'fa-tools') }} 
+                            ($item->status_kamar == 'terisi' ? 'fa-user-check' : 'fa-tools') }}
                                                         mr-1.5 text-xs"></i>
                                                     {{ ucfirst($item->status_kamar) }}
                                                 </span>
@@ -305,13 +312,17 @@
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center space-x-3">
                                                     <a href="{{ route('pemilik.kamar.edit', $item->id_kamar) }}"
-                                                        class="inline-flex items-center px-3 py-1.5 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-lg text-sm font-medium transition-all duration-300">
+                                                        class="inline-flex items-center px-3 py-1.5 bg-sky-400 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all text-sm uppercase tracking-wide">
                                                         <i class="fas fa-edit mr-2 text-xs"></i>
                                                         Edit
                                                     </a>
                                                     <button type="button"
-                                                        onclick="showDeleteModal('{{ route('pemilik.kamar.destroy', $item->id_kamar) }}', '{{ $item->nomor_kamar }}')"
-                                                        class="inline-flex items-center px-3 py-1.5 bg-red-500/20 backdrop-blur-sm border border-red-500/20 hover:bg-red-500/10 text-red-300 rounded-lg text-sm font-medium transition-all duration-300">
+                                                        data-ajax-action="/api/pemilik/kamar/{{ $item->id_kamar }}"
+                                                        data-ajax-method="DELETE"
+                                                        data-confirm="Hapus kamar {{ $item->nomor_kamar }}?"
+                                                        data-success-msg="Kamar berhasil dihapus"
+                                                        data-redirect="{{ route('pemilik.kamar.index') }}"
+                                                        class="inline-flex items-center px-3 py-1.5 bg-red-400 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all text-sm uppercase tracking-wide">
                                                         <i class="fas fa-trash-alt mr-2 text-xs"></i>
                                                         Hapus
                                                     </button>
@@ -323,13 +334,13 @@
                                 <td colspan="5" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center justify-center">
                                         <div
-                                            class="w-20 h-20 bg-white/5 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center mb-4">
+                                            class="w-20 h-20 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center mb-4">
                                             <i class="fas fa-bed text-sky-400 text-3xl"></i>
                                         </div>
-                                        <h3 class="text-lg font-semibold text-white mb-2">Belum ada kamar</h3>
-                                        <p class="text-slate-100 mb-4">Mulai tambahkan kamar pertama Anda</p>
+                                        <h3 class="text-lg font-black text-black mb-2">Belum ada kamar</h3>
+                                        <p class="text-gray-700 mb-4">Mulai tambahkan kamar pertama Anda</p>
                                         <a href="{{ route('pemilik.kamar.create') }}"
-                                            class="inline-flex items-center px-4 py-2 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white rounded-lg transition-all duration-300">
+                                            class="inline-flex items-center px-4 py-2 bg-sky-400 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all uppercase tracking-wide text-sm">
                                             <i class="fas fa-plus mr-2"></i>
                                             Tambah Kamar
                                         </a>
@@ -343,12 +354,12 @@
         </div>
         <!-- Kamar List Pagination -->
         @if($kamar->hasPages())
-            <div class="mt-4 px-6 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl">
+            <div class="mt-4 px-6 py-4 bg-white border-4 border-black shadow-[4px_4px_0px_#000]">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div class="text-sm text-slate-100">
-                        Menampilkan <span class="font-semibold text-white">{{ $kamar->firstItem() }}</span> - 
-                        <span class="font-semibold text-white">{{ $kamar->lastItem() }}</span> dari 
-                        <span class="font-semibold text-white">{{ $kamar->total() }}</span> kamar
+                    <div class="text-sm text-gray-700">
+                        Menampilkan <span class="font-black text-black">{{ $kamar->firstItem() }}</span> - 
+                        <span class="font-black text-black">{{ $kamar->lastItem() }}</span> dari 
+                        <span class="font-black text-black">{{ $kamar->total() }}</span> kamar
                     </div>
                     <div class="flex space-x-2">
                         {{ $kamar->links('vendor.pagination.custom-dark') }}
@@ -359,69 +370,12 @@
         <!-- Back to Dashboard -->
         <div class="mt-8 flex justify-center">
             <a href="{{ route('pemilik.dashboard') }}"
-                class="inline-flex items-center px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/20 hover:bg-white/10 text-white rounded-xl transition-all duration-300 group">
+                class="inline-flex items-center px-6 py-3 bg-white text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all group">
                 <i class="fas fa-arrow-left mr-3 transition-transform group-hover:-translate-x-1"></i>
                 Kembali ke Dashboard
             </a>
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeDeleteModal()"></div>
-        <div class="relative bg-white border-slate-200 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
-            <div class="p-6 text-center">
-                <div class="mb-4 inline-block">
-                    <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto">
-                        <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
-                    </div>
-                </div>
-                <h3 class="text-xl font-bold text-slate-800 mb-2">Hapus Kamar?</h3>
-                <p class="text-slate-500 mb-1">Apakah Anda yakin ingin menghapus <span
-                        class="font-semibold text-slate-800">Kamar <span id="kamarNomor"></span></span>?</p>
-                <p class="text-red-500 text-sm mb-6">Data kamar dan sejarah penyewaan terkait kamar ini akan terhapus secara
-                    permanen.</p>
 
-                <div class="flex justify-center gap-3">
-                    <button type="button" onclick="closeDeleteModal()"
-                        class="px-5 py-2.5 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition">
-                        Batal
-                    </button>
-                    <form id="deleteForm" method="POST" action="">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="px-5 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl hover:from-red-600 hover:to-rose-700 transition shadow-lg">
-                            Ya, Hapus Kamar
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function showDeleteModal(action, nomor) {
-            document.getElementById('deleteForm').action = action;
-            document.getElementById('kamarNomor').textContent = nomor;
-            const modal = document.getElementById('deleteModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeDeleteModal() {
-            const modal = document.getElementById('deleteModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = '';
-        }
-
-        // Close on ESC
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeDeleteModal();
-            }
-        });
-    </script>
 @endsection

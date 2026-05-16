@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NotificationFactory extends Factory
@@ -12,49 +13,26 @@ class NotificationFactory extends Factory
     public function definition()
     {
         return [
-            'id_user' => $this->faker->numberBetween(1, 100),
-            'user_type' => $this->faker->randomElement(['penghuni', 'pemilik']),
-            'judul' => $this->faker->sentence,
-            'pesan' => $this->faker->paragraph,
-            'tipe' => $this->faker->randomElement(['info', 'warning', 'success', 'danger']),
-            'dibaca' => $this->faker->randomElement(['ya', 'tidak']),
-            'link' => $this->faker->optional()->url,
+            'id_user' => User::factory(),
+            'type' => fake()->randomElement([
+                'kontrak_dibuat', 'kontrak_diterima', 'kontrak_ditolak',
+                'pembayaran_baru', 'pembayaran_disetujui', 'pembayaran_ditolak',
+                'tenggat_h7', 'tenggat_h3', 'tenggat_h1',
+            ]),
+            'title' => fake()->sentence(4),
+            'body' => fake()->paragraph(),
+            'link' => fake()->url(),
+            'is_read' => false,
         ];
     }
 
     public function unread()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'dibaca' => 'tidak',
-            ];
-        });
+        return $this->state(fn() => ['is_read' => false]);
     }
 
     public function read()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'dibaca' => 'ya',
-            ];
-        });
-    }
-
-    public function forPenghuni()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'user_type' => 'penghuni',
-            ];
-        });
-    }
-
-    public function forPemilik()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'user_type' => 'pemilik',
-            ];
-        });
+        return $this->state(fn() => ['is_read' => true]);
     }
 }

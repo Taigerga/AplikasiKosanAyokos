@@ -1,0 +1,314 @@
+/* ===== auth/login.blade.php & auth/register.blade.php ===== */
+.login-card,
+.register-card {
+    background: #ffffff;
+    border: 4px solid #000;
+    box-shadow: 6px 6px 0px #000;
+}
+
+.login-card-header,
+.register-card-header {
+    border-bottom: 4px solid #000;
+    padding: 2rem 2rem 1.5rem;
+    text-align: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: #ffffff;
+    border: 2px solid #000;
+    color: #111;
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 4px 4px 0px #000;
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.form-label {
+    color: #000;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 0.9rem;
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    box-shadow: 3px 3px 0px #000;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 0px #000;
+}
+
+.btn-toggle-password {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.btn-toggle-password:hover {
+    color: #000;
+}
+
+.text-sky-custom {
+    color: #60a5fa;
+}
+
+.text-muted-custom {
+    color: #6b7280;
+}
+
+.border-custom {
+    border-color: #d1d5db;
+}
+
+.invalid-feedback {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    font-weight: 600;
+}
+
+.is-invalid {
+    border-color: #ef4444 !important;
+}
+
+.is-invalid:focus {
+    box-shadow: 4px 4px 0px #ef4444 !important;
+}
+
+/* Toast */
+.toast-login {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 9999;
+    animation: slideInRight 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-body {
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0px #000;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #111;
+    font-weight: 600;
+}
+
+.toast-body.success {
+    border-left: 4px solid #10b981;
+}
+
+.toast-body.error {
+    border-left: 4px solid #ef4444;
+}
+
+/* Step Indicator */
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 1.5rem 2rem 0;
+}
+
+.step-indicator::before {
+    content: '';
+    position: absolute;
+    top: 2.25rem;
+    left: 50px;
+    right: 50px;
+    height: 2px;
+    background: #d1d5db;
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.step-number {
+    width: 44px;
+    height: 44px;
+    background: #fff;
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.step.active .step-number {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+    box-shadow: 3px 3px 0px #000;
+}
+
+.step-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: center;
+    font-weight: 600;
+}
+
+.step.active .step-label {
+    color: #000;
+    font-weight: 800;
+}
+
+.form-step {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.form-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Role Cards */
+.role-card {
+    background: #fff;
+    border: 2px solid #000;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.role-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px #000;
+}
+
+.role-card.active {
+    background: #fef08a;
+    border-color: #000;
+    box-shadow: 3px 3px 0px #000;
+}
+
+.role-card i {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    color: #60a5fa;
+}
+
+.role-card.active i {
+    color: #000;
+}
+
+/* Outline Button */
+.btn-outline {
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    background: #fff;
+    border: 2px solid #000;
+    color: #000;
+    cursor: pointer;
+}
+
+.btn-outline:hover {
+    background: #fef08a;
+}
+
+.btn-outline:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* File Upload */
+.file-upload {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-upload label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed #000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
+    color: #6b7280;
+}
+
+.file-upload label:hover {
+    background: #fef08a;
+    transform: scale(1.05);
+}
+
+.file-upload .preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    border: 2px solid #000;
+}
+
+/* Toast variant override */
+.toast-body.bg-emerald-900\/80 { background: #fff; }
+.toast-body.bg-rose-900\/80 { background: #fff; }

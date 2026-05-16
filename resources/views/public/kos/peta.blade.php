@@ -4,575 +4,291 @@
 
 @section('content')
 
-<style>
-    /* Section Umum */
-    .section-padding {
-        padding: 6rem 0;
-    }
 
-    @media (max-width: 768px) {
-        .section-padding {
-            padding: 4rem 0;
-        }
-    }
-
-    /* Badge */
-    .badge-soft {
-        display: inline-block;
-        padding: 0.35rem 1rem;
-        border-radius: 999px;
-        font-size: 0.8rem;
-        font-weight: 500;
-    }
-
-    /* Card Hover */
-    .card-hover {
-        transition: all 0.3s ease;
-    }
-    .card-hover:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 18px 40px -12px rgba(0,0,0,0.1);
-        border-color: #cbd5e1;
-    }
-
-    /* Scroll halus */
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /* Map styling - PRESERVED AS IS */
-    #map {
-        height: 600px;
-        width: 100%;
-        z-index: 1;
-        border-radius: 0.75rem;
-    }
-
-    .leaflet-container {
-        font-family: 'Inter', sans-serif;
-        background: #0f172a !important;
-    }
-
-    .leaflet-popup-content {
-        min-width: 250px;
-        margin: 8px;
-        background: #1e293b;
-        color: #e2e8f0;
-        border-radius: 0.5rem;
-    }
-
-    .leaflet-popup-content-wrapper {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .leaflet-popup-tip {
-        background: #1e293b;
-    }
-
-    .leaflet-control-zoom a {
-        background: #1e293b !important;
-        color: #e2e8f0 !important;
-        border-color: #334155 !important;
-    }
-
-    .leaflet-control-zoom a:hover {
-        background: #334155 !important;
-    }
-
-    .distance-badge {
-        background: linear-gradient(to right, #10b981, #34d399);
-        color: white;
-        padding: 3px 8px;
-        border-radius: 12px;
-        font-size: 11px;
-        margin-top: 4px;
-        display: inline-block;
-    }
-
-    .nearby-marker {
-        animation: pulse 2s infinite;
-        filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
-        }
-
-        50% {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.8));
-        }
-
-        100% {
-            transform: scale(1);
-            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
-        }
-    }
-
-    .leaflet-control-custom {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 0.375rem;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .leaflet-control-custom a {
-        color: #e2e8f0 !important;
-        background: #1e293b !important;
-        border-radius: 0.375rem !important;
-        width: 36px !important;
-        height: 36px !important;
-        line-height: 36px !important;
-        text-align: center !important;
-    }
-
-    .leaflet-control-custom a:hover {
-        background: #334155 !important;
-    }
-
-    /* Custom legend */
-    .legend {
-        background: #1e293b !important;
-        border: 1px solid #334155 !important;
-        border-radius: 0.75rem !important;
-        padding: 12px !important;
-        color: #e2e8f0 !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-    }
-
-    .legend h4 {
-        color: #e2e8f0 !important;
-        margin-bottom: 8px !important;
-        font-weight: 600 !important;
-        font-size: 14px !important;
-    }
-
-    .legend div {
-        color: #94a3b8 !important;
-        font-size: 13px !important;
-        margin-bottom: 6px !important;
-    }
-
-    .leaflet-touch .leaflet-control-layers,
-    .leaflet-touch .leaflet-bar {
-        border: 1px solid #334155 !important;
-    }
-
-    .leaflet-control-attribution {
-        background: rgba(30, 41, 59, 0.9) !important;
-        color: #94a3b8 !important;
-        border: 1px solid #334155 !important;
-        border-radius: 0.25rem !important;
-        padding: 2px 8px !important;
-    }
-
-    .leaflet-control-attribution a {
-        color: #60a5fa !important;
-    }
-
-    /* Routing Machine - sembunyikan panel kanan */
-    .leaflet-routing-container {
-        display: none !important;
-    }
-
-    /* Custom notification */
-    .custom-notification {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        padding: 12px 16px;
-        border-radius: 0.75rem;
-        background: #1e293b;
-        border: 1px solid #334155;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        color: #e2e8f0;
-        max-width: 300px;
-        animation: slideInRight 0.3s ease-out;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    .custom-notification.success {
-        border-left: 4px solid #10b981;
-    }
-
-    .custom-notification.error {
-        border-left: 4px solid #ef4444;
-    }
-
-    .custom-notification.warning {
-        border-left: 4px solid #f59e0b;
-    }
-
-    .custom-notification.info {
-        border-left: 4px solid #3b82f6;
-    }
-
-    /* Route control panel */
-    #route-control-panel {
-        transition: all 0.3s ease;
-    }
-
-    .route-instruction-item {
-        padding: 8px 12px;
-        margin-bottom: 6px;
-        background: rgba(30, 41, 59, 0.5);
-        border-radius: 0.5rem;
-        border-left: 3px solid #10b981;
-    }
-
-    .route-instruction-item:hover {
-        background: rgba(30, 41, 59, 0.8);
-    }
-
-    .route-step-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        background: #10b981;
-        color: white;
-        border-radius: 50%;
-        margin-right: 10px;
-        font-size: 12px;
-    }
-</style>
 
 <!-- ==================== HERO SECTION ==================== -->
-<section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden" style="background: linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #1e3a5f 100%);">
-    <!-- Decorative gradients -->
-    <div class="absolute top-[-30%] left-[-15%] w-[70%] h-[160%] bg-[radial-gradient(circle_at_35%_35%,rgba(56,189,248,0.12),transparent_60%)] pointer-events-none"></div>
-    <div class="absolute bottom-[-20%] right-[-10%] w-[60%] h-[140%] bg-[radial-gradient(circle_at_70%_80%,rgba(99,102,241,0.08),transparent_60%)] pointer-events-none"></div>
-
-    <div class="container mx-auto px-4 relative z-10 text-center" data-aos="fade-up" data-aos-duration="1000">
-        <div class="w-20 h-20 md:w-24 md:h-24 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+<section class="bg-yellow-400 py-16 md:py-20 border-b-4 border-black">
+    <div class="container mx-auto px-4 text-center" data-aos="fade-up" data-aos-duration="1000">
+        <div class="w-20 h-20 md:w-24 md:h-24 bg-black border-4 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center mx-auto mb-8">
             <i class="fas fa-map-marked-alt text-white text-3xl md:text-4xl"></i>
         </div>
 
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-            Peta <span class="text-sky-300">Kos</span> Tersedia
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-black mb-6 leading-tight tracking-tight">
+            Peta <span class="bg-black text-white px-3">Kos</span> Tersedia
         </h1>
 
-        <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10">
+        <p class="text-lg md:text-xl text-gray-800 font-bold max-w-3xl mx-auto leading-relaxed mb-10">
             Temukan kos terdekat di lokasi yang Anda inginkan dengan peta interaktif. 
             Filter berdasarkan jenis, tipe sewa, dan rentang harga.
         </p>
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10" data-aos="fade-up" data-aos-delay="0">
-                <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ $kos->count() }}</div>
-                <div class="text-sm text-slate-400">Total Kos</div>
+            <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="0">
+                <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->count() }}</div>
+                <div class="text-sm font-bold text-gray-600">Total Kos</div>
             </div>
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10" data-aos="fade-up" data-aos-delay="100">
-                <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ $kos->where('jenis_kos', 'putra')->count() }}</div>
-                <div class="text-sm text-slate-400">Kos Putra</div>
+            <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'putra')->count() }}</div>
+                <div class="text-sm font-bold text-gray-600">Kos Putra</div>
             </div>
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10" data-aos="fade-up" data-aos-delay="200">
-                <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ $kos->where('jenis_kos', 'putri')->count() }}</div>
-                <div class="text-sm text-slate-400">Kos Putri</div>
+            <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'putri')->count() }}</div>
+                <div class="text-sm font-bold text-gray-600">Kos Putri</div>
             </div>
-            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10" data-aos="fade-up" data-aos-delay="300">
-                <div class="text-3xl md:text-4xl font-bold text-white mb-1">{{ $kos->where('jenis_kos', 'campuran')->count() }}</div>
-                <div class="text-sm text-slate-400">Kos Campuran</div>
+            <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'campuran')->count() }}</div>
+                <div class="text-sm font-bold text-gray-600">Kos Campuran</div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ==================== MAP SECTION ==================== -->
-<section class="py-12 bg-slate-50 flex-1">
+<section class="py-12 bg-white flex-1">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             
             <!-- Sidebar Filter -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm lg:col-span-1 card-hover" data-aos="fade-right">
-                <h2 class="text-lg font-semibold text-slate-900 mb-6 flex items-center">
-                    <i class="fas fa-filter text-sky-500 mr-3"></i>
+            <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 lg:col-span-1" data-aos="fade-right">
+                <h2 class="text-lg font-black text-black mb-6 flex items-center">
+                    <i class="fas fa-filter text-pink-500 mr-3"></i>
                     Filter
                 </h2>
 
-                <div class="space-y-5">
-                    <!-- Jenis Kos -->
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center">
-                            <i class="fas fa-users mr-2 text-sky-500"></i>
-                            Jenis Kos
-                        </label>
-                        <select id="filter-jenis"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none text-sm">
-                            <option value="">Semua Jenis</option>
-                            <option value="putra">Putra</option>
-                            <option value="putri">Putri</option>
-                            <option value="campuran">Campuran</option>
-                        </select>
-                    </div>
-
-                    <!-- Tipe Sewa -->
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center">
-                            <i class="fas fa-calendar-alt mr-2 text-emerald-500"></i>
-                            Tipe Sewa
-                        </label>
-                        <select id="filter-tipe"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none text-sm">
-                            <option value="">Semua Tipe</option>
-                            <option value="harian">Harian</option>
-                            <option value="mingguan">Mingguan</option>
-                            <option value="bulanan">Bulanan</option>
-                            <option value="tahunan">Tahunan</option>
-                        </select>
-                    </div>
-
-                    <!-- Harga -->
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center">
-                            <i class="fas fa-tag mr-2 text-amber-500"></i>
-                            Rentang Harga
-                        </label>
-                        <select id="filter-harga"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none text-sm">
-                            <option value="">Semua Harga</option>
-                            <option value="0-500000">≤ Rp 500rb</option>
-                            <option value="500000-1000000">Rp 500rb - 1jt</option>
-                            <option value="1000000-2000000">Rp 1jt - 2jt</option>
-                            <option value="2000000-999999999">≥ Rp 2jt</option>
-                        </select>
-                    </div>
-
-                    <!-- Find Nearby Button -->
-                    <div class="border-t border-slate-100 pt-5 mt-2">
-                        <button id="find-nearby"
-                            class="w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                            <i class="fas fa-location-arrow text-lg group-hover:animate-pulse"></i>
-                            <span class="font-medium">Cari Kos Terdekat</span>
-                        </button>
-                        <p class="text-xs text-slate-400 mt-2 text-center">(Maksimal 1 km dari lokasi Anda)</p>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="grid grid-cols-2 gap-3">
-                        <button id="apply-filter"
-                            class="bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white py-2.5 rounded-xl transition-all duration-300 shadow hover:shadow-md flex items-center justify-center text-sm">
-                            <i class="fas fa-check mr-2"></i>
-                            Terapkan
-                        </button>
-                        <button id="reset-filter"
-                            class="bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl transition-all duration-300 flex items-center justify-center text-sm border border-slate-200">
-                            <i class="fas fa-undo mr-2"></i>
-                            Reset
-                        </button>
-                    </div>
+            <form method="GET" action="{{ route('public.kos.peta') }}" class="space-y-5" id="filter-form">
+                <div>
+                    <label class="block text-sm font-black text-black mb-2">Jenis Kos</label>
+                    <select name="jenis_kos" class="w-full px-4 py-3 border-2 border-black text-black font-bold focus:outline-none focus:shadow-[3px_3px_0px_#000] transition bg-white">
+                        <option value="">Semua Jenis</option>
+                        <option value="putra" {{ request('jenis_kos') == 'putra' ? 'selected' : '' }}>Putra</option>
+                        <option value="putri" {{ request('jenis_kos') == 'putri' ? 'selected' : '' }}>Putri</option>
+                        <option value="campuran" {{ request('jenis_kos') == 'campuran' ? 'selected' : '' }}>Campuran</option>
+                    </select>
                 </div>
-
-                <!-- Nearby Info -->
-                <div id="nearby-info"
-                    class="mt-6 p-4 bg-emerald-50 rounded-xl border border-emerald-200 hidden">
-                    <h3 class="font-semibold text-emerald-800 mb-2 flex items-center">
-                        <i class="fas fa-map-marker-alt mr-2 animate-pulse text-emerald-600"></i>
-                        Kos Terdekat Ditemukan
-                    </h3>
-                    <div id="nearby-count" class="text-2xl font-bold text-emerald-600">0</div>
-                    <p class="text-sm text-emerald-600/80 mt-1">kos dalam radius 1 km</p>
-                    <button id="clear-nearby"
-                        class="w-full mt-3 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 py-2 text-sm rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
-                        <i class="fas fa-times"></i>
-                        Hapus Filter Jarak
-                    </button>
+                <div>
+                    <label class="block text-sm font-black text-black mb-2">Tipe Sewa</label>
+                    <select name="tipe_sewa" class="w-full px-4 py-3 border-2 border-black text-black font-bold focus:outline-none focus:shadow-[3px_3px_0px_#000] transition bg-white">
+                        <option value="">Semua Tipe</option>
+                        <option value="harian" {{ request('tipe_sewa') == 'harian' ? 'selected' : '' }}>Harian</option>
+                        <option value="mingguan" {{ request('tipe_sewa') == 'mingguan' ? 'selected' : '' }}>Mingguan</option>
+                        <option value="bulanan" {{ request('tipe_sewa') == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
+                        <option value="tahunan" {{ request('tipe_sewa') == 'tahunan' ? 'selected' : '' }}>Tahunan</option>
+                    </select>
                 </div>
-
-                <!-- Quick Links -->
-                <div class="mt-6 pt-6 border-t border-slate-100">
-                    <h3 class="font-semibold text-slate-900 mb-4 flex items-center">
-                        <i class="fas fa-bolt text-amber-500 mr-3"></i>
-                        Akses Cepat
-                    </h3>
-                    <div class="space-y-3">
-                        <a href="{{ route('public.kos.index') }}"
-                            class="flex items-center text-sky-600 hover:text-sky-700 text-sm transition-all duration-300 group">
-                            <div class="w-9 h-9 bg-sky-50 rounded-lg flex items-center justify-center mr-3 group-hover:bg-sky-100 transition-colors border border-sky-100">
-                                <i class="fas fa-search text-sky-500"></i>
-                            </div>
-                            <span>Cari Kos Berdasarkan List</span>
-                        </a>
-
-                        @auth('penghuni')
-                            <a href="{{ route('penghuni.dashboard') }}"
-                                class="flex items-center text-emerald-600 hover:text-emerald-700 text-sm transition-all duration-300 group">
-                                <div class="w-9 h-9 bg-emerald-50 rounded-lg flex items-center justify-center mr-3 group-hover:bg-emerald-100 transition-colors border border-emerald-100">
-                                    <i class="fas fa-home text-emerald-500"></i>
-                                </div>
-                                <span>Dashboard Penghuni</span>
-                            </a>
-                        @elseauth('pemilik')
-                            <a href="{{ route('pemilik.dashboard') }}"
-                                class="flex items-center text-sky-600 hover:text-sky-700 text-sm transition-all duration-300 group">
-                                <div class="w-9 h-9 bg-sky-50 rounded-lg flex items-center justify-center mr-3 group-hover:bg-sky-100 transition-colors border border-sky-100">
-                                    <i class="fas fa-user-tie text-sky-500"></i>
-                                </div>
-                                <span>Dashboard Pemilik</span>
-                            </a>
-                        @else
-                            <a href="{{ route('login') }}"
-                                class="flex items-center text-amber-600 hover:text-amber-700 text-sm transition-all duration-300 group">
-                                <div class="w-9 h-9 bg-amber-50 rounded-lg flex items-center justify-center mr-3 group-hover:bg-amber-100 transition-colors border border-amber-100">
-                                    <i class="fas fa-lock text-amber-500"></i>
-                                </div>
-                                <span>Login untuk Fitur Lebih</span>
-                            </a>
-                        @endauth
-                    </div>
+                <div>
+                    <label class="block text-sm font-black text-black mb-2">Kota</label>
+                    <input type="text" name="kota" value="{{ request('kota') }}" placeholder="Nama kota..." class="w-full px-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
                 </div>
+                <div>
+                    <label class="block text-sm font-black text-black mb-2">Harga Maksimal</label>
+                    <input type="number" name="max_harga" value="{{ request('max_harga') }}" placeholder="Rp..." class="w-full px-4 py-3 border-2 border-black text-black font-bold placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
+                </div>
+                <button type="submit" class="w-full px-6 py-3 bg-black hover:bg-gray-800 text-white font-black border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:translate-y-[-1px] transition-all uppercase tracking-wide flex items-center justify-center">
+                    <i class="fas fa-search mr-2"></i> Terapkan Filter
+                </button>
+                @if(request()->hasAny(['jenis_kos','tipe_sewa','kota','max_harga']))
+                <a href="{{ route('public.kos.peta') }}" class="block w-full text-center px-6 py-3 bg-white hover:bg-yellow-100 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] transition-all uppercase tracking-wide">Reset Filter</a>
+                @endif
+            </form>
+
+            <!-- Find Nearby Button -->
+            <div class="border-t-2 border-gray-200 pt-5 mt-4">
+                <button id="find-nearby"
+                    class="w-full bg-lime-400 hover:bg-lime-500 text-black font-black py-3 border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:translate-y-[-1px] transition-all flex items-center justify-center gap-3 uppercase tracking-wide">
+                    <i class="fas fa-location-arrow text-lg"></i>
+                    <span>Cari Kos Terdekat</span>
+                </button>
+                <p class="text-xs font-bold text-gray-500 mt-2 text-center">(Maksimal 1 km dari lokasi Anda)</p>
             </div>
 
-            <!-- Map Container -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm lg:col-span-3 card-hover" data-aos="fade-left">
-                <!-- Route Control Panel -->
-                <div id="route-control-panel"
-                    class="mb-4 p-4 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl hidden">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h3 class="font-semibold text-emerald-800 flex items-center">
-                                <i class="fas fa-route mr-2 text-emerald-600"></i>
-                                <span id="route-title">Rute Menuju Kos</span>
-                            </h3>
-                            <p id="route-distance" class="text-sm text-emerald-700 mt-1">Memuat rute...</p>
-                        </div>
-                        <div class="flex gap-2">
-                            <button id="print-route"
-                                class="bg-emerald-100 hover:bg-emerald-200 text-emerald-700 px-3 py-2 rounded-lg text-sm transition-colors flex items-center">
-                                <i class="fas fa-print mr-1"></i>Cetak
-                            </button>
-                            <button id="close-route"
-                                class="bg-rose-100 hover:bg-rose-200 text-rose-700 px-3 py-2 rounded-lg text-sm transition-colors flex items-center">
-                                <i class="fas fa-times mr-1"></i>Tutup
-                            </button>
-                        </div>
-                    </div>
-                    <div id="route-instructions" class="mt-3 text-sm text-slate-600 max-h-32 overflow-y-auto pr-2">
-                        <!-- Instruksi rute akan ditampilkan di sini -->
-                    </div>
-                </div>
+            <!-- Nearby Info -->
+            <div id="nearby-info"
+                class="mt-4 p-4 bg-lime-100 border-2 border-black hidden">
+                <h3 class="font-black text-black mb-2 flex items-center">
+                    <i class="fas fa-map-marker-alt mr-2 text-lime-600"></i>
+                    Kos Terdekat Ditemukan
+                </h3>
+                <div id="nearby-count" class="text-2xl font-black text-black">0</div>
+                <p class="text-sm font-bold text-gray-700 mt-1">kos dalam radius 1 km</p>
+                <button id="clear-nearby"
+                    class="w-full mt-3 bg-black hover:bg-gray-800 text-white font-black py-2 text-sm border-2 border-black transition-all flex items-center justify-center gap-2 uppercase tracking-wide">
+                    <i class="fas fa-times"></i>
+                    Hapus Filter Jarak
+                </button>
+            </div>
 
-                <!-- Map Element -->
-                <div id="map" style="height: 600px; width: 100%;"
-                    class="rounded-xl border border-slate-200 overflow-hidden"></div>
+            <!-- Quick Links -->
+            <div class="mt-6 pt-6 border-t-2 border-gray-200">
+                <h3 class="font-black text-black mb-4 flex items-center">
+                    <i class="fas fa-bolt text-yellow-500 mr-3"></i>
+                    Akses Cepat
+                </h3>
+                <div class="space-y-3">
+                    <a href="{{ route('public.kos.index') }}"
+                        class="flex items-center text-gray-700 hover:text-black font-bold text-sm transition-colors">
+                        <div class="w-9 h-9 bg-yellow-200 border-2 border-black flex items-center justify-center mr-3">
+                            <i class="fas fa-search text-black"></i>
+                        </div>
+                        <span>Cari Kos Berdasarkan List</span>
+                    </a>
 
-                <!-- Legend -->
-                <div class="mt-4 flex flex-wrap gap-4 justify-center">
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-blue-500 rounded"></div>
-                        <span class="text-sm text-slate-500">Kos Putra</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-pink-500 rounded"></div>
-                        <span class="text-sm text-slate-500">Kos Putri</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-purple-500 rounded"></div>
-                        <span class="text-sm text-slate-500">Kos Campuran</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-emerald-500 rounded"></div>
-                        <span class="text-sm text-slate-500">Lokasi Anda</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
-                        <span class="text-sm text-slate-500">Radius 1 km</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4" style="background: linear-gradient(45deg, #10b981, #059669);"></div>
-                        <span class="text-sm text-slate-500">Rute</span>
-                    </div>
+@auth
+@if(auth()->user()->role === 'penghuni')
+<a href="{{ route('penghuni.dashboard') }}"
+    class="flex items-center text-gray-700 hover:text-black font-bold text-sm transition-colors">
+    <div class="w-9 h-9 bg-emerald-200 border-2 border-black flex items-center justify-center mr-3">
+        <i class="fas fa-home text-black"></i>
+    </div>
+    <span>Dashboard Penghuni</span>
+</a>
+@elseif(auth()->user()->role === 'pemilik')
+<a href="{{ route('pemilik.dashboard') }}"
+    class="flex items-center text-gray-700 hover:text-black font-bold text-sm transition-colors">
+    <div class="w-9 h-9 bg-sky-200 border-2 border-black flex items-center justify-center mr-3">
+        <i class="fas fa-user-tie text-black"></i>
+    </div>
+    <span>Dashboard Pemilik</span>
+</a>
+@endif
+@else
+<a href="{{ route('login') }}"
+    class="flex items-center text-gray-700 hover:text-black font-bold text-sm transition-colors">
+    <div class="w-9 h-9 bg-amber-200 border-2 border-black flex items-center justify-center mr-3">
+        <i class="fas fa-lock text-black"></i>
+    </div>
+    <span>Login untuk Fitur Lebih</span>
+</a>
+@endauth
                 </div>
             </div>
         </div>
 
-        <!-- Nearby Kos List (Mobile View) -->
-        <div id="nearby-kos-list" class="mt-8 hidden">
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-semibold text-slate-900 flex items-center">
-                        <i class="fas fa-map-marker-alt text-emerald-500 mr-3"></i>
-                        Kos Terdekat (Dalam 1 km)
-                    </h2>
-                    <button id="hide-nearby-list" class="text-slate-400 hover:text-slate-600 transition-colors">
-                        <i class="fas fa-times text-lg"></i>
-                    </button>
+        <!-- Map Container -->
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 lg:col-span-3" data-aos="fade-left">
+            <!-- Route Control Panel -->
+            <div id="route-control-panel"
+                class="mb-4 p-4 bg-lime-100 border-2 border-black hidden">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-black text-black flex items-center">
+                            <i class="fas fa-route mr-2 text-lime-600"></i>
+                            <span id="route-title">Rute Menuju Kos</span>
+                        </h3>
+                        <p id="route-distance" class="text-sm font-bold text-gray-700 mt-1">Memuat rute...</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="print-route"
+                            class="bg-white hover:bg-yellow-100 text-black font-black px-3 py-2 text-sm border-2 border-black transition-colors flex items-center">
+                            <i class="fas fa-print mr-1"></i>Cetak
+                        </button>
+                        <button id="close-route"
+                            class="bg-white hover:bg-red-100 text-black font-black px-3 py-2 text-sm border-2 border-black transition-colors flex items-center">
+                            <i class="fas fa-times mr-1"></i>Tutup
+                        </button>
+                    </div>
                 </div>
-                <div class="grid grid-cols-1 gap-4">
-                    <!-- Kos terdekat akan ditampilkan di sini -->
+                <div id="route-instructions" class="mt-3 text-sm text-gray-700 font-medium max-h-32 overflow-y-auto pr-2">
+                    <!-- Instruksi rute akan ditampilkan di sini -->
                 </div>
             </div>
-        </div>
 
-        <!-- Kos List (Mobile View) -->
-        <div class="mt-8 lg:hidden">
-            <h2 class="text-xl font-semibold text-slate-900 mb-4 flex items-center">
-                <i class="fas fa-home text-sky-500 mr-3"></i>
-                Daftar Kos Terdekat
-            </h2>
-            <div class="grid grid-cols-1 gap-4">
-                @foreach($kos->take(5) as $k)
-                    <div class="bg-white border border-slate-200 rounded-xl p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 card-hover">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1">
-                                <h3 class="font-semibold text-slate-900">{{ $k->nama_kos }}</h3>
-                                <p class="text-sm text-slate-500 mt-1">{{ $k->alamat }}</p>
-                                <div class="flex items-center gap-4 mt-2">
-                                    <span class="text-xs px-2.5 py-1 rounded-full 
-                                        {{ $k->jenis_kos == 'putra' ? 'bg-blue-50 text-blue-700 border border-blue-100' :
-                                            ($k->jenis_kos == 'putri' ? 'bg-pink-50 text-pink-700 border border-pink-100' :
-                                                'bg-purple-50 text-purple-700 border border-purple-100') }}">
-                                        {{ ucfirst($k->jenis_kos) }}
-                                    </span>
-                                    <span class="text-xs text-slate-400">{{ $k->kamar_count ?? 0 }} Kamar</span>
-                                </div>
-                            </div>
-                            <div class="text-right ml-4">
-                                <div class="mb-2">
-                                    @if(($k->kamar->min('harga') ?? 0) > 0)
-                                        <span class="text-sm font-bold text-slate-900">
-                                            Rp {{ number_format($k->kamar->min('harga'), 0, ',', '.') }}
-                                        </span>
-                                    @else
-                                        <span class="text-sm font-bold text-rose-500">
-                                            Kamar tidak tersedia
-                                        </span>
-                                    @endif
-                                </div>
-                                <a href="{{ route('public.kos.show', $k->id_kos) }}"
-                                    class="inline-flex items-center justify-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm transition-all duration-300 shadow-sm hover:shadow-md">
-                                    <i class="fas fa-eye mr-1 text-xs"></i>
-                                    Detail
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+            <!-- Map Element -->
+            <div id="map" style="height: 600px; width: 100%;"
+                class="border-2 border-black overflow-hidden"></div>
+
+            <!-- Legend -->
+            <div class="mt-4 flex flex-wrap gap-4 justify-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-blue-500 border border-black"></div>
+                    <span class="text-sm font-bold text-gray-600">Kos Putra</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-pink-500 border border-black"></div>
+                    <span class="text-sm font-bold text-gray-600">Kos Putri</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-purple-500 border border-black"></div>
+                    <span class="text-sm font-bold text-gray-600">Kos Campuran</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-emerald-500 border border-black"></div>
+                    <span class="text-sm font-bold text-gray-600">Lokasi Anda</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-yellow-500 border border-black"></div>
+                    <span class="text-sm font-bold text-gray-600">Radius 1 km</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-black border border-black"></div>
+                    <span class="text-sm font-bold text-gray-600">Rute</span>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Nearby Kos List (Mobile View) -->
+    <div id="nearby-kos-list" class="mt-8 hidden">
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-black text-black flex items-center">
+                    <i class="fas fa-map-marker-alt text-lime-600 mr-3"></i>
+                    Kos Terdekat (Dalam 1 km)
+                </h2>
+                <button id="hide-nearby-list" class="text-gray-500 hover:text-black font-black text-lg transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 gap-4">
+                <!-- Kos terdekat akan ditampilkan di sini -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Kos List (Mobile View) -->
+    <div class="mt-8 lg:hidden">
+        <h2 class="text-xl font-black text-black mb-4 flex items-center">
+            <i class="fas fa-home text-pink-500 mr-3"></i>
+            Daftar Kos Terdekat
+        </h2>
+        <div class="grid grid-cols-1 gap-4">
+            @foreach($kos->take(5) as $k)
+                <div class="bg-white border-2 border-black p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <h3 class="font-black text-black">{{ $k->nama_kos }}</h3>
+                            <p class="text-sm font-bold text-gray-600 mt-1">{{ $k->alamat }}</p>
+                            <div class="flex items-center gap-4 mt-2">
+                                <span class="text-xs font-black px-2.5 py-1 border-2 border-black
+                                    {{ $k->jenis_kos == 'putra' ? 'bg-blue-200 text-black' :
+                                        ($k->jenis_kos == 'putri' ? 'bg-pink-200 text-black' :
+                                            'bg-purple-200 text-black') }}">
+                                    {{ ucfirst($k->jenis_kos) }}
+                                </span>
+                                <span class="text-xs font-bold text-gray-500">{{ $k->kamar_count ?? 0 }} Kamar</span>
+                            </div>
+                        </div>
+                        <div class="text-right ml-4">
+                            <div class="mb-2">
+                                @if(($k->kamar->min('harga') ?? 0) > 0)
+                                    <span class="text-sm font-black text-black">
+                                        Rp {{ number_format($k->kamar->min('harga'), 0, ',', '.') }}
+                                    </span>
+                                @else
+                                    <span class="text-sm font-black text-red-500">Kamar tidak tersedia</span>
+                                @endif
+                            </div>
+                            <a href="{{ route('public.kos.show', $k->id_kos) }}"
+                                class="inline-flex items-center justify-center px-3 py-1.5 bg-lime-400 hover:bg-lime-500 text-black font-black text-sm border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
+                                <i class="fas fa-eye mr-1 text-xs"></i> Detail
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</div>
 </section>
 
 @endsection

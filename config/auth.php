@@ -3,7 +3,7 @@
 return [
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'penghuni',
+        'passwords' => 'users',
     ],
 
     'guards' => [
@@ -15,15 +15,12 @@ return [
         'penghuni' => [
             'driver' => 'session',
             'provider' => 'users',
-            'remember' => true,
         ],
 
         'pemilik' => [
             'driver' => 'session',
             'provider' => 'users',
-            'remember' => true,
         ],
-
         'admin' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -38,14 +35,7 @@ return [
     ],
 
     'passwords' => [
-        'penghuni' => [
-            'provider' => 'users',
-            'table' => 'password_reset_tokens',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-
-        'pemilik' => [
+        'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,

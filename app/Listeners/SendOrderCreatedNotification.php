@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\OrderCreated;
-use App\Services\NotificationService;
+use App\Services\Notification\NotificationService;
 
 class SendOrderCreatedNotification
 {

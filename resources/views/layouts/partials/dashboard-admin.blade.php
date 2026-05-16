@@ -1,95 +1,81 @@
 <!-- Dashboard Header -->
-<header class="bg-slate-800 border-b border-slate-700 h-16 flex items-center sticky top-0 z-[1002]">
+<header class="bg-white border-b-4 border-black h-16 flex items-center sticky top-0 z-[1002]">
     <div id="dashboardHeader" class="flex-1 px-4 transition-all duration-300 ease-in-out">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <!-- Mobile Toggle -->
-                <button id="mobileSidebarToggle" class="md:hidden text-slate-400 hover:text-slate-100">
+                <button id="mobileSidebarToggle" class="md:hidden text-black hover:text-yellow-500">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
 
                 <!-- Logo and Title -->
                 <div class="hidden md:flex items-center gap-3">
-                    <div
-                        class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-user-shield text-white"></i>
+                    <div class="w-10 h-10 bg-yellow-400 border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center">
+                        <i class="fas fa-user-shield text-black"></i>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold text-white">Dashboard Admin</h1>
-                        <p class="text-xs text-slate-400">Kelola sistem AyoKos</p>
+                        <h1 class="text-lg font-black text-black">Dashboard Admin</h1>
+                        <p class="text-xs font-bold text-gray-500">Kelola sistem AyoKos</p>
                     </div>
                 </div>
             </div>
 
             <!-- Right Side -->
             <div class="flex items-center gap-4">
-                <!-- Notifications -->
-                <button class="relative p-2 text-slate-400 hover:text-slate-100">
-                    <i class="fas fa-bell text-lg"></i>
-                    <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                </button>
-
                 <!-- Profile Menu -->
                 <div class="profile-menu relative">
-                    @php $adminUser = auth('admin')->user(); @endphp
-                    <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-700/50">
-                        <div
-                            class="w-8 h-8 bg-gradient-to-br from-red-400 to-pink-400 rounded-full flex items-center justify-center">
-                            <span
-                                class="text-white font-medium">{{ substr($adminUser->nama ?? $adminUser->name, 0, 1) }}</span>
+                    @php $adminUser = auth()->user(); @endphp
+                    <button class="flex items-center gap-2 p-2 border-2 border-transparent hover:border-black transition-colors">
+                        <div class="w-8 h-8 bg-rose-400 border-2 border-black flex items-center justify-center">
+                            <span class="text-white font-black">{{ substr($adminUser->nama ?? $adminUser->name, 0, 1) }}</span>
                         </div>
-                        <span
-                            class="text-sm font-medium text-white hidden md:inline">{{ $adminUser->nama ?? $adminUser->name }}</span>
-                        <i class="fas fa-chevron-down text-slate-400 text-xs"></i>
+                        <span class="text-sm font-bold text-black hidden md:inline">{{ $adminUser->nama ?? $adminUser->name }}</span>
+                        <i class="fas fa-chevron-down text-black text-xs"></i>
                     </button>
 
                     <!-- Profile Dropdown -->
-                    <div
-                        class="profile-dropdown absolute right-0 mt-2 w-64 bg-slate-800 rounded-xl shadow-2xl border border-slate-700 py-2 z-[1001]">
-                        <!-- User Info -->
-                        <div class="px-4 py-3 border-b border-slate-700">
-                            <p class="text-sm font-semibold text-white">{{ $adminUser->nama ?? $adminUser->name }}</p>
-                            <p class="text-xs text-slate-400 truncate">{{ $adminUser->email }}</p>
+                    <div class="profile-dropdown absolute right-0 w-64 bg-white border-2 border-black shadow-[4px_4px_0px_#000] z-[1001]">
+                        <div class="px-4 py-3 border-b-2 border-black">
+                            <p class="text-sm font-black text-black">{{ $adminUser->nama ?? $adminUser->name }}</p>
+                            <p class="text-xs font-medium text-gray-600 truncate">{{ $adminUser->email }}</p>
                         </div>
 
-                        <!-- Menu Items -->
-                        <div class="py-2">
+                        <div class="py-1">
                             <a href="{{ route('admin.dashboard') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-tachometer-alt w-5 mr-3 text-red-400"></i>
+                                class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
+                                <i class="fas fa-tachometer-alt w-5 mr-3 text-rose-500"></i>
                                 <span>Dashboard</span>
                             </a>
                             <a href="{{ route('admin.users.index') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-users w-5 mr-3 text-blue-400"></i>
+                                class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
+                                <i class="fas fa-users w-5 mr-3 text-blue-500"></i>
                                 <span>Kelola User</span>
                             </a>
                             <a href="{{ route('admin.kos.index') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-home w-5 mr-3 text-green-400"></i>
+                                class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
+                                <i class="fas fa-home w-5 mr-3 text-emerald-500"></i>
                                 <span>Kelola Kos</span>
                             </a>
                             <a href="{{ route('admin.kontrak.index') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-file-contract w-5 mr-3 text-yellow-400"></i>
+                                class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
+                                <i class="fas fa-file-contract w-5 mr-3 text-yellow-500"></i>
                                 <span>Kelola Kontrak</span>
                             </a>
                             <a href="{{ route('admin.pembayaran.index') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-credit-card w-5 mr-3 text-purple-400"></i>
+                                class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
+                                <i class="fas fa-credit-card w-5 mr-3 text-purple-500"></i>
                                 <span>Pembayaran</span>
                             </a>
                             <a href="{{ route('admin.laporan.index') }}"
-                                class="flex items-center px-4 py-2.5 text-slate-100 hover:bg-slate-700 hover:text-white transition-colors">
-                                <i class="fas fa-chart-bar w-5 mr-3 text-orange-400"></i>
+                                class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
+                                <i class="fas fa-chart-bar w-5 mr-3 text-orange-500"></i>
                                 <span>Laporan</span>
                             </a>
                         </div>
 
-                        <!-- Logout -->
-                        <div class="border-t border-slate-700 pt-2">
+                        <div class="border-t-2 border-black pt-1">
                             <button type="button"
-                                class="flex items-center w-full text-left px-4 py-2.5 text-red-400 hover:bg-red-900/20 transition-colors"
+                                class="flex items-center w-full text-left px-4 py-2.5 text-red-500 hover:bg-red-50 font-bold text-sm transition-colors"
                                 onclick="showLogoutModal()">
                                 <i class="fas fa-sign-out-alt w-5 mr-3"></i>
                                 <span>Logout</span>
@@ -106,68 +92,65 @@
 <div class="flex min-h-[calc(100vh-64px)] relative">
     <!-- Sidebar -->
     <aside id="sidebar"
-        class="bg-slate-800 border-r border-slate-700 w-64 md:w-64 flex-shrink-0 fixed md:relative h-full md:h-auto z-[1005] -translate-x-full md:translate-x-0 transition-all duration-300 ease-in-out">
+        class="bg-black w-64 md:w-64 flex-shrink-0 fixed md:relative h-full md:h-auto z-[1005] -translate-x-full md:translate-x-0 transition-all duration-300 ease-in-out overflow-y-auto">
+
         <!-- Sidebar Header -->
-        <div class="p-4 border-b border-slate-700">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="w-8 h-8 bg-gradient-to-br from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-user-shield text-white text-sm"></i>
-                    </div>
-                    <span class="logo-text font-bold text-white">AyoKos</span>
+        <div class="p-4 border-b-2 border-gray-800">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-yellow-400 border-2 border-black flex items-center justify-center">
+                    <i class="fas fa-user-shield text-black text-sm"></i>
                 </div>
+                <span class="logo-text font-black text-white">AyoKos</span>
             </div>
         </div>
 
-        <!-- Navigation -->
         <nav class="p-4">
             <ul class="space-y-1">
                 <li>
                     <a href="{{ route('admin.dashboard') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('admin.dashboard') ? 'bg-red-900/30 text-red-300 border-l-4 border-red-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.dashboard') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
                         <i class="fas fa-tachometer-alt w-5"></i>
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.users.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('admin.users.*') ? 'bg-red-900/30 text-red-300 border-l-4 border-red-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.users.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
                         <i class="fas fa-users w-5"></i>
                         <span class="sidebar-text">Kelola User</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.kos.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('admin.kos.*') ? 'bg-red-900/30 text-red-300 border-l-4 border-red-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.kos.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
                         <i class="fas fa-home w-5"></i>
                         <span class="sidebar-text">Kelola Kos</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.kontrak.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('admin.kontrak.*') ? 'bg-red-900/30 text-red-300 border-l-4 border-red-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.kontrak.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
                         <i class="fas fa-file-contract w-5"></i>
                         <span class="sidebar-text">Kelola Kontrak</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.pembayaran.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('admin.pembayaran.*') ? 'bg-red-900/30 text-red-300 border-l-4 border-red-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.pembayaran.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
                         <i class="fas fa-credit-card w-5"></i>
                         <span class="sidebar-text">Pembayaran</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.reviews.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('admin.reviews.*') ? 'bg-red-900/30 text-red-300 border-l-4 border-red-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.reviews.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
                         <i class="fas fa-star w-5"></i>
                         <span class="sidebar-text">Moderasi Review</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.laporan.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 rounded-lg font-medium {{ request()->routeIs('admin.laporan.*') ? 'bg-red-900/30 text-red-300 border-l-4 border-red-500' : 'text-slate-400 hover:text-white hover:bg-slate-700/50' }}">
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.laporan.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
                         <i class="fas fa-chart-bar w-5"></i>
                         <span class="sidebar-text">Laporan</span>
                     </a>
@@ -176,16 +159,16 @@
         </nav>
 
         <!-- System Stats -->
-        <div class="p-4 border-t border-slate-700">
-            <div class="text-xs text-slate-400 mb-2">Statistik Sistem</div>
+        <div class="p-4 border-t-2 border-gray-800">
+            <div class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Statistik Sistem</div>
             <div class="space-y-2">
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-slate-400">Total User</span>
-                    <span class="font-bold text-white">{{ \App\Models\User::count() }}</span>
+                    <span class="text-gray-400 font-medium">Total User</span>
+                    <span class="font-black text-white">{{ \App\Models\User::count() }}</span>
                 </div>
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-slate-400">Total Kos</span>
-                    <span class="font-bold text-green-400">{{ \App\Models\Kos::count() }}</span>
+                    <span class="text-gray-400 font-medium">Total Kos</span>
+                    <span class="font-black text-emerald-400">{{ \App\Models\Kos::count() }}</span>
                 </div>
             </div>
         </div>
@@ -193,12 +176,12 @@
 
     <!-- Sidebar Toggle Button (Desktop) -->
     <button id="desktopSidebarToggle" onclick="toggleSidebar()"
-        class="hidden md:flex fixed top-20 left-64 z-[1004] bg-slate-800 border border-slate-700 text-slate-400 hover:text-white p-1 rounded-r-lg shadow-lg items-center justify-center w-8 h-10 transition-all duration-300">
+        class="hidden md:flex fixed top-20 left-64 z-[1004] bg-black border-2 border-black text-white hover:bg-yellow-400 hover:text-black p-1 items-center justify-center w-7 h-10 transition-all duration-300">
         <i id="sidebarToggleIcon" class="fas fa-chevron-left text-xs"></i>
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300 ease-in-out">
+    <main id="mainContent" class="flex-1 transition-all duration-300 ease-in-out bg-gray-50">
         <div class="p-4 md:p-6">
             @yield('content')
         </div>

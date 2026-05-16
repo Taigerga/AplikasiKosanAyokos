@@ -21,250 +21,55 @@
     <!-- AOS Animation CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
 
-    <style>
-        :root {
-            --sidebar-width: 260px;
-            --sidebar-collapsed-width: 70px;
-            --header-height: 64px;
-        }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.7;
-            background-color: #fafafa;
-            color: #1e293b;
-        }
-
-        /* Smooth transitions */
-        * {
-            transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        /* Card hover effects */
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Navbar Public - Overlay Mulus */
-        #publicNavbar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 50;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: transparent;
-            border-bottom: 1px solid transparent;
-            padding: 0.75rem 0;
-        }
-
-        #publicNavbar.navbar-scrolled {
-            position: fixed;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
-            padding: 0.5rem 0;
-        }
-
-        /* Brand & Nav Link */
-        .brand-text,
-        .nav-link {
-            color: #ffffff;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-scrolled .brand-text,
-        .navbar-scrolled .nav-link {
-            color: #1e293b;
-        }
-
-        .navbar-scrolled .nav-link:hover {
-            color: #2563eb;
-        }
-
-        .nav-link.active-link {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 0.75rem;
-        }
-
-        .navbar-scrolled .nav-link.active-link {
-            background-color: rgba(37, 99, 235, 0.08);
-            color: #2563eb;
-        }
-
-        /* Tombol Login/Register - Solid */
-        .btn-masuk {
-            background-color: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #ffffff;
-            font-weight: 500;
-            padding: 0.5rem 1.5rem;
-            border-radius: 0.75rem;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .btn-masuk:hover {
-            background-color: rgba(255, 255, 255, 0.22);
-            border-color: rgba(255, 255, 255, 0.45);
-            color: #ffffff;
-        }
-
-        .btn-daftar {
-            background-color: #ffffff;
-            color: #1e293b;
-            font-weight: 600;
-            padding: 0.5rem 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            border: none;
-        }
-
-        .btn-daftar:hover {
-            background-color: #f8fafc;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-            color: #0f172a;
-        }
-
-        .navbar-scrolled .btn-masuk {
-            background-color: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            color: #334155;
-        }
-
-        .navbar-scrolled .btn-masuk:hover {
-            background-color: #e2e8f0;
-            border-color: #94a3b8;
-        }
-
-        .navbar-scrolled .btn-daftar {
-            background-color: #2563eb;
-            color: #ffffff;
-            border: none;
-        }
-
-        .navbar-scrolled .btn-daftar:hover {
-            background-color: #1d4ed8;
-        }
-
-        /* Notification toast */
-        .notification-toast {
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        /* Dashboard specific */
-        .dashboard-container {
-            min-height: calc(100vh - var(--header-height));
-        }
-
-        /* Profile dropdown fix */
-        .profile-menu {
-            position: relative;
-        }
-
-        .profile-dropdown {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.2s ease;
-        }
-
-        .profile-menu:hover .profile-dropdown,
-        .profile-dropdown.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-    </style>
 </head>
 
-<body class="text-slate-800 flex flex-col min-h-screen">
+<body class="text-black flex flex-col min-h-screen">
     <!-- Dynamic Header Based on Auth Status -->
-    @if(auth('penghuni')->check())
-        @include('layouts.partials.dashboard-penghuni')
-    @elseif(auth('pemilik')->check())
-        @include('layouts.partials.dashboard-pemilik')
-    @elseif(auth('admin')->check())
-        @include('layouts.partials.dashboard-admin')
+    @auth
+        @if(auth()->user()->role === 'penghuni')
+            @include('layouts.partials.dashboard-penghuni')
+        @elseif(auth()->user()->role === 'pemilik')
+            @include('layouts.partials.dashboard-pemilik')
+        @elseif(auth()->user()->role === 'admin')
+            @include('layouts.partials.dashboard-admin')
+        @endif
     @else
-        <!-- Public Layout: Overlay Navbar -->
-         
-        <header id="publicNavbar" class="transition-all duration-300">
+        <!-- Public Layout: Neobrutalism Navbar -->
+        <header class="bg-white border-b-4 border-black sticky top-0 z-50">
             <div class="container mx-auto px-4">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center h-16 md:h-20">
                     <div class="flex items-center gap-8">
-                        <a href="{{ route('public.home') }}" class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm">
-                            <div class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm" id="brandIcon">
-                                <i class="fas fa-home text-lg"></i>
+                        <a href="{{ route('public.home') }}" class="flex items-center gap-2">
+                            <div class="w-9 h-9 md:w-10 md:h-10 bg-black border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                                <i class="fas fa-home text-white text-sm md:text-base"></i>
                             </div>
-                            <span class="text-xl font-bold brand-text">
+                            <span class="text-xl md:text-2xl font-black text-black">
                                 AyoKos
                             </span>
                         </a>
-                        <nav class="hidden md:flex gap-4">
+                        <nav class="hidden md:flex gap-1">
                             <a href="{{ route('public.home') }}"
-                                class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm {{ request()->routeIs('public.home') ? 'active-link' : '' }}">
-                                <i class="fas fa-home w-4"></i>
-                                <span>Home</span>
+                                class="px-4 py-2 font-bold text-sm text-black hover:bg-yellow-400 transition-colors border-2 border-transparent {{ request()->routeIs('public.home') ? 'bg-yellow-400 border-black' : '' }}">
+                                Home
                             </a>
                             <a href="{{ route('public.kos.index') }}"
-                                class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm {{ request()->routeIs('public.kos.index') ? 'active-link' : '' }}">
-                                <i class="fas fa-search w-4"></i>
-                                <span>Cari Kos</span>
+                                class="px-4 py-2 font-bold text-sm text-black hover:bg-yellow-400 transition-colors border-2 border-transparent {{ request()->routeIs('public.kos.index') ? 'bg-yellow-400 border-black' : '' }}">
+                                Cari Kos
                             </a>
                             <a href="{{ route('public.kos.peta') }}"
-                                class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm {{ request()->routeIs('public.kos.peta') ? 'active-link' : '' }}">
-                                <i class="fas fa-map-marker-alt w-4"></i>
-                                <span>Peta</span>
+                                class="px-4 py-2 font-bold text-sm text-black hover:bg-yellow-400 transition-colors border-2 border-transparent {{ request()->routeIs('public.kos.peta') ? 'bg-yellow-400 border-black' : '' }}">
+                                Peta
                             </a>
                         </nav>
                     </div>
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('login') }}" class="btn-masuk">
+                        <a href="{{ route('login') }}"
+                            class="px-5 py-2.5 bg-black text-white font-bold text-sm border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:translate-y-[-1px] transition-all uppercase tracking-wide">
                             Masuk
                         </a>
-                        <a href="{{ route('register') }}" class="btn-daftar">
+                        <a href="{{ route('register') }}"
+                            class="px-5 py-2.5 bg-white text-black font-bold text-sm border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:translate-y-[-1px] transition-all uppercase tracking-wide">
                             Daftar
                         </a>
                     </div>
@@ -277,56 +82,56 @@
             @yield('content')
         </main>
 
-        <!-- Footer (Only for Public Pages) -->
+        <!-- Footer Neobrutalism -->
         @if(!isset($hideFooter) || !$hideFooter) 
-        <footer class="bg-white border-t border-slate-200">
+        <footer class="bg-black border-t-4 border-yellow-400">
             <div class="container mx-auto px-4 py-16">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
                     <div>
                         <div class="flex items-center gap-3 mb-5">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-md">
-                                <i class="fas fa-home text-white"></i>
+                            <div class="w-10 h-10 bg-yellow-400 border-2 border-yellow-400 flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                                <i class="fas fa-home text-black"></i>
                             </div>
-                            <span class="text-xl font-bold text-slate-900">AyoKos</span>
+                            <span class="text-xl font-black text-white">AyoKos</span>
                         </div>
-                        <p class="text-slate-500 text-sm leading-relaxed">Platform pencarian kos terbaik di Indonesia dengan pengalaman modern, aman, dan terpercaya.</p>
+                        <p class="text-gray-400 text-sm leading-relaxed font-medium">Platform pencarian kos terbaik di Indonesia dengan pengalaman mudah, aman, dan terpercaya.</p>
                     </div>
                     <div>
-                        <h4 class="font-semibold text-slate-900 mb-4 text-sm uppercase tracking-wide">Tautan Cepat</h4>
-                        <ul class="space-y-3 text-slate-500 text-sm">
-                            <li><a href="{{ route('public.home') }}" class="hover:text-blue-600 transition-colors">Home</a></li>
-                            <li><a href="{{ route('public.kos.index') }}" class="hover:text-blue-600 transition-colors">Cari Kos</a></li>
-                            <li><a href="{{ route('public.kos.peta') }}" class="hover:text-blue-600 transition-colors">Peta Kos</a></li>
+                        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wide">Tautan Cepat</h4>
+                        <ul class="space-y-3 text-sm">
+                            <li><a href="{{ route('public.home') }}" class="text-gray-400 hover:text-yellow-400 font-medium transition-colors">Home</a></li>
+                            <li><a href="{{ route('public.kos.index') }}" class="text-gray-400 hover:text-yellow-400 font-medium transition-colors">Cari Kos</a></li>
+                            <li><a href="{{ route('public.kos.peta') }}" class="text-gray-400 hover:text-yellow-400 font-medium transition-colors">Peta Kos</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-semibold text-slate-900 mb-4 text-sm uppercase tracking-wide">Bantuan</h4>
-                        <ul class="space-y-3 text-slate-500 text-sm">
-                            <li><a href="{{ route('public.about') }}" class="hover:text-blue-600 transition-colors">Tentang Kami</a></li>
-                            <li><a href="{{ route('public.howto') }}" class="hover:text-blue-600 transition-colors">Cara Memesan</a></li>
-                            <li><a href="{{ route('public.terms') }}" class="hover:text-blue-600 transition-colors">Syarat & Ketentuan</a></li>
-                            <li><a href="{{ route('public.privacy') }}" class="hover:text-blue-600 transition-colors">Kebijakan Privasi</a></li>
+                        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wide">Bantuan</h4>
+                        <ul class="space-y-3 text-sm">
+                            <li><a href="{{ route('public.about') }}" class="text-gray-400 hover:text-yellow-400 font-medium transition-colors">Tentang Kami</a></li>
+                            <li><a href="{{ route('public.howto') }}" class="text-gray-400 hover:text-yellow-400 font-medium transition-colors">Cara Memesan</a></li>
+                            <li><a href="{{ route('public.terms') }}" class="text-gray-400 hover:text-yellow-400 font-medium transition-colors">Syarat & Ketentuan</a></li>
+                            <li><a href="{{ route('public.privacy') }}" class="text-gray-400 hover:text-yellow-400 font-medium transition-colors">Kebijakan Privasi</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-semibold text-slate-900 mb-4 text-sm uppercase tracking-wide">Kontak</h4>
-                        <ul class="space-y-3 text-slate-500 text-sm">
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-envelope w-4 text-blue-600"></i>
+                        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wide">Kontak</h4>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-center gap-3 text-gray-400">
+                                <i class="fas fa-envelope w-4 text-yellow-400"></i>
                                 <span>valorant270306@gmail.com</span>
                             </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-phone w-4 text-blue-600"></i>
+                            <li class="flex items-center gap-3 text-gray-400">
+                                <i class="fas fa-phone w-4 text-yellow-400"></i>
                                 <span>+62 82121730722</span>
                             </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-map-marker-alt w-4 text-blue-600"></i>
+                            <li class="flex items-center gap-3 text-gray-400">
+                                <i class="fas fa-map-marker-alt w-4 text-yellow-400"></i>
                                 <span>Bandung, Indonesia</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-slate-100 mt-12 pt-8 text-center text-slate-400 text-sm">
+                <div class="border-t-2 border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm font-medium">
                     <p>&copy; {{ date('Y') }} AyoKos. All rights reserved.</p>
                 </div>
             </div>
@@ -337,27 +142,27 @@
     <!-- Logout Confirmation Modal -->
     <div id="logoutModal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4"
         aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" data-modal-close></div>
-        <div class="relative bg-white border border-slate-200 rounded-2xl w-full max-w-md overflow-hidden shadow-xl">
-            <div class="border-b border-slate-100 p-6">
-                <h5 class="text-xl font-semibold text-slate-800" id="logoutModalLabel">Konfirmasi Logout</h5>
+        <div class="fixed inset-0 bg-black/70" data-modal-close></div>
+        <div class="relative bg-white border-4 border-black shadow-[8px_8px_0px_#000] w-full max-w-md">
+            <div class="border-b-4 border-black p-6">
+                <h5 class="text-xl font-black text-black" id="logoutModalLabel">Konfirmasi Logout</h5>
             </div>
             <div class="p-6 text-center">
                 <div class="mb-4 inline-block">
-                    <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto">
-                        <i class="fas fa-sign-out-alt text-red-500 text-2xl"></i>
+                    <div class="w-16 h-16 bg-red-500 border-2 border-black flex items-center justify-center mx-auto">
+                        <i class="fas fa-sign-out-alt text-white text-2xl"></i>
                     </div>
                 </div>
-                <h5 class="text-lg font-medium text-slate-800 mb-2">Apakah Anda yakin ingin logout?</h5>
-                <p class="text-slate-500 mb-6">Anda akan keluar dari akun ini dan harus login kembali.</p>
+                <h5 class="text-lg font-bold text-black mb-2">Apakah Anda yakin ingin logout?</h5>
+                <p class="text-gray-600 font-medium mb-6">Anda akan keluar dari akun ini dan harus login kembali.</p>
             </div>
-            <div class="border-t border-slate-100 p-6 flex justify-end gap-3">
-                <button type="button" class="modal-close-btn px-5 py-2.5 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors font-medium">
+            <div class="border-t-4 border-black p-6 flex justify-end gap-3">
+                <button type="button" class="modal-close-btn px-5 py-2.5 bg-white text-black font-bold border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
                     Batal
                 </button>
                 <form id="logoutForm" method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="px-5 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm font-medium">
+                    <button type="submit" class="px-5 py-2.5 bg-red-500 text-white font-bold border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
                         Ya, Logout
                     </button>
                 </form>
@@ -365,17 +170,43 @@
         </div>
     </div>
 
+    <!-- Confirm Action Modal -->
+    <div id="confirmModal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4">
+        <div class="fixed inset-0 bg-black/70" id="confirmModalOverlay"></div>
+        <div class="relative bg-white border-4 border-black shadow-[8px_8px_0px_#000] w-full max-w-md">
+            <div class="p-6 text-center">
+                <div id="confirmModalIcon" class="mb-4 inline-block">
+                    <div class="w-16 h-16 bg-red-500 border-2 border-black flex items-center justify-center mx-auto">
+                        <i id="confirmIcon" class="fas fa-exclamation-triangle text-white text-2xl"></i>
+                    </div>
+                </div>
+                <h5 id="confirmModalTitle" class="text-lg font-black text-black mb-2">Konfirmasi</h5>
+                <p id="confirmModalMessage" class="text-gray-600 font-medium mb-6">Apakah Anda yakin?</p>
+            </div>
+            <div class="border-t-4 border-black p-6 flex justify-end gap-3">
+                <button type="button" id="confirmModalCancel"
+                    class="px-5 py-2.5 bg-white text-black font-bold border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
+                    Batal
+                </button>
+                <button type="button" id="confirmModalOk"
+                    class="px-5 py-2.5 bg-red-500 text-white font-bold border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
+                    Ya, Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Success Notification Modal -->
     @if(session('success'))
         <div id="successModal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4">
-            <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" data-modal-close></div>
-            <div class="relative bg-white border border-slate-200 rounded-2xl w-full max-w-md overflow-hidden shadow-xl">
-                <div class="p-6 text-center">
-                    <div class="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-check-circle text-emerald-500 text-2xl"></i>
+            <div class="fixed inset-0 bg-black/70" data-modal-close></div>
+            <div class="relative bg-white border-4 border-black shadow-[8px_8px_0px_#000] w-full max-w-md">
+                <div class="p-8 text-center">
+                    <div class="w-16 h-16 bg-emerald-500 border-2 border-black flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-check-circle text-white text-2xl"></i>
                     </div>
-                    <h5 class="text-lg font-medium text-slate-800 mb-2">Sukses!</h5>
-                    <p class="text-slate-500">{{ session('success') }}</p>
+                    <h5 class="text-lg font-black text-black mb-2">Sukses!</h5>
+                    <p class="text-gray-600 font-medium">{{ session('success') }}</p>
                 </div>
             </div>
         </div>
@@ -466,20 +297,7 @@
         }
 
         function setupProfileDropdown() {
-            const profileButtons = document.querySelectorAll('.profile-menu');
-            profileButtons.forEach(button => {
-                const dropdown = button.querySelector('.profile-dropdown');
-                if (!dropdown) return;
-                const bridge = document.createElement('div');
-                bridge.className = 'profile-bridge';
-                button.appendChild(bridge);
-                button.addEventListener('mouseenter', () => dropdown.classList.add('show'));
-                button.addEventListener('mouseleave', (e) => {
-                    if (!dropdown.contains(e.relatedTarget)) dropdown.classList.remove('show');
-                });
-                dropdown.addEventListener('mouseenter', () => dropdown.classList.add('show'));
-                dropdown.addEventListener('mouseleave', () => dropdown.classList.remove('show'));
-            });
+            // Dropdown handled purely by CSS hover (.profile-menu:hover .profile-dropdown)
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -492,21 +310,8 @@
                 disable: 'mobile'
             });
 
-            // Navbar scroll effect
-            const navbar = document.getElementById('publicNavbar');
-            if (navbar) {
-                function updateNavbar() {
-                    if (window.scrollY > 50) {
-                        navbar.classList.add('navbar-scrolled');
-                    } else {
-                        navbar.classList.remove('navbar-scrolled');
-                    }
-                }
-                updateNavbar();
-                window.addEventListener('scroll', updateNavbar);
-            }
-
             setupProfileDropdown();
+            fetchNotifCount();
 
             const mobileToggle = document.getElementById('mobileSidebarToggle');
             const sidebar = document.getElementById('sidebar');
@@ -543,8 +348,76 @@
         function showLogoutModal() {
             if (window.logoutModal) window.logoutModal.show();
         }
+
+        function showConfirmDialog(message, type = 'danger') {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('confirmModal');
+                const msgEl = document.getElementById('confirmModalMessage');
+                const titleEl = document.getElementById('confirmModalTitle');
+                const iconEl = document.getElementById('confirmIcon');
+                const iconWrap = document.querySelector('#confirmModalIcon div');
+                const okBtn = document.getElementById('confirmModalOk');
+
+                msgEl.textContent = message;
+
+                const config = {
+                    danger: { icon: 'fa-exclamation-triangle', bg: 'bg-red-500', text: 'text-white', btn: 'bg-red-500', label: 'Ya, Hapus', title: 'Konfirmasi Hapus' },
+                    success: { icon: 'fa-check-circle', bg: 'bg-emerald-500', text: 'text-white', btn: 'bg-emerald-500', label: 'Ya, Setujui', title: 'Konfirmasi' },
+                    warning: { icon: 'fa-exclamation-circle', bg: 'bg-yellow-500', text: 'text-white', btn: 'bg-yellow-500', label: 'Ya', title: 'Perhatian' },
+                };
+
+                const c = config[type] || config.danger;
+                iconEl.className = `fas ${c.icon} ${c.text} text-2xl`;
+                iconWrap.className = `w-16 h-16 ${c.bg} border-2 border-black flex items-center justify-center mx-auto`;
+                okBtn.className = `px-5 py-2.5 ${c.btn} text-white font-bold border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all`;
+                okBtn.textContent = c.label;
+                titleEl.textContent = c.title;
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+
+                function close() {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    document.body.style.overflow = '';
+                }
+
+                function cleanup() {
+                    close();
+                    document.getElementById('confirmModalOk').removeEventListener('click', handleOk);
+                    document.getElementById('confirmModalCancel').removeEventListener('click', handleCancel);
+                    document.getElementById('confirmModalOverlay').removeEventListener('click', handleOverlay);
+                }
+
+                function handleOk() { cleanup(); resolve(true); }
+                function handleCancel() { cleanup(); resolve(false); }
+                function handleOverlay() { cleanup(); resolve(false); }
+
+                document.getElementById('confirmModalOk').addEventListener('click', handleOk);
+                document.getElementById('confirmModalCancel').addEventListener('click', handleCancel);
+                document.getElementById('confirmModalOverlay').addEventListener('click', handleOverlay);
+            });
+        }
+
+        async function fetchNotifCount() {
+            const badge = document.getElementById('notifBadge');
+            if (!badge) return;
+            try {
+                const res = await axios.get('/api/notifications/unread-count');
+                const count = res.data?.data?.unread_count || 0;
+                if (count > 0) {
+                    badge.textContent = count > 9 ? '9+' : count;
+                    badge.classList.remove('hidden');
+                }
+            } catch (e) {
+                // silently fail
+            }
+        }
     </script>
     @stack('scripts')
+
+    @vite(['resources/js/app.js'])
 </body>
 
 </html>

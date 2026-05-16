@@ -5,21 +5,21 @@
 @section('content')
 <div class="p-4 md:p-6 max-w-3xl mx-auto space-y-6">
     <!-- Breadcrumb -->
-    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+    <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
                     <a href="{{ route('public.home') }}"
-                       class="inline-flex items-center text-sm font-medium text-white/60 hover:text-white transition">
+                       class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition">
                         <i class="fas fa-gauge mr-2"></i>
                         Home
                     </a>
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-white/20 mx-2 text-xs"></i>
+                        <i class="fas fa-chevron-right text-black/20 mx-2 text-xs"></i>
                         <a href="{{ route('penghuni.reviews.history') }}"
-                           class="ml-1 text-sm font-medium text-white/60 hover:text-white transition">
+                           class="ml-1 text-sm font-bold text-gray-600 hover:text-black transition">
                            <i class="fas fa-star mr-2"></i>
                             Review Saya
                         </a>
@@ -27,8 +27,8 @@
                 </li>
                 <li aria-current="page">
                     <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-white/20 mx-2 text-xs"></i>
-                        <span class="ml-1 text-sm font-medium text-white">
+                        <i class="fas fa-chevron-right text-black/20 mx-2 text-xs"></i>
+                        <span class="ml-1 text-sm font-bold text-black">
                             <i class="fas fa-pencil mr-2"></i>
                             Edit Review
                         </span>
@@ -38,24 +38,37 @@
         </nav>
     </div>
 
+    @if(session('success'))
+        <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-emerald-300 px-4 py-3  mb-6">
+            <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
+        </div>
+        <script>window.showSuccess && window.showSuccess('{{ session('success') }}');</script>
+    @endif
+    @if(session('error'))
+        <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-rose-300 px-4 py-3  mb-6">
+            <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
+        </div>
+        <script>window.showError && window.showError('{{ session('error') }}');</script>
+    @endif
+
     <!-- Main Card -->
-    <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden">
+    <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
         <!-- Header -->
-        <div class="bg-white/5 backdrop-blur-sm border-b border-white/20 p-6">
+        <div class="bg-gray-100 border-2 border-black border-b border-black p-6">
             <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-white/5 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                    <i class="fas fa-star text-white text-xl"></i>
+                <div class="w-12 h-12 bg-gray-100 border-2 border-black  flex items-center justify-center">
+                    <i class="fas fa-star text-black text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold text-white">Edit Review</h1>
-                    <p class="text-white/60">Perbarui review Anda untuk {{ $review->kos->nama_kos }}</p>
+                    <h1 class="text-2xl font-black text-black">Edit Review</h1>
+                    <p class="text-gray-600">Perbarui review Anda untuk {{ $review->kos->nama_kos }}</p>
                 </div>
             </div>
         </div>
 
         <div class="p-6">
             <!-- Kos Info -->
-            <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4 mb-6">
+            <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 mb-6">
                 <div class="flex items-center space-x-4">
                     @if($review->kos->foto_utama)
                         @php
@@ -65,26 +78,26 @@
                         @if($fileExists)
                             <img src="{{ url('storage/' . $review->kos->foto_utama) }}"
                                  alt="{{ $review->kos->nama_kos }}"
-                                 class="w-16 h-16 object-cover rounded-xl border border-white/20">
+                                 class="w-16 h-16 object-cover  border border-black">
                         @else
-                            <div class="w-16 h-16 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 flex items-center justify-center">
-                                <i class="fas fa-home text-white/40 text-xl"></i>
+                            <div class="w-16 h-16 bg-gray-100 border-2 border-black  border border-black flex items-center justify-center">
+                                <i class="fas fa-home text-gray-500 text-xl"></i>
                             </div>
                         @endif
                     @else
-                        <div class="w-16 h-16 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20 flex items-center justify-center">
-                            <i class="fas fa-home text-white/40 text-xl"></i>
+                        <div class="w-16 h-16 bg-gray-100 border-2 border-black  border border-black flex items-center justify-center">
+                            <i class="fas fa-home text-gray-500 text-xl"></i>
                         </div>
                     @endif
                     <div class="flex-1">
                         <div class="flex items-center justify-between">
-                            <h3 class="font-semibold text-white">{{ $review->kos->nama_kos }}</h3>
-                            <span class="text-xs px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
+                            <h3 class="font-black text-black">{{ $review->kos->nama_kos }}</h3>
+                            <span class="text-xs px-2 py-1  bg-emerald-50 text-emerald-600">
                                 {{ $review->kontrak->kamar->nomor_kamar ?? 'Kamar' }}
                             </span>
                         </div>
-                        <p class="text-sm text-white/60 mt-1">{{ $review->kos->alamat }}, {{ $review->kos->kota }}</p>
-                        <p class="text-xs text-white/40 mt-1">
+                        <p class="text-sm text-gray-600 mt-1">{{ $review->kos->alamat }}, {{ $review->kos->kota }}</p>
+                        <p class="text-xs text-gray-500 mt-1">
                             <i class="far fa-calendar-alt mr-1"></i>
                             Review dibuat: {{ $review->created_at->format('d M Y') }}
                         </p>
@@ -92,13 +105,13 @@
                 </div>
             </div>
 
-            <form action="{{ route('penghuni.reviews.update', $review->id_review) }}" method="POST" enctype="multipart/form-data" id="reviewForm">
+            <form action="{{ route('penghuni.reviews.update', $review->id_review) }}" method="POST" enctype="multipart/form-data" id="reviewForm" data-ajax="true" data-ajax-action="/api/penghuni/reviews/{{ $review->id_review }}" data-ajax-method="PUT" data-redirect="{{ route('penghuni.reviews.history') }}" data-success-msg="Review berhasil diperbarui!">
                 @csrf
                 @method('PUT')
 
                 <!-- Rating -->
                 <div class="mb-6">
-                    <label class="block text-white font-medium mb-3 flex items-center">
+                    <label class="block text-black font-bold mb-3 flex items-center">
                         <i class="fas fa-star text-yellow-400 mr-2"></i>
                         Rating Anda
                     </label>
@@ -112,14 +125,14 @@
                             @if($i <= $review->rating)
                                 <i class="fas fa-star text-yellow-400"></i>
                             @else
-                                <i class="far fa-star text-white/60"></i>
+                                <i class="far fa-star text-gray-600"></i>
                             @endif
                         </button>
                         @endfor
                     </div>
                     <input type="hidden" name="rating" id="rating-input" value="{{ $review->rating }}" required>
                     <div class="flex items-center justify-between">
-                        <div class="text-sm text-white/60">
+                        <div class="text-sm text-gray-600">
                             <span id="rating-text">
                                 @switch($review->rating)
                                     @case(1) Sangat Buruk @break
@@ -130,51 +143,51 @@
                                 @endswitch
                             </span>
                         </div>
-                        <div class="text-sm text-white/60">
+                        <div class="text-sm text-gray-600">
                             {{ $review->rating }} dari 5 bintang
                         </div>
                     </div>
                     @error('rating')
-                    <div class="mt-2 text-sm text-red-400">{{ $message }}</div>
+                    <div class="mt-2 text-sm text-rose-400">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <!-- Komentar -->
                 <div class="mb-6">
-                    <label for="komentar" class="block text-white font-medium mb-3 flex items-center">
+                    <label for="komentar" class="block text-black font-bold mb-3 flex items-center">
                         <i class="fas fa-edit text-emerald-400 mr-2"></i>
                         Komentar
                     </label>
                     <textarea name="komentar" id="komentar"
                               rows="6"
-                              class="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition"
+                              class="w-full px-4 py-3 bg-white border-2 border-black shadow-[2px_2px_0px_#000] text-black  focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 transition"
                               placeholder="Bagaimana pengalaman Anda selama tinggal di kos ini?"
                               required>{{ old('komentar', $review->komentar) }}</textarea>
                     <div class="flex items-center justify-between mt-2">
-                        <div class="text-xs text-white/60 flex items-center">
+                        <div class="text-xs text-gray-600 flex items-center">
                             <i class="fas fa-lightbulb mr-1 text-yellow-400"></i>
                             Bagikan tentang fasilitas, kebersihan, lingkungan, dan layanan
                         </div>
-                        <div class="text-xs text-white/60">
+                        <div class="text-xs text-gray-600">
                             <span id="char-count">0</span>/500 karakter
                         </div>
                     </div>
                     @error('komentar')
-                    <div class="mt-2 text-sm text-red-400">{{ $message }}</div>
+                    <div class="mt-2 text-sm text-rose-400">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <!-- Foto Review -->
                 <div class="mb-8">
-                    <label class="block text-white font-medium mb-3 flex items-center">
+                    <label class="block text-black font-bold mb-3 flex items-center">
                         <i class="fas fa-camera text-purple-400 mr-2"></i>
                         Foto Review
                     </label>
 
                     @if($review->foto_review)
                     <div class="mb-4">
-                        <p class="text-sm text-white/60 mb-2">Foto saat ini:</p>
-                        <div class="flex items-center space-x-4 p-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl">
+                        <p class="text-sm text-gray-600 mb-2">Foto saat ini:</p>
+                        <div class="flex items-center space-x-4 p-4 bg-white border-2 border-black shadow-[2px_2px_0px_#000]">
                             @php
                                 $reviewFilePath = storage_path('app/public/' . $review->foto_review);
                                 $reviewFileExists = file_exists($reviewFilePath);
@@ -182,10 +195,10 @@
                             @if($reviewFileExists)
                                 <img src="{{ url('storage/' . $review->foto_review) }}"
                                      alt="Foto review"
-                                     class="w-24 h-24 object-cover rounded-lg border border-white/20">
+                                     class="w-24 h-24 object-cover  border border-black">
                             @else
-                                <div class="w-24 h-24 bg-white/5 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center">
-                                    <i class="fas fa-image text-white/40 text-2xl"></i>
+                                <div class="w-24 h-24 bg-gray-100 border-2 border-black  border border-black flex items-center justify-center">
+                                    <i class="fas fa-image text-gray-500 text-2xl"></i>
                                 </div>
                             @endif
                             <div class="flex-1">
@@ -193,66 +206,66 @@
                                     <label class="flex items-center space-x-2 cursor-pointer group">
                                         <div class="relative">
                                             <input type="checkbox" name="hapus_foto" value="1" class="sr-only peer">
-                                            <div class="w-6 h-6 bg-white/5 backdrop-blur-sm border-2 border-white/20 rounded-md peer-checked:bg-red-500 peer-checked:border-red-500 transition-all duration-200 group-hover:border-red-400"></div>
-                                            <i class="fas fa-check absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                                            <div class="w-6 h-6 bg-gray-100 border-2 border-black border-2 border-black rounded-md peer-checked:bg-rose-500 peer-checked:border-rose-500 transition-all duration-200 group-hover:border-rose-400"></div>
+                                            <i class="fas fa-check absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-xs opacity-0 peer-checked:opacity-100 transition-opacity"></i>
                                         </div>
-                                        <span class="text-sm text-red-400 group-hover:text-red-300 transition">Hapus foto ini</span>
+                                        <span class="text-sm text-rose-400 group-hover:text-rose-300 transition">Hapus foto ini</span>
                                     </label>
                                 </div>
-                                <p class="text-xs text-white/60 mt-2">Centang untuk menghapus foto saat ini</p>
+                                <p class="text-xs text-gray-600 mt-2">Centang untuk menghapus foto saat ini</p>
                             </div>
                         </div>
                     </div>
                     @endif
 
-                    <p class="text-sm text-white/60 mb-3">Upload foto baru (opsional):</p>
+                    <p class="text-sm text-gray-600 mb-3">Upload foto baru (opsional):</p>
                     <div class="flex items-center justify-center w-full">
-                        <label for="foto_review" class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-white/20 rounded-xl cursor-pointer bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group">
+                        <label for="foto_review" class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-black  cursor-pointer bg-gray-100 border-2 border-black hover:bg-gray-100 transition-all duration-300 group">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <div class="w-12 h-12 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                                <div class="w-12 h-12 bg-gray-100 border-2 border-black  flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
                                     <i class="fas fa-cloud-upload-alt text-purple-400 text-xl"></i>
                                 </div>
-                                <p class="mb-2 text-sm text-white/60 group-hover:text-white transition">
-                                    <span class="font-semibold">Klik untuk upload</span> atau drag & drop
+                                <p class="mb-2 text-sm text-gray-600 group-hover:text-black transition">
+                                    <span class="font-black">Klik untuk upload</span> atau drag & drop
                                 </p>
-                                <p class="text-xs text-white/60">PNG, JPG, GIF (Max 2MB)</p>
+                                <p class="text-xs text-gray-600">PNG, JPG, GIF (Max 2MB)</p>
                             </div>
                             <input id="foto_review" name="foto_review" type="file" class="hidden" accept="image/*" />
                         </label>
                     </div>
                     <div id="image-preview" class="mt-4 hidden">
-                        <p class="text-sm text-white/60 mb-2">Pratinjau foto baru:</p>
+                        <p class="text-sm text-gray-600 mb-2">Pratinjau foto baru:</p>
                         <div class="relative inline-block">
-                            <img id="preview-image" class="w-32 h-32 object-cover rounded-xl border border-white/20" />
+                            <img id="preview-image" class="w-32 h-32 object-cover  border border-black" />
                             <button type="button" onclick="removePreview()"
-                                    class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition">
+                                    class="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 text-black  flex items-center justify-center hover:bg-rose-600 transition">
                                 <i class="fas fa-times text-xs"></i>
                             </button>
                         </div>
                     </div>
                     @error('foto_review')
-                    <div class="mt-2 text-sm text-red-400">{{ $message }}</div>
+                    <div class="mt-2 text-sm text-rose-400">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="flex flex-col-reverse sm:flex-row justify-between items-center space-y-4 sm:space-y-0 space-y-reverse pt-6 border-t border-white/20">
+                <div class="flex flex-col-reverse sm:flex-row justify-between items-center space-y-4 sm:space-y-0 space-y-reverse pt-6 border-t border-black">
                     <button type="button"
                             onclick="showDeleteModal()"
-                            class="px-6 py-3 bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-white rounded-xl hover:bg-red-500/30 transition-all duration-300 group flex items-center">
+                            class="px-6 py-3 bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black  hover:bg-rose-500/30 transition-all duration-300 group flex items-center">
                         <i class="fas fa-trash-alt mr-2 group-hover:rotate-12 transition-transform"></i>
                         Hapus Review
                     </button>
 
                     <div class="flex space-x-3">
                         <a href="{{ route('penghuni.reviews.history') }}"
-                           class="px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition-all duration-300 flex items-center">
+                           class="px-6 py-3 bg-white border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:bg-gray-100 transition-all duration-300 flex items-center">
                             <i class="fas fa-times mr-2"></i>
                             Batal
                         </a>
                         <button type="submit"
                                 id="submit-btn"
-                                class="px-6 py-3 bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 text-white rounded-xl hover:bg-emerald-500/30 transition-all duration-300 flex items-center">
+                                class="px-6 py-3 bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black  hover:bg-emerald-500/30 transition-all duration-300 flex items-center">
                             <i class="fas fa-save mr-2"></i>
                             Simpan Perubahan
                         </button>
@@ -264,33 +277,34 @@
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div id="deleteModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm overflow-y-auto h-full w-full hidden z-50">
-    <div class="relative top-20 mx-auto p-5 border border-white/20 w-96 shadow-2xl rounded-2xl bg-white/5 backdrop-blur-sm">
+<div id="deleteModal" class="fixed inset-0 bg-black/90  overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border border-black w-96 shadow-[4px_4px_0px_#000]  bg-gray-100 border-2 border-black">
         <div class="mt-3">
-            <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-exclamation-triangle text-red-400 text-2xl"></i>
+            <div class="w-16 h-16 bg-rose-500/20  flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-exclamation-triangle text-rose-400 text-2xl"></i>
             </div>
-            <h3 class="text-lg font-semibold text-white text-center mb-3">Hapus Review</h3>
-            <p class="text-sm text-white/60 text-center mb-6">
+            <h3 class="text-lg font-black text-black text-center mb-3">Hapus Review</h3>
+            <p class="text-sm text-gray-600 text-center mb-6">
                 Apakah Anda yakin ingin menghapus review ini?
-                <span class="block text-red-400 mt-1">Tindakan ini tidak dapat dibatalkan.</span>
+                <span class="block text-rose-400 mt-1">Tindakan ini tidak dapat dibatalkan.</span>
             </p>
 
             <div class="flex justify-center space-x-3">
                 <button type="button"
                         onclick="closeDeleteModal()"
-                        class="px-5 py-2.5 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-xl hover:bg-white/10 transition">
+                        class="px-5 py-2.5 bg-white border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:bg-gray-100 transition">
                     Batal
                 </button>
-                <form id="delete-form" action="{{ route('penghuni.reviews.destroy', $review->id_review) }}" method="POST" class="inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit"
-                            class="px-5 py-2.5 bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-white rounded-xl hover:bg-red-500/30 transition">
-                        <i class="fas fa-trash-alt mr-2"></i>
-                        Ya, Hapus
-                    </button>
-                </form>
+                <button type="button"
+                        data-ajax-action="/api/penghuni/reviews/{{ $review->id_review }}"
+                        data-ajax-method="DELETE"
+                        data-confirm="Hapus review ini?"
+                        data-success-msg="Review berhasil dihapus"
+                        data-redirect="{{ route('penghuni.reviews.history') }}"
+                        class="px-5 py-2.5 bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black  hover:bg-rose-500/30 transition">
+                    <i class="fas fa-trash-alt mr-2"></i>
+                    Ya, Hapus
+                </button>
             </div>
         </div>
     </div>
@@ -324,7 +338,7 @@
                     starIcon.parentElement.classList.remove('animate-pulse');
                 }, 300);
             } else {
-                starIcon.className = 'far fa-star text-white/60';
+                starIcon.className = 'far fa-star text-gray-600';
             }
         });
     }
@@ -335,15 +349,15 @@
     komentarTextarea.addEventListener('input', function() {
         charCount.textContent = this.value.length;
         if (this.value.length > 500) {
-            charCount.classList.add('text-red-400');
+            charCount.classList.add('text-rose-400');
         } else {
-            charCount.classList.remove('text-red-400');
+            charCount.classList.remove('text-rose-400');
         }
     });
 
     charCount.textContent = komentarTextarea.value.length;
     if (komentarTextarea.value.length > 500) {
-        charCount.classList.add('text-red-400');
+        charCount.classList.add('text-rose-400');
     }
 
     const fileInput = document.getElementById('foto_review');
@@ -396,75 +410,25 @@
 
         if (komentar.length < 10) {
             e.preventDefault();
-            showNotification('Komentar harus minimal 10 karakter', 'error');
+            window.showError && window.showError('Komentar harus minimal 10 karakter');
             return;
         }
 
         if (komentar.length > 500) {
             e.preventDefault();
-            showNotification('Komentar maksimal 500 karakter', 'error');
+            window.showError && window.showError('Komentar maksimal 500 karakter');
             return;
         }
 
         if (!rating || rating < 1 || rating > 5) {
             e.preventDefault();
-            showNotification('Harap berikan rating', 'error');
+            window.showError && window.showError('Harap berikan rating');
             return;
         }
     });
 
-    function showNotification(message, type) {
-        const notification = document.createElement('div');
-        notification.className = `fixed top-4 right-4 p-4 rounded-xl z-50 animate-slideIn ${
-            type === 'error' ? 'bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-red-200' :
-            'bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 text-emerald-200'
-        }`;
-        notification.innerHTML = `
-            <div class="flex items-center">
-                <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'} mr-3"></i>
-                <span>${message}</span>
-            </div>
-        `;
 
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
 </script>
 
-<style>
-    .rating-star {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
 
-    .rating-star:hover {
-        transform: scale(1.15);
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    .animate-slideIn {
-        animation: slideIn 0.3s ease-out;
-    }
-
-    input[type="file"]::file-selector-button {
-        display: none;
-    }
-
-    input[type="checkbox"]:checked + div {
-        background-color: #ef4444;
-        border-color: #ef4444;
-    }
-</style>
 @endsection

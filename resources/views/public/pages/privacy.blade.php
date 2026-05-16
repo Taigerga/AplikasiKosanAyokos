@@ -4,106 +4,26 @@
 
 @section('content')
 
-<style>
-    /* Section Umum */
-    .section-padding {
-        padding: 6rem 0;
-    }
 
-    @media (max-width: 768px) {
-        .section-padding {
-            padding: 4rem 0;
-        }
-    }
-
-    /* Badge */
-    .badge-soft {
-        display: inline-block;
-        padding: 0.35rem 1rem;
-        border-radius: 999px;
-        font-size: 0.8rem;
-        font-weight: 500;
-    }
-
-    /* Card Hover */
-    .card-hover {
-        transition: all 0.3s ease;
-    }
-    .card-hover:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 18px 40px -12px rgba(0,0,0,0.1);
-        border-color: #cbd5e1;
-    }
-
-    /* Section Number */
-    .section-number {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.875rem;
-        font-weight: 700;
-        flex-shrink: 0;
-    }
-
-    /* Scroll halus */
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /* Alert Box */
-    .alert-box {
-        border-radius: 1rem;
-        padding: 1.25rem;
-        display: flex;
-        align-items: flex-start;
-        gap: 0.75rem;
-    }
-
-    /* List Item */
-    .list-check {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.75rem;
-    }
-    .list-check i {
-        margin-top: 0.375rem;
-        font-size: 0.5rem;
-    }
-
-    /* Smooth border transition */
-    .border-transition {
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .border-transition:hover {
-        border-color: #0ea5e9;
-    }
-</style>
 
 <!-- ==================== HERO SECTION ==================== -->
-<section class="relative min-h-[45vh] flex items-center justify-center overflow-hidden" style="background: linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #1e3a5f 100%);">
-    <!-- Decorative gradients -->
-    <div class="absolute top-[-30%] left-[-15%] w-[70%] h-[160%] bg-[radial-gradient(circle_at_35%_35%,rgba(56,189,248,0.12),transparent_60%)] pointer-events-none"></div>
-    <div class="absolute bottom-[-20%] right-[-10%] w-[60%] h-[140%] bg-[radial-gradient(circle_at_70%_80%,rgba(99,102,241,0.08),transparent_60%)] pointer-events-none"></div>
-
-    <div class="container mx-auto px-4 relative z-10 text-center" data-aos="fade-up" data-aos-duration="1000">
-        <div class="w-20 h-20 md:w-24 md:h-24 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+<section class="bg-yellow-400 py-16 md:py-20 border-b-4 border-black">
+    <div class="container mx-auto px-4 text-center" data-aos="fade-up" data-aos-duration="1000">
+        <div class="w-20 h-20 md:w-24 md:h-24 bg-black border-4 border-black shadow-[4px_4px_0px_#000] flex items-center justify-center mx-auto mb-8">
             <i class="fas fa-shield-alt text-white text-3xl md:text-4xl"></i>
         </div>
 
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-            Kebijakan <span class="text-sky-300">Privasi</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-black mb-6 leading-tight tracking-tight">
+            Kebijakan <span class="bg-black text-white px-3">Privasi</span>
         </h1>
 
-        <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
+        <p class="text-lg md:text-xl text-gray-800 font-bold max-w-3xl mx-auto leading-relaxed mb-8">
             Kami menghargai privasi Anda dan berkomitmen untuk melindungi data pribadi yang Anda berikan. 
             Pelajari bagaimana kami mengelola informasi Anda.
         </p>
 
-        <div class="badge-soft bg-white/10 text-sky-200 border border-white/10 backdrop-blur-sm inline-flex items-center">
-            <i class="fas fa-calendar-alt mr-2 text-sky-300"></i>
+        <div class="inline-flex items-center px-4 py-2 border-2 border-black bg-black text-white font-black text-sm shadow-[2px_2px_0px_#000]">
+            <i class="fas fa-calendar-alt mr-2"></i>
             Terakhir diperbarui: {{ date('d F Y') }}
         </div>
     </div>
@@ -117,12 +37,12 @@
         <div class="mb-16" data-aos="fade-up">
             <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm card-hover">
                 <div class="flex items-start gap-5">
-                    <div class="w-14 h-14 bg-gradient-to-br from-sky-50 to-blue-50 rounded-xl flex items-center justify-center text-sky-600 text-2xl shrink-0">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Pengantar</h2>
-                        <div class="space-y-3 text-slate-500 leading-relaxed">
+                <div class="w-14 h-14 bg-pink-400 border-2 border-black flex items-center justify-center text-black text-2xl shrink-0">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black text-black mb-4">Pengantar</h2>
+                    <div class="space-y-3 text-gray-600 font-medium leading-relaxed">
                             <p>
                                 Kebijakan Privasi ini menjelaskan bagaimana AyoKos mengumpulkan, menggunakan, menyimpan, 
                                 dan melindungi informasi pribadi Anda ketika Anda menggunakan platform kami.
@@ -140,13 +60,13 @@
         <!-- Section 1: Informasi yang Kami Kumpulkan -->
         <div class="mb-16" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-8">
-                <div class="section-number bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-200">1</div>
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Informasi yang Kami Kumpulkan</h2>
+                <div class="w-10 h-10 bg-yellow-400 border-2 border-black flex items-center justify-center text-black font-black">1</div>
+                <h2 class="text-2xl md:text-3xl font-black text-black">Informasi yang Kami Kumpulkan</h2>
             </div>
 
             <!-- Informasi Pribadi -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm mb-6 card-hover">
-                <h3 class="text-xl font-semibold text-slate-900 mb-6 flex items-center">
+            <div class="bg-white border-2 border-black p-6 md:p-8 shadow-[3px_3px_0px_#000] mb-6">
+                <h3 class="text-xl font-black text-black mb-6 flex items-center">
                     <i class="fas fa-user-circle text-sky-500 mr-3"></i> Informasi Pribadi
                 </h3>
                 
@@ -208,8 +128,8 @@
             </div>
 
             <!-- Informasi Penggunaan -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm card-hover">
-                <h3 class="text-xl font-semibold text-slate-900 mb-6 flex items-center">
+            <div class="bg-white border-2 border-black p-6 md:p-8 shadow-[3px_3px_0px_#000]">
+                <h3 class="text-xl font-black text-black mb-6 flex items-center">
                     <i class="fas fa-chart-line text-sky-500 mr-3"></i> Informasi Penggunaan
                 </h3>
                 
@@ -274,8 +194,8 @@
         <!-- Section 2: Bagaimana Kami Menggunakan Informasi -->
         <div class="mb-16" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-8">
-                <div class="section-number bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-200">2</div>
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Bagaimana Kami Menggunakan Informasi Anda</h2>
+                <div class="w-10 h-10 bg-yellow-400 border-2 border-black flex items-center justify-center text-black font-black">2</div>
+                <h2 class="text-2xl md:text-3xl font-black text-black">Bagaimana Kami Menggunakan Informasi Anda</h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-5">
@@ -324,12 +244,12 @@
         <!-- Section 3: Berbagi Data -->
         <div class="mb-16" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-8">
-                <div class="section-number bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-200">3</div>
+                <div class="w-10 h-10 bg-yellow-400 border-2 border-black flex items-center justify-center text-black font-black">3</div>
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Berbagi Data dengan Pihak Ketiga</h2>
             </div>
 
             <!-- Alert -->
-            <div class="alert-box bg-amber-50 border border-amber-200 mb-8">
+            <div class="bg-yellow-100 border-2 border-black p-5 mb-8 flex items-start gap-3">
                 <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center text-amber-600 shrink-0">
                     <i class="fas fa-exclamation-triangle"></i>
                 </div>
@@ -399,11 +319,11 @@
         <!-- Section 4: Keamanan Data -->
         <div class="mb-16" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-8">
-                <div class="section-number bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-200">4</div>
+                <div class="w-10 h-10 bg-yellow-400 border-2 border-black flex items-center justify-center text-black font-black">4</div>
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Keamanan Data</h2>
             </div>
 
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div class="bg-white border-2 border-black p-6 md:p-8 shadow-[3px_3px_0px_#000]">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-14 h-14 bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl flex items-center justify-center text-emerald-600 text-2xl">
                         <i class="fas fa-shield-alt"></i>
@@ -445,11 +365,11 @@
         <!-- Section 5: Hak-Hak Anda -->
         <div class="mb-16" data-aos="fade-up">
             <div class="flex items-center gap-4 mb-8">
-                <div class="section-number bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-200">5</div>
+                <div class="w-10 h-10 bg-yellow-400 border-2 border-black flex items-center justify-center text-black font-black">5</div>
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Hak-Hak Anda</h2>
             </div>
 
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div class="bg-white border-2 border-black p-6 md:p-8 shadow-[3px_3px_0px_#000]">
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
                     <div class="p-5 bg-sky-50 rounded-xl border border-sky-100">
                         <div class="flex items-center gap-3 mb-4">
@@ -506,7 +426,7 @@
 
         <!-- Hubungi Kami -->
         <div class="mb-16" data-aos="fade-up">
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div class="bg-white border-2 border-black p-6 md:p-8 shadow-[3px_3px_0px_#000]">
                 <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center">
                     <i class="fas fa-headset text-sky-500 mr-3"></i> Hubungi Kami
                 </h2>
@@ -556,19 +476,17 @@
 </section>
 
 <!-- ==================== CTA FINAL ==================== -->
-<section class="section-padding bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-[50%] h-full bg-[radial-gradient(circle_at_80%_50%,rgba(56,189,248,0.08),transparent_60%)] pointer-events-none"></div>
-    
-    <div class="container mx-auto px-4 text-center relative z-10" data-aos="fade-up">
-        <h2 class="text-3xl md:text-5xl font-bold mb-4">Punya Pertanyaan?</h2>
-        <p class="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+<section class="section-padding bg-black border-t-4 border-yellow-400">
+    <div class="container mx-auto px-4 text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-5xl font-black text-yellow-400 mb-4">Punya Pertanyaan?</h2>
+        <p class="text-lg text-gray-300 font-bold mb-8 max-w-2xl mx-auto">
             Kami siap membantu menjawab segala pertanyaan terkait privasi dan keamanan data Anda.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="mailto:valorant270306@gmail.com" class="px-8 py-4 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-xl transition shadow-lg text-lg">
+            <a href="mailto:valorant270306@gmail.com" class="px-8 py-4 bg-yellow-400 hover:bg-yellow-500 text-black font-black border-2 border-yellow-400 shadow-[4px_4px_0px_#fff] hover:translate-y-[-2px] transition-all uppercase tracking-wide text-lg">
                 <i class="fas fa-envelope mr-2"></i> Hubungi Kami
             </a>
-            <a href="{{ route('public.kos.index') }}" class="px-8 py-4 bg-white/10 backdrop-blur border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition text-lg">
+            <a href="{{ route('public.kos.index') }}" class="px-8 py-4 bg-white text-black font-black border-2 border-white shadow-[4px_4px_0px_#fff] hover:bg-gray-200 hover:translate-y-[-2px] transition-all uppercase tracking-wide text-lg">
                 <i class="fas fa-search mr-2"></i> Jelajahi Kos
             </a>
         </div>

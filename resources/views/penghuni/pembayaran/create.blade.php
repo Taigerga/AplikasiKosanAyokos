@@ -6,21 +6,21 @@
     <div class="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
         <div class="max-w-4xl mx-auto space-y-6">
             <!-- Breadcrumb -->
-            <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+            <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4">
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
                             <a href="{{ route('penghuni.dashboard') }}"
-                                class="inline-flex items-center text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                                class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
                                 <i class="fas fa-gauge mr-2"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
-                                <i class="fas fa-chevron-right text-slate-500 text-xs mx-2"></i>
+                                <i class="fas fa-chevron-right text-gray-600 text-xs mx-2"></i>
                                 <a href="{{ route('penghuni.pembayaran.index') }}"
-                                    class="inline-flex items-center text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                                    class="inline-flex items-center text-sm font-bold text-gray-600 hover:text-black transition-colors">
                                     <i class="fas fa-credit-card mr-2"></i>
                                     Riwayat Pembayaran
                                 </a>
@@ -28,8 +28,8 @@
                         </li>
                         <li class="inline-flex items-center">
                             <div class="flex items-center">
-                                <i class="fas fa-chevron-right text-slate-500 text-xs mx-2"></i>
-                                <span class="ml-1 text-sm font-medium text-white">
+                                <i class="fas fa-chevron-right text-gray-600 text-xs mx-2"></i>
+                                <span class="ml-1 text-sm font-bold text-black">
                                     <i class="fas fa-plus mr-2"></i>
                                     Buat Pembayaran
                                 </span>
@@ -40,22 +40,22 @@
             </div>
 
             <!-- Header -->
-            <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+            <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2">Bayar Sewa Kos</h1>
-                        <p class="text-slate-100">Bayar sewa bulanan atau bayar di muka untuk beberapa bulan</p>
+                        <h1 class="text-2xl md:text-3xl font-black text-black mb-2">Bayar Sewa Kos</h1>
+                        <p class="text-gray-700 font-bold">Bayar sewa bulanan atau bayar di muka untuk beberapa bulan</p>
                     </div>
                     <div
-                        class="w-12 h-12 bg-white/5 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                        <i class="fas fa-credit-card text-white text-xl"></i>
+                        class="w-12 h-12 bg-gray-100 border-2 border-black  flex items-center justify-center">
+                        <i class="fas fa-credit-card text-black text-xl"></i>
                     </div>
                 </div>
             </div>
 
             <!-- Success/Error Messages from Session -->
             @if(session('success'))
-                <div class="bg-emerald-500/20 backdrop-blur-sm border border-emerald-500/20 text-white px-4 py-3 rounded-xl">
+                <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3 ">
                     <div class="flex items-center">
                         <i class="fas fa-check-circle mr-3 text-emerald-400"></i>
                         {{ session('success') }}
@@ -64,28 +64,28 @@
             @endif
 
             @if(session('error'))
-                <div class="bg-red-500/20 backdrop-blur-sm border border-red-500/20 text-white px-4 py-3 rounded-xl">
+                <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3 ">
                     <div class="flex items-center">
-                        <i class="fas fa-exclamation-circle mr-3 text-red-400"></i>
+                        <i class="fas fa-exclamation-circle mr-3 text-rose-400"></i>
                         {{ session('error') }}
                     </div>
                 </div>
             @endif
 
             <!-- Info Kontrak -->
-            <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
-                <h2 class="text-xl font-semibold text-white mb-4 flex items-center">
+            <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
+                <h2 class="text-xl font-black text-black mb-4 flex items-center">
                     <i class="fas fa-file-contract text-sky-500 mr-3"></i>
                     Informasi Kontrak
                 </h2>
 
                 @if($kontrakAktif->count() > 1)
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-white mb-3">Pilih Kontrak *</label>
+                        <label class="block text-sm font-bold text-black mb-3">Pilih Kontrak *</label>
                         <div class="relative">
-                            <i class="fas fa-home absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                            <i class="fas fa-home absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
                             <select id="kontrak-select"
-                                class="w-full pl-12 pr-10 py-3 bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
+                                class="w-full pl-12 pr-10 py-3 bg-gray-100 border-2 border-black border border-sky-900/50 text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
                                 @foreach($kontrakAktif as $k)
                                     <option value="{{ $k->id_kontrak }}" data-harga="{{ $k->harga_sewa }}"
                                         data-mulai="{{ $k->tanggal_mulai ? $k->tanggal_mulai->format('d M Y') : '-' }}"
@@ -101,33 +101,33 @@
                                 @endforeach
                             </select>
                             <i
-                                class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                                class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 pointer-events-none"></i>
                         </div>
                     </div>
                 @endif
 
                 <div
-                    class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm kontrak-info bg-slate-900/50 backdrop-blur-sm p-4 rounded-xl border border-sky-900/50">
+                    class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm kontrak-info bg-gray-100 border-2 border-black p-4  border border-sky-900/50">
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-building text-sky-500 w-5"></i>
                         <div>
-                            <div class="text-slate-400 text-xs">Kos</div>
-                            <div class="font-medium text-white" id="info-kos">{{ $selectedKontrak->kos->nama_kos }}</div>
+                            <div class="text-gray-600 text-xs">Kos</div>
+                            <div class="font-bold text-black" id="info-kos">{{ $selectedKontrak->kos->nama_kos }}</div>
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-door-closed text-emerald-500 w-5"></i>
                         <div>
-                            <div class="text-slate-400 text-xs">Kamar</div>
-                            <div class="font-medium text-white" id="info-kamar">{{ $selectedKontrak->kamar->nomor_kamar }}
+                            <div class="text-gray-600 text-xs">Kamar</div>
+                            <div class="font-bold text-black" id="info-kamar">{{ $selectedKontrak->kamar->nomor_kamar }}
                             </div>
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-tag text-amber-500 w-5"></i>
                         <div>
-                            <div class="text-slate-400 text-xs">Harga Sewa</div>
-                            <div class="font-medium text-white">Rp <span
+                            <div class="text-gray-600 text-xs">Harga Sewa</div>
+                            <div class="font-bold text-black">Rp <span
                                     id="info-harga">{{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}</span>/{{ strtolower($unitLabel) }}
                             </div>
                         </div>
@@ -135,8 +135,8 @@
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-calendar-alt text-blue-500 w-5"></i>
                         <div>
-                            <div class="text-slate-400 text-xs">Periode Kontrak</div>
-                            <div class="font-medium text-white" id="info-periode">
+                            <div class="text-gray-600 text-xs">Periode Kontrak</div>
+                            <div class="font-bold text-black" id="info-periode">
                                 @if($selectedKontrak->tanggal_mulai && $selectedKontrak->tanggal_selesai)
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }} -
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
@@ -146,34 +146,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="md:col-span-2 flex items-center space-x-2 bg-amber-500/10 backdrop-blur-sm border border-amber-500/20 p-3 rounded-lg">
+                    <div class="md:col-span-2 flex items-center space-x-2 bg-yellow-100 border-2 border-black p-3 ">
                         <i class="fas fa-clock text-amber-500 w-5"></i>
                         <div>
-                            <div class="text-slate-400 text-xs">Tenggat Pembayaran</div>
-                            <div class="font-medium text-amber-400" id="info-grace-period">
+                            <div class="text-gray-600 text-xs">Tenggat Pembayaran</div>
+                            <div class="font-bold text-amber-400" id="info-grace-period">
                                 @if($selectedKontrak->tanggal_selesai)
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->addDays(7)->format('d M Y') }}
                                 @else
                                     -
                                 @endif
                             </div>
-                            <div class="text-xs text-slate-400 mt-1">(7 hari setelah kontrak berakhir)</div>
+                            <div class="text-xs text-gray-600 mt-1">(7 hari setelah kontrak berakhir)</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Form Pembayaran -->
-            <div class="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
-                <h2 class="text-xl font-semibold text-white mb-6 flex items-center">
+            <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
+                <h2 class="text-xl font-black text-black mb-6 flex items-center">
                     <i class="fas fa-money-check-alt text-emerald-500 mr-3"></i>
                     Formulir Pembayaran
                 </h2>
 
                 @if($errors->any())
-                    <div class="bg-red-500/10 backdrop-blur-sm border border-red-500/20 text-white px-4 py-3 rounded-xl mb-6">
+                    <div class="bg-red-100 border-2 border-black text-black px-4 py-3  mb-6">
                         <div class="flex items-center">
-                            <i class="fas fa-exclamation-circle mr-3 text-red-400"></i>
+                            <i class="fas fa-exclamation-circle mr-3 text-rose-400"></i>
                             <div>
                                 @foreach($errors->all() as $error)
                                     <p>{{ $error }}</p>
@@ -184,7 +184,7 @@
                 @endif
 
                 <form method="POST" action="{{ route('penghuni.pembayaran.store') }}" enctype="multipart/form-data"
-                    id="paymentForm">
+                    id="paymentForm" data-ajax="true" data-ajax-action="/api/penghuni/pembayaran" data-redirect="{{ route('penghuni.pembayaran.index') }}" data-success-msg="Pembayaran berhasil dikirim!" data-confirm="Apakah Anda yakin data pembayaran sudah benar?" novalidate>
                     @csrf
                     <input type="hidden" id="id_kontrak" name="id_kontrak" value="{{ $selectedKontrak->id_kontrak }}">
 
@@ -194,32 +194,32 @@
                             <!-- Pembayaran Pertama: Fixed sesuai kontrak -->
                             <input type="hidden" name="jumlah_waktu" value="{{ $paymentOptions[0]['value'] ?? $selectedKontrak->durasi_sewa }}">
 
-                            <div class="bg-emerald-500/10 backdrop-blur-sm border border-emerald-500/20 rounded-xl p-5">
-                                <h3 class="font-semibold text-emerald-400 mb-4 flex items-center">
+                            <div class="bg-emerald-100 border-2 border-black  p-5">
+                                <h3 class="font-black text-emerald-400 mb-4 flex items-center">
                                     <i class="fas fa-file-contract mr-2"></i>
                                     Pembayaran Pertama
                                 </h3>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
                                         <p class="text-sm text-emerald-400/80">Periode Mulai</p>
-                                        <p class="text-lg font-bold text-white">
+                                        <p class="text-lg font-black text-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }}
                                         </p>
                                     </div>
                                     <div>
                                         <p class="text-sm text-emerald-400/80">Periode Selesai</p>
-                                        <p class="text-lg font-bold text-white">
+                                        <p class="text-lg font-black text-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
                                         </p>
                                     </div>
                                     <div>
                                         <p class="text-sm text-emerald-400/80">Total Pembayaran</p>
-                                        <p class="text-lg font-bold text-emerald-400">
+                                        <p class="text-lg font-black text-emerald-400">
                                             Rp {{ number_format($paymentOptions[0]['total'] ?? ($selectedKontrak->harga_sewa * $selectedKontrak->durasi_sewa), 0, ',', '.') }}
                                         </p>
                                     </div>
                                 </div>
-                                <div class="mt-3 text-xs text-emerald-400/80 bg-emerald-500/10 p-2 rounded-lg">
+                                <div class="mt-3 text-xs text-emerald-400/80 bg-emerald-500/10 p-2 ">
                                     <i class="fas fa-info-circle mr-1"></i>
                                     Pembayaran pertama sesuai durasi kontrak awal. Untuk perpanjangan, lakukan pembayaran berikutnya setelah periode ini berakhir.
                                 </div>
@@ -227,21 +227,21 @@
 
                             <!-- Preview Masa Pembayaran (first payment - fixed) -->
                             <div id="masa-pembayaran-preview"
-                                class="bg-amber-500/10 backdrop-blur-sm border border-amber-500/20 rounded-xl p-4">
-                                <h3 class="font-semibold text-amber-400 mb-3 flex items-center">
+                                class="bg-yellow-100 border-2 border-black  p-4">
+                                <h3 class="font-black text-amber-400 mb-3 flex items-center">
                                     <i class="fas fa-calendar-day mr-2"></i>
                                     Masa Pembayaran
                                 </h3>
                                 <div class="text-sm text-amber-200 grid grid-cols-2 gap-2">
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Mulai</div>
-                                        <div id="preview-mulai" class="font-medium text-white">
+                                        <div id="preview-mulai" class="font-bold text-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Selesai</div>
-                                        <div id="preview-selesai" class="font-medium">
+                                        <div id="preview-selesai" class="font-bold">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
                                         </div>
                                     </div>
@@ -250,19 +250,19 @@
                         @else
                             <!-- Jumlah Waktu Pembayaran (Perpanjangan) -->
                             <div>
-                                <label class="block text-sm font-medium text-white mb-3">Bayar Berapa {{ $unitLabel }}?
+                                <label class="block text-sm font-bold text-black mb-3">Bayar Berapa {{ $unitLabel }}?
                                     *</label>
                                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                                     @foreach($paymentOptions as $option)
                                         <label
-                                            class="flex items-center p-3 border-2 border-sky-900/50 rounded-xl cursor-pointer hover:border-sky-500/50 bg-slate-900/50 transition-all duration-200 jumlah-bulan-option group">
+                                            class="flex items-center p-3 border-2 border-sky-900/50  cursor-pointer hover:border-sky-500/50 bg-slate-900/50 transition-all duration-200 jumlah-bulan-option group">
                                             <input type="radio" name="jumlah_waktu" value="{{ $option['value'] }}"
                                                 data-harga="{{ $option['total'] }}"
                                                 data-max-date="{{ $option['max_date'] ? $option['max_date']->format('d M Y') : '' }}"
                                                 class="mr-3 jumlah-bulan-radio" @if($loop->first) checked @endif>
                                             <div class="flex-1">
-                                                <div class="font-semibold text-white text-sm">{{ $option['label'] }}</div>
-                                                <div class="text-xs text-slate-400">Rp
+                                                <div class="font-black text-black text-sm">{{ $option['label'] }}</div>
+                                                <div class="text-xs text-gray-600">Rp
                                                     {{ number_format($option['total'], 0, ',', '.') }}</div>
                                                 @if($option['max_date'])
                                                     <div class="text-xs text-amber-400 mt-1 hidden md:block"
@@ -273,8 +273,8 @@
                                                 @endif
                                             </div>
                                             <div
-                                                class="w-6 h-6 rounded-full border-2 border-sky-900/50 group-hover:border-sky-500 flex items-center justify-center">
-                                                <div class="w-3 h-3 rounded-full bg-sky-500 hidden radio-checked"></div>
+                                                class="w-6 h-6  border-2 border-sky-900/50 group-hover:border-sky-500 flex items-center justify-center">
+                                                <div class="w-3 h-3  bg-sky-500 hidden radio-checked"></div>
                                             </div>
                                         </label>
                                     @endforeach
@@ -283,8 +283,8 @@
 
                             <!-- Preview Masa Pembayaran -->
                             <div id="masa-pembayaran-preview"
-                                class="bg-amber-500/10 backdrop-blur-sm border border-amber-500/20 rounded-xl p-4">
-                                <h3 class="font-semibold text-amber-400 mb-3 flex items-center">
+                                class="bg-yellow-100 border-2 border-black  p-4">
+                                <h3 class="font-black text-amber-400 mb-3 flex items-center">
                                     <i class="fas fa-calendar-day mr-2"></i>
                                     Masa Pembayaran
                                 </h3>
@@ -295,7 +295,7 @@
                                     </div>
                                     <div>
                                         <div class="text-amber-400/80 text-xs">Selesai</div>
-                                        <div id="preview-selesai" class="font-medium">-</div>
+                                        <div id="preview-selesai" class="font-bold">-</div>
                                     </div>
                                 </div>
                             </div>
@@ -303,17 +303,17 @@
 
                         <!-- Total Pembayaran Summary -->
                         <div
-                            class="bg-emerald-500/10 backdrop-blur-sm border border-emerald-500/20 rounded-xl p-5">
+                            class="bg-emerald-100 border-2 border-black  p-5">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <p class="text-sm text-emerald-400 mb-1">Harga/{{ $unitLabel }}:</p>
-                                    <p id="harga-per-bulan" class="text-xl md:text-2xl font-bold text-white">
+                                    <p id="harga-per-bulan" class="text-xl md:text-2xl font-black text-black">
                                         Rp {{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}
                                     </p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-emerald-400 mb-1">Total Pembayaran:</p>
-                                    <p id="total-bayar" class="text-xl md:text-2xl font-bold text-emerald-500">Rp
+                                    <p id="total-bayar" class="text-xl md:text-2xl font-black text-emerald-500">Rp
                                         {{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}</p>
                                 </div>
                             </div>
@@ -321,63 +321,66 @@
 
                         <!-- Metode Pembayaran -->
                         <div>
-                            <label class="block text-sm font-medium text-white mb-3">Metode Pembayaran *</label>
+                            <label class="block text-sm font-bold text-black mb-3">Metode Pembayaran *</label>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 <label
-                                    class="flex items-center p-3 border border-sky-900/50 rounded-xl cursor-pointer hover:border-sky-500 bg-slate-900/50 transition-all duration-200">
+                                    class="flex items-center p-3 border border-sky-900/50  cursor-pointer hover:border-sky-500 bg-slate-900/50 transition-all duration-200">
                                     <input type="radio" name="metode_pembayaran" value="transfer" class="mr-3" checked>
                                     <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8 bg-sky-500/20 rounded-lg flex items-center justify-center">
+                                        <div class="w-8 h-8 bg-sky-500/20  flex items-center justify-center">
                                             <i class="fas fa-university text-sky-500"></i>
                                         </div>
-                                        <span class="text-white">Transfer Bank</span>
+                                        <span class="text-black">Transfer Bank</span>
                                     </div>
                                     <div
-                                        class="ml-auto w-4 h-4 rounded-full border-2 border-sky-900/50 flex items-center justify-center">
-                                        <div class="w-2 h-2 rounded-full bg-sky-500 radio-checked"></div>
+                                        class="ml-auto w-4 h-4  border-2 border-sky-900/50 flex items-center justify-center">
+                                        <div class="w-2 h-2  bg-sky-500 radio-checked"></div>
                                     </div>
                                 </label>
                                 <label
-                                    class="flex items-center p-3 border border-sky-900/50 rounded-xl cursor-pointer hover:border-emerald-500 bg-slate-900/50 transition-all duration-200">
+                                    class="flex items-center p-3 border border-sky-900/50  cursor-pointer hover:border-emerald-500 bg-slate-900/50 transition-all duration-200">
                                     <input type="radio" name="metode_pembayaran" value="qris" class="mr-3">
                                     <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                                        <div class="w-8 h-8 bg-emerald-500/20  flex items-center justify-center">
                                             <i class="fas fa-qrcode text-emerald-500"></i>
                                         </div>
-                                        <span class="text-white">QRIS</span>
+                                        <span class="text-black">QRIS</span>
                                     </div>
                                     <div
-                                        class="ml-auto w-4 h-4 rounded-full border-2 border-sky-900/50 flex items-center justify-center">
-                                        <div class="w-2 h-2 rounded-full bg-emerald-500 hidden"></div>
+                                        class="ml-auto w-4 h-4  border-2 border-sky-900/50 flex items-center justify-center">
+                                        <div class="w-2 h-2  bg-emerald-500 hidden"></div>
                                     </div>
                                 </label>
+                                    </div>
+                                @error('metode_pembayaran')
+                                    <p class="text-rose-400 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
-                        </div>
 
                         <!-- Info Rekening -->
-                        <div class="bg-emerald-500/10 backdrop-blur-sm border border-emerald-500/20 rounded-xl p-5">
-                            <h3 class="font-semibold text-emerald-400 mb-3 flex items-center">
+                        <div class="bg-emerald-100 border-2 border-black  p-5">
+                            <h3 class="font-black text-emerald-400 mb-3 flex items-center">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Informasi Transfer
                             </h3>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
                                     <div class="text-emerald-400/80 text-xs mb-1">Bank</div>
-                                    <div class="text-white font-medium" id="info-nama-bank">
+                                    <div class="text-black font-bold" id="info-nama-bank">
                                         {{ $selectedKontrak->kos->pemilik->nama_bank ?? 'Belum Diatur' }}</div>
                                 </div>
                                 <div>
                                     <div class="text-emerald-400/80 text-xs mb-1">No. Rekening</div>
-                                    <div class="text-white font-medium" id="info-nomor-rekening">
+                                    <div class="text-black font-bold" id="info-nomor-rekening">
                                         {{ $selectedKontrak->kos->pemilik->nomor_rekening ?? '-' }}</div>
                                 </div>
                                 <div class="md:col-span-2">
                                     <div class="text-emerald-400/80 text-xs mb-1">Atas Nama</div>
-                                    <div class="text-white font-medium" id="info-pemilik">
+                                    <div class="text-black font-bold" id="info-pemilik">
                                         {{ $selectedKontrak->kos->pemilik->nama }}</div>
                                 </div>
                             </div>
-                            <div class="mt-3 text-xs text-emerald-400/80 bg-emerald-500/10 p-2 rounded-lg">
+                            <div class="mt-3 text-xs text-emerald-400/80 bg-emerald-500/10 p-2 ">
                                 <i class="fas fa-exclamation-triangle mr-1"></i>
                                 Harap transfer sesuai jumlah dan tambahkan kode unik
                             </div>
@@ -385,40 +388,40 @@
 
                         <!-- Bukti Pembayaran -->
                         <div class="mt-6">
-                            <label class="block text-sm font-medium text-white mb-3">
+                            <label class="block text-sm font-bold text-black mb-3">
                                 Upload Bukti Pembayaran *
-                                <span class="text-xs text-slate-400">(Format: JPG, PNG, maksimal 2MB)</span>
+                                <span class="text-xs text-gray-600">(Format: JPG, PNG, maksimal 2MB)</span>
                             </label>
                             <div id="upload-area"
-                                class="mt-1 border-2 border-dashed border-sky-900/50 rounded-xl hover:border-sky-500/50 transition-all duration-200 cursor-pointer bg-slate-900/50 overflow-hidden">
+                                class="mt-1 border-2 border-dashed border-sky-900/50  hover:border-sky-500/50 transition-all duration-200 cursor-pointer bg-slate-900/50 overflow-hidden @error('bukti_pembayaran') border-rose-500 focus:ring-rose-500/30 @enderror">
                                 <div class="p-6 text-center">
                                     <div
-                                        class="w-16 h-16 bg-sky-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        class="w-16 h-16 bg-sky-500/20  flex items-center justify-center mx-auto mb-4">
                                         <i class="fas fa-cloud-upload-alt text-2xl text-sky-500"></i>
                                     </div>
-                                    <div class="flex text-sm text-slate-400 justify-center">
+                                    <div class="flex text-sm text-gray-600 justify-center">
                                         <label for="bukti_pembayaran"
-                                            class="relative cursor-pointer bg-slate-900/50 px-4 py-2 rounded-lg font-medium text-sky-500 hover:text-sky-400 transition">
+                                            class="relative cursor-pointer bg-slate-900/50 px-4 py-2  font-bold text-sky-500 hover:text-sky-400 transition">
                                             <span>Klik untuk upload file</span>
                                             <input id="bukti_pembayaran" name="bukti_pembayaran" type="file" class="sr-only"
                                                 accept="image/jpeg,image/png,image/jpg" required>
                                         </label>
                                         <p class="pl-3 self-center">atau drag and drop</p>
                                     </div>
-                                    <p class="text-xs text-slate-400 mt-2">PNG, JPG, JPEG up to 2MB</p>
+                                    <p class="text-xs text-gray-600 mt-2">PNG, JPG, JPEG up to 2MB</p>
                                     <div id="file-name" class="text-sm mt-4"></div>
-                                    <div id="file-error" class="text-sm text-red-400 mt-2 hidden"></div>
+                                    <div id="file-error" class="text-sm text-rose-400 mt-2 hidden"></div>
                                     <div id="preview-container" class="mt-4"></div>
                                 </div>
                             </div>
                             @error('bukti_pembayaran')
-                                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-rose-400">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <!-- Info Penting -->
-                        <div class="bg-sky-500/10 backdrop-blur-sm border border-sky-500/20 rounded-xl p-5">
-                            <h3 class="font-semibold text-sky-400 mb-3 flex items-center">
+                        <div class="bg-sky-100 border-2 border-black  p-5">
+                            <h3 class="font-black text-sky-400 mb-3 flex items-center">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Informasi Pembayaran
                             </h3>
@@ -426,27 +429,27 @@
                                 @if(isset($isFirstPayment) && $isFirstPayment)
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-file-contract text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Pembayaran pertama sesuai durasi kontrak awal (<strong class="text-white">{{ $selectedKontrak->durasi_sewa }} {{ strtolower($unitLabel) }}</strong>)</span>
+                                    <span>Pembayaran pertama sesuai durasi kontrak awal (<strong class="text-black">{{ $selectedKontrak->durasi_sewa }} {{ strtolower($unitLabel) }}</strong>)</span>
                                 </li>
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-redo text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Setelah periode ini berakhir, Anda bisa <strong class="text-white">memperpanjang</strong> dengan jumlah {{ strtolower($unitLabel) }} berapa pun</span>
+                                    <span>Setelah periode ini berakhir, Anda bisa <strong class="text-black">memperpanjang</strong> dengan jumlah {{ strtolower($unitLabel) }} berapa pun</span>
                                 </li>
                                 @else
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-calendar text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Anda dapat membayar maksimal <strong class="text-white">{{ $maxLimit }} {{ strtolower($unitLabel) }} ke
+                                    <span>Anda dapat membayar maksimal <strong class="text-black">{{ $maxLimit }} {{ strtolower($unitLabel) }} ke
                                              depan</strong></span>
                                 </li>
                                 @endif
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-clock text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Setelah kontrak berakhir, ada <strong class="text-white">grace period 7
+                                    <span>Setelah kontrak berakhir, ada <strong class="text-black">grace period 7
                                              hari</strong> untuk membayar</span>
                                 </li>
                                 <li class="flex items-start text-sm text-sky-200">
                                     <i class="fas fa-redo text-sky-500 mr-3 mt-0.5"></i>
-                                    <span>Pembayaran advance akan <strong class="text-white">memperpanjang kontrak
+                                    <span>Pembayaran advance akan <strong class="text-black">memperpanjang kontrak
                                              otomatis</strong></span>
                                 </li>
                                 <li class="flex items-start text-sm text-sky-200">
@@ -463,12 +466,12 @@
                         <!-- Submit Button -->
                         <div class="mt-8 flex flex-col sm:flex-row gap-4">
                             <a href="{{ route('penghuni.pembayaran.index') }}"
-                                class="flex-1 bg-slate-900/50 backdrop-blur-sm border border-sky-900/50 text-white px-6 py-3 rounded-xl hover:bg-slate-900/80 transition-all duration-200 font-medium text-center">
+                                class="flex-1 bg-gray-100 border-2 border-black border border-sky-900/50 text-black px-6 py-3  hover:bg-slate-900/80 transition-all duration-200 font-bold text-center">
                                 <i class="fas fa-arrow-left mr-2"></i>
                                 Kembali
                             </a>
                             <button type="submit"
-                                class="flex-1 bg-sky-500/20 backdrop-blur-sm border border-sky-500/20 hover:bg-sky-500/10 text-white px-6 py-3 rounded-xl transition-all duration-200 font-semibold">
+                                class="flex-1 bg-sky-400 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-sky-500/10 text-black px-6 py-3  transition-all duration-200 font-black">
                                 <i class="fas fa-upload mr-2"></i>
                                 Upload Bukti Bayar
                             </button>
@@ -642,7 +645,7 @@
                 if (previewSelesai) {
                      const maxDate = selectedJumlah.getAttribute('data-max-date');
                      if (maxDate) {
-                         previewSelesai.innerHTML = `Sampai <span class="text-white">${maxDate}</span>`;
+                         previewSelesai.innerHTML = `Sampai <span class="text-black">${maxDate}</span>`;
                      } else {
                          previewSelesai.textContent = `${jumlahWaktu} ${unitLabel} ke depan`;
                      }
@@ -671,7 +674,7 @@
                 }
 
                 if (uploadArea) {
-                    uploadArea.classList.remove('border-sky-500', 'border-red-500');
+                    uploadArea.classList.remove('border-sky-500', 'border-rose-500');
                     uploadArea.classList.add('border-sky-900/50');
                 }
 
@@ -686,7 +689,7 @@
             function showUploadError(message) {
                 if (fileErrorDisplay) {
                     fileErrorDisplay.innerHTML = `
-                        <div class="flex items-center text-red-400">
+                        <div class="flex items-center text-rose-400">
                             <i class="fas fa-exclamation-circle mr-2"></i>
                             <span>${message}</span>
                         </div>
@@ -695,7 +698,7 @@
                 }
 
                 if (uploadArea) {
-                    uploadArea.classList.add('border-red-500');
+                    uploadArea.classList.add('border-rose-500');
                     uploadArea.classList.remove('border-sky-900/50');
                 }
             }
@@ -712,9 +715,9 @@
                     fileNameDisplay.innerHTML = `
                         <div class="flex items-center text-emerald-400">
                             <i class="fas fa-check-circle mr-2"></i>
-                            <span class="font-medium">File berhasil dipilih</span>
+                            <span class="font-bold">File berhasil dipilih</span>
                         </div>
-                        <div class="text-sm text-slate-400 mt-1 ml-7">
+                        <div class="text-sm text-gray-600 mt-1 ml-7">
                             ${fileName} (${fileSize} MB)
                         </div>
                     `;
@@ -733,8 +736,8 @@
                         previewContainer.innerHTML = `
                             <div class="relative inline-block">
                                 <img src="${e.target.result}" 
-                                     class="max-w-full max-h-64 rounded-lg shadow-lg border-2 border-sky-500/50">
-                                <div class="absolute top-2 right-2 bg-slate-900/80 backdrop-blur-sm rounded-full w-8 h-8 flex items-center justify-center">
+                                     class="max-w-full max-h-64  shadow-[2px_2px_0px_#000] border-2 border-sky-500/50">
+                                <div class="absolute top-2 right-2 bg-slate-900/80   w-8 h-8 flex items-center justify-center">
                                     <i class="fas fa-image text-sky-500"></i>
                                 </div>
                             </div>
