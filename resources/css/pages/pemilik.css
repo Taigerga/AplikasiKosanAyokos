@@ -263,8 +263,8 @@ button:disabled {
 }
 
 .tab-button:hover {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    color: #f1f5f9 !important;
+    background-color: rgb(248, 140, 15) !important;
+    color: #2e2f30 !important;
 }
 
 .tab-button.active {

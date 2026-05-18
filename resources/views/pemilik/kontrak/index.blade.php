@@ -68,7 +68,7 @@
                         class="tab-button flex-1 py-4 px-6 border-b-2 font-bold text-sm whitespace-nowrap transition-all duration-300 {{ request('tab', 'pending') === 'pending' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
                         id="tab-pending">
                     <div class="flex items-center justify-center">
-                        <i class="fas fa-clock mr-2 {{ request('tab', 'pending') === 'pending' ? 'text-yellow-600' : 'text-gray-400' }}"></i>
+                        <i class="fas fa-clock mr-2 {{ request('tab', 'pending') === 'pending' ? 'text-black' : 'text-gray-400' }}"></i>
                         Permohonan Pending
                         @if($kontrakPending->count() > 0)
                         <span class="ml-2 bg-black text-white px-2 py-0.5 text-xs font-bold min-w-[24px] text-center">
@@ -82,7 +82,7 @@
                         class="tab-button flex-1 py-4 px-6 border-b-2 font-bold text-sm whitespace-nowrap transition-all duration-300 {{ request('tab') === 'aktif' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
                         id="tab-aktif">
                     <div class="flex items-center justify-center">
-                        <i class="fas fa-check-circle mr-2 {{ request('tab') === 'aktif' ? 'text-yellow-600' : 'text-gray-400' }}"></i>
+                        <i class="fas fa-check-circle mr-2 {{ request('tab') === 'aktif' ? 'text-black' : 'text-green-400' }}"></i>
                         Kontrak Aktif
                         @if($kontrakAktif->count() > 0)
                         <span class="ml-2 bg-black text-white px-2 py-0.5 text-xs font-bold min-w-[24px] text-center">
@@ -96,7 +96,7 @@
                         class="tab-button flex-1 py-4 px-6 border-b-2 font-bold text-sm whitespace-nowrap transition-all duration-300 {{ request('tab') === 'selesai' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
                         id="tab-selesai">
                     <div class="flex items-center justify-center">
-                        <i class="fas fa-history mr-2 {{ request('tab') === 'selesai' ? 'text-yellow-600' : 'text-gray-400' }}"></i>
+                        <i class="fas fa-history mr-2 {{ request('tab') === 'selesai' ? 'text-black' : 'text-yellow-400' }}"></i>
                         Riwayat Selesai
                         @if($kontrakSelesai->count() > 0)
                         <span class="ml-2 bg-black text-white px-2 py-0.5 text-xs font-bold min-w-[24px] text-center">
@@ -110,7 +110,7 @@
                         class="tab-button flex-1 py-4 px-6 border-b-2 font-bold text-sm whitespace-nowrap transition-all duration-300 {{ request('tab') === 'ditolak' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
                         id="tab-ditolak">
                     <div class="flex items-center justify-center">
-                        <i class="fas fa-times-circle mr-2 {{ request('tab') === 'ditolak' ? 'text-yellow-600' : 'text-gray-400' }}"></i>
+                        <i class="fas fa-times-circle mr-2 {{ request('tab') === 'ditolak' ? 'text-black' : 'text-red-400' }}"></i>
                         Riwayat Ditolak
                         @if($kontrakDitolak->count() > 0)
                         <span class="ml-2 bg-black text-white px-2 py-0.5 text-xs font-bold min-w-[24px] text-center">

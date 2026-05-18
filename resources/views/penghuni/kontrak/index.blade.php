@@ -83,10 +83,10 @@
                             <div>
                                 <h3 class="text-lg font-black text-black">{{ $k->kos->nama_kos }}</h3>
                                 <div class="flex items-center space-x-3 mt-1">
-                                    <span class="px-3 py-1  text-xs font-black
-                                        {{ $k->status_kontrak == 'aktif' ? 'bg-emerald-50 text-emerald-600' : 
-                                           ($k->status_kontrak == 'pending' ? 'bg-yellow-50 text-yellow-600' : 
-                                           ($k->status_kontrak == 'ditolak' ? 'bg-rose-50 text-rose-600' : 'bg-gray-100 text-gray-600')) }}">
+                                    <span class="px-3 py-1 text-xs font-black border-2 border-black
+                                        {{ $k->status_kontrak == 'aktif' ? 'bg-emerald-400 text-black' : 
+                                           ($k->status_kontrak == 'pending' ? 'bg-yellow-400 text-black' : 
+                                           ($k->status_kontrak == 'ditolak' ? 'bg-red-400 text-black' : 'bg-gray-200 text-black')) }}">
                                         {{ ucfirst($k->status_kontrak) }}
                                     </span>
                                     <span class="text-xs text-gray-600">

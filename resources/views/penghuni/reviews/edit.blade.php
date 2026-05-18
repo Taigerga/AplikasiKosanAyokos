@@ -39,13 +39,13 @@
     </div>
 
     @if(session('success'))
-        <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-emerald-300 px-4 py-3  mb-6">
+        <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
             <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
         </div>
         <script>window.showSuccess && window.showSuccess('{{ session('success') }}');</script>
     @endif
     @if(session('error'))
-        <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-rose-300 px-4 py-3  mb-6">
+        <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
             <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
         </div>
         <script>window.showError && window.showError('{{ session('error') }}');</script>
@@ -92,7 +92,7 @@
                     <div class="flex-1">
                         <div class="flex items-center justify-between">
                             <h3 class="font-black text-black">{{ $review->kos->nama_kos }}</h3>
-                            <span class="text-xs px-2 py-1  bg-emerald-50 text-emerald-600">
+                            <span class="text-xs px-2 py-1 font-black bg-emerald-400 text-black border-2 border-black">
                                 {{ $review->kontrak->kamar->nomor_kamar ?? 'Kamar' }}
                             </span>
                         </div>
@@ -277,10 +277,10 @@
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div id="deleteModal" class="fixed inset-0 bg-black/90  overflow-y-auto h-full w-full hidden z-50">
-    <div class="relative top-20 mx-auto p-5 border-2 border-black w-96 shadow-[4px_4px_0px_#000]  bg-gray-100 border-2 border-black">
+<div id="deleteModal" class="fixed inset-0 bg-black/80 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border-4 border-black w-96 shadow-[8px_8px_0px_#000] bg-white">
         <div class="mt-3">
-            <div class="w-16 h-16 bg-red-400  flex items-center justify-center mx-auto mb-4">
+            <div class="w-16 h-16 bg-red-400 border-2 border-black flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-exclamation-triangle text-rose-400 text-2xl"></i>
             </div>
             <h3 class="text-lg font-black text-black text-center mb-3">Hapus Review</h3>

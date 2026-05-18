@@ -209,15 +209,18 @@ class AnalisisService
 
         $semuaKos = Kos::where('id_pemilik', $pemilikId)
             ->withCount(['kamar as kamar_tersedia' => fn($q) => $q->where('status_kamar', 'tersedia')])
-            ->orderBy('created_at', 'desc')->get();
+            ->orderBy('created_at', 'desc')
+            ->limit(50)->get();
 
         $semuaKamar = Kamar::with('kos')
-            ->whereHas('kos', fn($q) => $q->where('id_pemilik', $pemilikId))->get();
+            ->whereHas('kos', fn($q) => $q->where('id_pemilik', $pemilikId))
+            ->limit(50)->get();
 
         $kontrakPending = KontrakSewa::with(['penghuni', 'kos', 'kamar'])
             ->whereHas('kos', fn($q) => $q->where('id_pemilik', $pemilikId))
             ->where('status_kontrak', 'pending')
-            ->orderBy('created_at', 'desc')->get();
+            ->orderBy('created_at', 'desc')
+            ->limit(10)->get();
 
         $pembayaranTerbaru = Pembayaran::with(['penghuni', 'kontrak.kos'])
             ->whereHas('kontrak.kos', fn($q) => $q->where('id_pemilik', $pemilikId))

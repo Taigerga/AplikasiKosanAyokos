@@ -84,7 +84,7 @@
                         <label class="block text-sm font-black text-black mb-3">Pilih Kontrak *</label>
                         <div class="relative">
                             <i class="fas fa-home absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
-                            <select id="kontrak-select"
+                            <select id="kontrak-select" data-searchable
                                 class="w-full pl-12 pr-10 py-3 bg-gray-100 border-2 border-black text-black  focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 appearance-none transition">
                                 @foreach($kontrakAktif as $k)
                                     <option value="{{ $k->id_kontrak }}" data-harga="{{ $k->harga_sewa }}"
@@ -107,7 +107,7 @@
                 @endif
 
                 <div
-                    class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm kontrak-info bg-gray-100 border-2 border-black p-4  border-2 border-black">
+                    class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm kontrak-info bg-gray-100 border-2 border-black p-4">
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-building text-sky-500 w-5"></i>
                         <div>
@@ -194,32 +194,32 @@
                             <!-- Pembayaran Pertama: Fixed sesuai kontrak -->
                             <input type="hidden" name="jumlah_waktu" value="{{ $paymentOptions[0]['value'] ?? $selectedKontrak->durasi_sewa }}">
 
-                            <div class="bg-emerald-100 border-2 border-black  p-5">
-                                <h3 class="font-black text-emerald-400 mb-4 flex items-center">
+                            <div class="bg-emerald-400 border-2 border-black shadow-[2px_2px_0px_#000] p-5">
+                                <h3 class="font-black text-black mb-4 flex items-center">
                                     <i class="fas fa-file-contract mr-2"></i>
                                     Pembayaran Pertama
                                 </h3>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
-                                        <p class="text-sm text-emerald-400/80">Periode Mulai</p>
+                                        <p class="text-sm font-bold text-black">Periode Mulai</p>
                                         <p class="text-lg font-black text-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }}
                                         </p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-emerald-400/80">Periode Selesai</p>
+                                        <p class="text-sm font-bold text-black">Periode Selesai</p>
                                         <p class="text-lg font-black text-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
                                         </p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-emerald-400/80">Total Pembayaran</p>
-                                        <p class="text-lg font-black text-emerald-400">
+                                        <p class="text-sm font-bold text-black">Total Pembayaran</p>
+                                        <p class="text-lg font-black text-black">
                                             Rp {{ number_format($paymentOptions[0]['total'] ?? ($selectedKontrak->harga_sewa * $selectedKontrak->durasi_sewa), 0, ',', '.') }}
                                         </p>
                                     </div>
                                 </div>
-                                <div class="mt-3 text-xs text-emerald-400/80 bg-emerald-500/10 p-2 ">
+                                <div class="mt-3 text-xs font-bold text-black bg-emerald-500 border-2 border-black p-2">
                                     <i class="fas fa-info-circle mr-1"></i>
                                     Pembayaran pertama sesuai durasi kontrak awal. Untuk perpanjangan, lakukan pembayaran berikutnya setelah periode ini berakhir.
                                 </div>
@@ -227,21 +227,21 @@
 
                             <!-- Preview Masa Pembayaran (first payment - fixed) -->
                             <div id="masa-pembayaran-preview"
-                                class="bg-yellow-100 border-2 border-black  p-4">
-                                <h3 class="font-black text-amber-400 mb-3 flex items-center">
+                                class="bg-yellow-400 border-2 border-black shadow-[2px_2px_0px_#000] p-4">
+                                <h3 class="font-black text-black mb-3 flex items-center">
                                     <i class="fas fa-calendar-day mr-2"></i>
                                     Masa Pembayaran
                                 </h3>
-                                <div class="text-sm text-amber-200 grid grid-cols-2 gap-2">
+                                <div class="text-sm font-bold text-black grid grid-cols-2 gap-2">
                                     <div>
-                                        <div class="text-amber-400/80 text-xs">Mulai</div>
+                                        <div class="text-xs font-black text-black">Mulai</div>
                                         <div id="preview-mulai" class="font-black text-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }}
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="text-amber-400/80 text-xs">Selesai</div>
-                                        <div id="preview-selesai" class="font-black">
+                                        <div class="text-xs font-black text-black">Selesai</div>
+                                        <div id="preview-selesai" class="font-black text-black">
                                             {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
                                         </div>
                                     </div>
@@ -284,17 +284,17 @@
                             <!-- Preview Masa Pembayaran -->
                             <div id="masa-pembayaran-preview"
                                 class="bg-yellow-100 border-2 border-black  p-4">
-                                <h3 class="font-black text-amber-400 mb-3 flex items-center">
+                                <h3 class="font-black text-black mb-3 flex items-center">
                                     <i class="fas fa-calendar-day mr-2"></i>
                                     Masa Pembayaran
                                 </h3>
-                                <div class="text-sm text-amber-200 grid grid-cols-2 gap-2">
+                                <div class="text-sm text-black grid grid-cols-2 gap-2">
                                     <div>
-                                        <div class="text-amber-400/80 text-xs">Mulai</div>
+                                        <div class="text-xs font-bold">Mulai</div>
                                         <div id="preview-mulai">{{ $unitLabel == 'Hari' ? 'Hari berikutnya yang belum dibayar' : ($unitLabel == 'Minggu' ? 'Minggu berikutnya yang belum dibayar' : ($unitLabel == 'Tahun' ? 'Tahun berikutnya yang belum dibayar' : 'Bulan berikutnya yang belum dibayar')) }}</div>
                                     </div>
                                     <div>
-                                        <div class="text-amber-400/80 text-xs">Selesai</div>
+                                        <div class="text-xs font-bold">Selesai</div>
                                         <div id="preview-selesai" class="font-black">-</div>
                                     </div>
                                 </div>
@@ -306,14 +306,14 @@
                             class="bg-emerald-100 border-2 border-black  p-5">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <p class="text-sm text-emerald-400 mb-1">Harga/{{ $unitLabel }}:</p>
+                                    <p class="text-sm text-black font-bold mb-1">Harga/{{ $unitLabel }}:</p>
                                     <p id="harga-per-bulan" class="text-xl md:text-2xl font-black text-black">
                                         Rp {{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}
                                     </p>
                                 </div>
                                 <div>
-                                    <p class="text-sm text-emerald-400 mb-1">Total Pembayaran:</p>
-                                    <p id="total-bayar" class="text-xl md:text-2xl font-black text-emerald-500">Rp
+                                    <p class="text-sm text-black font-bold mb-1">Total Pembayaran:</p>
+                                    <p id="total-bayar" class="text-xl md:text-2xl font-black text-black">Rp
                                         {{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}</p>
                                 </div>
                             </div>
@@ -327,22 +327,22 @@
                                     class="flex items-center p-3 border-2 border-black  cursor-pointer hover:border-sky-500 bg-gray-100 transition-all duration-200">
                                     <input type="radio" name="metode_pembayaran" value="transfer" class="mr-3" checked>
                                     <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8 bg-sky-400  flex items-center justify-center">
-                                            <i class="fas fa-university text-sky-500"></i>
+                                        <div class="w-8 h-8 bg-sky-400 border-2 border-black flex items-center justify-center">
+                                            <i class="fas fa-university text-black"></i>
                                         </div>
                                         <span class="text-black">Transfer Bank</span>
                                     </div>
                                     <div
                                         class="ml-auto w-4 h-4  border-2 border-black flex items-center justify-center">
-                                        <div class="w-2 h-2  bg-sky-500 radio-checked"></div>
+                                        <div class="w-2 h-2  bg-black radio-checked"></div>
                                     </div>
                                 </label>
                                 <label
                                     class="flex items-center p-3 border-2 border-black  cursor-pointer hover:border-emerald-500 bg-gray-100 transition-all duration-200">
                                     <input type="radio" name="metode_pembayaran" value="qris" class="mr-3">
                                     <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8 bg-emerald-400  flex items-center justify-center">
-                                            <i class="fas fa-qrcode text-emerald-500"></i>
+                                        <div class="w-8 h-8 bg-emerald-400 border-2 border-black flex items-center justify-center">
+                                            <i class="fas fa-qrcode text-black"></i>
                                         </div>
                                         <span class="text-black">QRIS</span>
                                     </div>
@@ -359,28 +359,28 @@
 
                         <!-- Info Rekening -->
                         <div class="bg-emerald-100 border-2 border-black  p-5">
-                            <h3 class="font-black text-emerald-400 mb-3 flex items-center">
+                            <h3 class="font-black text-black mb-3 flex items-center">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Informasi Transfer
                             </h3>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
-                                    <div class="text-emerald-400/80 text-xs mb-1">Bank</div>
+                                    <div class="text-xs font-bold mb-1 text-black">Bank</div>
                                     <div class="text-black font-black" id="info-nama-bank">
                                         {{ $selectedKontrak->kos->pemilik->nama_bank ?? 'Belum Diatur' }}</div>
                                 </div>
                                 <div>
-                                    <div class="text-emerald-400/80 text-xs mb-1">No. Rekening</div>
+                                    <div class="text-xs font-bold mb-1 text-black">No. Rekening</div>
                                     <div class="text-black font-black" id="info-nomor-rekening">
                                         {{ $selectedKontrak->kos->pemilik->nomor_rekening ?? '-' }}</div>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <div class="text-emerald-400/80 text-xs mb-1">Atas Nama</div>
+                                    <div class="text-black text-xs mb-1 font-bold">Atas Nama</div>
                                     <div class="text-black font-black" id="info-pemilik">
                                         {{ $selectedKontrak->kos->pemilik->nama }}</div>
                                 </div>
                             </div>
-                            <div class="mt-3 text-xs text-emerald-400/80 bg-emerald-500/10 p-2 ">
+                            <div class="mt-3 text-xs text-black bg-emerald-400 border-2 border-black p-2 font-bold">
                                 <i class="fas fa-exclamation-triangle mr-1"></i>
                                 Harap transfer sesuai jumlah dan tambahkan kode unik
                             </div>
@@ -396,8 +396,8 @@
                                 class="mt-1 border-2 border-dashed border-black  hover:border-black transition-all duration-200 cursor-pointer bg-gray-100 overflow-hidden @error('bukti_pembayaran') border-rose-500 focus:ring-rose-500/30 @enderror">
                                 <div class="p-6 text-center">
                                     <div
-                                        class="w-16 h-16 bg-sky-400  flex items-center justify-center mx-auto mb-4">
-                                        <i class="fas fa-cloud-upload-alt text-2xl text-sky-500"></i>
+                                        class="w-16 h-16 bg-sky-400 border-2 border-black flex items-center justify-center mx-auto mb-4">
+                                        <i class="fas fa-cloud-upload-alt text-2xl text-black"></i>
                                     </div>
                                     <div class="flex text-sm text-gray-600 justify-center">
                                         <label for="bukti_pembayaran"
@@ -421,43 +421,43 @@
 
                         <!-- Info Penting -->
                         <div class="bg-sky-100 border-2 border-black  p-5">
-                            <h3 class="font-black text-sky-400 mb-3 flex items-center">
+                            <h3 class="font-black text-black mb-3 flex items-center">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Informasi Pembayaran
                             </h3>
                             <ul class="space-y-2">
                                 @if(isset($isFirstPayment) && $isFirstPayment)
-                                <li class="flex items-start text-sm text-sky-200">
-                                    <i class="fas fa-file-contract text-sky-500 mr-3 mt-0.5"></i>
+                                <li class="flex items-start text-sm text-black">
+                                    <i class="fas fa-file-contract text-black mr-3 mt-0.5"></i>
                                     <span>Pembayaran pertama sesuai durasi kontrak awal (<strong class="text-black">{{ $selectedKontrak->durasi_sewa }} {{ strtolower($unitLabel) }}</strong>)</span>
                                 </li>
-                                <li class="flex items-start text-sm text-sky-200">
-                                    <i class="fas fa-redo text-sky-500 mr-3 mt-0.5"></i>
+                                <li class="flex items-start text-sm text-black">
+                                    <i class="fas fa-redo text-black mr-3 mt-0.5"></i>
                                     <span>Setelah periode ini berakhir, Anda bisa <strong class="text-black">memperpanjang</strong> dengan jumlah {{ strtolower($unitLabel) }} berapa pun</span>
                                 </li>
                                 @else
-                                <li class="flex items-start text-sm text-sky-200">
-                                    <i class="fas fa-calendar text-sky-500 mr-3 mt-0.5"></i>
+                                <li class="flex items-start text-sm text-black">
+                                    <i class="fas fa-calendar text-black mr-3 mt-0.5"></i>
                                     <span>Anda dapat membayar maksimal <strong class="text-black">{{ $maxLimit }} {{ strtolower($unitLabel) }} ke
                                              depan</strong></span>
                                 </li>
                                 @endif
-                                <li class="flex items-start text-sm text-sky-200">
-                                    <i class="fas fa-clock text-sky-500 mr-3 mt-0.5"></i>
+                                <li class="flex items-start text-sm text-black">
+                                    <i class="fas fa-clock text-black mr-3 mt-0.5"></i>
                                     <span>Setelah kontrak berakhir, ada <strong class="text-black">grace period 7
                                              hari</strong> untuk membayar</span>
                                 </li>
-                                <li class="flex items-start text-sm text-sky-200">
-                                    <i class="fas fa-redo text-sky-500 mr-3 mt-0.5"></i>
+                                <li class="flex items-start text-sm text-black">
+                                    <i class="fas fa-redo text-black mr-3 mt-0.5"></i>
                                     <span>Pembayaran advance akan <strong class="text-black">memperpanjang kontrak
                                              otomatis</strong></span>
                                 </li>
-                                <li class="flex items-start text-sm text-sky-200">
-                                    <i class="fas fa-times-circle text-sky-500 mr-3 mt-0.5"></i>
+                                <li class="flex items-start text-sm text-black">
+                                    <i class="fas fa-times-circle text-black mr-3 mt-0.5"></i>
                                     <span>Setelah grace period, harus perpanjang kontrak untuk membayar lagi</span>
                                 </li>
-                                <li class="flex items-start text-sm text-sky-200">
-                                    <i class="fas fa-check-circle text-sky-500 mr-3 mt-0.5"></i>
+                                <li class="flex items-start text-sm text-black">
+                                    <i class="fas fa-check-circle text-black mr-3 mt-0.5"></i>
                                     <span>Satu pembayaran = satu bukti transfer untuk multiple {{ strtolower($unitLabel) }}</span>
                                 </li>
                             </ul>

@@ -74,7 +74,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-3 bg-gray-200 border-2 border-black">
+                <div class="p-3 bg-lime-400 border-2 border-black">
                     <i class="fas fa-comment-alt text-black text-xl"></i>
                 </div>
                 <span class="text-sm font-black px-2 py-1 bg-black text-white border-2 border-black">
@@ -87,8 +87,8 @@
 
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-3 bg-gray-200 border-2 border-black">
-                    <i class="fas fa-star text-yellow-500 text-xl"></i>
+                <div class="p-3 bg-yellow-400 border-2 border-black">
+                    <i class="fas fa-star text-black text-xl"></i>
                 </div>
                 <span class="text-sm font-black px-2 py-1 bg-black text-white border-2 border-black">
                     Rata-rata
@@ -100,7 +100,7 @@
 
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-3 bg-gray-200 border-2 border-black">
+                <div class="p-3 bg-pink-400 border-2 border-black">
                     <i class="fas fa-calendar-alt text-black text-xl"></i>
                 </div>
                 <span class="text-sm font-black px-2 py-1 bg-black text-white border-2 border-black">

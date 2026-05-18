@@ -102,7 +102,7 @@
                         </label>
                         <div class="relative">
                             <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
-                            <select name="id_kos" 
+                            <select name="id_kos" data-searchable
                                     class="w-full pl-12 pr-10 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:shadow-[3px_3px_0px_#000] outline-none bg-white appearance-none transition" required>
                                 <option value="">Pilih Kos</option>
                                 @foreach($kos as $k)

@@ -54,12 +54,12 @@
         <!-- Content -->
         <div class="p-6">
             @if(session('success'))
-                <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-emerald-300 px-4 py-3  mb-6">
+                <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
                     <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
                 </div>
             @endif
             @if(session('error'))
-                <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-rose-300 px-4 py-3  mb-6">
+                <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
                     <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
                 </div>
             @endif
@@ -96,7 +96,7 @@
                                 <span>{{ $kos->alamat }}, {{ $kos->kota }}</span>
                             </div>
                             <div class="mt-2 flex items-center">
-                                <span class="px-2 py-1 text-xs  bg-emerald-50 text-emerald-600">
+                                <span class="px-2 py-1 text-xs font-black bg-emerald-400 text-black border-2 border-black">
                                     {{ ucfirst($kos->jenis_kos) }}
                                 </span>
                             </div>

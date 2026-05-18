@@ -8,6 +8,7 @@ import { initStarRating } from './modules/review/star-rating';
 import { initPaymentForm } from './modules/pembayaran/payment-form';
 import { initRegisterForm } from './modules/auth/register-form';
 import { initLoginForm } from './modules/auth/login-form';
+import { initSearchableSelects } from './modules/ui/searchable-select';
 import axios from 'axios';
 
 window.initKosMap = initKosMap;
@@ -33,11 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
         initPaymentForm('paymentForm');
     }
 
-    if (document.getElementById('exportPdfBtn')) {
+    if (document.getElementById('exportPdfBtn') || document.getElementById('exportPdfPenghuni')) {
         initPdfExport();
     }
 
     if (document.getElementById('loginForm')) {
         initLoginForm();
     }
+
+    initSearchableSelects();
 });

@@ -70,20 +70,20 @@
         <!-- Main Card -->
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
             <!-- Status Banner -->
-            <div class="p-6 border-b border-black
-                {{ $pembayaran->status_pembayaran == 'lunas' ? 'bg-emerald-500/10' :
-                   ($pembayaran->status_pembayaran == 'pending' ? 'bg-yellow-500/10' :
-                   ($pembayaran->status_pembayaran == 'terlambat' ? 'bg-rose-500/10' :
-                   'bg-gray-500/10')) }}">
+            <div class="p-6 border-b-2 border-black
+                {{ $pembayaran->status_pembayaran == 'lunas' ? 'bg-emerald-400' :
+                   ($pembayaran->status_pembayaran == 'pending' ? 'bg-yellow-400' :
+                   ($pembayaran->status_pembayaran == 'terlambat' ? 'bg-red-400' :
+                   'bg-gray-200')) }}">
                 <div class="flex flex-col md:flex-row md:items-center justify-between">
                     <div>
-                        <span class="text-xs font-black text-black/70">Status Pembayaran</span>
+                        <span class="text-xs font-black text-black">Status Pembayaran</span>
                         <div class="flex items-center gap-3 mt-2">
-                            <span class="px-4 py-2  text-sm font-black
-                                {{ $pembayaran->status_pembayaran == 'lunas' ? 'bg-emerald-50 text-emerald-600' :
-                                   ($pembayaran->status_pembayaran == 'pending' ? 'bg-yellow-50 text-yellow-600' :
-                                   ($pembayaran->status_pembayaran == 'terlambat' ? 'bg-rose-50 text-rose-600' :
-                                   'bg-gray-100 text-gray-600')) }}">
+                            <span class="px-4 py-2 text-sm font-black border-2 border-black
+                                {{ $pembayaran->status_pembayaran == 'lunas' ? 'bg-emerald-400 text-black' :
+                                   ($pembayaran->status_pembayaran == 'pending' ? 'bg-yellow-400 text-black' :
+                                   ($pembayaran->status_pembayaran == 'terlambat' ? 'bg-red-400 text-black' :
+                                   'bg-gray-200 text-black')) }}">
                                 {{ ucfirst($pembayaran->status_pembayaran) }}
                             </span>
                             <span class="text-black font-black text-xl">
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="mt-4 md:mt-0 text-right">
-                        <span class="text-xs text-black/70 block">No. Transaksi</span>
+                        <span class="text-xs text-gray-700 font-bold block">No. Transaksi</span>
                         <span class="text-sm text-black font-mono">#PAY-{{ str_pad($pembayaran->id_pembayaran, 6, '0', STR_PAD_LEFT) }}</span>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                                             <span class="text-black font-black">{{ \Carbon\Carbon::parse($pembayaran->tanggal_jatuh_tempo)->format('d M Y') }}</span>
                                         </div>
                                     </div>
-                                    <span class="text-xs px-2 py-1  bg-gray-100 border-2 border-black text-gray-600">Tanggal</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-200 border-2 border-black text-black font-black">Tanggal</span>
                                 </div>
 
                                 <div class="flex justify-between items-center">
@@ -185,8 +185,8 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <span class="text-xs px-2 py-1 
-                                        {{ $pembayaran->tanggal_bayar ? 'bg-emerald-50 text-emerald-600' : 'bg-yellow-50 text-yellow-600' }}">
+                                    <span class="text-xs px-2 py-1 border-2 border-black
+                                        {{ $pembayaran->tanggal_bayar ? 'bg-emerald-400 text-black' : 'bg-yellow-400 text-black' }}">
                                         {{ $pembayaran->tanggal_bayar ? 'Telah Dibayar' : 'Pending' }}
                                     </span>
                                 </div>

@@ -23,7 +23,7 @@ class KamarController extends Controller
         $pemilik = $user->pemilik;
 
         $filters = $request->only(['kos', 'status', 'tipe']);
-        $result = $this->kamarService->getOwnerKamar($pemilik->id_pemilik, $filters, 10);
+        $result = $this->kamarService->getOwnerKamar($pemilik->id_pemilik, $filters, 12);
 
         $kos = $this->kosService->getOwnerKosList($pemilik->id_pemilik);
 

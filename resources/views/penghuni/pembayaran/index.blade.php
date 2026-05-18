@@ -37,12 +37,12 @@
                     <i class="fas fa-credit-card mr-2"></i>
                     Riwayat Pembayaran
                 </h1>
-                <p class="text-gray-600">Kelola dan lacak semua pembayaran kos Anda</p>
+                <p class="text-gray-600 font-bold">Kelola dan lacak semua pembayaran kos Anda</p>
             </div>
 
             @if($kontrakAktif->count() > 0)
                 <a href="{{ route('penghuni.pembayaran.create') }}"
-                    class="mt-4 md:mt-0 px-6 py-3 bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black font-black  hover:bg-emerald-500/30 transition-all duration-300">
+                    class="mt-4 md:mt-0 px-6 py-3 bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black font-black  hover:bg-emerald-500 transition-all duration-300">
                     <i class="fas fa-credit-card mr-2"></i>
                     Bayar Sekarang
                 </a>
@@ -52,7 +52,7 @@
 
     <!-- Success/Error Messages -->
     @if(session('success'))
-        <div class="bg-emerald-100 border-2 border-black text-emerald-300 px-4 py-3  ">
+        <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  ">
             <div class="flex items-center">
                 <i class="fas fa-check-circle mr-3"></i>
                 {{ session('success') }}
@@ -61,7 +61,7 @@
     @endif
 
     @if(session('error'))
-        <div class="bg-red-100 border-2 border-black text-rose-300 px-4 py-3  ">
+        <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  ">
             <div class="flex items-center">
                 <i class="fas fa-exclamation-circle mr-3"></i>
                 {{ session('error') }}
@@ -76,7 +76,7 @@
                 <h2 class="text-xl font-black text-black flex items-center">
                     <i class="fas fa-file-contract text-black mr-3"></i>
                     Kontrak Aktif
-                    <span class="ml-3 bg-blue-50 text-blue-600 px-3 py-1  text-sm font-black">
+                    <span class="ml-3 bg-sky-400 text-black px-3 py-1 text-sm font-black border-2 border-black">
                         {{ $kontrakAktif->count() }} kontrak
                     </span>
                 </h2>
@@ -216,7 +216,7 @@
                                         </div>
                                         @if($bayar->keterangan == 'Pembayaran di muka')
                                             <div class="mt-1">
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-black bg-orange-50 text-orange-600">
+                                                <span class="inline-flex items-center px-2 py-0.5 text-xs font-black bg-orange-400 text-black border-2 border-black">
                                                     <i class="fas fa-rocket mr-1 text-xs"></i>
                                                     Advance
                                                 </span>
@@ -232,7 +232,7 @@
                                 </td>
 
                                 <td class="px-6 py-4">
-                                    <span class="inline-flex items-center px-3 py-1  text-xs font-black bg-blue-50 text-blue-600 capitalize">
+                                    <span class="inline-flex items-center px-3 py-1 text-xs font-black bg-sky-400 text-black border-2 border-black capitalize">
                                         <i class="fas {{ $bayar->metode_pembayaran == 'transfer' ? 'fa-university' :
                                         ($bayar->metode_pembayaran == 'cash' ? 'fa-money-bill' : 'fa-qrcode') }} mr-1 text-xs">
                                         </i>
@@ -241,11 +241,11 @@
                                 </td>
 
                                 <td class="px-6 py-4">
-                                    <span class="inline-flex items-center px-3 py-1  text-xs font-black
-                                        {{ $bayar->status_pembayaran == 'lunas' ? 'bg-emerald-50 text-emerald-600' :
-                                        ($bayar->status_pembayaran == 'pending' ? 'bg-yellow-50 text-yellow-600' :
-                                            ($bayar->status_pembayaran == 'terlambat' ? 'bg-rose-50 text-rose-600' :
-                                                'bg-gray-100 text-gray-600')) }}">
+                                    <span class="inline-flex items-center px-3 py-1 text-xs font-black border-2 border-black
+                                        {{ $bayar->status_pembayaran == 'lunas' ? 'bg-emerald-400 text-black' :
+                                        ($bayar->status_pembayaran == 'pending' ? 'bg-yellow-400 text-black' :
+                                            ($bayar->status_pembayaran == 'terlambat' ? 'bg-red-400 text-black' :
+                                                'bg-gray-200 text-black')) }}">
                                         <i class="fas {{ $bayar->status_pembayaran == 'lunas' ? 'fa-check-circle' :
                                         ($bayar->status_pembayaran == 'pending' ? 'fa-clock' :
                                             ($bayar->status_pembayaran == 'terlambat' ? 'fa-exclamation-triangle' : 'fa-question-circle')) }} mr-1 text-xs">
@@ -302,7 +302,7 @@
 
     <!-- Informasi Penting -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:border-yellow-500/50 transition-all duration-300">
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:border-yellow-500 hover:shadow-[5px_5px_0px_#000] transition-all duration-300">
             <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-gray-100 border-2 border-black  flex items-center justify-center mr-4">
                     <i class="fas fa-file-contract text-black text-lg"></i>
@@ -330,7 +330,7 @@
             </ul>
         </div>
 
-        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:border-blue-500/50 transition-all duration-300">
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:border-sky-500 hover:shadow-[5px_5px_0px_#000] transition-all duration-300">
             <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-gray-100 border-2 border-black  flex items-center justify-center mr-4">
                     <i class="fas fa-credit-card text-black text-lg"></i>
@@ -340,28 +340,28 @@
 
             <div class="space-y-3">
                 <div class="flex items-start">
-                    <div class="w-6 h-6 bg-blue-50  flex items-center justify-center mr-3 mt-0.5">
-                        <span class="text-xs font-black text-blue-600">1</span>
+                    <div class="w-6 h-6 bg-sky-400 border-2 border-black flex items-center justify-center mr-3 mt-0.5">
+                        <span class="text-xs font-black text-black">1</span>
                     </div>
-                    <span class="text-sm text-gray-600">Klik tombol "Bayar Sekarang"</span>
+                    <span class="text-sm text-gray-600 font-bold">Klik tombol "Bayar Sekarang"</span>
                 </div>
                 <div class="flex items-start">
-                    <div class="w-6 h-6 bg-blue-50  flex items-center justify-center mr-3 mt-0.5">
-                        <span class="text-xs font-black text-blue-600">2</span>
+                    <div class="w-6 h-6 bg-sky-400 border-2 border-black flex items-center justify-center mr-3 mt-0.5">
+                        <span class="text-xs font-black text-black">2</span>
                     </div>
-                    <span class="text-sm text-gray-600">Upload bukti transfer/pembayaran</span>
+                    <span class="text-sm text-gray-600 font-bold">Upload bukti transfer/pembayaran</span>
                 </div>
                 <div class="flex items-start">
-                    <div class="w-6 h-6 bg-blue-50  flex items-center justify-center mr-3 mt-0.5">
-                        <span class="text-xs font-black text-blue-600">3</span>
+                    <div class="w-6 h-6 bg-sky-400 border-2 border-black flex items-center justify-center mr-3 mt-0.5">
+                        <span class="text-xs font-black text-black">3</span>
                     </div>
-                    <span class="text-sm text-gray-600">Tunggu konfirmasi dari pemilik</span>
+                    <span class="text-sm text-gray-600 font-bold">Tunggu konfirmasi dari pemilik</span>
                 </div>
                 <div class="flex items-start">
-                    <div class="w-6 h-6 bg-blue-50  flex items-center justify-center mr-3 mt-0.5">
-                        <span class="text-xs font-black text-blue-600">4</span>
+                    <div class="w-6 h-6 bg-sky-400 border-2 border-black flex items-center justify-center mr-3 mt-0.5">
+                        <span class="text-xs font-black text-black">4</span>
                     </div>
-                    <span class="text-sm text-gray-600">Status akan berubah menjadi "Lunas"</span>
+                    <span class="text-sm text-gray-600 font-bold">Status akan berubah menjadi "Lunas"</span>
                 </div>
             </div>
         </div>

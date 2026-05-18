@@ -2,12 +2,34 @@ export function initPenghuniCharts(data) {
     if (typeof window.Chart === 'undefined') return;
     const C = window.Chart;
 
-    C.defaults.color = '#94a3b8';
-    C.defaults.borderColor = 'rgba(255,255,255,0.2)';
-    C.defaults.backgroundColor = 'rgba(255,255,255,0.05)';
+    C.defaults.color = '#000';
+    C.defaults.borderColor = '#000';
+    C.defaults.font = { weight: 'bold' };
+
+    const tooltipOpts = {
+        backgroundColor: '#fff',
+        titleColor: '#000',
+        bodyColor: '#000',
+        borderColor: '#000',
+        borderWidth: 2,
+        padding: 10,
+        titleFont: { weight: 'bold', size: 13 },
+        bodyFont: { weight: 'bold', size: 12 },
+    };
+
+    const legendOpts = {
+        position: 'bottom',
+        labels: {
+            color: '#000',
+            padding: 14,
+            font: { size: 12, weight: 'bold' },
+            usePointStyle: true,
+        },
+    };
 
     if (document.getElementById('pengeluaranChart')) {
         new C(document.getElementById('pengeluaranChart').getContext('2d'), {
+            devicePixelRatio: 2.5,
             type: 'line',
             data: {
                 labels: data.pembayaranPerBulan.map(i => {
@@ -16,50 +38,147 @@ export function initPenghuniCharts(data) {
                     return months[parseInt(m) - 1];
                 }),
                 datasets: [{
-                    label: 'Pengeluaran', data: data.pembayaranPerBulan.map(i => i.total),
-                    borderColor: 'rgb(239,68,68)', backgroundColor: 'rgba(239,68,68,0.1)',
-                    fill: true, tension: 0.4, borderWidth: 2,
-                    pointBackgroundColor: 'rgb(239,68,68)', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4,
+                    label: 'Pengeluaran',
+                    data: data.pembayaranPerBulan.map(i => i.total),
+                    borderColor: '#dc2626',
+                    backgroundColor: 'rgba(220,38,38,0.12)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#dc2626',
+                    pointBorderWidth: 3,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
                 }],
             },
             options: {
-                responsive: true, maintainAspectRatio: false,
-                scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => 'Rp ' + v.toLocaleString('id-ID') } }, x: { grid: { color: 'rgba(255,255,255,0.05)' } } },
-                plugins: { legend: { labels: { color: '#e2e8f0', font: { size: 12 } } }, tooltip: { backgroundColor: 'rgba(30,41,59,0.9)', titleColor: '#e2e8f0', bodyColor: '#cbd5e1', borderColor: '#334155', borderWidth: 1, callbacks: { label: ctx => 'Rp ' + ctx.parsed.y.toLocaleString('id-ID') } } },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        border: { color: '#000', width: 2 },
+                        grid: { color: '#d1d5db' },
+                        ticks: {
+                            color: '#000',
+                            font: { weight: 'bold' },
+                            callback: v => 'Rp ' + v.toLocaleString('id-ID'),
+                        },
+                    },
+                    x: {
+                        border: { color: '#000', width: 2 },
+                        grid: { color: '#d1d5db' },
+                        ticks: { color: '#000', font: { weight: 'bold' } },
+                    },
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipOpts,
+                },
             },
         });
     }
 
     if (document.getElementById('statusPembayaranChart')) {
         new C(document.getElementById('statusPembayaranChart').getContext('2d'), {
+            devicePixelRatio: 2.5,
             type: 'doughnut',
             data: {
                 labels: data.statusPembayaran.map(i => i.status_pembayaran.charAt(0).toUpperCase() + i.status_pembayaran.slice(1)),
-                datasets: [{ data: data.statusPembayaran.map(i => i.jumlah), backgroundColor: ['rgba(34,197,94,0.8)', 'rgba(59,130,246,0.8)', 'rgba(234,179,8,0.8)', 'rgba(239,68,68,0.8)'] }],
+                datasets: [{
+                    data: data.statusPembayaran.map(i => i.jumlah),
+                    backgroundColor: ['#22c55e', '#3b82f6', '#eab308', '#64748b'],
+                    borderColor: '#000',
+                    borderWidth: 3,
+                    hoverBorderColor: '#000',
+                    hoverBorderWidth: 4,
+                }],
             },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#e2e8f0', padding: 12, font: { size: 11 } } } } },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: legendOpts,
+                    tooltip: tooltipOpts,
+                },
+            },
         });
     }
 
     if (document.getElementById('jenisKosChart')) {
         new C(document.getElementById('jenisKosChart').getContext('2d'), {
+            devicePixelRatio: 2.5,
             type: 'bar',
             data: {
                 labels: data.jenisKosDisewa.map(i => i.jenis_kos.charAt(0).toUpperCase() + i.jenis_kos.slice(1)),
-                datasets: [{ label: 'Jumlah', data: data.jenisKosDisewa.map(i => i.jumlah_sewa), backgroundColor: ['rgba(59,130,246,0.7)', 'rgba(236,72,153,0.7)', 'rgba(168,85,247,0.7)'], borderRadius: 6 }],
+                datasets: [{
+                    label: 'Jumlah',
+                    data: data.jenisKosDisewa.map(i => i.jumlah_sewa),
+                    backgroundColor: ['#3b82f6', '#ec4899', '#a855f7'],
+                    borderColor: '#000',
+                    borderWidth: 2,
+                    borderRadius: 0,
+                    barPercentage: 0.6,
+                }],
             },
-            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { stepSize: 1 } }, x: { grid: { display: false } } }, plugins: { legend: { display: false } } },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        border: { color: '#000', width: 2 },
+                        grid: { color: '#d1d5db' },
+                        ticks: { stepSize: 1, color: '#000', font: { weight: 'bold' } },
+                    },
+                    x: {
+                        border: { color: '#000', width: 2 },
+                        grid: { display: false },
+                        ticks: { color: '#000', font: { weight: 'bold' } },
+                    },
+                },
+                plugins: { legend: { display: false }, tooltip: tooltipOpts },
+            },
         });
     }
 
     if (document.getElementById('ratingChart')) {
         new C(document.getElementById('ratingChart').getContext('2d'), {
+            devicePixelRatio: 2.5,
             type: 'bar',
             data: {
                 labels: data.reviewStats.map(i => i.rating_bulat + ' Bintang'),
-                datasets: [{ label: 'Jumlah', data: data.reviewStats.map(i => i.jumlah), backgroundColor: ['rgba(239,68,68,0.7)', 'rgba(251,146,60,0.7)', 'rgba(234,179,8,0.7)', 'rgba(34,197,94,0.7)', 'rgba(59,130,246,0.7)'], borderRadius: 6 }],
+                datasets: [{
+                    label: 'Jumlah',
+                    data: data.reviewStats.map(i => i.jumlah),
+                    backgroundColor: ['#ef4444', '#fb923c', '#eab308', '#22c55e', '#3b82f6'],
+                    borderColor: '#000',
+                    borderWidth: 2,
+                    borderRadius: 0,
+                    barPercentage: 0.7,
+                }],
             },
-            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { stepSize: 1 } }, y: { grid: { display: false } } }, plugins: { legend: { display: false } } },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        border: { color: '#000', width: 2 },
+                        grid: { color: '#d1d5db' },
+                        ticks: { stepSize: 1, color: '#000', font: { weight: 'bold' } },
+                    },
+                    y: {
+                        border: { color: '#000', width: 2 },
+                        grid: { display: false },
+                        ticks: { color: '#000', font: { weight: 'bold' } },
+                    },
+                },
+                plugins: { legend: { display: false }, tooltip: tooltipOpts },
+            },
         });
     }
 }

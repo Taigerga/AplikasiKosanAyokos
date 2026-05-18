@@ -36,7 +36,7 @@
 
     <!-- Notifications -->
     @if(session('success'))
-    <div class="bg-emerald-100 border-2 border-black text-emerald-300 px-4 py-3  mb-6">
+    <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
         <div class="flex items-center">
             <i class="fas fa-check-circle mr-3"></i>
             <span>{{ session('success') }}</span>
@@ -45,7 +45,7 @@
     @endif
 
     @if(session('error'))
-    <div class="bg-red-100 border-2 border-black text-rose-300 px-4 py-3  mb-6">
+    <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
         <div class="flex items-center">
             <i class="fas fa-exclamation-circle mr-3"></i>
             <span>{{ session('error') }}</span>
@@ -60,22 +60,22 @@
             <div class="flex items-center justify-between">
                 <div>
                     @if($kontrak->status_kontrak === 'pending')
-                    <span class="inline-flex items-center px-4 py-2  font-black bg-yellow-900/30 text-black border border-yellow-800/30">
+                    <span class="inline-flex items-center px-4 py-2 font-black bg-yellow-400 text-black border-2 border-black">
                         <i class="fas fa-clock mr-2"></i>
                         Menunggu Persetujuan
                     </span>
                     @elseif($kontrak->status_kontrak === 'aktif')
-                    <span class="inline-flex items-center px-4 py-2  font-black bg-green-900/30 text-black border border-green-800/30">
+                    <span class="inline-flex items-center px-4 py-2 font-black bg-emerald-400 text-black border-2 border-black">
                         <i class="fas fa-check-circle mr-2"></i>
                         Kontrak Aktif
                     </span>
                     @elseif($kontrak->status_kontrak === 'selesai')
-                    <span class="inline-flex items-center px-4 py-2  font-black bg-blue-900/30 text-black border border-blue-800/30">
+                    <span class="inline-flex items-center px-4 py-2 font-black bg-sky-400 text-black border-2 border-black">
                         <i class="fas fa-check-double mr-2"></i>
                         Kontrak Selesai
                     </span>
                     @else
-                    <span class="inline-flex items-center px-4 py-2  font-black bg-rose-900/30 text-rose-300 border border-rose-800/30">
+                    <span class="inline-flex items-center px-4 py-2 font-black bg-red-400 text-black border-2 border-black">
                         <i class="fas fa-times-circle mr-2"></i>
                         Ditolak
                     </span>
@@ -117,7 +117,7 @@
                                 <p class="text-sm text-gray-600 mb-1">Kamar</p>
                                 <div class="flex items-center space-x-2">
                                     <span class="font-black text-black">Kamar {{ $kontrak->kamar->nomor_kamar }}</span>
-                                    <span class="text-xs px-2 py-1  bg-gray-100 border-2 border-black text-gray-600">
+                                    <span class="text-xs px-2 py-1 bg-gray-200 border-2 border-black text-black font-black">
                                         {{ $kontrak->kamar->tipe_kamar }}
                                     </span>
                                 </div>
@@ -247,8 +247,8 @@
                         <i class="fas fa-times-circle text-rose-400 text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-black text-rose-300 mb-2">Alasan Penolakan</h3>
-                        <p class="text-rose-200">{{ $kontrak->alasan_ditolak }}</p>
+                        <h3 class="text-lg font-black text-black mb-2">Alasan Penolakan</h3>
+                        <p class="text-black">{{ $kontrak->alasan_ditolak }}</p>
                     </div>
                 </div>
             </div>

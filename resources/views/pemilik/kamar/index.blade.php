@@ -132,7 +132,7 @@
             <!-- Total Kamar -->
             <div class="card-hover bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-gray-100 border-2 border-black">
+                    <div class="p-3 bg-sky-400 border-2 border-black">
                         <i class="fas fa-bed text-black text-xl"></i>
                     </div>
                      <span class="text-sm font-black px-2 py-1 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000]">
@@ -146,7 +146,7 @@
             <!-- Tersedia -->
             <div class="card-hover bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-gray-100 border-2 border-black">
+                    <div class="p-3 bg-green-400 border-2 border-black">
                         <i class="fas fa-door-open text-black text-xl"></i>
                     </div>
                     <span class="text-sm font-black px-2 py-1 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000]">
@@ -160,7 +160,7 @@
             <!-- Terisi -->
             <div class="card-hover bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-gray-100 border-2 border-black">
+                    <div class="p-3 bg-red-400 border-2 border-black">
                         <i class="fas fa-users text-black text-xl"></i>
                     </div>
                      <span class="text-sm font-black px-2 py-1 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000]">
@@ -174,7 +174,7 @@
             <!-- Maintenance -->
             <div class="card-hover bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-gray-100 border-2 border-black">
+                    <div class="p-3 bg-yellow-400 border-2 border-black">
                         <i class="fas fa-tools text-black text-xl"></i>
                     </div>
                      <span class="text-sm font-black px-2 py-1 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000]">

@@ -5,12 +5,12 @@
 @section('content')
     <div class="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
         @if(session('success'))
-            <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-emerald-300 px-4 py-3  mb-6">
+            <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
                 <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
             </div>
         @endif
         @if(session('error'))
-            <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-rose-300 px-4 py-3  mb-6">
+            <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
                 <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
             </div>
         @endif
@@ -127,7 +127,7 @@
                         <i class="fas fa-wallet text-black mr-3"></i>
                         Riwayat Pengeluaran
                     </h2>
-                    <span class="text-xs px-3 py-1  bg-emerald-50 text-emerald-600">
+                    <span class="text-xs px-3 py-1 bg-emerald-400 text-black border-2 border-black font-black">
                         6 Bulan Terakhir
                     </span>
                 </div>
@@ -208,9 +208,9 @@
                         Distribusi Rating Review
                     </h2>
                     @if($statistikRingkasan['rata_rata_rating'] > 0)
-                    <div class="flex items-center bg-yellow-50 px-3 py-1 ">
-                        <span class="text-yellow-600 font-black mr-1">&#11088;</span>
-                        <span class="text-sm font-black text-yellow-700">
+                    <div class="flex items-center bg-yellow-400 border-2 border-black px-3 py-1">
+                        <span class="text-black font-black mr-1">&#11088;</span>
+                        <span class="text-sm font-black text-black">
                             {{ number_format($statistikRingkasan['rata_rata_rating'], 1) }}
                         </span>
                     </div>
@@ -253,11 +253,11 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <span class="px-2 py-1 text-xs 
-                                            {{ $kontrak->status_kontrak == 'aktif' ? 'bg-emerald-50 text-emerald-600' :
-                                               ($kontrak->status_kontrak == 'selesai' ? 'bg-blue-50 text-blue-600' :
-                                               ($kontrak->status_kontrak == 'pending' ? 'bg-yellow-50 text-yellow-600' :
-                                               'bg-rose-50 text-rose-600')) }}">
+                                        <span class="px-2 py-1 text-xs font-black border-2 border-black
+                                            {{ $kontrak->status_kontrak == 'aktif' ? 'bg-emerald-400 text-black' :
+                                               ($kontrak->status_kontrak == 'selesai' ? 'bg-sky-400 text-black' :
+                                               ($kontrak->status_kontrak == 'pending' ? 'bg-yellow-400 text-black' :
+                                               'bg-rose-400 text-black')) }}">
                                             {{ ucfirst($kontrak->status_kontrak) }}
                                         </span>
                                     </td>
@@ -381,59 +381,16 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        if (typeof Chart === 'undefined') return;
-        Chart.defaults.color = '#94a3b8';
-        Chart.defaults.borderColor = 'rgba(255,255,255,0.2)';
-        Chart.defaults.backgroundColor = 'rgba(255,255,255,0.05)';
-
-        var pengData = @json($pembayaranPerBulan);
-        var spData = @json($statusPembayaran);
-        var jkData = @json($jenisKosDisewa);
-        var rvData = @json($reviewStats);
-
-        if (document.getElementById('pengeluaranChart')) {
-            new Chart(document.getElementById('pengeluaranChart').getContext('2d'), {
-                type: 'line', data: {
-                    labels: pengData.map(function(i) { var p = i.bulan.split('-'); var m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']; return m[parseInt(p[1])-1]; }),
-                    datasets: [{ label: 'Pengeluaran', data: pengData.map(function(i) { return i.total; }), borderColor: 'rgb(239,68,68)', backgroundColor: 'rgba(239,68,68,0.1)', fill: true, tension: 0.4, borderWidth: 2, pointBackgroundColor: 'rgb(239,68,68)', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: function(v) { return 'Rp '+v.toLocaleString('id-ID'); } } }, x: { grid: { color: 'rgba(255,255,255,0.05)' } } }, plugins: { legend: { labels: { color: '#e2e8f0', font: { size: 12 } } }, tooltip: { backgroundColor: 'rgba(30,41,59,0.9)', titleColor: '#e2e8f0', bodyColor: '#cbd5e1', borderColor: '#334155', borderWidth: 1, callbacks: { label: function(ctx) { return 'Rp '+ctx.parsed.y.toLocaleString('id-ID'); } } } } }
-            });
-        }
-
-        if (document.getElementById('statusPembayaranChart')) {
-            new Chart(document.getElementById('statusPembayaranChart').getContext('2d'), {
-                type: 'doughnut', data: {
-                    labels: spData.map(function(i) { return i.status_pembayaran.charAt(0).toUpperCase() + i.status_pembayaran.slice(1); }),
-                    datasets: [{ data: spData.map(function(i) { return i.jumlah; }), backgroundColor: ['rgba(34,197,94,0.8)', 'rgba(59,130,246,0.8)', 'rgba(234,179,8,0.8)', 'rgba(239,68,68,0.8)'] }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#e2e8f0', padding: 12, font: { size: 11 } } } } }
-            });
-        }
-
-        if (document.getElementById('jenisKosChart')) {
-            new Chart(document.getElementById('jenisKosChart').getContext('2d'), {
-                type: 'bar', data: {
-                    labels: jkData.map(function(i) { return i.jenis_kos.charAt(0).toUpperCase() + i.jenis_kos.slice(1); }),
-                    datasets: [{ label: 'Jumlah', data: jkData.map(function(i) { return i.jumlah_sewa; }), backgroundColor: ['rgba(59,130,246,0.7)', 'rgba(236,72,153,0.7)', 'rgba(168,85,247,0.7)'], borderRadius: 6 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { stepSize: 1 } }, x: { grid: { display: false } } }, plugins: { legend: { display: false } } }
-            });
-        }
-
-        if (document.getElementById('ratingChart')) {
-            new Chart(document.getElementById('ratingChart').getContext('2d'), {
-                type: 'bar', data: {
-                    labels: rvData.map(function(i) { return i.rating_bulat + ' Bintang'; }),
-                    datasets: [{ label: 'Jumlah', data: rvData.map(function(i) { return i.jumlah; }), backgroundColor: ['rgba(239,68,68,0.7)', 'rgba(251,146,60,0.7)', 'rgba(234,179,8,0.7)', 'rgba(34,197,94,0.7)', 'rgba(59,130,246,0.7)'], borderRadius: 6 }]
-                },
-                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { stepSize: 1 } }, y: { grid: { display: false } } }, plugins: { legend: { display: false } } }
+        if (typeof window.initPenghuniCharts === 'function') {
+            window.initPenghuniCharts({
+                pembayaranPerBulan: @json($pembayaranPerBulan),
+                statusPembayaran: @json($statusPembayaran),
+                jenisKosDisewa: @json($jenisKosDisewa),
+                reviewStats: @json($reviewStats),
             });
         }
     });
     </script>
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -442,6 +399,4 @@
          data-nama="{{ auth()->user()->nama ?? 'Penghuni' }}"
          style="display: none;">
     </div>
-
-    @include('penghuni.analisis.pdf-export')
 @endsection

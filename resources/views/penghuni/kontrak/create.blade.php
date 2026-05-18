@@ -57,7 +57,7 @@
             </div>
 
             @if(session('success'))
-                <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-emerald-300 px-4 py-3 ">
+                <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3 ">
                     <div class="flex items-center">
                         <i class="fas fa-check-circle mr-3"></i>
                         {{ session('success') }}
@@ -66,7 +66,7 @@
             @endif
 
             @if(session('error'))
-                <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-rose-300 px-4 py-3 ">
+                <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3 ">
                     <div class="flex items-center">
                         <i class="fas fa-exclamation-circle mr-2"></i>
                         {{ session('error') }}
@@ -106,7 +106,7 @@
                         <i class="fas fa-check-circle text-sky-500 mr-3 w-5"></i>
                         <div>
                             <p class="text-sm text-gray-600">Status</p>
-                            <span class="px-3 py-1  text-xs font-black bg-emerald-50 text-emerald-600">
+<span class="px-3 py-1 text-xs font-black bg-emerald-400 text-black border-2 border-black">
                                 {{ ucfirst($kos->status_kos) }}
                             </span>
                         </div>
@@ -333,7 +333,7 @@
                                             <div class="mb-3">
                                                 <div
                                                     class="w-16 h-16 bg-sky-400  flex items-center justify-center mx-auto">
-                                                    <i class="fas fa-id-card text-2xl text-sky-500"></i>
+                                                    <i class="fas fa-id-card text-2xl text-black"></i>
                                                 </div>
                                             </div>
                                             <div class="text-sky-500 font-black">Upload Foto KTP</div>

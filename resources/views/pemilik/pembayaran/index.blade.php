@@ -69,7 +69,7 @@
             <!-- Lunas Card -->
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-gray-200 border-2 border-black">
+                    <div class="p-3 bg-green-400 border-2 border-black">
                         <i class="fas fa-check-circle text-black text-xl"></i>
                     </div>
                     <span class="text-sm font-black px-2 py-1 bg-black text-white border-2 border-black">
@@ -83,7 +83,7 @@
             <!-- Pending Card -->
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-gray-200 border-2 border-black">
+                    <div class="p-3 bg-yellow-400 border-2 border-black">
                         <i class="fas fa-clock text-black text-xl"></i>
                     </div>
                     <span class="text-sm font-black px-2 py-1 bg-black text-white border-2 border-black">
@@ -97,7 +97,7 @@
             <!-- Terlambat Card -->
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-gray-200 border-2 border-black">
+                    <div class="p-3 bg-indigo-400 border-2 border-black">
                         <i class="fas fa-exclamation-triangle text-black text-xl"></i>
                     </div>
                     <span class="text-sm font-black px-2 py-1 bg-black text-white border-2 border-black">
@@ -111,7 +111,7 @@
             <!-- Belum Bayar Card -->
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-gray-200 border-2 border-black">
+                    <div class="p-3 bg-red-400 border-2 border-black">
                         <i class="fas fa-calendar-times text-black text-xl"></i>
                     </div>
                     <span class="text-sm font-black px-2 py-1 bg-black text-white border-2 border-black">

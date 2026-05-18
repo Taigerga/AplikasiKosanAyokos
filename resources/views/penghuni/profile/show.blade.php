@@ -14,12 +14,12 @@
     </div>
 
     @if(session('success'))
-        <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-emerald-300 px-4 py-3  mb-6">
+        <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
             <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
         </div>
     @endif
     @if(session('error'))
-        <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-rose-300 px-4 py-3  mb-6">
+        <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3  mb-6">
             <div class="flex items-center"><i class="fas fa-exclamation-circle mr-3"></i>{{ session('error') }}</div>
         </div>
     @endif
@@ -64,12 +64,12 @@
                     <div class="flex items-center space-x-3 mb-2">
                         <h2 class="text-xl md:text-2xl font-black text-black">{{ $penghuni->nama }}</h2>
                         @if($penghuni->status_penghuni == 'aktif')
-                            <span class="px-2 py-1 bg-green-900/30 text-black text-xs  font-black">
+                            <span class="px-2 py-1 bg-emerald-400 text-black text-xs font-black border-2 border-black">
                                 <i class="fas fa-check-circle mr-1"></i>
                                 Aktif
                             </span>
                         @elseif($penghuni->status_penghuni == 'calon')
-                            <span class="px-2 py-1 bg-yellow-900/30 text-black text-xs  font-black">
+                            <span class="px-2 py-1 bg-yellow-400 text-black text-xs font-black border-2 border-black">
                                 <i class="fas fa-clock mr-1"></i>
                                 Calon
                             </span>
@@ -111,8 +111,8 @@
                 <div
                     class="card-hover bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 md:p-5">
                     <div class="flex items-center">
-                        <div class="p-2 md:p-3 bg-green-900/50  mr-3 md:mr-4">
-                            <i class="fas fa-file-contract text-green-400 text-lg md:text-xl"></i>
+                        <div class="p-2 md:p-3 bg-emerald-400 border-2 border-black mr-3 md:mr-4">
+                            <i class="fas fa-file-contract text-black text-lg md:text-xl"></i>
                         </div>
                         <div>
                             <p class="text-xs md:text-sm text-black">Kontrak Aktif</p>
@@ -125,8 +125,8 @@
                 <div
                     class="card-hover bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 md:p-5">
                     <div class="flex items-center">
-                        <div class="p-2 md:p-3 bg-yellow-900/50  mr-3 md:mr-4">
-                            <i class="fas fa-star text-yellow-400 text-lg md:text-xl"></i>
+                        <div class="p-2 md:p-3 bg-yellow-400 border-2 border-black mr-3 md:mr-4">
+                            <i class="fas fa-star text-black text-lg md:text-xl"></i>
                         </div>
                         <div>
                             <p class="text-xs md:text-sm text-black">Total Review</p>
@@ -139,8 +139,8 @@
                 <div
                     class="card-hover bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 md:p-5">
                     <div class="flex items-center">
-                        <div class="p-2 md:p-3 bg-blue-900/50  mr-3 md:mr-4">
-                            <i class="fas fa-credit-card text-blue-400 text-lg md:text-xl"></i>
+                        <div class="p-2 md:p-3 bg-sky-400 border-2 border-black mr-3 md:mr-4">
+                            <i class="fas fa-credit-card text-black text-lg md:text-xl"></i>
                         </div>
                         <div>
                             <p class="text-xs md:text-sm text-black">Pembayaran Lunas</p>
@@ -153,11 +153,11 @@
                 <div
                     class="card-hover bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 md:p-5">
                     <div class="flex items-center">
-                        <div class="p-2 md:p-3 bg-purple-900/50  mr-3 md:mr-4">
-                            <i class="fas fa-user-tag text-purple-400 text-lg md:text-xl"></i>
+                        <div class="p-2 md:p-3 bg-purple-400 border-2 border-black mr-3 md:mr-4">
+                            <i class="fas fa-user-tag text-black text-lg md:text-xl"></i>
                         </div>
                         <div>
-                            <p class="text-xs md:text-sm text-purple-300">Status</p>
+                            <p class="text-xs md:text-sm font-bold text-black">Status</p>
                             <p class="text-xl md:text-2xl font-black text-black capitalize">{{ $penghuni->status_penghuni }}</p>
                         </div>
                     </div>
@@ -267,7 +267,7 @@
                                     <p class="text-sm text-gray-600">Role</p>
                                     <p class="font-black text-black">
                                         <span
-                                            class="px-3 py-1  text-sm font-black bg-green-900/30 text-black">
+                                            class="px-3 py-1 text-sm font-black bg-emerald-400 text-black border-2 border-black">
                                             {{ ucfirst($penghuni->role) }}
                                         </span>
                                     </p>
@@ -276,9 +276,9 @@
                                     <p class="text-sm text-gray-600">Status Akun</p>
                                     <p class="font-black text-black">
                                         <span
-                                            class="px-3 py-1  text-sm font-black 
-                                            {{ $penghuni->status_penghuni == 'aktif' ? 'bg-green-900/30 text-black' :
-                        ($penghuni->status_penghuni == 'calon' ? 'bg-yellow-900/30 text-black' : 'bg-rose-900/30 text-rose-300') }}">
+                                            class="px-3 py-1 text-sm font-black border-2 border-black
+                                            {{ $penghuni->status_penghuni == 'aktif' ? 'bg-emerald-400 text-black' :
+                        ($penghuni->status_penghuni == 'calon' ? 'bg-yellow-400 text-black' : 'bg-red-400 text-black') }}">
                                             {{ ucfirst($penghuni->status_penghuni) }}
                                         </span>
                                     </p>
@@ -312,10 +312,10 @@
     <!-- Quick Actions -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <a href="{{ route('penghuni.kontrak.index') }}" 
-           class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 hover:border-green-500/50 transition-all duration-300 group">
+           class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 hover:border-emerald-500 transition-all duration-300 group">
             <div class="flex items-center">
-                <div class="w-12 h-12 bg-green-900/30  flex items-center justify-center mr-3">
-                    <i class="fas fa-file-contract text-green-400"></i>
+                <div class="w-12 h-12 bg-emerald-400 border-2 border-black flex items-center justify-center mr-3">
+                    <i class="fas fa-file-contract text-black"></i>
                 </div>
                 <div>
                     <h4 class="font-black text-black group-hover:text-black">Kontrak Saya</h4>
@@ -325,10 +325,10 @@
         </a>
         
         <a href="{{ route('penghuni.pembayaran.index') }}" 
-           class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 hover:border-blue-500/50 transition-all duration-300 group">
+           class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 hover:border-sky-500 transition-all duration-300 group">
             <div class="flex items-center">
-                <div class="w-12 h-12 bg-blue-900/30  flex items-center justify-center mr-3">
-                    <i class="fas fa-credit-card text-blue-400"></i>
+                <div class="w-12 h-12 bg-sky-400 border-2 border-black flex items-center justify-center mr-3">
+                    <i class="fas fa-credit-card text-black"></i>
                 </div>
                 <div>
                     <h4 class="font-black text-black group-hover:text-black">Pembayaran</h4>
@@ -338,10 +338,10 @@
         </a>
         
         <a href="{{ route('penghuni.reviews.history') }}" 
-           class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 hover:border-yellow-500/50 transition-all duration-300 group">
+           class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 hover:border-yellow-500 transition-all duration-300 group">
             <div class="flex items-center">
-                <div class="w-12 h-12 bg-yellow-900/30  flex items-center justify-center mr-3">
-                    <i class="fas fa-star text-yellow-400"></i>
+                <div class="w-12 h-12 bg-yellow-400 border-2 border-black flex items-center justify-center mr-3">
+                    <i class="fas fa-star text-black"></i>
                 </div>
                 <div>
                     <h4 class="font-black text-black group-hover:text-black">Review Saya</h4>

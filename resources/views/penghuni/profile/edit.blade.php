@@ -231,9 +231,9 @@
                     </h3>
 
                     <!-- Security Info -->
-                    <div class="bg-rose-900/20 border border-rose-800/30  p-5 mb-6">
+                    <div class="bg-rose-400 border-2 border-black shadow-[2px_2px_0px_#000] p-5 mb-6">
                         <div class="flex items-start">
-                            <i class="fas fa-info-circle text-red-600 text-lg mr-3 mt-0.5"></i>
+                            <i class="fas fa-info-circle text-black text-lg mr-3 mt-0.5"></i>
                             <div>
                                 <h4 class="font-black text-black mb-1">Ubah Password</h4>
                                 <p class="text-gray-700 font-bold text-sm">Kosongkan kolom password jika tidak ingin mengubah

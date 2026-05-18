@@ -49,51 +49,51 @@
 
     <!-- Success/Error Messages -->
     @if(session('success'))
-    <div class="bg-emerald-100 border-2 border-black text-emerald-300 px-4 py-3  flex items-center justify-between " role="alert">
+    <div class="bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3 flex items-center justify-between" role="alert">
         <div class="flex items-center">
-            <div class="w-8 h-8 bg-gray-100 border-2 border-black  flex items-center justify-center mr-3">
+            <div class="w-8 h-8 bg-white border-2 border-black flex items-center justify-center mr-3">
                 <i class="fas fa-check text-black"></i>
             </div>
             <div>
                 <span class="font-black">Berhasil!</span>
-                <span class="block text-sm text-emerald-300/80">{{ session('success') }}</span>
+                <span class="block text-sm text-black">{{ session('success') }}</span>
             </div>
         </div>
-        <button type="button" class="text-emerald-400 hover:text-emerald-300" onclick="this.parentElement.style.display='none'">
+        <button type="button" class="text-black hover:text-gray-700" onclick="this.parentElement.style.display='none'">
             <i class="fas fa-times"></i>
         </button>
     </div>
     @endif
 
     @if(session('error'))
-    <div class="bg-red-100 border-2 border-black text-rose-300 px-4 py-3  flex items-center justify-between " role="alert">
+    <div class="bg-red-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3 flex items-center justify-between" role="alert">
         <div class="flex items-center">
-            <div class="w-8 h-8 bg-gray-100 border-2 border-black  flex items-center justify-center mr-3">
+            <div class="w-8 h-8 bg-white border-2 border-black flex items-center justify-center mr-3">
                 <i class="fas fa-times text-black"></i>
             </div>
             <div>
                 <span class="font-black">Error!</span>
-                <span class="block text-sm text-rose-300/80">{{ session('error') }}</span>
+                <span class="block text-sm text-black">{{ session('error') }}</span>
             </div>
         </div>
-        <button type="button" class="text-rose-400 hover:text-rose-300" onclick="this.parentElement.style.display='none'">
+        <button type="button" class="text-black hover:text-gray-700" onclick="this.parentElement.style.display='none'">
             <i class="fas fa-times"></i>
         </button>
     </div>
     @endif
 
     @if(session('warning'))
-    <div class="bg-yellow-100 border-2 border-black text-black px-4 py-3  flex items-center justify-between " role="alert">
+    <div class="bg-yellow-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black px-4 py-3 flex items-center justify-between" role="alert">
         <div class="flex items-center">
-            <div class="w-8 h-8 bg-gray-100 border-2 border-black  flex items-center justify-center mr-3">
+            <div class="w-8 h-8 bg-white border-2 border-black flex items-center justify-center mr-3">
                 <i class="fas fa-exclamation-triangle text-black"></i>
             </div>
             <div>
                 <span class="font-black">Perhatian!</span>
-                <span class="block text-sm text-black/80">{{ session('warning') }}</span>
+                <span class="block text-sm text-black">{{ session('warning') }}</span>
             </div>
         </div>
-        <button type="button" class="text-yellow-400 hover:text-black" onclick="this.parentElement.style.display='none'">
+        <button type="button" class="text-black hover:text-gray-700" onclick="this.parentElement.style.display='none'">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -106,7 +106,7 @@
                 <div class="p-3  bg-gray-100 border-2 border-black">
                     <i class="fas fa-star text-black text-xl"></i>
                 </div>
-                <span class="text-sm font-black px-2 py-1  bg-blue-50 text-blue-600">
+                <span class="text-sm font-black px-2 py-1 bg-sky-400 text-black border-2 border-black">
                     {{ $reviews->total() }}
                 </span>
             </div>
@@ -119,7 +119,7 @@
                 <div class="p-3  bg-gray-100 border-2 border-black">
                     <i class="fas fa-chart-line text-black text-xl"></i>
                 </div>
-                <span class="text-sm font-black px-2 py-1  bg-yellow-50 text-yellow-600">
+                <span class="text-sm font-black px-2 py-1 bg-yellow-400 text-black border-2 border-black">
                     Rata-rata
                 </span>
             </div>
@@ -134,7 +134,7 @@
                 <div class="p-3  bg-gray-100 border-2 border-black">
                     <i class="fas fa-calendar-alt text-black text-xl"></i>
                 </div>
-                <span class="text-sm font-black px-2 py-1  bg-emerald-50 text-emerald-600">
+                <span class="text-sm font-black px-2 py-1 bg-emerald-400 text-black border-2 border-black">
                     Terbaru
                 </span>
             </div>
@@ -168,14 +168,14 @@
 
                                 <!-- Rating Badge -->
                                 <div class="absolute top-3 left-3">
-                                    <span class="px-2 py-1 text-xs font-black  bg-yellow-50 text-yellow-600">
+                                    <span class="px-2 py-1 text-xs font-black bg-yellow-400 text-black border-2 border-black">
                                         {{ $review->rating }}/5
                                     </span>
                                 </div>
 
                                 <!-- Kos Type Badge -->
                                 <div class="absolute bottom-3 left-3">
-                                    <span class="px-2 py-1 text-xs font-black  bg-emerald-50 text-emerald-600">
+                                    <span class="px-2 py-1 text-xs font-black bg-emerald-400 text-black border-2 border-black">
                                         {{ $review->kos->jenis_kos }}
                                     </span>
                                 </div>
@@ -222,24 +222,24 @@
                                         @endauth
                                         <div>
                                             <h3 class="text-xl font-black text-black mb-1">{{ $review->kos->nama_kos }}</h3>
-                                            <p class="text-sm text-emerald-400">Review oleh {{ ($penghuniUser->penghuni->nama ?? $penghuniUser->nama) ?? 'User' }}</p>
+                                            <p class="text-sm text-black font-bold">Review oleh {{ ($penghuniUser->penghuni->nama ?? $penghuniUser->nama) ?? 'User' }}</p>
                                         </div>
                                     </div>
                                     <div class="flex items-center text-gray-600 text-sm mb-2">
-                                        <i class="fas fa-map-marker-alt mr-2 text-emerald-400"></i>
-                                        <span>{{ $review->kos->alamat }}, {{ $review->kos->kota }}</span>
+                                        <i class="fas fa-map-marker-alt mr-2 text-black"></i>
+                                        <span class="text-black">{{ $review->kos->alamat }}, {{ $review->kos->kota }}</span>
                                     </div>
                                 </div>
 
                                 <!-- Date Info -->
                                 <div class="flex flex-col text-sm text-gray-600">
                                     <div class="flex items-center">
-                                        <i class="fas fa-calendar-alt mr-2 text-emerald-400"></i>
+                                        <i class="fas fa-calendar-alt mr-2 text-black"></i>
                                         <span>Dibuat: {{ $review->created_at->format('d M Y') }}</span>
                                     </div>
                                     @if($review->updated_at != $review->created_at)
                                     <div class="flex items-center mt-1">
-                                        <i class="fas fa-edit mr-2 text-yellow-400"></i>
+                                        <i class="fas fa-edit mr-2 text-black"></i>
                                         <span>Diedit: {{ $review->updated_at->format('d M Y') }}</span>
                                     </div>
                                     @endif
@@ -264,7 +264,7 @@
                             <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-4 mb-4">
                                 <div class="flex items-start">
                                     <i class="fas fa-comment text-emerald-400 mr-3 mt-1"></i>
-                                    <p class="text-black/80">{{ $review->komentar }}</p>
+                                    <p class="text-black">{{ $review->komentar }}</p>
                                 </div>
                             </div>
 
@@ -387,8 +387,8 @@
         </button>
 
         <div class="text-center mb-6">
-            <div class="w-16 h-16 bg-red-400  flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-exclamation-triangle text-rose-400 text-2xl"></i>
+            <div class="w-16 h-16 bg-red-400 border-2 border-black flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-exclamation-triangle text-black text-2xl"></i>
             </div>
             <h3 class="text-xl font-black text-black mb-2">Konfirmasi Hapus</h3>
             <p class="text-gray-600">Apakah Anda yakin ingin menghapus review ini? Tindakan ini tidak dapat dibatalkan.</p>

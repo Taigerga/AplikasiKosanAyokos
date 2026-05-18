@@ -361,7 +361,7 @@
             <!-- Pagination -->
             @if($kos->hasPages())
             <div class="mt-10 flex justify-center">
-                {{ $kos->onEachSide(2)->links('vendor.pagination.tailwind') }}
+                {{ $kos->onEachSide(2)->links('vendor.pagination.custom-dark') }}
             </div>
             @endif
 

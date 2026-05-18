@@ -37,8 +37,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-black border-2 border-black flex items-center justify-center">
-                        <i class="fas fa-home text-white text-xl"></i>
+                    <div class="p-3 bg-sky-400 border-2 border-black flex items-center justify-center">
+                        <i class="fas fa-home text-black text-xl"></i>
                     </div>
                     <span class="text-xs font-black px-2 py-1 border-2 border-black bg-yellow-400 text-black">
                         {{ $statistics['total_kos'] > 0 ? '+' . $statistics['total_kos'] : '0' }}
@@ -50,8 +50,8 @@
 
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-black border-2 border-black flex items-center justify-center">
-                        <i class="fas fa-bed text-white text-xl"></i>
+                    <div class="p-3 bg-emerald-400 border-2 border-black flex items-center justify-center">
+                        <i class="fas fa-bed text-black text-xl"></i>
                     </div>
                     <span class="text-xs font-black px-2 py-1 border-2 border-black bg-yellow-400 text-black">
                         {{ $statistics['total_kamar'] > 0 ? '+' . $statistics['total_kamar'] : '0' }}
@@ -63,8 +63,8 @@
 
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-black border-2 border-black flex items-center justify-center">
-                        <i class="fas fa-door-open text-white text-xl"></i>
+                    <div class="p-3 bg-green-400 border-2 border-black flex items-center justify-center">
+                        <i class="fas fa-door-open text-black text-xl"></i>
                     </div>
                     <span class="text-xs font-black px-2 py-1 border-2 border-black bg-yellow-400 text-black">
                         {{ $statistics['kamar_tersedia'] > 0 ? '+' . $statistics['kamar_tersedia'] : '0' }}
@@ -76,8 +76,8 @@
 
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-black border-2 border-black flex items-center justify-center">
-                        <i class="fas fa-wallet text-white text-xl"></i>
+                    <div class="p-3 bg-purple-400 border-2 border-black flex items-center justify-center">
+                        <i class="fas fa-wallet text-black text-xl"></i>
                     </div>
                     <span class="text-xs font-black px-2 py-1 border-2 border-black bg-yellow-400 text-black">
                         Bulan Ini

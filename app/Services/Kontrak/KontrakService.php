@@ -248,6 +248,7 @@ class KontrakService
             ->where('id_penghuni', $penghuniId)
             ->where('status_kontrak', 'aktif')
             ->orderBy('tanggal_selesai', 'asc')
+            ->limit(10)
             ->get();
 
         foreach ($kontrakAktif as $k) {
