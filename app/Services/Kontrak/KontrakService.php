@@ -214,34 +214,6 @@ class KontrakService
         return $kontrak;
     }
 
-    public function extendKontrak(int $penghuniId, int $id, int $durasiTambahan): KontrakSewa
-    {
-        $kontrak = KontrakSewa::with('kos')
-            ->where('id_kontrak', $id)
-            ->where('id_penghuni', $penghuniId)
-            ->firstOrFail();
-
-        $tipeSewa = $kontrak->kos->tipe_sewa;
-        $tanggalSelesaiBaru = Carbon::parse($kontrak->tanggal_selesai);
-
-        $tanggalSelesaiBaru = match ($tipeSewa) {
-            'harian' => $tanggalSelesaiBaru->addDays($durasiTambahan),
-            'mingguan' => $tanggalSelesaiBaru->addWeeks($durasiTambahan),
-            'tahunan' => $tanggalSelesaiBaru->addYears($durasiTambahan),
-            default => $tanggalSelesaiBaru->addMonths($durasiTambahan),
-        };
-
-        $kontrak->update([
-            'tanggal_selesai' => $tanggalSelesaiBaru,
-            'durasi_sewa' => $kontrak->durasi_sewa + $durasiTambahan,
-        ]);
-
-        $this->notificationService->sendTenggatWaktuToPemilik($kontrak, 'perpanjangan');
-        $this->notificationService->sendTenggatWaktuToPenghuni($kontrak, 'perpanjangan');
-
-        return $kontrak;
-    }
-
     public function getNotifikasiTenggat(int $penghuniId)
     {
         $kontrakAktif = KontrakSewa::with(['kos', 'kamar'])

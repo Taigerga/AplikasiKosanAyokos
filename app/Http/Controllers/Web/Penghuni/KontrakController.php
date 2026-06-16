@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web\Penghuni;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Penghuni\StoreKontrakRequest;
-use App\Http\Requests\Penghuni\ExtendKontrakRequest;
 use App\Services\Kontrak\KontrakService;
 use App\Services\Kos\KosService;
 use App\Models\Fasilitas;
@@ -72,21 +71,6 @@ class KontrakController extends Controller
         );
 
         return view('penghuni.kontrak.show', compact('kontrak'));
-    }
-
-    public function extend(ExtendKontrakRequest $request, $id)
-    {
-        try {
-            $this->kontrakService->extendKontrak(
-                Auth::user()->penghuni->id_penghuni,
-                $id,
-                (int) $request->validated()['durasi_perpanjangan']
-            );
-
-            return redirect()->back()->with('success', 'Kontrak berhasil diperpanjang. Email notifikasi telah dikirim.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal memperpanjang kontrak: ' . $e->getMessage());
-        }
     }
 
     public function notifikasiTenggat()

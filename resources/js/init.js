@@ -9,6 +9,9 @@ import { initPaymentForm } from './modules/pembayaran/payment-form';
 import { initRegisterForm } from './modules/auth/register-form';
 import { initLoginForm } from './modules/auth/login-form';
 import { initSearchableSelects } from './modules/ui/searchable-select';
+import { initKontrakModal, openModal, closeModal } from './modules/kontrak/kontrak-modal';
+import { initKontrakTabs } from './modules/kontrak/kontrak-tabs';
+import { initKontrakCreateForm } from './modules/kontrak/create-form';
 import axios from 'axios';
 
 window.initKosMap = initKosMap;
@@ -16,6 +19,8 @@ window.initAnalisisCharts = initAnalisisCharts;
 window.initPdfExport = initPdfExport;
 window.initRegisterForm = initRegisterForm;
 window.initLoginForm = initLoginForm;
+window.openModal = openModal;
+window.closeModal = closeModal;
 
 document.addEventListener('DOMContentLoaded', () => {
     axios.get('/sanctum/csrf-cookie');
@@ -43,4 +48,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initSearchableSelects();
+
+    // Kontrak modals
+    if (document.getElementById('rejectModal')) {
+        initKontrakModal('rejectModal');
+    }
+    if (document.getElementById('approveModal')) {
+        initKontrakModal('approveModal');
+    }
+
+    if (document.querySelector('.tab-button')) {
+        initKontrakTabs();
+    }
+
+    if (document.querySelector('form[data-kontrak-create]')) {
+        initKontrakCreateForm();
+    }
 });

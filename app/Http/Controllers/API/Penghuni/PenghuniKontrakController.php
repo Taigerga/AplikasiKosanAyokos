@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\Penghuni;
 use App\Http\Controllers\API\ApiController;
 
 use App\Http\Requests\Penghuni\StoreKontrakRequest;
-use App\Http\Requests\Penghuni\ExtendKontrakRequest;
 use App\Services\Kontrak\KontrakService;
 use App\Services\Kos\KosService;
 use Illuminate\Http\Request;
@@ -60,21 +59,6 @@ class PenghuniKontrakController extends ApiController
             return $this->created($kontrak, 'Pengajuan kos berhasil dikirim');
         } catch (\Exception $e) {
             return $this->error('Gagal mengajukan kontrak: ' . $e->getMessage(), 500);
-        }
-    }
-
-    public function extend(ExtendKontrakRequest $request, $id)
-    {
-        try {
-            $kontrak = $this->kontrakService->extendKontrak(
-                Auth::user()->penghuni->id_penghuni,
-                $id,
-                (int) $request->validated()['durasi_perpanjangan']
-            );
-
-            return $this->success($kontrak, 'Kontrak berhasil diperpanjang');
-        } catch (\Exception $e) {
-            return $this->error('Gagal memperpanjang kontrak: ' . $e->getMessage(), 500);
         }
     }
 

@@ -433,28 +433,11 @@
 
 <script>
     function openRejectModal() {
-        document.getElementById('rejectModal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+        openModal('rejectModal');
     }
 
     function closeRejectModal() {
-        document.getElementById('rejectModal').classList.add('hidden');
-        document.body.style.overflow = 'auto';
+        closeModal('rejectModal');
     }
-
-    // Close modal when clicking outside
-    window.addEventListener('click', function(event) {
-        const modal = document.getElementById('rejectModal');
-        if (event.target === modal) {
-            closeRejectModal();
-        }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeRejectModal();
-        }
-    });
 </script>
 @endsection

@@ -135,7 +135,25 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('penghuni.kontrak.store') }}" enctype="multipart/form-data" data-ajax="true" data-ajax-action="/api/penghuni/kontrak" data-redirect="{{ route('penghuni.dashboard') }}" data-success-msg="Pengajuan kos berhasil dikirim!" data-confirm="Apakah Anda yakin data pengajuan kontrak sudah benar?" novalidate>
+                @php
+                    $kamarJson = $kos->kamar->where('status_kamar', 'tersedia')->map(fn($k) => [
+                        'id' => $k->id_kamar,
+                        'nomor' => $k->nomor_kamar,
+                        'tipe' => $k->tipe_kamar,
+                        'luas' => $k->luas_kamar,
+                        'harga' => $k->harga,
+                        'kapasitas' => $k->kapasitas,
+                    ])->values();
+                @endphp
+                <form method="POST" action="{{ route('penghuni.kontrak.store') }}" enctype="multipart/form-data"
+                      data-ajax="true" data-ajax-action="/api/penghuni/kontrak"
+                      data-redirect="{{ route('penghuni.dashboard') }}"
+                      data-success-msg="Pengajuan kos berhasil dikirim!"
+                      data-confirm="Apakah Anda yakin data pengajuan kontrak sudah benar?"
+                      data-kontrak-create
+                      data-tipe-sewa="{{ $kos->tipe_sewa }}"
+                      data-kamar='@json($kamarJson)'
+                      novalidate>
                     @csrf
                     <input type="hidden" name="id_kos" value="{{ $kos->id_kos }}">
 
@@ -416,255 +434,4 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // ========================================
-            // KONFIGURASI TIPE SEWA
-            // ========================================
-            const TIPE_SEWA = '{{ $kos->tipe_sewa }}';
-            const DURATION_CONFIG = {
-                harian:  { label: 'Hari',  unit: 'day',    max: 30,  step: 1 },
-                mingguan:{ label: 'Minggu',unit: 'week',   max: 52,  step: 1 },
-                bulanan: { label: 'Bulan', unit: 'month',  max: 12,  step: 1 },
-                tahunan: { label: 'Tahun', unit: 'year',   max: 5,   step: 1 }
-            };
-            const config = DURATION_CONFIG[TIPE_SEWA] || DURATION_CONFIG.bulanan;
-
-            // ========================================
-            // ELEMEN DOM
-            // ========================================
-            const kamarSelect = document.getElementById('id_kamar');
-            const durasiSelect = document.getElementById('durasi_sewa');
-            const tanggalMulaiInput = document.getElementById('tanggal_mulai');
-            const hargaPerBulanElement = document.getElementById('harga-per-bulan');
-            const totalBiayaElement = document.getElementById('total-biaya');
-            const detailKamarSummary = document.getElementById('detail-kamar-summary');
-            const kamarDetailBox = document.getElementById('kamar-detail');
-            const previewContainer = document.getElementById('preview-selesai-container');
-            const previewMulai = document.getElementById('preview-tanggal-mulai');
-            const previewSelesai = document.getElementById('preview-tanggal-selesai');
-
-            // Kamar detail elements
-            const detailNomor = document.getElementById('detail-nomor');
-            const detailTipe = document.getElementById('detail-tipe');
-            const detailLuas = document.getElementById('detail-luas');
-            const detailKapasitas = document.getElementById('detail-kapasitas');
-
-            // File upload preview
-            const ktpInput = document.getElementById('foto_ktp');
-            const ktpPreview = document.getElementById('ktp-preview');
-
-            // Kamar data from server
-            const kamarData = {};
-            @foreach($kos->kamar as $kamar)
-                @if($kamar->status_kamar == 'tersedia')
-                    kamarData[{{ $kamar->id_kamar }}] = {
-                        nomor: "{{ $kamar->nomor_kamar }}",
-                        tipe: "{{ $kamar->tipe_kamar }}",
-                        luas: "{{ $kamar->luas_kamar }}",
-                        harga: {{ $kamar->harga }},
-                        kapasitas: {{ $kamar->kapasitas }}
-                    };
-                @endif
-            @endforeach
-
-            // ========================================
-            // HELPER FUNCTIONS
-            // ========================================
-            function formatRupiah(angka) {
-                if (!angka || isNaN(angka) || angka === 0) return 'Rp 0';
-                return 'Rp ' + angka.toLocaleString('id-ID');
-            }
-
-            function formatDate(date) {
-                const d = new Date(date);
-                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-                return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-            }
-
-            function addDateUnit(date, value, unit) {
-                const d = new Date(date);
-                switch (unit) {
-                    case 'day':   d.setDate(d.getDate() + value); break;
-                    case 'week':  d.setDate(d.getDate() + value * 7); break;
-                    case 'month': d.setMonth(d.getMonth() + value); break;
-                    case 'year':  d.setFullYear(d.getFullYear() + value); break;
-                }
-                return d;
-            }
-
-            // ========================================
-            // GENERATE DURASI OPTIONS
-            // ========================================
-            function generateDurasiOptions() {
-                durasiSelect.innerHTML = '<option value="">-- Pilih Durasi --</option>';
-                for (let i = 1; i <= config.max; i += config.step) {
-                    const option = document.createElement('option');
-                    option.value = i;
-                    option.textContent = i + ' ' + config.label + (i > 1 && TIPE_SEWA !== 'harian' ? '' : '');
-                    durasiSelect.appendChild(option);
-                }
-                // Set default: 1 for most, but for bulanan set 1 as well
-                durasiSelect.value = '1';
-            }
-
-            // ========================================
-            // CALCULATE TANGGAL SELESAI
-            // ========================================
-            function calculateTanggalSelesai(tanggalMulai, durasi) {
-                if (!tanggalMulai || !durasi) return null;
-                const start = new Date(tanggalMulai);
-                return addDateUnit(start, parseInt(durasi), config.unit);
-            }
-
-            // ========================================
-            // UPDATE ALL
-            // ========================================
-            function updateAll() {
-                const selectedKamarId = kamarSelect.value;
-                const durasi = parseInt(durasiSelect.value) || 0;
-                const tanggalMulai = tanggalMulaiInput.value;
-
-                if (!selectedKamarId) {
-                    hargaPerBulanElement.textContent = 'Rp 0';
-                    totalBiayaElement.textContent = 'Rp 0';
-                    detailKamarSummary.innerHTML = '<i class="fas fa-info-circle mr-2"></i>Pilih kamar dan durasi untuk melihat detail';
-                    kamarDetailBox.classList.add('hidden');
-                    previewContainer.classList.add('hidden');
-                    return;
-                }
-
-                const kamar = kamarData[selectedKamarId];
-                if (!kamar) return;
-
-                // Calculate total
-                const total = kamar.harga * (durasi || 1);
-
-                // Update display
-                hargaPerBulanElement.textContent = formatRupiah(kamar.harga);
-                totalBiayaElement.textContent = formatRupiah(total);
-
-                // Update kamar summary
-                let summary = 'Kamar ' + kamar.nomor + ' - ' + kamar.tipe;
-                if (kamar.luas) summary += ' • ' + kamar.luas;
-                if (durasi > 0) summary += ' • ' + durasi + ' ' + config.label.toLowerCase();
-                detailKamarSummary.textContent = summary;
-
-                // Update kamar detail box
-                detailNomor.textContent = kamar.nomor;
-                detailTipe.textContent = kamar.tipe;
-                detailLuas.textContent = kamar.luas || '-';
-                detailKapasitas.textContent = kamar.kapasitas + ' orang';
-                kamarDetailBox.classList.remove('hidden');
-
-                // Update tanggal selesai preview
-                if (tanggalMulai && durasi > 0) {
-                    const tanggalSelesai = calculateTanggalSelesai(tanggalMulai, durasi);
-                    previewMulai.textContent = formatDate(tanggalMulai);
-                    previewSelesai.textContent = formatDate(tanggalSelesai);
-                    previewContainer.classList.remove('hidden');
-                } else {
-                    previewContainer.classList.add('hidden');
-                }
-            }
-
-            // ========================================
-            // FILE UPLOAD
-            // ========================================
-            ktpInput.addEventListener('change', function (e) {
-                const file = e.target.files[0];
-                if (file) {
-                    if (file.size > 2 * 1024 * 1024) {
-                        alert('File KTP terlalu besar. Maksimal 2MB.');
-                        this.value = '';
-                        return;
-                    }
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        ktpPreview.querySelector('img').src = e.target.result;
-                        ktpPreview.classList.remove('hidden');
-                    }
-                    reader.readAsDataURL(file);
-                } else {
-                    ktpPreview.classList.add('hidden');
-                }
-            });
-
-            const dropZone = document.querySelector('label[for="foto_ktp"]');
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                dropZone.addEventListener(eventName, function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }, false);
-            });
-
-            ['dragenter', 'dragover'].forEach(eventName => {
-                dropZone.addEventListener(eventName, function() {
-                    dropZone.parentElement.classList.add('border-sky-500', 'bg-sky-500/10');
-                }, false);
-            });
-
-            ['dragleave', 'drop'].forEach(eventName => {
-                dropZone.addEventListener(eventName, function() {
-                    dropZone.parentElement.classList.remove('border-sky-500', 'bg-sky-500/10');
-                }, false);
-            });
-
-            dropZone.addEventListener('drop', function(e) {
-                const dt = e.dataTransfer;
-                const files = dt.files;
-                if (files.length > 0) {
-                    ktpInput.files = files;
-                    ktpInput.dispatchEvent(new Event('change'));
-                }
-            }, false);
-
-            // ========================================
-            // EVENT LISTENERS
-            // ========================================
-            kamarSelect.addEventListener('change', updateAll);
-            durasiSelect.addEventListener('change', updateAll);
-            tanggalMulaiInput.addEventListener('change', updateAll);
-
-            // ========================================
-            // INIT
-            // ========================================
-            generateDurasiOptions();
-
-            if (kamarSelect.value) {
-                updateAll();
-            }
-
-            // Form validation before submit
-            const form = document.querySelector('form');
-            form.addEventListener('submit', function (e) {
-                if (!kamarSelect.value) {
-                    e.preventDefault();
-                    alert('Silakan pilih kamar terlebih dahulu');
-                    kamarSelect.focus();
-                    return false;
-                }
-                if (!durasiSelect.value) {
-                    e.preventDefault();
-                    alert('Silakan pilih durasi sewa');
-                    durasiSelect.focus();
-                    return false;
-                }
-                if (!tanggalMulaiInput.value) {
-                    e.preventDefault();
-                    alert('Silakan pilih tanggal mulai');
-                    tanggalMulaiInput.focus();
-                    return false;
-                }
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengajukan...';
-                submitBtn.disabled = true;
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }, 5000);
-            });
-        });
-    </script>
 @endsection

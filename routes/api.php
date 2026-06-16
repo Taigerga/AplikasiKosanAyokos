@@ -182,7 +182,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/kontrak/{id}', [PenghuniKontrakController::class, 'show']);
         Route::get('/kontrak/create/{kosId}', [PenghuniKontrakController::class, 'create']);
         Route::post('/kontrak', [PenghuniKontrakController::class, 'store']);
-        Route::post('/kontrak/{id}/extend', [PenghuniKontrakController::class, 'extend']);
         Route::get('/cari-kos', [PenghuniKontrakController::class, 'cariKos']);
 
         Route::apiResource('/pembayaran', PenghuniPembayaranController::class);

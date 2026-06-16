@@ -117,7 +117,6 @@ Route::prefix('penghuni')->as('penghuni.')->group(function () {
         Route::get('/kontrak/create/{kosId}', [PenghuniKontrak::class, 'create'])->name('kontrak.create');
         Route::post('/kontrak', [PenghuniKontrak::class, 'store'])->name('kontrak.store');
         Route::get('/kontrak/{id}', [PenghuniKontrak::class, 'show'])->name('kontrak.show');
-        Route::post('/kontrak/{id}/extend', [PenghuniKontrak::class, 'extend'])->name('kontrak.extend');
         Route::get('/kontrak', [PenghuniKontrak::class, 'index'])->name('kontrak.index');
         Route::get('/kontrak/notifikasi-tenggat', [PenghuniKontrak::class, 'notifikasiTenggat'])->name('kontrak.notifikasi');
 
