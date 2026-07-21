@@ -52,4 +52,39 @@ class Penghuni extends Model
     {
         return $this->morphMany(Notification::class, 'notifiable');
     }
+
+    public function scopeAktif($query)
+    {
+        return $query->where('status_penghuni', 'aktif');
+    }
+
+    public function scopeNonaktif($query)
+    {
+        return $query->where('status_penghuni', 'nonaktif');
+    }
+
+    public function scopeDibatasi($query)
+    {
+        return $query->where('status_penghuni', 'dibatasi');
+    }
+
+    public function scopeDiblokir($query)
+    {
+        return $query->where('status_penghuni', 'diblokir');
+    }
+
+    public function isAktif()
+    {
+        return $this->status_penghuni === 'aktif';
+    }
+
+    public function isDibatasi()
+    {
+        return $this->status_penghuni === 'dibatasi';
+    }
+
+    public function isDiblokir()
+    {
+        return $this->status_penghuni === 'diblokir';
+    }
 }

@@ -27,17 +27,17 @@
                     @php $adminUser = auth()->user(); @endphp
                     <button class="flex items-center gap-2 p-2 border-2 border-transparent hover:border-black transition-colors">
                         <div class="w-8 h-8 bg-rose-400 border-2 border-black flex items-center justify-center">
-                            <span class="text-white font-black">{{ substr($adminUser->nama ?? $adminUser->name, 0, 1) }}</span>
+                            <span class="text-white font-black">{{ substr($adminUser->admin->nama ?? $adminUser->username, 0, 1) }}</span>
                         </div>
-                        <span class="text-sm font-bold text-black hidden md:inline">{{ $adminUser->nama ?? $adminUser->name }}</span>
+                        <span class="text-sm font-bold text-black hidden md:inline">{{ $adminUser->admin->nama ?? $adminUser->username }}</span>
                         <i class="fas fa-chevron-down text-black text-xs"></i>
                     </button>
 
                     <!-- Profile Dropdown -->
                     <div class="profile-dropdown absolute right-0 w-64 bg-white border-2 border-black shadow-[4px_4px_0px_#000] z-[1001]">
                         <div class="px-4 py-3 border-b-2 border-black">
-                            <p class="text-sm font-black text-black">{{ $adminUser->nama ?? $adminUser->name }}</p>
-                            <p class="text-xs font-medium text-gray-600 truncate">{{ $adminUser->email }}</p>
+                            <p class="text-sm font-black text-black">{{ $adminUser->admin->nama ?? $adminUser->username }}</p>
+                            <p class="text-xs font-medium text-gray-600 truncate">{{ $adminUser->admin->email ?? '-' }}</p>
                         </div>
 
                         <div class="py-1">
@@ -56,15 +56,11 @@
                                 <i class="fas fa-home w-5 mr-3 text-emerald-500"></i>
                                 <span>Kelola Kos</span>
                             </a>
-                            <a href="{{ route('admin.kontrak.index') }}"
+
+                            <a href="{{ route('admin.analisis.index') }}"
                                 class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
-                                <i class="fas fa-file-contract w-5 mr-3 text-yellow-500"></i>
-                                <span>Kelola Kontrak</span>
-                            </a>
-                            <a href="{{ route('admin.pembayaran.index') }}"
-                                class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
-                                <i class="fas fa-credit-card w-5 mr-3 text-purple-500"></i>
-                                <span>Pembayaran</span>
+                                <i class="fas fa-chart-pie w-5 mr-3 text-purple-500"></i>
+                                <span>Analisis</span>
                             </a>
                             <a href="{{ route('admin.laporan.index') }}"
                                 class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
@@ -127,20 +123,7 @@
                         <span class="sidebar-text">Kelola Kos</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('admin.kontrak.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.kontrak.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
-                        <i class="fas fa-file-contract w-5"></i>
-                        <span class="sidebar-text">Kelola Kontrak</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.pembayaran.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.pembayaran.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
-                        <i class="fas fa-credit-card w-5"></i>
-                        <span class="sidebar-text">Pembayaran</span>
-                    </a>
-                </li>
+
                 <li>
                     <a href="{{ route('admin.reviews.index') }}"
                         class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.reviews.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
@@ -149,10 +132,45 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.analisis.index') }}"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.analisis.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                        <i class="fas fa-chart-pie w-5"></i>
+                        <span class="sidebar-text">Analisis</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('admin.laporan.index') }}"
                         class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.laporan.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
                         <i class="fas fa-chart-bar w-5"></i>
                         <span class="sidebar-text">Laporan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.aduan.index') }}"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.aduan.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                        <i class="fas fa-headset w-5"></i>
+                        <span class="sidebar-text">Kelola Aduan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.data-pemilik.index') }}"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.data-pemilik.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                        <i class="fas fa-user-tie w-5"></i>
+                        <span class="sidebar-text">Data Pemilik</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.data-penghuni.index') }}"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.data-penghuni.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                        <i class="fas fa-user w-5"></i>
+                        <span class="sidebar-text">Data Penghuni</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.keuangan.index') }}"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('admin.keuangan.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                        <i class="fas fa-coins w-5"></i>
+                        <span class="sidebar-text">Keuangan Platform</span>
                     </a>
                 </li>
             </ul>

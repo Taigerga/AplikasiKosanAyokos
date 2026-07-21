@@ -1,8 +1,10 @@
 import { initAjaxForms } from './utils/ajax-form';
+import { initPasswordToggles } from './utils/password-toggle';
 import { initKosMap } from './modules/kos/map-picker';
 import { initAnalisisCharts } from './modules/analisis/charts';
 import { initPdfExport } from './modules/analisis/pdf-export';
 import { initPenghuniCharts } from './modules/analisis/charts-penghuni';
+import { initAdminCharts } from './modules/analisis/charts-admin';
 import { initProfilePhotoUpload as initPhotoUpload } from './modules/profile/photo-upload';
 import { initStarRating } from './modules/review/star-rating';
 import { initPaymentForm } from './modules/pembayaran/payment-form';
@@ -17,6 +19,8 @@ import axios from 'axios';
 window.initKosMap = initKosMap;
 window.initAnalisisCharts = initAnalisisCharts;
 window.initPdfExport = initPdfExport;
+window.initAdminCharts = initAdminCharts;
+window.initPenghuniCharts = initPenghuniCharts;
 window.initRegisterForm = initRegisterForm;
 window.initLoginForm = initLoginForm;
 window.openModal = openModal;
@@ -26,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     axios.get('/sanctum/csrf-cookie');
 
     initAjaxForms();
+    initPasswordToggles();
 
     if (document.getElementById('uploadPhotoForm')) {
         initPhotoUpload('uploadPhotoForm', 'photoPreview');

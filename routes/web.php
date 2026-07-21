@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Web\Auth\{LoginController, RegisterController};
+use App\Http\Controllers\Web\Auth\{LoginController, RegisterController, ForgotPasswordController, ResetPasswordController};
 use App\Http\Controllers\Web\Public\{HomeController, KosController, PageController};
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\NotificationController;
@@ -21,6 +21,17 @@ use App\Http\Controllers\Web\Pemilik\{
     ReviewController as PemilikReview,
     AnalisisController as PemilikAnalisis
 };
+use App\Http\Controllers\Web\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\Web\Admin\UserController as AdminUser;
+use App\Http\Controllers\Web\Admin\KosController as AdminKos;
+
+use App\Http\Controllers\Web\Admin\ReviewController as AdminReview;
+use App\Http\Controllers\Web\Admin\LaporanController as AdminLaporan;
+use App\Http\Controllers\Web\Admin\AduanController as AdminAduan;
+use App\Http\Controllers\Web\Admin\KeuanganController as AdminKeuangan;
+use App\Http\Controllers\Web\Admin\AnalisisController as AdminAnalisis;
+use App\Http\Controllers\Web\Pemilik\AduanController as PemilikAduan;
+use App\Http\Controllers\Web\Penghuni\AduanController as PenghuniAduan;
 
 /* --------------------------------------------------------------------------
  *  PUBLIC ROUTES
@@ -42,16 +53,22 @@ Route::prefix('pages')->as('public.')->group(function () {
  *  AUTH ROUTES
  * -------------------------------------------------------------------------- */
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:login');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/register', [RegisterController::class, 'register'])->middleware('throttle:register');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Password Reset
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email')->middleware('throttle:forgot-password');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update')->middleware('throttle:reset-password');
 
 /* --------------------------------------------------------------------------
  *  FILE ROUTES (public storage)
  * -------------------------------------------------------------------------- */
 Route::get('/storage/{folder}/{filename}', function ($folder, $filename) {
-    $allowed = ['kos', 'kamar', 'ktp', 'bukti', 'pembayaran', 'profiles', 'reviews', 'kontrak', 'foto_profil', 'bukti_pembayaran'];
+    $allowed = ['kos', 'kamar', 'ktp', 'bukti', 'pembayaran', 'profiles', 'reviews', 'kontrak', 'foto_profil', 'bukti_pembayaran', 'aduan'];
     abort_unless(in_array($folder, $allowed), 403, 'Folder tidak diizinkan');
 
     $path = storage_path("app/public/{$folder}/{$filename}");
@@ -90,9 +107,12 @@ Route::prefix('test')->group(function () {
 Route::get('/redirect', function () {
     if (auth()->check()) {
         $success = session('success');
-        $route = auth()->user()->role === 'penghuni' ? route('penghuni.dashboard')
-               : (auth()->user()->role === 'pemilik' ? route('pemilik.dashboard')
-               : '/');
+        $route = match (auth()->user()->role) {
+            'penghuni' => route('penghuni.dashboard'),
+            'pemilik' => route('pemilik.dashboard'),
+            'admin' => route('admin.dashboard'),
+            default => '/',
+        };
         return redirect($route)->with('success', $success);
     }
     return redirect('/');
@@ -146,6 +166,13 @@ Route::prefix('penghuni')->as('penghuni.')->group(function () {
         // Analisis
         Route::get('/analisis', [PenghuniAnalisis::class, 'index'])->name('analisis.index');
         Route::get('/analisis/spending', [PenghuniAnalisis::class, 'getSpendingAnalysis'])->name('analisis.spending');
+
+        // Aduan
+        Route::get('/aduan', [PenghuniAduan::class, 'index'])->name('aduan.index');
+        Route::get('/aduan/create', [PenghuniAduan::class, 'create'])->name('aduan.create');
+        Route::post('/aduan', [PenghuniAduan::class, 'store'])->name('aduan.store');
+        Route::get('/aduan/{id}', [PenghuniAduan::class, 'show'])->name('aduan.show');
+        Route::post('/aduan/{id}/komentar', [PenghuniAduan::class, 'tambahKomentar'])->name('aduan.komentar');
     });
 });
 
@@ -198,7 +225,61 @@ Route::prefix('pemilik')->as('pemilik.')->group(function () {
 
         // Analisis
         Route::get('/analisis', [PemilikAnalisis::class, 'index'])->name('analisis.index');
+
+        // Aduan
+        Route::get('/aduan', [PemilikAduan::class, 'index'])->name('aduan.index');
+        Route::get('/aduan/create', [PemilikAduan::class, 'create'])->name('aduan.create');
+        Route::post('/aduan', [PemilikAduan::class, 'store'])->name('aduan.store');
+        Route::get('/aduan/{id}', [PemilikAduan::class, 'show'])->name('aduan.show');
+        Route::post('/aduan/{id}/komentar', [PemilikAduan::class, 'tambahKomentar'])->name('aduan.komentar');
     });
+});
+
+/* --------------------------------------------------------------------------
+ *  ADMIN ROUTES
+ * -------------------------------------------------------------------------- */
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+
+    // Users (CRUD)
+    Route::get('/users', [AdminUser::class, 'index'])->name('users.index');
+    Route::get('/users/create', [AdminUser::class, 'create'])->name('users.create');
+    Route::post('/users', [AdminUser::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [AdminUser::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [AdminUser::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [AdminUser::class, 'destroy'])->name('users.destroy');
+
+    // Kos (read-only monitoring)
+    Route::get('/kos', [AdminKos::class, 'index'])->name('kos.index');
+
+    // Reviews (moderasi)
+    Route::get('/reviews', [AdminReview::class, 'index'])->name('reviews.index');
+    Route::delete('/reviews/{id}', [AdminReview::class, 'destroy'])->name('reviews.destroy');
+
+    // Laporan
+    Route::get('/laporan', [AdminLaporan::class, 'index'])->name('laporan.index');
+
+    // Aduan
+    Route::get('/aduan', [AdminAduan::class, 'index'])->name('aduan.index');
+    Route::get('/aduan/{id}', [AdminAduan::class, 'show'])->name('aduan.show');
+    Route::post('/aduan/{id}/status', [AdminAduan::class, 'updateStatus'])->name('aduan.status');
+    Route::post('/aduan/{id}/komentar', [AdminAduan::class, 'tambahKomentar'])->name('aduan.komentar');
+
+    // Analisis Platform
+    Route::get('/analisis', [AdminAnalisis::class, 'index'])->name('analisis.index');
+
+    // Keuangan Platform (bagi hasil 90/10)
+    Route::get('/keuangan', [AdminKeuangan::class, 'index'])->name('keuangan.index');
+
+    // Data Pemilik
+    Route::get('/data-pemilik', [AdminUser::class, 'dataPemilik'])->name('data-pemilik.index');
+    Route::get('/data-pemilik/{id}', [AdminUser::class, 'showPemilik'])->name('data-pemilik.show');
+    Route::post('/data-pemilik/{id}/status', [AdminUser::class, 'updateStatusPemilik'])->name('data-pemilik.status');
+
+    // Data Penghuni
+    Route::get('/data-penghuni', [AdminUser::class, 'dataPenghuni'])->name('data-penghuni.index');
+    Route::get('/data-penghuni/{id}', [AdminUser::class, 'showPenghuni'])->name('data-penghuni.show');
+    Route::post('/data-penghuni/{id}/status', [AdminUser::class, 'updateStatusPenghuni'])->name('data-penghuni.status');
 });
 
  /* --------------------------------------------------------------------------

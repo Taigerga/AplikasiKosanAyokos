@@ -44,7 +44,11 @@ export function handleApiError(error) {
         case 401: {
             const message = error.response?.data?.message || 'Sesi anda telah berakhir. Silakan login kembali.';
             showError(message);
-            setTimeout(() => { window.location.href = '/login'; }, 2000);
+
+            const currentPath = window.location.pathname;
+            if (currentPath !== '/login') {
+                setTimeout(() => { window.location.href = '/login'; }, 2000);
+            }
             break;
         }
 
@@ -67,9 +71,10 @@ export function handleApiError(error) {
 
         case 429: {
             const retryAfter = error.response?.headers?.['retry-after'];
-            const msg = retryAfter
-                ? `Terlalu banyak permintaan. Coba lagi dalam ${retryAfter} detik.`
-                : 'Terlalu banyak permintaan. Silakan coba lagi nanti.';
+            const serverMsg = error.response?.data?.message;
+            const msg = serverMsg
+                || (retryAfter ? `Terlalu banyak permintaan. Coba lagi dalam ${retryAfter} detik.` : null)
+                || 'Terlalu banyak permintaan. Silakan coba lagi nanti.';
             showError(msg);
             break;
         }

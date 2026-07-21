@@ -11,7 +11,16 @@ class CheckAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || Auth::user()->role !== 'admin') {
+        $user = Auth::guard('sanctum')->user() ?? $request->user();
+
+        if (!$user || $user->role !== 'admin') {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Anda harus login sebagai admin.',
+                ], 403);
+            }
+
             return redirect()->route('login')->with('error', 'Anda harus login sebagai admin.');
         }
 

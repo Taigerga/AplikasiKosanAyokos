@@ -28,6 +28,8 @@ class Pembayaran extends Model
         'tanggal_mulai_sewa',
         'tanggal_akhir_sewa',
         'jenis_pembayaran',
+        'bagian_pemilik',
+        'bagian_platform',
     ];
 
     protected $casts = [
@@ -35,7 +37,9 @@ class Pembayaran extends Model
         'tanggal_bayar' => 'date',
         'tanggal_mulai_sewa' => 'date',
         'tanggal_akhir_sewa' => 'date',
-        'jumlah' => 'decimal:2'
+        'jumlah' => 'decimal:2',
+        'bagian_pemilik' => 'decimal:2',
+        'bagian_platform' => 'decimal:2',
     ];
 
     // Relasi ke kontrak sewa

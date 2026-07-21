@@ -3,7 +3,7 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="space-y-6">
+<div class="p-4 md:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
     @if(session('success'))
         <div class="bg-emerald-400 border-2 border-black text-black font-bold px-4 py-3 shadow-[3px_3px_0px_#000]">
             <div class="flex items-center"><i class="fas fa-check-circle mr-3"></i>{{ session('success') }}</div>
@@ -34,7 +34,12 @@
                 <i class="fas fa-users text-black text-xl"></i>
             </div>
             <h3 class="text-3xl font-black text-black mb-1">{{ $stats['total_users'] }}</h3>
-            <p class="text-gray-600 font-bold text-sm">Total Users</p>
+            <p class="text-gray-600 font-bold text-sm">Total User</p>
+            <div class="mt-2 space-y-1 text-xs font-bold text-gray-500">
+                <div class="flex justify-between"><span>Admin</span><span class="font-black">: {{ $stats['total_admin'] }}</span></div>
+                <div class="flex justify-between"><span>Pemilik</span><span class="font-black">: {{ $stats['total_pemilik'] }}</span></div>
+                <div class="flex justify-between"><span>Penghuni</span><span class="font-black">: {{ $stats['total_penghuni'] }}</span></div>
+            </div>
         </div>
 
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all">
@@ -46,51 +51,19 @@
         </div>
 
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all">
-            <div class="w-12 h-12 bg-yellow-400 border-2 border-black flex items-center justify-center mb-4">
-                <i class="fas fa-file-contract text-black text-xl"></i>
+            <div class="w-12 h-12 bg-rose-400 border-2 border-black flex items-center justify-center mb-4">
+                <i class="fas fa-headset text-black text-xl"></i>
             </div>
-            <h3 class="text-3xl font-black text-black mb-1">{{ $stats['total_kontrak_aktif'] }}</h3>
-            <p class="text-gray-600 font-bold text-sm">Kontrak Aktif</p>
+            <h3 class="text-3xl font-black text-black mb-1">{{ $stats['total_aduan_open'] }}</h3>
+            <p class="text-gray-600 font-bold text-sm">Aduan Terbuka</p>
         </div>
 
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6 hover:shadow-[6px_6px_0px_#000] hover:-translate-y-1 transition-all">
-            <div class="w-12 h-12 bg-purple-400 border-2 border-black flex items-center justify-center mb-4">
-                <i class="fas fa-credit-card text-black text-xl"></i>
+            <div class="w-12 h-12 bg-orange-400 border-2 border-black flex items-center justify-center mb-4">
+                <i class="fas fa-coins text-black text-xl"></i>
             </div>
-            <h3 class="text-3xl font-black text-black mb-1">Rp {{ number_format($stats['total_pembayaran_bulan_ini'], 0, ',', '.') }}</h3>
-            <p class="text-gray-600 font-bold text-sm">Pembayaran Bulan Ini</p>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-sky-400 border-2 border-black flex items-center justify-center">
-                    <i class="fas fa-user-tie text-black"></i>
-                </div>
-                <h3 class="text-lg font-black text-black">Pemilik</h3>
-            </div>
-            <p class="text-3xl font-black text-black">{{ $stats['total_pemilik'] }}</p>
-        </div>
-
-        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-emerald-400 border-2 border-black flex items-center justify-center">
-                    <i class="fas fa-user text-black"></i>
-                </div>
-                <h3 class="text-lg font-black text-black">Penghuni</h3>
-            </div>
-            <p class="text-3xl font-black text-black">{{ $stats['total_penghuni'] }}</p>
-        </div>
-
-        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-red-400 border-2 border-black flex items-center justify-center">
-                    <i class="fas fa-user-shield text-black"></i>
-                </div>
-                <h3 class="text-lg font-black text-black">Admin</h3>
-            </div>
-            <p class="text-3xl font-black text-black">{{ $stats['total_admin'] }}</p>
+            <h3 class="text-3xl font-black text-black mb-1">Rp {{ number_format($pendapatanBulanIni, 0, ',', '.') }}</h3>
+            <p class="text-gray-600 font-bold text-sm">Pendapatan Platform (10%)</p>
         </div>
     </div>
 
@@ -105,13 +78,13 @@
                 <i class="fas fa-home text-2xl"></i>
                 <span class="text-sm">Kelola Kos</span>
             </a>
-            <a href="{{ route('admin.kontrak.index') }}" class="flex flex-col items-center gap-2 p-4 bg-yellow-400 hover:bg-yellow-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
-                <i class="fas fa-file-contract text-2xl"></i>
-                <span class="text-sm">Kelola Kontrak</span>
+            <a href="{{ route('admin.aduan.index') }}" class="flex flex-col items-center gap-2 p-4 bg-rose-400 hover:bg-rose-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
+                <i class="fas fa-headset text-2xl"></i>
+                <span class="text-sm">Kelola Aduan</span>
             </a>
-            <a href="{{ route('admin.laporan.index') }}" class="flex flex-col items-center gap-2 p-4 bg-purple-400 hover:bg-purple-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
-                <i class="fas fa-chart-bar text-2xl"></i>
-                <span class="text-sm">Laporan</span>
+            <a href="{{ route('admin.keuangan.index') }}" class="flex flex-col items-center gap-2 p-4 bg-orange-400 hover:bg-orange-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
+                <i class="fas fa-coins text-2xl"></i>
+                <span class="text-sm">Keuangan</span>
             </a>
         </div>
     </div>

@@ -19,11 +19,9 @@ export function initPdfExport() {
                 pdf.text(`Halaman ${pageNum}`, pageW / 2 + margin, 290, { align: 'center' });
             }
 
-            function addPage() { page++; pdf.addPage(); addFooter(page - 1); }
-
             function captureChart(id, title) {
                 const canvas = document.getElementById(id);
-                if (!canvas) return;
+                if (!canvas) return true;
                 const dpr = 2.5;
                 const cssW = canvas.width / dpr;
                 const cssH = canvas.height / dpr;
@@ -38,8 +36,10 @@ export function initPdfExport() {
                 const finalH = imgH > maxH ? maxH : imgH;
                 try { pdf.addImage(imgData, 'PNG', margin, 30, imgW, finalH); } catch { /* skip */ }
                 page++;
+                return true;
             }
 
+            // Pemilik charts
             captureChart('pendapatanChart', 'Pendapatan per Bulan');
             captureChart('statusKamarChart', 'Status Kamar');
             captureChart('jenisKosChart', 'Jenis Kos');
@@ -47,8 +47,28 @@ export function initPdfExport() {
             captureChart('reviewChart', 'Distribusi Rating');
             captureChart('tipeKamarChart', 'Tipe Kamar');
 
+            // Admin charts (only captured if present on the page)
+            if (document.getElementById('statusKosChart')) {
+                if (page > 1) pdf.addPage();
+                captureChart('pendapatanChart', 'Pendapatan Platform');
+                captureChart('statusKosChart', 'Status Kos');
+                captureChart('aduanChart', 'Aduan per Status');
+                captureChart('userGrowthChart', 'Pertumbuhan User');
+                captureChart('sebaranRoleChart', 'Sebaran Role User');
+                captureChart('topPemilikChart', 'Top Pemilik by Revenue');
+            }
+
+            // Penghuni charts
+            if (document.getElementById('pengeluaranChart')) {
+                if (page > 1) pdf.addPage();
+                captureChart('pengeluaranChart', 'Riwayat Pengeluaran');
+                captureChart('statusPembayaranChart', 'Status Pembayaran');
+                captureChart('jenisKosChart', 'Preferensi Jenis Kos');
+                captureChart('ratingChart', 'Distribusi Rating');
+            }
+
             addFooter(page);
-            pdf.save('Laporan-Analisis-Kos-' + new Date().toISOString().split('T')[0] + '.pdf');
+            pdf.save('Laporan-Analisis-' + new Date().toISOString().split('T')[0] + '.pdf');
         } catch (e) {
             console.error('PDF export error:', e);
             alert('Gagal mengekspor PDF: ' + e.message);

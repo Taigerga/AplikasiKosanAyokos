@@ -15,7 +15,7 @@ class AnalisisService
 {
     public function getPemilikAnalisis(int $pemilikId): array
     {
-        $pendapatanPerBulan = Pembayaran::selectRaw('DATE_FORMAT(tanggal_bayar, "%Y-%m") as bulan, SUM(jumlah) as total')
+        $pendapatanPerBulan = Pembayaran::selectRaw('DATE_FORMAT(tanggal_bayar, "%Y-%m") as bulan, SUM(COALESCE(bagian_pemilik, jumlah * 0.9)) as total')
             ->join('kontrak_sewa', 'pembayaran.id_kontrak', '=', 'kontrak_sewa.id_kontrak')
             ->join('kos', 'kontrak_sewa.id_kos', '=', 'kos.id_kos')
             ->where('kos.id_pemilik', $pemilikId)
@@ -68,7 +68,7 @@ class AnalisisService
             ->orderBy('rating', 'desc')
             ->get();
 
-        $pendapatanPerKos = Kos::selectRaw('kos.nama_kos, COALESCE(SUM(pembayaran.jumlah), 0) as total_pendapatan')
+        $pendapatanPerKos = Kos::selectRaw('kos.nama_kos, COALESCE(SUM(COALESCE(pembayaran.bagian_pemilik, pembayaran.jumlah * 0.9)), 0) as total_pendapatan')
             ->leftJoin('kontrak_sewa', 'kos.id_kos', '=', 'kontrak_sewa.id_kos')
             ->leftJoin('pembayaran', fn($j) => $j->on('kontrak_sewa.id_kontrak', '=', 'pembayaran.id_kontrak')
                 ->where('pembayaran.status_pembayaran', 'lunas')
@@ -78,7 +78,7 @@ class AnalisisService
             ->orderBy('total_pendapatan', 'desc')
             ->paginate(10);
 
-        $pendapatanPerKosFull = Kos::selectRaw('kos.nama_kos, COALESCE(SUM(pembayaran.jumlah), 0) as total_pendapatan')
+        $pendapatanPerKosFull = Kos::selectRaw('kos.nama_kos, COALESCE(SUM(COALESCE(pembayaran.bagian_pemilik, pembayaran.jumlah * 0.9)), 0) as total_pendapatan')
             ->leftJoin('kontrak_sewa', 'kos.id_kos', '=', 'kontrak_sewa.id_kos')
             ->leftJoin('pembayaran', fn($j) => $j->on('kontrak_sewa.id_kontrak', '=', 'pembayaran.id_kontrak')
                 ->where('pembayaran.status_pembayaran', 'lunas')
@@ -229,7 +229,8 @@ class AnalisisService
         $pendapatanBulanIni = Pembayaran::whereHas('kontrak.kos', fn($q) => $q->where('id_pemilik', $pemilikId))
             ->where('status_pembayaran', 'lunas')
             ->whereBetween('tanggal_bayar', [now()->startOfMonth(), now()->endOfMonth()])
-            ->sum('jumlah');
+            ->selectRaw('COALESCE(SUM(COALESCE(bagian_pemilik, jumlah * 0.9)), 0) as total')
+            ->value('total');
 
         return compact(
             'totalKos', 'totalKamar', 'kamarTersedia', 'totalPenghuni',
@@ -244,7 +245,7 @@ class AnalisisService
             ? "CAST(strftime('%m', tanggal_bayar) AS INTEGER)"
             : 'MONTH(tanggal_bayar)';
 
-        return Pembayaran::selectRaw("{$monthFn} as bulan, SUM(jumlah) as total")
+        return Pembayaran::selectRaw("{$monthFn} as bulan, SUM(COALESCE(bagian_pemilik, jumlah * 0.9)) as total")
             ->whereHas('kontrak.kos', fn($q) => $q->where('id_pemilik', $pemilikId))
             ->whereYear('tanggal_bayar', $tahun)
             ->where('status_pembayaran', 'lunas')

@@ -16,10 +16,15 @@ return Application::configure(basePath: dirname(__DIR__))
             'penghuni' => \App\Http\Middleware\CheckPenghuni::class,
             'pemilik' => \App\Http\Middleware\CheckPemilik::class,
             'admin' => \App\Http\Middleware\CheckAdmin::class,
+            'account.status' => \App\Http\Middleware\CheckAccountStatus::class,
         ]);
 
         $middleware->api(prepend: [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]);
+
+        $middleware->web(append: [
+            \App\Http\Middleware\SecurityHeaders::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
@@ -77,7 +82,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->is('api/*') || $request->expectsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Terlalu banyak permintaan. Silakan coba lagi nanti.',
+                    'message' => 'Terlalu banyak permintaan. Silakan coba lagi dalam 1 menit.',
                 ], 429);
             }
         });

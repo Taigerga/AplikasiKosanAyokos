@@ -75,9 +75,10 @@ apiClient.interceptors.response.use(
 
         if (status === 429) {
             const retryAfter = error.response?.headers?.['retry-after'];
-            const msg = retryAfter
-                ? `Terlalu banyak permintaan. Coba lagi dalam ${retryAfter} detik.`
-                : 'Terlalu banyak permintaan. Silakan coba lagi nanti.';
+            const serverMsg = error.response?.data?.message;
+            const msg = serverMsg
+                || (retryAfter ? `Terlalu banyak permintaan. Coba lagi dalam ${retryAfter} detik.` : null)
+                || 'Terlalu banyak permintaan. Silakan coba lagi nanti.';
             console.error(msg);
         }
 

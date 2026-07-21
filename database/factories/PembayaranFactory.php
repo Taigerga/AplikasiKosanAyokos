@@ -29,6 +29,8 @@ class PembayaranFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'status_pembayaran' => 'lunas',
             'tanggal_bayar' => now(),
+            'bagian_pemilik' => round(($attributes['jumlah'] ?? 500000) * 0.9, 2),
+            'bagian_platform' => round(($attributes['jumlah'] ?? 500000) * 0.1, 2),
         ]);
     }
 }

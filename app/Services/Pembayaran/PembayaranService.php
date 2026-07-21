@@ -46,9 +46,14 @@ class PembayaranService
 
         DB::beginTransaction();
         try {
+            $bagianPemilik = round($pembayaran->jumlah * 0.9, 2);
+            $bagianPlatform = round($pembayaran->jumlah * 0.1, 2);
+
             $pembayaran->update([
                 'status_pembayaran' => 'lunas',
                 'tanggal_bayar' => now(),
+                'bagian_pemilik' => $bagianPemilik,
+                'bagian_platform' => $bagianPlatform,
             ]);
 
             if (!$kontrak->tanggal_mulai) {

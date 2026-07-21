@@ -11,7 +11,7 @@ class PemilikSeeder extends Seeder
     {
         $pemilik = [
             [
-                'user_id' => 1,
+                'user_id' => 4,
                 'nama' => 'Pemilik Sample',
                 'no_hp' => '08123456789',
                 'email' => 'pemilik@sample.com',

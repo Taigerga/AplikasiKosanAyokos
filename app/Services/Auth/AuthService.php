@@ -18,12 +18,27 @@ class AuthService
             $user = Auth::guard('web')->user();
             Auth::guard($user->role)->login($user);
 
+            if ($user->role !== 'admin') {
+                if ($user->isDiblokir()) {
+                    Auth::guard('web')->logout();
+                    request()->session()->invalidate();
+                    return ['success' => false, 'message' => 'Akun Anda telah diblokir. Silakan hubungi admin.'];
+                }
+
+                if ($user->isDibatasi()) {
+                    Auth::guard('web')->logout();
+                    request()->session()->invalidate();
+                    return ['success' => false, 'message' => 'Akun Anda sedang dibatasi. Silakan hubungi admin.'];
+                }
+            }
+
             return [
                 'success' => true,
                 'user' => $user,
                 'redirect' => match ($user->role) {
                     'penghuni' => route('penghuni.dashboard'),
                     'pemilik' => route('pemilik.dashboard'),
+                    'admin' => route('admin.dashboard'),
                     default => '/',
                 },
             ];

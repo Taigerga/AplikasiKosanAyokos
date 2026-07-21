@@ -9,13 +9,12 @@ use Illuminate\Support\Facades\Log;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        \App\Console\Commands\SendContractReminders::class,
+        \App\Console\Commands\SendEmailNotifications::class,
     ];
 
     protected function schedule(Schedule $schedule)
     {
-        // Run contract reminders every day at 8:00 AM
-        $schedule->command('contract:send-reminders')
+        $schedule->command('notifications:send-emails')
             ->dailyAt('08:00')
             ->timezone('Asia/Jakarta')
             ->withoutOverlapping()
@@ -27,8 +26,7 @@ class Kernel extends ConsoleKernel
             })
             ->appendOutputTo(storage_path('logs/contract-reminders.log'));
 
-        // Optional: Run again at 6:00 PM
-        $schedule->command('contract:send-reminders')
+        $schedule->command('notifications:send-emails')
             ->dailyAt('18:00')
             ->timezone('Asia/Jakarta')
             ->withoutOverlapping()

@@ -25,6 +25,9 @@ use App\Http\Controllers\API\Admin\PemilikController;
 use App\Http\Controllers\API\Admin\PenghuniController;
 use App\Http\Controllers\API\Admin\KontrakSewaController;
 use App\Http\Controllers\API\Admin\PembayaranController;
+use App\Http\Controllers\API\Admin\AdminAduanController;
+use App\Http\Controllers\API\Admin\AdminStatusAkunController;
+use App\Http\Controllers\API\Keuangan\KeuanganController;
 
 /* ============================================================
    PEMILIK
@@ -40,6 +43,12 @@ use App\Http\Controllers\API\Pemilik\PemilikReviewController;
 use App\Http\Controllers\API\Pemilik\PengaturanKosController;
 use App\Http\Controllers\API\Pemilik\FotoKosController;
 use App\Http\Controllers\API\Pemilik\KosFasilitasController;
+
+/* ============================================================
+   ADUAN
+   ============================================================ */
+use App\Http\Controllers\API\Aduan\AduanController as AduanController;
+use App\Http\Controllers\API\Pemilik\PemilikAduanController;
 
 /* ============================================================
    PENGHUNI
@@ -77,10 +86,12 @@ Route::prefix('public')->group(function () {
 
 // ==================== AUTH (PUBLIC) ====================
 Route::prefix('auth')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/register/penghuni', [AuthController::class, 'registerPenghuni']);
-    Route::post('/register/pemilik', [AuthController::class, 'registerPemilik']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:api-login');
+    Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:api-register');
+    Route::post('/register/penghuni', [AuthController::class, 'registerPenghuni'])->middleware('throttle:api-register');
+    Route::post('/register/pemilik', [AuthController::class, 'registerPemilik'])->middleware('throttle:api-register');
+    Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->middleware('throttle:forgot-password');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('throttle:reset-password');
 });
 
 // ==================== PUBLIC RESOURCES (BROWSING ONLY) ====================
@@ -94,7 +105,7 @@ Route::post('/payment/callback', [PaymentCallbackController::class, 'handleCallb
 Route::get('/payment/simulate/{externalId}', [PaymentCallbackController::class, 'simulatePayment']);
 
 // ==================== PROTECTED ROUTES (SANCTUM) ====================
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'account.status'])->group(function () {
 
     // -------- Auth --------
     Route::prefix('auth')->group(function () {
@@ -124,7 +135,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/kos-fasilitas/kos/{idKos}', [KosFasilitasController::class, 'showByKos']);
 
     // ==================== ADMIN ====================
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware('admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index']);
 
         Route::apiResource('/data-pemilik', PemilikController::class);
@@ -132,12 +143,31 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('/data-kontrak', KontrakSewaController::class);
         Route::apiResource('/data-pembayaran', PembayaranController::class);
         Route::apiResource('/admin-users', AdminController::class);
+
+        Route::post('/data-pemilik/{id}/status', [AdminStatusAkunController::class, 'updateStatusPemilik']);
+        Route::post('/data-penghuni/{id}/status', [AdminStatusAkunController::class, 'updateStatusPenghuni']);
+
+        Route::get('/aduan', [AdminAduanController::class, 'index']);
+        Route::get('/aduan/statistik', [AdminAduanController::class, 'statistik']);
+        Route::get('/aduan/{id}', [AdminAduanController::class, 'show']);
+        Route::post('/aduan/{id}/status', [AdminAduanController::class, 'updateStatus']);
+        Route::post('/aduan/{id}/komentar', [AdminAduanController::class, 'tambahKomentar']);
+
+        Route::get('/keuangan', [KeuanganController::class, 'ringkasan']);
+        Route::get('/keuangan/pendapatan-bulanan', [KeuanganController::class, 'pendapatanBulanan']);
+        Route::get('/keuangan/transaksi-terbaru', [KeuanganController::class, 'transaksiTerbaru']);
+        Route::get('/keuangan/statistik-pemilik', [KeuanganController::class, 'statistikPemilik']);
     });
 
     // ==================== PEMILIK ====================
     Route::prefix('pemilik')->group(function () {
 
         Route::get('/dashboard', [PemilikDashboardController::class, 'index']);
+
+        Route::get('/aduan', [PemilikAduanController::class, 'index']);
+        Route::post('/aduan', [PemilikAduanController::class, 'store']);
+        Route::get('/aduan/{id}', [PemilikAduanController::class, 'show']);
+        Route::post('/aduan/{id}/komentar', [PemilikAduanController::class, 'tambahKomentar']);
         Route::get('/dashboard/stats/kos', [PemilikDashboardController::class, 'getKosStats']);
         Route::get('/dashboard/pendapatan/{tahun?}', [PemilikDashboardController::class, 'getPendapatanTahunan']);
         Route::get('/dashboard/aktivitas', [PemilikDashboardController::class, 'getAktivitasTerbaru']);
@@ -167,6 +197,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('penghuni')->group(function () {
 
         Route::get('/dashboard', [PenghuniDashboardController::class, 'index']);
+
+        Route::get('/aduan', [AduanController::class, 'index']);
+        Route::post('/aduan', [AduanController::class, 'store']);
+        Route::get('/aduan/{id}', [AduanController::class, 'show']);
+        Route::post('/aduan/{id}/komentar', [AduanController::class, 'tambahKomentar']);
         Route::get('/dashboard/notifikasi-tenggat', [PenghuniDashboardController::class, 'notifikasiTenggat']);
 
         Route::get('/analisis', [PenghuniAnalisisController::class, 'index']);

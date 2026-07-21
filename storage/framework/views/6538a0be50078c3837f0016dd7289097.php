@@ -150,6 +150,13 @@
                         <span class="sidebar-text">Analisis Saya</span>
                     </a>
                 </li>
+                <li>
+                    <a href="<?php echo e(route('penghuni.aduan.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('penghuni.aduan.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
+                        <i class="fas fa-headset w-5"></i>
+                        <span class="sidebar-text">Aduan Saya</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 

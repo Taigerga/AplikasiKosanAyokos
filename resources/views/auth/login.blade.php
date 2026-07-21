@@ -76,6 +76,13 @@
                             @enderror
                         </div>
 
+                        <!-- Forgot Password -->
+                        <div class="text-right mb-4">
+                            <a href="{{ route('password.request') }}" class="text-red-500 hover:text-black font-bold text-sm transition-colors">
+                                <i class="fas fa-key mr-1"></i>Lupa Password?
+                            </a>
+                        </div>
+
                         <!-- Submit -->
                         <button type="submit" class="btn-submit">
                             <i class="fas fa-sign-in-alt mr-2"></i>Masuk

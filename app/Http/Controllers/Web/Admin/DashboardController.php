@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Kos;
-use App\Models\KontrakSewa;
+use App\Models\Aduan;
 use App\Models\Pembayaran;
 
 class DashboardController extends Controller
@@ -19,12 +18,15 @@ class DashboardController extends Controller
             'total_penghuni' => User::where('role', 'penghuni')->count(),
             'total_admin' => User::where('role', 'admin')->count(),
             'total_kos' => Kos::count(),
-            'total_kontrak_aktif' => KontrakSewa::where('status_kontrak', 'aktif')->count(),
-            'total_pembayaran_bulan_ini' => Pembayaran::whereMonth('tanggal_bayar', now()->month)
-                ->whereYear('tanggal_bayar', now()->year)
-                ->sum('jumlah_bayar'),
+            'total_aduan_open' => Aduan::whereNotIn('status_aduan', ['selesai', 'ditolak', 'ditutup'])->count(),
         ];
 
-        return view('admin.dashboard', compact('stats'));
+        $pendapatanBulanIni = Pembayaran::where('status_pembayaran', 'lunas')
+            ->whereMonth('tanggal_bayar', now()->month)
+            ->whereYear('tanggal_bayar', now()->year)
+            ->selectRaw('COALESCE(SUM(bagian_platform), 0) as total')
+            ->value('total');
+
+        return view('admin.dashboard', compact('stats', 'pendapatanBulanIni'));
     }
 }

@@ -150,7 +150,7 @@ unset($__errorArgs, $__bag); ?></div>
                             <!-- Jenis Kelamin -->
                             <div class="mb-4">
                                 <label class="form-label">Jenis Kelamin <span class="text-red-500">*</span></label>
-                                <div class="flex gap-4">
+                                <div class="grid grid-cols-2 gap-4">
                                     <label class="flex items-center gap-2 cursor-pointer border-2 border-black px-4 py-2 hover:bg-yellow-100 transition-colors">
                                         <input type="radio" name="jenis_kelamin" value="L" class="w-4 h-4 accent-black" <?php echo e(old('jenis_kelamin') == 'L' ? 'checked' : ''); ?>>
                                         <span class="text-black font-bold text-sm"><i class="fas fa-male mr-1"></i> Laki-laki</span>

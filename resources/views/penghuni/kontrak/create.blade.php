@@ -136,14 +136,16 @@
                 @endif
 
                 @php
-                    $kamarJson = $kos->kamar->where('status_kamar', 'tersedia')->map(fn($k) => [
-                        'id' => $k->id_kamar,
-                        'nomor' => $k->nomor_kamar,
-                        'tipe' => $k->tipe_kamar,
-                        'luas' => $k->luas_kamar,
-                        'harga' => $k->harga,
-                        'kapasitas' => $k->kapasitas,
-                    ])->values();
+                    $kamarJson = $kos->kamar->where('status_kamar', 'tersedia')->mapWithKeys(fn($k) => [
+                        $k->id_kamar => [
+                            'id' => $k->id_kamar,
+                            'nomor' => $k->nomor_kamar,
+                            'tipe' => $k->tipe_kamar,
+                            'luas' => $k->luas_kamar,
+                            'harga' => $k->harga,
+                            'kapasitas' => $k->kapasitas,
+                        ]
+                    ]);
                 @endphp
                 <form method="POST" action="{{ route('penghuni.kontrak.store') }}" enctype="multipart/form-data"
                       data-ajax="true" data-ajax-action="/api/penghuni/kontrak"
