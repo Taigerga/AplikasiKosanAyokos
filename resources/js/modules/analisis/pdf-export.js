@@ -1,3 +1,8 @@
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+window.jspdf = { jsPDF };
+window.html2canvas = html2canvas;
+
 export function initPdfExport() {
     const btn = document.getElementById('exportPdfBtn') || document.getElementById('exportPdfPenghuni');
     if (!btn) return;

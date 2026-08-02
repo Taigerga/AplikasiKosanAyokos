@@ -69,7 +69,7 @@
                             <td class="border-2 border-black px-4 py-3 text-sm max-w-xs truncate">{{ $review->komentar ?? '-' }}</td>
                             <td class="border-2 border-black px-4 py-3 text-sm">{{ $review->created_at->format('d/m/Y') }}</td>
                             <td class="border-2 border-black px-4 py-3 text-center">
-                                <form method="POST" action="{{ route('admin.reviews.destroy', $review->id_review) }}" class="inline" onsubmit="return confirm('Hapus review ini?')">
+                                <form method="POST" action="{{ route('admin.reviews.destroy', $review->id_review) }}" data-ajax="true" data-ajax-method="DELETE" data-confirm="Hapus review ini?" data-confirm-type="danger" data-success-msg="Review berhasil dihapus">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="bg-red-400 border-2 border-black px-2 py-1 text-xs font-bold hover:bg-red-500 transition-colors">
                                         <i class="fas fa-trash mr-1"></i>Hapus

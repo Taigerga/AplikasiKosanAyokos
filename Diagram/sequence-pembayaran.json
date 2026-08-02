@@ -1,0 +1,31 @@
+{
+  "title": "Sequence - Pembayaran & Approval",
+  "participants": [
+    {"id": "penghuni", "label": "Penghuni", "actor": true},
+    {"id": "pembayaranview", "label": "<<boundary>>\\nPembayaranView"},
+    {"id": "pembayarancontroller", "label": "<<control>>\\nPembayaranController"},
+    {"id": "pembayaranservice", "label": "<<control>>\\nPembayaranService"},
+    {"id": "pembayaran", "label": "<<entity>>\\nPembayaran"},
+    {"id": "pemilik", "label": "Pemilik", "actor": true}
+  ],
+  "messages": [
+    {"from": "penghuni", "to": "pembayaranview", "label": "1: Upload bukti bayar"},
+    {"from": "pembayaranview", "to": "pembayarancontroller", "label": "2: POST /pembayaran"},
+    {"from": "pembayarancontroller", "to": "pembayaranservice", "label": "3: createPembayaran()"},
+    {"from": "pembayaranservice", "to": "pembayaran", "label": "4: INSERT\\n(status=pending)"},
+    {"from": "pembayaran", "to": "pembayaranservice", "label": "return", "return": true},
+    {"from": "pembayaranservice", "to": "pembayarancontroller", "label": "5: response"},
+    {"from": "pembayarancontroller", "to": "pembayaranview", "label": "response sukses"},
+    {"from": "pembayaranview", "to": "penghuni", "label": "6: Menunggu approval"},
+    {"from": "pembayaranview", "to": "pemilik", "label": "Notif approval masuk", "async": true},
+    {"from": "pemilik", "to": "pembayaranview", "label": "7: Klik Setujui"},
+    {"from": "pembayaranview", "to": "pembayarancontroller", "label": "PUT /pembayaran/approve"},
+    {"from": "pembayarancontroller", "to": "pembayaranservice", "label": "8: approvePembayaran()"},
+    {"from": "pembayaranservice", "to": "pembayaran", "label": "9: UPDATE status=lunas\\n+ bagi hasil 90/10"},
+    {"from": "pembayaran", "to": "pembayaranservice", "label": "return", "return": true},
+    {"from": "pembayaranservice", "to": "pembayarancontroller", "label": "10: response sukses"},
+    {"from": "pembayarancontroller", "to": "pembayaranview", "label": "Pembayaran disetujui"},
+    {"from": "pembayaranview", "to": "penghuni", "label": "Pembayaran lunas"},
+    {"from": "pembayaranview", "to": "pemilik", "label": "Dana masuk + notif"}
+  ]
+}

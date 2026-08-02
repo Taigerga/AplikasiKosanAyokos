@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 @import "@fortawesome/fontawesome-free/css/all.css";
+@import "nprogress/nprogress.css";
+@import "leaflet/dist/leaflet.css";
+@import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+@import "aos/dist/aos.css";
 @import './pages/auth.css';
 @import './pages/pemilik.css';
 @import './pages/penghuni.css';
@@ -101,10 +105,7 @@ h1, h2, h3, h4, h5 {
     }
 }
 
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
+
 
 * {
     -webkit-tap-highlight-color: transparent;
@@ -122,4 +123,67 @@ button:active, a:active {
 select option {
     background-color: #000;
     color: #fff;
+}
+
+/* NProgress custom style */
+#nprogress .bar {
+    background: #000 !important;
+    height: 4px !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #000, 0 0 5px #000 !important;
+}
+
+#nprogress .spinner-icon {
+    border-top-color: #000 !important;
+    border-left-color: #000 !important;
+}
+
+/* Loading utilities */
+.spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+.spinner-lg {
+    width: 2rem;
+    height: 2rem;
+    border-width: 3px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#page-loading-overlay {
+    backdrop-filter: blur(2px);
+    transition: opacity 0.2s ease;
+}
+
+#page-loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Skeleton loading */
+.skeleton {
+    background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    border-radius: 0.25rem;
+}
+
+.skeleton-circle {
+    border-radius: 50%;
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }

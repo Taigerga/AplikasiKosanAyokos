@@ -4,6 +4,14 @@
 
 @section('content')
     <div class="p-4 md:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
+        <!-- Auto Refresh Indicator -->
+        <div id="auto-refresh-indicator" data-refresh-interval="60" class="flex items-center justify-end gap-2 text-xs text-gray-500 font-medium">
+            <i class="fas fa-sync-alt text-gray-400"></i>
+            <span>Terakhir diperbarui: <span data-refresh-time></span></span>
+            <button data-refresh-btn class="ml-2 px-2 py-1 bg-gray-100 border border-gray-300 rounded text-xs hover:bg-gray-200 transition-colors">
+                <i class="fas fa-redo-alt mr-1"></i>Refresh
+            </button>
+        </div>
         <!-- Welcome Banner -->
         <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between">
@@ -94,31 +102,31 @@
                 <i class="fas fa-bolt text-yellow-500 mr-3"></i>
                 Aksi Cepat
             </h2>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
                 <a href="{{ route('pemilik.kos.index') }}"
                     class="bg-sky-400 hover:bg-sky-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-home text-lg mb-1"></i>
-                    <span>Kelola Kos</span>
+                    <span class="truncate max-w-full px-1">Kelola Kos</span>
                 </a>
                 <a href="{{ route('pemilik.kamar.index') }}"
                     class="bg-emerald-400 hover:bg-emerald-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-bed text-lg mb-1"></i>
-                    <span>Kelola Kamar</span>
+                    <span class="truncate max-w-full px-1">Kelola Kamar</span>
                 </a>
                 <a href="{{ route('pemilik.kontrak.index') }}"
                     class="bg-yellow-400 hover:bg-yellow-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-file-contract text-lg mb-1"></i>
-                    <span>Kelola Kontrak</span>
+                    <span class="truncate max-w-full px-1">Kelola Kontrak</span>
                 </a>
                 <a href="{{ route('pemilik.pembayaran.index') }}"
                     class="bg-purple-400 hover:bg-purple-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-credit-card text-lg mb-1"></i>
-                    <span>Pembayaran</span>
+                    <span class="truncate max-w-full px-1">Pembayaran</span>
                 </a>
                 <a href="{{ route('pemilik.analisis.index') }}"
                     class="bg-pink-400 hover:bg-pink-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-chart-bar text-lg mb-1"></i>
-                    <span>Analisis Data</span>
+                    <span class="truncate max-w-full px-1">Analisis Data</span>
                 </a>
             </div>
         </div>
@@ -142,17 +150,17 @@
                     @foreach($kos->take(3) as $k)
                         <div class="bg-gray-100 border-2 border-black p-4">
                             <div class="flex items-start justify-between">
-                                <div class="flex-1">
+                                <div class="flex-1 overflow-hidden">
                                     <div class="flex items-center justify-between mb-2">
-                                        <h3 class="font-black text-black">{{ $k->nama_kos }}</h3>
+                                        <h3 class="font-black text-black truncate">{{ $k->nama_kos }}</h3>
                                     </div>
-                                    <p class="text-sm font-bold text-gray-700 mb-3">{{ $k->alamat }}</p>
-                                    <div class="flex items-center space-x-4 text-xs font-bold text-gray-500">
+                                    <p class="text-sm font-bold text-gray-700 mb-3 truncate">{{ $k->alamat }}</p>
+                                    <div class="flex items-center gap-4 flex-wrap text-xs font-bold text-gray-500">
                                         <span class="flex items-center"><i class="fas fa-bed mr-1"></i> {{ $k->kamar_count }} Kamar</span>
                                         <span class="flex items-center"><i class="fas fa-users mr-1"></i> {{ $k->jenis_kos }}</span>
                                     </div>
                                 </div>
-                                <div class="flex space-x-2 ml-4">
+                                <div class="flex gap-2 ml-4 shrink-0">
                                     <a href="{{ route('pemilik.kos.show', $k->id_kos) }}"
                                     class="p-2 text-gray-600 hover:text-black hover:bg-yellow-200 border-2 border-transparent hover:border-black transition">
                                         <i class="fas fa-eye"></i>
@@ -215,16 +223,16 @@
                             <div class="bg-gray-100 border-2 border-black p-4">
                                 <div class="flex items-start justify-between">
                                     <div class="flex-1">
-                                        <div class="flex items-center justify-between mb-2">
-                                            <h3 class="font-black text-black">Kamar {{ $km->nomor_kamar }}</h3>
-                                            <span class="text-xs font-black px-2 py-1 border-2 border-black
+                                        <div class="flex items-center justify-between mb-2 gap-2">
+                                            <h3 class="font-black text-black truncate">Kamar {{ $km->nomor_kamar }}</h3>
+                                            <span class="text-xs font-black px-2 py-1 border-2 border-black shrink-0
                                                 {{ $km->status_kamar == 'tersedia' ? 'bg-emerald-400 text-black' :
                                                 ($km->status_kamar == 'terisi' ? 'bg-red-400 text-black' :
                                                     'bg-yellow-400 text-black') }}">
                                                 {{ ucfirst($km->status_kamar) }}
                                             </span>
                                         </div>
-                                        <p class="text-sm font-bold text-gray-700 mb-2">{{ $km->kos->nama_kos }}</p>
+                                        <p class="text-sm font-bold text-gray-700 mb-2 truncate">{{ $km->kos->nama_kos }}</p>
                                         <div class="flex items-center justify-between">
                                             <span class="text-sm font-bold text-gray-500">{{ $km->tipe_kamar }}</span>
                                             <span class="text-sm font-black text-black">Rp {{ number_format($km->harga, 0, ',', '.') }}</span>
@@ -277,14 +285,14 @@
                             <div class="bg-yellow-100 border-2 border-black p-4">
                                 <div class="flex items-start justify-between">
                                     <div class="flex-1">
-                                        <div class="flex items-center justify-between mb-2">
-                                            <h3 class="font-black text-black">{{ $kontrak->penghuni->nama }}</h3>
-                                            <span class="text-xs font-bold text-gray-600">{{ $kontrak->created_at->format('d M Y') }}</span>
+                                        <div class="flex items-center justify-between mb-2 gap-2">
+                                            <h3 class="font-black text-black truncate">{{ $kontrak->penghuni->nama }}</h3>
+                                            <span class="text-xs font-bold text-gray-600 shrink-0">{{ $kontrak->created_at->format('d M Y') }}</span>
                                         </div>
-                                        <p class="text-sm font-bold text-gray-700 mb-3">
+                                        <p class="text-sm font-bold text-gray-700 mb-3 truncate">
                                             {{ $kontrak->kos->nama_kos }} - Kamar {{ $kontrak->kamar->nomor_kamar }}
                                         </p>
-                                        <div class="flex space-x-2">
+                                        <div class="flex gap-2 flex-wrap">
                                             <button onclick="showApproveModal('{{ route('pemilik.kontrak.approve', $kontrak->id_kontrak) }}', '{{ $kontrak->penghuni->nama ?? 'Penghuni' }}')"
                                                 class="px-3 py-1.5 bg-lime-400 hover:bg-lime-500 text-black font-black text-sm border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all uppercase tracking-wide">
                                                 <i class="fas fa-check mr-1"></i> Setujui
@@ -329,8 +337,8 @@
                     <div class="space-y-4">
                         @foreach($pembayaranTerbaru->take(5) as $pembayaran)
                             <div class="flex items-center justify-between bg-gray-100 border-2 border-black p-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 border-2 border-black flex items-center justify-center
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-10 h-10 shrink-0 border-2 border-black flex items-center justify-center
                                         {{ $pembayaran->status_pembayaran == 'lunas' ? 'bg-emerald-400' :
                                         ($pembayaran->status_pembayaran == 'pending' ? 'bg-yellow-400' :
                                         ($pembayaran->status_pembayaran == 'terlambat' ? 'bg-red-400' :
@@ -339,7 +347,7 @@
                                     </div>
                                     <div>
                                         <p class="font-black text-black">{{ $pembayaran->penghuni->nama }}</p>
-                                        <p class="text-xs font-bold text-gray-600">{{ $pembayaran->kontrak->kos->nama_kos }}</p>
+                                        <p class="text-xs font-bold text-gray-600 truncate">{{ $pembayaran->kontrak->kos->nama_kos }}</p>
                                     </div>
                                 </div>
                                 <div class="text-right">
@@ -399,7 +407,7 @@
                                   required></textarea>
                     </div>
                     
-                    <div class="flex justify-end space-x-3">
+                    <div class="flex justify-end gap-3">
                         <button type="button" onclick="closeRejectModal()"
                                 class="px-4 py-2 bg-white text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
                             Batal
@@ -433,7 +441,7 @@
                         Apakah Anda yakin ingin menyetujui kontrak ini? Status kamar akan berubah menjadi terisi dan kontrak akan aktif.
                     </p>
                     
-                    <div class="flex justify-end space-x-3">
+                    <div class="flex justify-end gap-3">
                         <button type="button" onclick="closeApproveModal()"
                                 class="px-4 py-2 bg-white text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
                             Batal

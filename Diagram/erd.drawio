@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="24.7.17">
+  <diagram name="ERD - Entity Relationship Diagram">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== USERS GROUP ===== -->
+        <!-- users -->
+        <mxCell id="2" value="&lt;b&gt;users&lt;/b&gt;&lt;hr&gt;PK id (int)&lt;br&gt;username (string)&lt;br&gt;password (hashed)&lt;br&gt;role (enum)&lt;br&gt;remember_token&lt;br&gt;status_updated_at&lt;br&gt;status_updated_by&lt;br&gt;status_alasan" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="190" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- admin -->
+        <mxCell id="3" value="&lt;b&gt;admin&lt;/b&gt;&lt;hr&gt;PK id_admin (int)&lt;br&gt;FK user_id → users&lt;br&gt;nama, no_hp, email&lt;br&gt;jenis_kelamin, tgl_lahir&lt;br&gt;alamat, foto_profil&lt;br&gt;status_admin" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="40" y="190" width="190" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- pemilik -->
+        <mxCell id="4" value="&lt;b&gt;pemilik&lt;/b&gt;&lt;hr&gt;PK id_pemilik (int)&lt;br&gt;FK user_id → users&lt;br&gt;nama, no_hp, email&lt;br&gt;jenis_kelamin, tgl_lahir&lt;br&gt;alamat, foto_profil&lt;br&gt;status_pemilik&lt;br&gt;nama_bank, no_rekening" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="270" y="40" width="190" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- penghuni -->
+        <mxCell id="5" value="&lt;b&gt;penghuni&lt;/b&gt;&lt;hr&gt;PK id_penghuni (int)&lt;br&gt;FK user_id → users&lt;br&gt;nama, no_hp, email&lt;br&gt;jenis_kelamin, tgl_lahir&lt;br&gt;alamat, foto_profil&lt;br&gt;status_penghuni&lt;br&gt;nama_bank, no_rekening" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="500" y="40" width="190" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- ===== KOS GROUP ===== -->
+        <!-- kos -->
+        <mxCell id="6" value="&lt;b&gt;kos&lt;/b&gt;&lt;hr&gt;PK id_kos (int)&lt;br&gt;FK id_pemilik → pemilik&lt;br&gt;nama_kos, alamat&lt;br&gt;kecamatan, kota, provinsi&lt;br&gt;kode_pos, lat, lng&lt;br&gt;deskripsi, peraturan&lt;br&gt;jenis_kos, tipe_sewa&lt;br&gt;foto_utama, status_kos" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="270" y="210" width="190" height="175" as="geometry" />
+        </mxCell>
+
+        <!-- kamar -->
+        <mxCell id="7" value="&lt;b&gt;kamar&lt;/b&gt;&lt;hr&gt;PK id_kamar (int)&lt;br&gt;FK id_kos → kos&lt;br&gt;nomor_kamar, tipe_kamar&lt;br&gt;harga, luas_kamar&lt;br&gt;kapasitas, fasilitas_kamar&lt;br&gt;foto_kamar, status_kamar" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="500" y="210" width="190" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- fasilitas -->
+        <mxCell id="8" value="&lt;b&gt;fasilitas&lt;/b&gt;&lt;hr&gt;PK id_fasilitas (int)&lt;br&gt;nama_fasilitas&lt;br&gt;kategori&lt;br&gt;icon" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="500" y="370" width="190" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- kos_fasilitas (pivot) -->
+        <mxCell id="9" value="&lt;b&gt;kos_fasilitas&lt;/b&gt;&lt;hr&gt;PK id_kos_fasilitas&lt;br&gt;FK id_kos → kos&lt;br&gt;FK id_fasilitas → fasilitas" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="270" y="410" width="190" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- foto_kos -->
+        <mxCell id="10" value="&lt;b&gt;foto_kos&lt;/b&gt;&lt;hr&gt;PK id_foto (int)&lt;br&gt;FK id_kos → kos&lt;br&gt;nama_file&lt;br&gt;urutan" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="40" y="410" width="190" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- pengaturan_kos -->
+        <mxCell id="11" value="&lt;b&gt;pengaturan_kos&lt;/b&gt;&lt;hr&gt;PK id_pengaturan (int)&lt;br&gt;FK id_kos → kos&lt;br&gt;notifikasi_pembayaran_h_min&lt;br&gt;denda_keterlambatan&lt;br&gt;toleransi_keterlambatan" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="500" y="480" width="190" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ===== TRANSACTION GROUP ===== -->
+        <!-- kontrak_sewa -->
+        <mxCell id="12" value="&lt;b&gt;kontrak_sewa&lt;/b&gt;&lt;hr&gt;PK id_kontrak (int)&lt;br&gt;FK id_penghuni → penghuni&lt;br&gt;FK id_kos → kos&lt;br&gt;FK id_kamar → kamar&lt;br&gt;foto_ktp, tgl_daftar&lt;br&gt;tgl_mulai, tgl_selesai&lt;br&gt;durasi_sewa, harga_sewa&lt;br&gt;status_kontrak, alasan_ditolak" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="780" y="40" width="190" height="165" as="geometry" />
+        </mxCell>
+
+        <!-- pembayaran -->
+        <mxCell id="13" value="&lt;b&gt;pembayaran&lt;/b&gt;&lt;hr&gt;PK id_pembayaran (int)&lt;br&gt;FK id_kontrak → kontrak_sewa&lt;br&gt;FK id_penghuni → penghuni&lt;br&gt;bulan_tahun, tgl_mulai_sewa&lt;br&gt;tgl_akhir_sewa, tgl_jatuh_tempo&lt;br&gt;tgl_bayar, jumlah, denda&lt;br&gt;total_bayar, bagian_pemilik&lt;br&gt;bagian_platform, bukti_bayar&lt;br&gt;metode_bayar, status_bayar" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="780" y="230" width="190" height="175" as="geometry" />
+        </mxCell>
+
+        <!-- ===== REVIEW ===== -->
+        <!-- reviews -->
+        <mxCell id="14" value="&lt;b&gt;reviews&lt;/b&gt;&lt;hr&gt;PK id_review (int)&lt;br&gt;FK id_kos → kos&lt;br&gt;FK id_penghuni → penghuni&lt;br&gt;FK id_kontrak → kontrak_sewa&lt;br&gt;rating, komentar, foto_review" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="780" y="430" width="190" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ===== ADUAN GROUP ===== -->
+        <!-- aduan -->
+        <mxCell id="15" value="&lt;b&gt;aduan&lt;/b&gt;&lt;hr&gt;PK id_aduan (int)&lt;br&gt;FK id_pengirim → users&lt;br&gt;pengirim_role, judul&lt;br&gt;kategori, deskripsi&lt;br&gt;lampiran, status_aduan" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="780" y="560" width="190" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- aduan_komentar -->
+        <mxCell id="16" value="&lt;b&gt;aduan_komentar&lt;/b&gt;&lt;hr&gt;PK id_komentar (int)&lt;br&gt;FK id_aduan → aduan&lt;br&gt;FK id_pengirim → users&lt;br&gt;isi, lampiran" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="500" y="600" width="190" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- notifications -->
+        <mxCell id="17" value="&lt;b&gt;notifications&lt;/b&gt;&lt;hr&gt;PK id_notifikasi (UUID)&lt;br&gt;FK id_user → users&lt;br&gt;type, title, body&lt;br&gt;link, is_read" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="40" y="530" width="190" height="95" as="geometry" />
+        </mxCell>
+
+        <!-- ===== RELATIONSHIPS ===== -->
+
+        <!-- R-01: users → admin (1:1) -->
+        <mxCell id="18" value="1:1" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="2" target="3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-02: users → pemilik (1:1) -->
+        <mxCell id="19" value="1:1" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="90" as="sourcePoint" />
+            <mxPoint x="270" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- R-03: users → penghuni (1:1) -->
+        <mxCell id="20" value="1:1" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="120" as="sourcePoint" />
+            <mxPoint x="500" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- R-04: pemilik → kos (1:N) -->
+        <mxCell id="21" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="4" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-05: kos → kamar (1:N) -->
+        <mxCell id="22" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="6" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-06: kos ↔ fasilitas (M:N via kos_fasilitas) -->
+        <mxCell id="23" value="M" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="6" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="9" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-07: kos → foto_kos (1:N) -->
+        <mxCell id="25" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="6" target="10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-08: kos → pengaturan_kos (1:1) -->
+        <mxCell id="26" value="1:1" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="6" target="11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-09: penghuni → kontrak_sewa (1:N) -->
+        <mxCell id="27" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="5" target="12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-10: kos → kontrak_sewa (1:N) -->
+        <mxCell id="28" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="6" target="12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-11: kamar → kontrak_sewa (1:N) -->
+        <mxCell id="29" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="7" target="12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-12: kontrak_sewa → pembayaran (1:N) -->
+        <mxCell id="30" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="12" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-13: penghuni → pembayaran (1:N) -->
+        <mxCell id="31" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="5" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-14: penghuni → reviews (1:N) -->
+        <mxCell id="32" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="5" target="14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-15: kos → reviews (1:N) -->
+        <mxCell id="33" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="6" target="14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-16: kontrak_sewa → reviews (1:N) -->
+        <mxCell id="34" value="1:1" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="12" target="14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-17: users → aduan (1:N) -->
+        <mxCell id="35" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="2" target="15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-18: aduan → aduan_komentar (1:N) -->
+        <mxCell id="36" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="15" target="16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-19: users → aduan_komentar (1:N) -->
+        <mxCell id="37" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="2" target="16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- R-20: users → notifications (1:N) -->
+        <mxCell id="38" value="1:N" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="2" target="17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="39" value="Legend" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="660" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="40" value="" style="rounded=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="39">
+          <mxGeometry x="10" y="28" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="41" value="users" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;" vertex="1" parent="39">
+          <mxGeometry x="36" y="26" width="130" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="42" value="" style="rounded=0;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="39">
+          <mxGeometry x="10" y="46" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="43" value="pemilik / kos group" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;" vertex="1" parent="39">
+          <mxGeometry x="36" y="44" width="130" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="44" value="" style="rounded=0;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="39">
+          <mxGeometry x="10" y="64" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="45" value="penghuni / transaksi" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;" vertex="1" parent="39">
+          <mxGeometry x="36" y="62" width="130" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="46" value="" style="rounded=0;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="39">
+          <mxGeometry x="10" y="82" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="47" value="aduan" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;" vertex="1" parent="39">
+          <mxGeometry x="36" y="80" width="130" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="48" value="" style="rounded=0;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="39">
+          <mxGeometry x="10" y="100" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="49" value="admin / notifikasi" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;" vertex="1" parent="39">
+          <mxGeometry x="36" y="98" width="130" height="18" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

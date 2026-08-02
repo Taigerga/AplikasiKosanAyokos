@@ -3,20 +3,31 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "test:js": "vitest run",
+    "test:js:watch": "vitest"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
     "autoprefixer": "^10.4.23",
     "axios": "^1.13.2",
     "concurrently": "^9.0.1",
+    "jsdom": "^29.1.1",
     "laravel-vite-plugin": "^2.0.0",
+    "nprogress": "^0.2.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
-    "vite": "^7.2.1"
+    "vite": "^7.2.1",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.2.0",
-    "axios": "^1.6.0"
+    "aos": "^2.3.4",
+    "axios": "^1.6.0",
+    "chart.js": "^4.5.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12"
   }
 }

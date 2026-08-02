@@ -109,31 +109,31 @@
                 <i class="fas fa-bolt text-yellow-600 mr-3"></i>
                 Aksi Cepat
             </h2>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
                 <a href="<?php echo e(route('public.kos.index')); ?>"
                     class="bg-sky-400 hover:bg-sky-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-search text-lg mb-1"></i>
-                    <span>Cari Kos</span>
+                    <span class="truncate max-w-full px-1">Cari Kos</span>
                 </a>
                 <a href="<?php echo e(route('penghuni.kontrak.index')); ?>"
                     class="bg-emerald-400 hover:bg-emerald-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-file-contract text-lg mb-1"></i>
-                    <span>Kontrak Saya</span>
+                    <span class="truncate max-w-full px-1">Kontrak Saya</span>
                 </a>
                 <a href="<?php echo e(route('penghuni.pembayaran.index')); ?>"
                     class="bg-purple-400 hover:bg-purple-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-credit-card text-lg mb-1"></i>
-                    <span>Pembayaran</span>
+                    <span class="truncate max-w-full px-1">Pembayaran</span>
                 </a>
                 <a href="<?php echo e(route('penghuni.reviews.history')); ?>"
                     class="bg-yellow-400 hover:bg-yellow-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-star text-lg mb-1"></i>
-                    <span>Review Saya</span>
+                    <span class="truncate max-w-full px-1">Review Saya</span>
                 </a>
                 <a href="<?php echo e(route('penghuni.analisis.index')); ?>"
                     class="bg-pink-400 hover:bg-pink-500 text-black font-black text-center py-3 border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all flex flex-col items-center justify-center uppercase tracking-wide text-sm">
                     <i class="fas fa-chart-bar text-lg mb-1"></i>
-                    <span>Analisis Saya</span>
+                    <span class="truncate max-w-full px-1">Analisis Saya</span>
                 </a>
             </div>
         </div>
@@ -161,7 +161,7 @@
                                     <div class="flex items-start justify-between">
                                         <div class="flex-1">
                                             <div class="flex items-center justify-between mb-3">
-                                                <h3 class="font-black text-black"><?php echo e($kontrak->kos->nama_kos); ?></h3>
+                                                <h3 class="font-black text-black truncate"><?php echo e($kontrak->kos->nama_kos); ?></h3>
                                                 <span class="text-xs font-black px-2 py-1 border-2 border-black
                                                     <?php echo e($kontrak->statusWarna == 'green' ? 'bg-emerald-400 text-black' :
                             ($kontrak->statusWarna == 'yellow' ? 'bg-yellow-400 text-black' :
@@ -256,7 +256,7 @@
                                             <i class="fas fa-<?php echo e($pembayaran->status_pembayaran == 'lunas' ? 'check' : 'clock'); ?> text-black"></i>
                                         </div>
                                         <div>
-                                            <p class="font-black text-black"><?php echo e($pembayaran->kontrak->kos->nama_kos); ?></p>
+                                            <p class="font-black text-black truncate"><?php echo e($pembayaran->kontrak->kos->nama_kos); ?></p>
                                             <p class="text-xs text-gray-600"><?php echo e($pembayaran->bulan_tahun); ?></p>
                                         </div>
                                     </div>

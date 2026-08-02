@@ -52,8 +52,8 @@ Single `web` guard (session) sharing one `User` model with `role` column:
 - Read-only for: data-kontrak, data-pembayaran
 
 ### Payment Callback
-- API-only webhook: `POST /api/payment/callback` — handles settled/paid/expired/failed
-- `GET /api/payment/simulate/{externalId}` — testing endpoint
+- API-only webhook: `POST /api/payment/callback` — handles settled/paid/expired/failed (HMAC-SHA256 signature via `X-Callback-Signature` header using `PAYMENT_CALLBACK_TOKEN`)
+- `GET /api/payment/simulate/{externalId}` — testing endpoint (admin-only via `auth:sanctum` + `admin`)
 
 ### Form Submission
 - **AJAX-first**: forms use `data-ajax="true"` + `data-ajax-action="/api/..."` (handled by `resources/js/utils/ajax-form.js`)
@@ -63,6 +63,10 @@ Single `web` guard (session) sharing one `User` model with `role` column:
 
 ### Notable implementation details
 - Sanctum SPA middleware (`EnsureFrontendRequestsAreStateful`) is active in `bootstrap/app.php` — API supports both session-based (from web) and token-based auth
+- Security headers via `SecurityHeaders` middleware (web stack): X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy, HSTS, CSP
+- Global rate limiters: `api-global` (120/min/IP), `web-global` (60/min/IP)
+- Session: `cookie` driver, `encrypt=true`, `same_site=strict`
+- Sanctum token expiration: 1440 min (24h) via `SANCTUM_TOKEN_EXPIRATION`
 
 ### Sessions / queue / cache
 - Sessions: `cookie` driver (Sanctum SPA requires cookie-based sessions)

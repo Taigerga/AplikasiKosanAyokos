@@ -102,7 +102,6 @@ Route::apiResource('reviews', ReviewController::class)->only(['index', 'show']);
 
 // ==================== PAYMENT CALLBACK (WEBHOOK) ====================
 Route::post('/payment/callback', [PaymentCallbackController::class, 'handleCallback']);
-Route::get('/payment/simulate/{externalId}', [PaymentCallbackController::class, 'simulatePayment']);
 
 // ==================== PROTECTED ROUTES (SANCTUM) ====================
 Route::middleware(['auth:sanctum', 'account.status'])->group(function () {
@@ -157,6 +156,8 @@ Route::middleware(['auth:sanctum', 'account.status'])->group(function () {
         Route::get('/keuangan/pendapatan-bulanan', [KeuanganController::class, 'pendapatanBulanan']);
         Route::get('/keuangan/transaksi-terbaru', [KeuanganController::class, 'transaksiTerbaru']);
         Route::get('/keuangan/statistik-pemilik', [KeuanganController::class, 'statistikPemilik']);
+
+        Route::get('/payment/simulate/{externalId}', [PaymentCallbackController::class, 'simulatePayment']);
     });
 
     // ==================== PEMILIK ====================

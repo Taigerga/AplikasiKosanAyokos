@@ -8,8 +8,34 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentCallbackController extends ApiController
 {
+    private function verifySignature(Request $request): bool
+    {
+        $token = config('app.payment_callback_token');
+        if (!$token) {
+            return true;
+        }
+
+        $signature = $request->header('X-Callback-Signature');
+        if (!$signature) {
+            return false;
+        }
+
+        $payload = $request->getContent();
+        $expected = hash_hmac('sha256', $payload, $token);
+
+        return hash_equals($expected, $signature);
+    }
+
     public function handleCallback(Request $request)
     {
+        if (!$this->verifySignature($request)) {
+            Log::warning('Payment callback invalid signature', [
+                'ip' => $request->ip(),
+                'headers' => $request->headers->all(),
+            ]);
+            return $this->error('Invalid signature', 401);
+        }
+
         Log::info('Payment callback received', $request->all());
 
         $externalId = $request->input('external_id');

@@ -71,8 +71,15 @@ Route::get('/storage/{folder}/{filename}', function ($folder, $filename) {
     $allowed = ['kos', 'kamar', 'ktp', 'bukti', 'pembayaran', 'profiles', 'reviews', 'kontrak', 'foto_profil', 'bukti_pembayaran', 'aduan'];
     abort_unless(in_array($folder, $allowed), 403, 'Folder tidak diizinkan');
 
+    $filename = basename($filename);
+    abort_if(str_contains($filename, '..'), 403, 'Nama file tidak valid');
+    abort_if(str_contains($filename, '/'), 403, 'Nama file tidak valid');
+    abort_if(str_contains($filename, '\\'), 403, 'Nama file tidak valid');
+
     $path = storage_path("app/public/{$folder}/{$filename}");
     abort_unless(file_exists($path), 404, 'File tidak ditemukan');
+
+    abort_if(str_starts_with(realpath($path), realpath(storage_path('app/public')) . DIRECTORY_SEPARATOR) === false, 403, 'Akses ditolak');
 
     return response()->file($path);
 })->name('storage.file');

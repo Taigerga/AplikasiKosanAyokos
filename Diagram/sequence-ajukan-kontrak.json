@@ -1,0 +1,27 @@
+{
+  "title": "Sequence - Ajukan Kontrak Sewa",
+  "participants": [
+    {"id": "penghuni", "label": "Penghuni", "actor": true},
+    {"id": "detailkosview", "label": "<<boundary>>\\nDetailKosView"},
+    {"id": "kontrakcontroller", "label": "<<control>>\\nKontrakController"},
+    {"id": "storekontrakrequest", "label": "<<control>>\\nStoreKontrakRequest"},
+    {"id": "kontrakservice", "label": "<<control>>\\nKontrakService"},
+    {"id": "kontraksewa", "label": "<<entity>>\\nKontrakSewa"},
+    {"id": "kamar", "label": "<<entity>>\\nKamar"}
+  ],
+  "messages": [
+    {"from": "penghuni", "to": "detailkosview", "label": "1: Pilih kamar\\nupload KTP"},
+    {"from": "detailkosview", "to": "kontrakcontroller", "label": "2: POST /kontrak"},
+    {"from": "kontrakcontroller", "to": "storekontrakrequest", "label": "3: Validasi", "activate": false},
+    {"from": "storekontrakrequest", "to": "kontrakcontroller", "label": "valid / invalid", "return": true},
+    {"from": "kontrakcontroller", "to": "kontrakservice", "label": "4: createKontrak()"},
+    {"from": "kontrakservice", "to": "kamar", "label": "5: cek status tersedia"},
+    {"from": "kamar", "to": "kontrakservice", "label": "return tersedia/terisi", "return": true},
+    {"from": "kontrakservice", "to": "kontraksewa", "label": "6: INSERT kontrak_sewa\\n(status=pending)"},
+    {"from": "kontraksewa", "to": "kontrakservice", "label": "return kontrak", "return": true},
+    {"from": "kontrakservice", "to": "kontrakcontroller", "label": "7: [gagal] error", "return": true, "deactivate": true},
+    {"from": "kontrakservice", "to": "kontrakcontroller", "label": "8: [sukses] response"},
+    {"from": "kontrakcontroller", "to": "detailkosview", "label": "9: response + notif"},
+    {"from": "detailkosview", "to": "penghuni", "label": "10: Menunggu approval\\npemilik"}
+  ]
+}

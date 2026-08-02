@@ -1,3 +1,7 @@
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+window.Chart = Chart;
+
 export function initAnalisisCharts(data) {
     if (typeof window.Chart === 'undefined') return;
     const C = window.Chart;

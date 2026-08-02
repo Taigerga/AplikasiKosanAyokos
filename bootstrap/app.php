@@ -23,8 +23,13 @@ return Application::configure(basePath: dirname(__DIR__))
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ]);
 
+        $middleware->api(append: [
+            'throttle:api-global',
+        ]);
+
         $middleware->web(append: [
             \App\Http\Middleware\SecurityHeaders::class,
+            'throttle:web-global',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

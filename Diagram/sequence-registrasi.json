@@ -1,0 +1,24 @@
+{
+  "title": "Sequence - Registrasi",
+  "participants": [
+    {"id": "pengunjung", "label": "Pengunjung", "actor": true},
+    {"id": "registrasiview", "label": "<<boundary>>\\nRegistrasiView"},
+    {"id": "authcontroller", "label": "<<control>>\\nAuthController"},
+    {"id": "registerrequest", "label": "<<control>>\\nRegisterRequest"},
+    {"id": "authservice", "label": "<<control>>\\nAuthService"},
+    {"id": "user", "label": "<<entity>>\\nUser"}
+  ],
+  "messages": [
+    {"from": "pengunjung", "to": "registrasiview", "label": "1: Isi data + pilih role"},
+    {"from": "registrasiview", "to": "authcontroller", "label": "2: POST /register"},
+    {"from": "authcontroller", "to": "registerrequest", "label": "3: Validasi input", "activate": false},
+    {"from": "registerrequest", "to": "authcontroller", "label": "valid / invalid", "return": true},
+    {"from": "authcontroller", "to": "authservice", "label": "4: register()"},
+    {"from": "authservice", "to": "user", "label": "5: INSERT User\\n+ Penghuni/Pemilik"},
+    {"from": "user", "to": "authservice", "label": "return user", "return": true},
+    {"from": "authservice", "to": "authcontroller", "label": "6: [gagal] error", "return": true, "deactivate": true},
+    {"from": "authservice", "to": "authcontroller", "label": "7: [sukses] auto login()"},
+    {"from": "authcontroller", "to": "registrasiview", "label": "8: redirect / dashboard"},
+    {"from": "registrasiview", "to": "pengunjung", "label": "Tampilkan dashboard"}
+  ]
+}

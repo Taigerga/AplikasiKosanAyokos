@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="24.7.17">
+  <diagram name="Use Case - Pemilik">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- System Boundary -->
+        <mxCell id="2" value="Sistem AyoKos" style="shape=umlFrame;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#333333;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="580" height="560" as="geometry" />
+        </mxCell>
+
+        <!-- Inherited browsing note -->
+        <mxCell id="3" value="Pemilik mewarisi dari Pengunjung:&#xa;UC-02 (Cari Kos), UC-03 (Detail Kos), UC-09 (Review Publik)" style="text;html=1;align=center;verticalAlign=middle;fontStyle=2;fontSize=9;fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="220" y="55" width="540" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Actor: Pemilik -->
+        <mxCell id="4" value="Pemilik" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="70" y="290" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== PEMILIK USE CASES ==================== -->
+
+        <!-- Row 1 (y=90) -->
+        <!-- UC-26: Melihat Dashboard -->
+        <mxCell id="5" value="UC-26&#xa;Melihat Dashboard" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- UC-27: Mengelola Kos (CRUD) -->
+        <mxCell id="7" value="UC-27&#xa;Mengelola Kos (CRUD)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="100" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- UC-28: Mengelola Foto Kos -->
+        <mxCell id="9" value="UC-28&#xa;Mengelola Foto Kos" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="100" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Row 2 (y=160) -->
+        <!-- UC-29: Mengelola Fasilitas Kos -->
+        <mxCell id="11" value="UC-29&#xa;Mengelola Fasilitas" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="160" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-30: Mengelola Pengaturan Kos -->
+        <mxCell id="12" value="UC-30&#xa;Pengaturan Kos" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="160" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-31: Mengelola Kamar (CRUD) -->
+        <mxCell id="13" value="UC-31&#xa;Mengelola Kamar (CRUD)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="160" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 3 (y=220) -->
+        <!-- UC-32: Melihat Daftar Kontrak -->
+        <mxCell id="14" value="UC-32&#xa;Lihat Daftar Kontrak" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="220" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-33: Menyetujui Kontrak -->
+        <mxCell id="15" value="UC-33&#xa;Menyetujui Kontrak" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="220" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-34: Menolak Kontrak -->
+        <mxCell id="16" value="UC-34&#xa;Menolak Kontrak" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="220" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 4 (y=280) -->
+        <!-- UC-35: Menyelesaikan Kontrak -->
+        <mxCell id="17" value="UC-35&#xa;Selesaikan Kontrak" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="280" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-36: Menghapus Kontrak -->
+        <mxCell id="18" value="UC-36&#xa;Menghapus Kontrak" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="280" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-37: Melihat Pembayaran -->
+        <mxCell id="19" value="UC-37&#xa;Melihat Pembayaran" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="280" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 5 (y=340) -->
+        <!-- UC-38: Menyetujui Pembayaran -->
+        <mxCell id="20" value="UC-38&#xa;Setujui Pembayaran" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="340" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-39: Menolak Pembayaran -->
+        <mxCell id="21" value="UC-39&#xa;Tolak Pembayaran" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="340" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-40: Melihat Review -->
+        <mxCell id="22" value="UC-40&#xa;Melihat Review" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="340" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 6 (y=400) -->
+        <!-- UC-41: Melihat Analisis -->
+        <mxCell id="23" value="UC-41&#xa;Melihat Analisis" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="400" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-42: Mengajukan Aduan -->
+        <mxCell id="24" value="UC-42&#xa;Mengajukan Aduan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="400" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-43: Komentar Aduan -->
+        <mxCell id="25" value="UC-43&#xa;Komentar Aduan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="400" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 7 (y=460) -->
+        <!-- UC-44: Mengelola Profil -->
+        <mxCell id="26" value="UC-44&#xa;Mengelola Profil" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="460" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-45: Melihat Notifikasi -->
+        <mxCell id="27" value="UC-45&#xa;Melihat Notifikasi" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="460" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- UC-46: Logout -->
+        <mxCell id="28" value="UC-46&#xa;Logout" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="460" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 8 (y=520) -->
+        <!-- UC-47: Export Analisis PDF -->
+        <mxCell id="29" value="UC-47&#xa;Export Analisis PDF" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="520" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="30" value="Legend" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="600" y="530" width="170" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="31" value="" style="rounded=0;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="30">
+          <mxGeometry x="10" y="28" width="20" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="32" value="Pemilik" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;" vertex="1" parent="30">
+          <mxGeometry x="36" y="26" width="130" height="18" as="geometry" />
+        </mxCell>
+      
+        <mxCell id="40" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="12">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="13">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="43" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="14">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="44" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="15">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="16">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="46" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="17">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="47" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="18">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="48" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="19">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="49" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="20">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="50" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="21">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="51" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="22">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="52" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="23">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="24">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="54" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="25">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="55" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="26">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="56" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="27">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="57" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="28">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="58" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="4" target="29">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

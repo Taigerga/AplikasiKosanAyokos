@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 md:mt-0 flex gap-3">
+                <div class="mt-4 md:mt-0 flex flex-wrap gap-3">
                     <a href="<?php echo e(route('penghuni.dashboard')); ?>"
                     class="inline-flex items-center px-4 py-2.5 bg-white border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:bg-gray-100 transition">
                         <i class="fas fa-arrow-left mr-2"></i>
@@ -235,7 +235,7 @@
                     Riwayat Kontrak
                 </h2>
                 <div class="overflow-x-auto  border-2 border-black">
-                    <table class="min-w-full divide-y divide-black">
+                    <table class="w-full" style="table-layout:fixed;min-width:0">
                         <thead class="bg-gray-100 border-2 border-black">
                             <tr>
                                 <th class="px-4 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">Kos</th>
@@ -247,7 +247,7 @@
                             <?php $__currentLoopData = $riwayatKontrak->take(5); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kontrak): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="hover:bg-gray-100 transition">
                                     <td class="px-4 py-3">
-                                        <div class="text-sm font-black text-black"><?php echo e($kontrak->kos->nama_kos); ?></div>
+                                        <div class="text-sm font-black text-black truncate"><?php echo e($kontrak->kos->nama_kos); ?></div>
                                         <div class="text-xs text-gray-600">Kamar <?php echo e($kontrak->kamar->nomor_kamar); ?></div>
                                     </td>
                                     <td class="px-4 py-3">
@@ -290,7 +290,7 @@
                     Preferensi Tipe Kamar
                 </h2>
                 <div class="overflow-x-auto  border-2 border-black">
-                    <table class="min-w-full divide-y divide-black">
+                    <table class="w-full" style="table-layout:fixed;min-width:0">
                         <thead class="bg-gray-100 border-2 border-black">
                             <tr>
                                 <th class="px-4 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">Tipe Kamar</th>
@@ -385,9 +385,6 @@
         </div>
     </div>
 
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         if (typeof window.initPenghuniCharts === 'function') {
@@ -400,9 +397,6 @@
         }
     });
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
     <div id="penghuniData"
          data-nama="<?php echo e(auth()->user()->nama ?? 'Penghuni'); ?>"

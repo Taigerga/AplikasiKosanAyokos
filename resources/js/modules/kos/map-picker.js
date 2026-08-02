@@ -1,9 +1,6 @@
-export function initKosMap() {
-    if (typeof L === 'undefined') {
-        console.error('Leaflet library not loaded!');
-        return;
-    }
+import L from 'leaflet';
 
+export function initKosMap() {
     const mapEl = document.getElementById('map');
     if (!mapEl) return;
 

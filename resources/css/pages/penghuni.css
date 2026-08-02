@@ -4,21 +4,21 @@
 }
 
 .overflow-x-auto::-webkit-scrollbar {
-    height: 6px;
+    height: 8px;
 }
 
 .overflow-x-auto::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
+    background: #e5e7eb;
+    border-radius: 4px;
 }
 
 .overflow-x-auto::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
+    background: #6b7280;
+    border-radius: 4px;
 }
 
 .overflow-x-auto::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: #4b5563;
 }
 
 tbody tr {
@@ -123,16 +123,6 @@ input[type="checkbox"]:checked + div {
 }
 
 /* ===== penghuni/pembayaran/index.blade.php ===== */
-table {
-    min-width: 1000px;
-}
-
-@media (max-width: 1024px) {
-    table {
-        min-width: unset;
-    }
-}
-
 tbody tr {
     transition: background-color 0.2s ease;
 }

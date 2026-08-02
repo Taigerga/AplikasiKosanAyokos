@@ -14,6 +14,7 @@ import { initSearchableSelects } from './modules/ui/searchable-select';
 import { initKontrakModal, openModal, closeModal } from './modules/kontrak/kontrak-modal';
 import { initKontrakTabs } from './modules/kontrak/kontrak-tabs';
 import { initKontrakCreateForm } from './modules/kontrak/create-form';
+import { initAutoRefresh } from './modules/dashboard/auto-refresh';
 import axios from 'axios';
 
 window.initKosMap = initKosMap;
@@ -68,5 +69,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('form[data-kontrak-create]')) {
         initKontrakCreateForm();
+    }
+
+    if (document.getElementById('auto-refresh-indicator')) {
+        initAutoRefresh();
+    }
+
+    // Offline detection
+    const offlineBanner = document.getElementById('offline-banner');
+    if (offlineBanner) {
+        function updateOnlineStatus() {
+            offlineBanner.classList.toggle('hidden', navigator.onLine);
+        }
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
     }
 });

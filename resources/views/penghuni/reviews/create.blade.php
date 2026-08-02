@@ -93,7 +93,7 @@
                             <h3 class="font-black text-black mb-1">{{ $kos->nama_kos }}</h3>
                             <div class="flex items-center text-gray-600 text-sm">
                                 <i class="fas fa-map-marker-alt mr-2 text-emerald-400"></i>
-                                <span>{{ $kos->alamat }}, {{ $kos->kota }}</span>
+                                <span class="truncate">{{ $kos->alamat }}, {{ $kos->kota }}</span>
                             </div>
                             <div class="mt-2 flex items-center">
                                 <span class="px-2 py-1 text-xs font-black bg-emerald-400 text-black border-2 border-black">
@@ -243,7 +243,7 @@
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="flex justify-end space-x-3 pt-4 border-t border-black">
+                <div class="flex justify-end gap-3 flex-wrap pt-4 border-t border-black">
                     <a href="{{ route('public.kos.show', $kos->id_kos) }}"
                        class="px-6 py-3 bg-white border-2 border-black shadow-[2px_2px_0px_#000] text-black  hover:bg-gray-100 transition flex items-center">
                         <i class="fas fa-times mr-2"></i>

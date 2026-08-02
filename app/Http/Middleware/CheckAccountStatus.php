@@ -11,7 +11,7 @@ class CheckAccountStatus
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $user = $request->user();
+        $user = $request->user('sanctum') ?? $request->user();
 
         if (!$user) {
             return $next($request);

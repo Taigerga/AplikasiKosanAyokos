@@ -158,7 +158,7 @@
     <?php endif; ?>
 
     <!-- Riwayat Pembayaran Table -->
-    <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
+    <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000]">
         <div class="p-6 border-b border-black">
             <h2 class="text-xl font-black text-black flex items-center">
                 <i class="fas fa-history text-black mr-3"></i>
@@ -168,40 +168,40 @@
 
         <?php if($pembayaran->count() > 0): ?>
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table class="w-full min-w-max">
                     <thead class="bg-gray-100 border-2 border-black">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
+                            <th class="px-3 md:px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-calendar mr-2"></i>
                                     Bulan
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
+                            <th class="px-3 md:px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-money-bill-wave mr-2"></i>
                                     Jumlah
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
+                            <th class="px-3 md:px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-credit-card mr-2"></i>
                                     Metode
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
+                            <th class="px-3 md:px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-tag mr-2"></i>
                                     Status
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
+                            <th class="px-3 md:px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-clock mr-2"></i>
                                     Tanggal
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
+                            <th class="px-3 md:px-6 py-3 text-left text-xs font-black text-gray-600 uppercase tracking-wider">
                                 <div class="flex items-center">
                                     <i class="fas fa-cog mr-2"></i>
                                     Aksi
@@ -212,8 +212,8 @@
                     <tbody class="divide-y divide-black">
                         <?php $__currentLoopData = $pembayaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bayar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="hover:bg-gray-100 transition-colors">
-                                <td class="px-6 py-4">
-                                    <div>
+                                <td class="px-3 md:px-6 py-4">
+                                    <div class="min-w-0">
                                         <div class="text-sm font-black text-black">
                                             <?php echo e(\Carbon\Carbon::createFromFormat('Y-m', $bayar->bulan_tahun)->format('F Y')); ?>
 
@@ -229,14 +229,14 @@
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4">
+                                <td class="px-3 md:px-6 py-4">
                                     <div class="text-sm font-black text-black">
                                         Rp <?php echo e(number_format($bayar->jumlah, 0, ',', '.')); ?>
 
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4">
+                                <td class="px-3 md:px-6 py-4">
                                     <span class="inline-flex items-center px-3 py-1 text-xs font-black bg-sky-400 text-black border-2 border-black capitalize">
                                         <i class="fas <?php echo e($bayar->metode_pembayaran == 'transfer' ? 'fa-university' :
                                         ($bayar->metode_pembayaran == 'cash' ? 'fa-money-bill' : 'fa-qrcode')); ?> mr-1 text-xs">
@@ -246,7 +246,7 @@
                                     </span>
                                 </td>
 
-                                <td class="px-6 py-4">
+                                <td class="px-3 md:px-6 py-4">
                                     <span class="inline-flex items-center px-3 py-1 text-xs font-black border-2 border-black
                                         <?php echo e($bayar->status_pembayaran == 'lunas' ? 'bg-emerald-400 text-black' :
                                         ($bayar->status_pembayaran == 'pending' ? 'bg-yellow-400 text-black' :
@@ -261,7 +261,7 @@
                                     </span>
                                 </td>
 
-                                <td class="px-6 py-4">
+                                <td class="px-3 md:px-6 py-4">
                                     <div class="text-sm text-gray-600">
                                         <?php if($bayar->tanggal_bayar): ?>
                                             <div class="flex items-center">
@@ -275,7 +275,7 @@
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4">
+                                <td class="px-3 md:px-6 py-4">
                                     <a href="<?php echo e(route('penghuni.pembayaran.show', $bayar->id_pembayaran)); ?>"
                                         class="inline-flex items-center px-3 py-1.5 bg-emerald-400 border-2 border-black shadow-[3px_3px_0px_#000] text-black  text-sm font-black hover:bg-emerald-500/30 transition-all duration-300">
                                         <i class="fas fa-eye mr-1 text-xs"></i>

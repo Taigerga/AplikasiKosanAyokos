@@ -227,7 +227,7 @@
                                     </div>
                                     <div class="flex items-center text-gray-600 text-sm mb-2">
                                         <i class="fas fa-map-marker-alt mr-2 text-black"></i>
-                                        <span class="text-black">{{ $review->kos->alamat }}, {{ $review->kos->kota }}</span>
+                                        <span class="text-black truncate">{{ $review->kos->alamat }}, {{ $review->kos->kota }}</span>
                                     </div>
                                 </div>
 

@@ -68,9 +68,9 @@
         </div>
 
         <!-- Main Card -->
-        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
+        <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000]">
             <!-- Status Banner -->
-            <div class="p-6 border-b-2 border-black
+            <div class="p-4 md:p-6 border-b-2 border-black
                 {{ $pembayaran->status_pembayaran == 'lunas' ? 'bg-emerald-400' :
                    ($pembayaran->status_pembayaran == 'pending' ? 'bg-yellow-400' :
                    ($pembayaran->status_pembayaran == 'terlambat' ? 'bg-red-400' :
@@ -110,17 +110,17 @@
                                 Informasi Kos
                             </h3>
                             <div class="space-y-3">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">Nama Kos</span>
-                                    <span class="font-black text-black">{{ $pembayaran->kontrak->kos->nama_kos ?? '-' }}</span>
+                                <div class="flex justify-between items-center gap-2 min-w-0">
+                                    <span class="text-gray-600 shrink-0">Nama Kos</span>
+                                    <span class="font-black text-black text-right truncate">{{ $pembayaran->kontrak->kos->nama_kos ?? '-' }}</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">Alamat</span>
-                                    <span class="font-black text-black text-right">{{ $pembayaran->kontrak->kos->alamat ?? '-' }}</span>
+                                <div class="flex justify-between items-center gap-2 min-w-0">
+                                    <span class="text-gray-600 shrink-0">Alamat</span>
+                                    <span class="font-black text-black text-right truncate">{{ $pembayaran->kontrak->kos->alamat ?? '-' }}</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">Kamar</span>
-                                    <span class="font-black text-black">No. {{ $pembayaran->kontrak->kamar->nomor_kamar ?? '-' }}</span>
+                                <div class="flex justify-between items-center gap-2 min-w-0">
+                                    <span class="text-gray-600 shrink-0">Kamar</span>
+                                    <span class="font-black text-black text-right">No. {{ $pembayaran->kontrak->kamar->nomor_kamar ?? '-' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -157,51 +157,51 @@
                                 Timeline Pembayaran
                             </h3>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8  bg-gray-100 border-2 border-black flex items-center justify-center">
+                                <div class="flex justify-between items-center gap-2 min-w-0">
+                                    <div class="flex items-center gap-3 min-w-0">
+                                        <div class="w-8 h-8 shrink-0 bg-gray-100 border-2 border-black flex items-center justify-center">
                                             <i class="fas fa-calendar text-black text-sm"></i>
                                         </div>
-                                        <div>
+                                        <div class="min-w-0">
                                             <span class="block text-sm text-gray-600">Jatuh Tempo</span>
-                                            <span class="text-black font-black">{{ \Carbon\Carbon::parse($pembayaran->tanggal_jatuh_tempo)->format('d M Y') }}</span>
+                                            <span class="text-black font-black truncate">{{ \Carbon\Carbon::parse($pembayaran->tanggal_jatuh_tempo)->format('d M Y') }}</span>
                                         </div>
                                     </div>
-                                    <span class="text-xs px-2 py-1 bg-gray-200 border-2 border-black text-black font-black">Tanggal</span>
+                                    <span class="text-xs px-2 py-1 shrink-0 bg-gray-200 border-2 border-black text-black font-black">Tanggal</span>
                                 </div>
 
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8 
+                                <div class="flex justify-between items-center gap-2 min-w-0">
+                                    <div class="flex items-center gap-3 min-w-0">
+                                        <div class="w-8 h-8 shrink-0 
                                             {{ $pembayaran->tanggal_bayar ? 'bg-emerald-400' : 'bg-gray-100 border-2 border-black' }} flex items-center justify-center">
                                             <i class="fas
                                                 {{ $pembayaran->tanggal_bayar ? 'fa-check text-emerald-400' : 'fa-clock text-black' }}
                                                 text-sm"></i>
                                         </div>
-                                        <div>
+                                        <div class="min-w-0">
                                             <span class="block text-sm text-gray-600">Tanggal Bayar</span>
-                                            <span class="text-black font-black">
+                                            <span class="text-black font-black truncate">
                                                 {{ $pembayaran->tanggal_bayar ? $pembayaran->tanggal_bayar->format('d M Y H:i') : 'Menunggu pembayaran' }}
                                             </span>
                                         </div>
                                     </div>
-                                    <span class="text-xs px-2 py-1 border-2 border-black
+                                    <span class="text-xs px-2 py-1 shrink-0 border-2 border-black
                                         {{ $pembayaran->tanggal_bayar ? 'bg-emerald-400 text-black' : 'bg-yellow-400 text-black' }}">
                                         {{ $pembayaran->tanggal_bayar ? 'Telah Dibayar' : 'Pending' }}
                                     </span>
                                 </div>
 
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8  bg-gray-100 border-2 border-black flex items-center justify-center">
+                                <div class="flex justify-between items-center gap-2 min-w-0">
+                                    <div class="flex items-center gap-3 min-w-0">
+                                        <div class="w-8 h-8 shrink-0 bg-gray-100 border-2 border-black flex items-center justify-center">
                                             <i class="fas fa-calendar-check text-black text-sm"></i>
                                         </div>
-                                        <div>
+                                        <div class="min-w-0">
                                             <span class="block text-sm text-gray-600">Periode</span>
-                                            <span class="text-black font-black">{{ \Carbon\Carbon::createFromFormat('Y-m', $pembayaran->bulan_tahun)->format('F Y') }}</span>
+                                            <span class="text-black font-black truncate">{{ \Carbon\Carbon::createFromFormat('Y-m', $pembayaran->bulan_tahun)->format('F Y') }}</span>
                                         </div>
                                     </div>
-                                    <span class="text-xs px-2 py-1  bg-gray-100 border-2 border-black text-gray-600">Bulan</span>
+                                    <span class="text-xs px-2 py-1 shrink-0 bg-gray-100 border-2 border-black text-gray-600">Bulan</span>
                                 </div>
                             </div>
                         </div>
@@ -213,17 +213,17 @@
                                 Informasi Tambahan
                             </h3>
                             <div class="space-y-3">
-                                <div class="flex justify-between items-start">
-                                    <span class="text-gray-600">Keterangan</span>
-                                    <span class="font-black text-black text-right">{{ $pembayaran->keterangan ?? 'Tidak ada keterangan' }}</span>
+                                <div class="flex justify-between items-start gap-2 min-w-0">
+                                    <span class="text-gray-600 shrink-0">Keterangan</span>
+                                    <span class="font-black text-black text-right break-words">{{ $pembayaran->keterangan ?? 'Tidak ada keterangan' }}</span>
                                 </div>
-                                <div class="flex justify-between items-start">
-                                    <span class="text-gray-600">Dibuat pada</span>
-                                    <span class="font-black text-black">{{ $pembayaran->created_at->format('d M Y H:i') }}</span>
+                                <div class="flex justify-between items-start gap-2 min-w-0">
+                                    <span class="text-gray-600 shrink-0">Dibuat pada</span>
+                                    <span class="font-black text-black text-right">{{ $pembayaran->created_at->format('d M Y H:i') }}</span>
                                 </div>
-                                <div class="flex justify-between items-start">
-                                    <span class="text-gray-600">Terakhir diupdate</span>
-                                    <span class="font-black text-black">{{ $pembayaran->updated_at->format('d M Y H:i') }}</span>
+                                <div class="flex justify-between items-start gap-2 min-w-0">
+                                    <span class="text-gray-600 shrink-0">Terakhir diupdate</span>
+                                    <span class="font-black text-black text-right">{{ $pembayaran->updated_at->format('d M Y H:i') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -304,41 +304,41 @@
         <!-- Summary Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-5">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10  bg-gray-100 border-2 border-black flex items-center justify-center">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 shrink-0 bg-gray-100 border-2 border-black flex items-center justify-center">
                         <i class="fas
                             {{ $pembayaran->status_pembayaran == 'lunas' ? 'fa-check-circle text-emerald-400' :
                                ($pembayaran->status_pembayaran == 'pending' ? 'fa-clock text-yellow-400' :
                                ($pembayaran->status_pembayaran == 'terlambat' ? 'fa-exclamation-circle text-rose-400' :
                                'fa-question-circle text-gray-400')) }}"></i>
                     </div>
-                    <div>
+                    <div class="min-w-0">
                         <span class="block text-sm text-gray-600">Status</span>
-                        <span class="font-black text-black">{{ ucfirst($pembayaran->status_pembayaran) }}</span>
+                        <span class="font-black text-black truncate">{{ ucfirst($pembayaran->status_pembayaran) }}</span>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-5">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10  bg-gray-100 border-2 border-black flex items-center justify-center">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 shrink-0 bg-gray-100 border-2 border-black flex items-center justify-center">
                         <i class="fas fa-money-bill-wave text-black"></i>
                     </div>
-                    <div>
+                    <div class="min-w-0">
                         <span class="block text-sm text-gray-600">Jumlah</span>
-                        <span class="font-black text-black">Rp {{ number_format($pembayaran->jumlah, 0, ',', '.') }}</span>
+                        <span class="font-black text-black truncate">Rp {{ number_format($pembayaran->jumlah, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white border-2 border-black shadow-[2px_2px_0px_#000] p-5">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10  bg-gray-100 border-2 border-black flex items-center justify-center">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 shrink-0 bg-gray-100 border-2 border-black flex items-center justify-center">
                         <i class="fas fa-wallet text-black"></i>
                     </div>
-                    <div>
+                    <div class="min-w-0">
                         <span class="block text-sm text-gray-600">Metode</span>
-                        <span class="font-black text-black capitalize">{{ $pembayaran->metode_pembayaran }}</span>
+                        <span class="font-black text-black truncate capitalize">{{ $pembayaran->metode_pembayaran }}</span>
                     </div>
                 </div>
             </div>

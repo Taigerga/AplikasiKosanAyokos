@@ -22,6 +22,39 @@ class SecurityHeaders
             $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
         }
 
+        $isLocal = app()->environment('local');
+        $viteUrls = $isLocal ? ['http://localhost:5173', 'http://127.0.0.1:5173'] : [];
+
+        $scriptSrc = ["'self'", "'unsafe-inline'", 'https://unpkg.com', 'https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com', 'https://html2canvas.hertzen.com'];
+        $styleSrc  = ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', 'https://unpkg.com', 'https://cdnjs.cloudflare.com'];
+        $imgSrc    = ["'self'", 'data:', 'https://images.unsplash.com', 'https://raw.githubusercontent.com', 'https://cdnjs.cloudflare.com', 'https://*.basemaps.cartocdn.com', 'https://*.tile.openstreetmap.org'];
+        $fontSrc   = ["'self'", 'data:', 'https://fonts.gstatic.com', 'https://cdnjs.cloudflare.com'];
+        $connectSrc = ["'self'", 'https://nominatim.openstreetmap.org', 'https://overpass-api.de', 'https://*.basemaps.cartocdn.com', 'https://*.tile.openstreetmap.org'];
+        $frameSrc  = ["'self'", 'https://app.sandbox.midtrans.com', 'https://app.midtrans.com'];
+        $mediaSrc  = ["'self'"];
+
+        foreach ($viteUrls as $url) {
+            $scriptSrc[] = $url;
+            $styleSrc[] = $url;
+            $fontSrc[] = $url;
+            $imgSrc[] = $url;
+            $wsUrl = str_replace('http://', 'ws://', $url);
+            $connectSrc[] = $url;
+            $connectSrc[] = $wsUrl;
+        }
+
+        $csp = 'default-src \'self\'; '
+             . 'script-src ' . implode(' ', $scriptSrc) . '; '
+             . 'style-src ' . implode(' ', $styleSrc) . '; '
+             . 'img-src ' . implode(' ', $imgSrc) . '; '
+             . 'font-src ' . implode(' ', $fontSrc) . '; '
+             . 'connect-src ' . implode(' ', $connectSrc) . '; '
+             . 'frame-src ' . implode(' ', $frameSrc) . '; '
+             . 'media-src ' . implode(' ', $mediaSrc) . '; '
+             . 'form-action \'self\'';
+
+        $response->headers->set('Content-Security-Policy', $csp);
+
         return $response;
     }
 }

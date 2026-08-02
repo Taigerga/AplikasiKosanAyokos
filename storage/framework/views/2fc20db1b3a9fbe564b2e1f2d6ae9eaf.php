@@ -137,30 +137,31 @@
         </div>
 
         <?php if($aduans->count() > 0): ?>
-            <div class="overflow-x-auto">
-                <table class="w-full">
+            <!-- Desktop Table View -->
+            <div class="overflow-x-auto w-full hidden md:block">
+                <table class="w-full min-w-[750px] text-left border-collapse">
                     <thead>
                         <tr class="bg-gray-100 border-b-2 border-black">
-                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide">No</th>
-                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide">Judul</th>
-                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide">Kategori</th>
-                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide">Status</th>
-                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide">Tanggal</th>
-                            <th class="px-4 py-4 text-center text-sm font-black text-black uppercase tracking-wide">Aksi</th>
+                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide min-w-[50px] w-14">No</th>
+                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide min-w-[200px]">Judul</th>
+                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide min-w-[130px]">Kategori</th>
+                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide min-w-[130px]">Status</th>
+                            <th class="px-4 py-4 text-left text-sm font-black text-black uppercase tracking-wide min-w-[120px]">Tanggal</th>
+                            <th class="px-4 py-4 text-center text-sm font-black text-black uppercase tracking-wide min-w-[100px]">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y-2 divide-gray-200">
                         <?php $__currentLoopData = $aduans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $aduan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="hover:bg-gray-50 transition">
-                                <td class="px-4 py-4 text-sm font-bold text-gray-700"><?php echo e($aduans->firstItem() + $index); ?></td>
+                                <td class="px-4 py-4 text-sm font-bold text-gray-700 whitespace-nowrap"><?php echo e($aduans->firstItem() + $index); ?></td>
                                 <td class="px-4 py-4 text-sm font-black text-black"><?php echo e($aduan->judul); ?></td>
-                                <td class="px-4 py-4">
-                                    <span class="inline-flex items-center px-2 py-1 text-xs font-black border-2 border-black bg-gray-100 text-black">
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-1 text-xs font-black border-2 border-black bg-gray-100 text-black">
                                         <?php echo e(ucfirst(str_replace('_', ' ', $aduan->kategori))); ?>
 
                                     </span>
                                 </td>
-                                <td class="px-4 py-4">
+                                <td class="px-4 py-4 whitespace-nowrap">
                                     <?php
                                         $statusColors = [
                                             'diajukan' => 'bg-yellow-400',
@@ -173,14 +174,14 @@
                                         ];
                                         $color = $statusColors[$aduan->status_aduan] ?? 'bg-gray-200';
                                     ?>
-                                    <span class="inline-flex items-center px-2 py-1 text-xs font-black border-2 border-black <?php echo e($color); ?> text-black">
+                                    <span class="inline-flex items-center px-2.5 py-1 text-xs font-black border-2 border-black <?php echo e($color); ?> text-black">
                                         <?php echo e(ucfirst(str_replace('_', ' ', $aduan->status_aduan))); ?>
 
                                     </span>
                                 </td>
-                                <td class="px-4 py-4 text-sm font-bold text-gray-600"><?php echo e(\Carbon\Carbon::parse($aduan->created_at)->format('d M Y')); ?></td>
-                                <td class="px-4 py-4 text-center">
-                                    <a href="<?php echo e(route('penghuni.aduan.show', $aduan->id_aduan)); ?>" class="inline-flex items-center px-3 py-2 bg-sky-400 hover:bg-sky-500 text-black font-black text-sm border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
+                                <td class="px-4 py-4 text-sm font-bold text-gray-600 whitespace-nowrap"><?php echo e(\Carbon\Carbon::parse($aduan->created_at)->format('d M Y')); ?></td>
+                                <td class="px-4 py-4 text-center whitespace-nowrap">
+                                    <a href="<?php echo e(route('penghuni.aduan.show', $aduan->id_aduan)); ?>" class="inline-flex items-center px-3 py-1.5 bg-sky-400 hover:bg-sky-500 text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
                                         <i class="fas fa-eye mr-1"></i>
                                         Lihat
                                     </a>
@@ -191,9 +192,58 @@
                 </table>
             </div>
 
-            <div class="px-6 py-4 border-t-2 border-gray-200">
-                <div class="flex items-center justify-between">
-                    <div class="text-sm font-bold text-gray-600">
+            <!-- Mobile Card View -->
+            <div class="md:hidden divide-y-2 divide-gray-200">
+                <?php $__currentLoopData = $aduans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $aduan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
+                        $statusColors = [
+                            'diajukan' => 'bg-yellow-400',
+                            'ditinjau' => 'bg-sky-400',
+                            'diproses' => 'bg-orange-400',
+                            'menunggu_info' => 'bg-purple-400',
+                            'selesai' => 'bg-emerald-400',
+                            'ditolak' => 'bg-rose-400',
+                            'ditutup' => 'bg-gray-400',
+                        ];
+                        $color = $statusColors[$aduan->status_aduan] ?? 'bg-gray-200';
+                    ?>
+                    <div class="p-4 space-y-3">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="min-w-0 flex-1">
+                                <span class="text-xs text-gray-500 font-bold">#<?php echo e($aduans->firstItem() + $index); ?></span>
+                                <h4 class="text-base font-black text-black truncate mt-0.5"><?php echo e($aduan->judul); ?></h4>
+                            </div>
+                            <span class="inline-flex items-center px-2 py-1 text-xs font-black border-2 border-black <?php echo e($color); ?> text-black shrink-0 whitespace-nowrap">
+                                <?php echo e(ucfirst(str_replace('_', ' ', $aduan->status_aduan))); ?>
+
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-gray-600 pt-1">
+                            <span class="inline-flex items-center px-2 py-0.5 font-black border-2 border-black bg-gray-100 text-black">
+                                <?php echo e(ucfirst(str_replace('_', ' ', $aduan->kategori))); ?>
+
+                            </span>
+                            <span>
+                                <i class="fas fa-calendar-alt mr-1"></i>
+                                <?php echo e(\Carbon\Carbon::parse($aduan->created_at)->format('d M Y')); ?>
+
+                            </span>
+                        </div>
+                        <div class="pt-2 flex justify-end">
+                            <a href="<?php echo e(route('penghuni.aduan.show', $aduan->id_aduan)); ?>" class="inline-flex items-center px-3 py-1.5 bg-sky-400 text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000]">
+                                <i class="fas fa-eye mr-1"></i>
+                                Lihat Detail
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+
+            <!-- Pagination -->
+            <?php if($aduans->hasPages()): ?>
+            <div class="px-4 sm:px-6 py-4 border-t-2 border-gray-200">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-sm font-bold text-gray-600 text-center sm:text-left">
                         Menampilkan <?php echo e($aduans->firstItem()); ?> - <?php echo e($aduans->lastItem()); ?> dari <?php echo e($aduans->total()); ?> aduan
                     </div>
                     <div class="flex space-x-2">
@@ -202,6 +252,7 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         <?php else: ?>
             <div class="text-center py-12">
                 <div class="w-20 h-20 bg-gray-200 border-2 border-black flex items-center justify-center mx-auto mb-4 shadow-[2px_2px_0px_#000]">

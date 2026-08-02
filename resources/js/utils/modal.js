@@ -48,12 +48,4 @@ export function initModal(elementId) {
     return new Modal(el);
 }
 
-export function confirmDelete(message = 'Apakah Anda yakin ingin menghapus data ini?') {
-    return new Promise((resolve) => {
-        if (confirm(message)) {
-            resolve(true);
-        } else {
-            resolve(false);
-        }
-    });
-}
+

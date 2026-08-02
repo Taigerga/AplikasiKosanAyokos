@@ -90,7 +90,7 @@
                                 <a href="<?php echo e(route('admin.users.edit', $user->id)); ?>" class="bg-sky-400 border-2 border-black px-2 py-1 text-xs font-bold hover:bg-sky-500 transition-colors inline-flex items-center gap-1">
                                     <i class="fas fa-edit"></i>Edit
                                 </a>
-                                <form method="POST" action="<?php echo e(route('admin.users.destroy', $user->id)); ?>" class="inline" onsubmit="return confirm('Hapus admin ini?')">
+                                <form method="POST" action="<?php echo e(route('admin.users.destroy', $user->id)); ?>" data-ajax="true" data-ajax-method="DELETE" data-confirm="Hapus admin ini?" data-confirm-type="danger" data-success-msg="Admin berhasil dihapus">
                                     <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
                                     <button type="submit" class="bg-red-400 border-2 border-black px-2 py-1 text-xs font-bold hover:bg-red-500 transition-colors inline-flex items-center gap-1">
                                         <i class="fas fa-trash"></i>Hapus

@@ -87,5 +87,15 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             });
         });
+
+        // Global API rate limiter
+        RateLimiter::for('api-global', function (Request $request) {
+            return Limit::perMinute(120)->by('api-global:' . ($request->user()?->id ?? $request->ip()));
+        });
+
+        // Global web rate limiter
+        RateLimiter::for('web-global', function (Request $request) {
+            return Limit::perMinute(60)->by('web-global:' . ($request->user()?->id ?? $request->ip()));
+        });
     }
 }

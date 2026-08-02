@@ -108,35 +108,35 @@
 
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm kontrak-info bg-gray-100 border-2 border-black p-4">
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-building text-sky-500 w-5"></i>
-                        <div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <i class="fas fa-building text-sky-500 w-5 shrink-0"></i>
+                        <div class="min-w-0">
                             <div class="text-gray-600 text-xs">Kos</div>
-                            <div class="font-black text-black" id="info-kos">{{ $selectedKontrak->kos->nama_kos }}</div>
+                            <div class="font-black text-black truncate" id="info-kos">{{ $selectedKontrak->kos->nama_kos }}</div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-door-closed text-emerald-500 w-5"></i>
-                        <div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <i class="fas fa-door-closed text-emerald-500 w-5 shrink-0"></i>
+                        <div class="min-w-0">
                             <div class="text-gray-600 text-xs">Kamar</div>
-                            <div class="font-black text-black" id="info-kamar">{{ $selectedKontrak->kamar->nomor_kamar }}
+                            <div class="font-black text-black truncate" id="info-kamar">{{ $selectedKontrak->kamar->nomor_kamar }}
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-tag text-amber-500 w-5"></i>
-                        <div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <i class="fas fa-tag text-amber-500 w-5 shrink-0"></i>
+                        <div class="min-w-0">
                             <div class="text-gray-600 text-xs">Harga Sewa</div>
-                            <div class="font-black text-black">Rp <span
+                            <div class="font-black text-black break-words">Rp <span
                                     id="info-harga">{{ number_format($selectedKontrak->harga_sewa, 0, ',', '.') }}</span>/{{ strtolower($unitLabel) }}
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-calendar-alt text-blue-500 w-5"></i>
-                        <div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <i class="fas fa-calendar-alt text-blue-500 w-5 shrink-0"></i>
+                        <div class="min-w-0">
                             <div class="text-gray-600 text-xs">Periode Kontrak</div>
-                            <div class="font-black text-black" id="info-periode">
+                            <div class="font-black text-black break-words" id="info-periode">
                                 @if($selectedKontrak->tanggal_mulai && $selectedKontrak->tanggal_selesai)
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_mulai)->format('d M Y') }} -
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->format('d M Y') }}
@@ -146,11 +146,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="md:col-span-2 flex items-center space-x-2 bg-yellow-100 border-2 border-black p-3 ">
-                        <i class="fas fa-clock text-amber-500 w-5"></i>
-                        <div>
+                    <div class="md:col-span-2 flex items-center gap-2 min-w-0 bg-yellow-100 border-2 border-black p-3 ">
+                        <i class="fas fa-clock text-amber-500 w-5 shrink-0"></i>
+                        <div class="min-w-0">
                             <div class="text-gray-600 text-xs">Tenggat Pembayaran</div>
-                            <div class="font-black text-amber-400" id="info-grace-period">
+                            <div class="font-black text-amber-400 break-words" id="info-grace-period">
                                 @if($selectedKontrak->tanggal_selesai)
                                     {{ \Carbon\Carbon::parse($selectedKontrak->tanggal_selesai)->addDays(7)->format('d M Y') }}
                                 @else
@@ -252,7 +252,7 @@
                             <div>
                                 <label class="block text-sm font-black text-black mb-3">Bayar Berapa {{ $unitLabel }}?
                                     *</label>
-                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                                     @foreach($paymentOptions as $option)
                                         <label
                                             class="flex items-center p-3 border-2 border-black  cursor-pointer hover:border-black bg-gray-100 transition-all duration-200 jumlah-bulan-option group">
@@ -322,7 +322,7 @@
                         <!-- Metode Pembayaran -->
                         <div>
                             <label class="block text-sm font-black text-black mb-3">Metode Pembayaran *</label>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 <label
                                     class="flex items-center p-3 border-2 border-black  cursor-pointer hover:border-sky-500 bg-gray-100 transition-all duration-200">
                                     <input type="radio" name="metode_pembayaran" value="transfer" class="mr-3" checked>
@@ -363,20 +363,20 @@
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Informasi Transfer
                             </h3>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="min-w-0">
                                     <div class="text-xs font-bold mb-1 text-black">Bank</div>
-                                    <div class="text-black font-black" id="info-nama-bank">
+                                    <div class="text-black font-black truncate" id="info-nama-bank">
                                         {{ $selectedKontrak->kos->pemilik->nama_bank ?? 'Belum Diatur' }}</div>
                                 </div>
-                                <div>
+                                <div class="min-w-0">
                                     <div class="text-xs font-bold mb-1 text-black">No. Rekening</div>
-                                    <div class="text-black font-black" id="info-nomor-rekening">
+                                    <div class="text-black font-black truncate" id="info-nomor-rekening">
                                         {{ $selectedKontrak->kos->pemilik->nomor_rekening ?? '-' }}</div>
                                 </div>
-                                <div class="md:col-span-2">
+                                <div class="sm:col-span-2 min-w-0">
                                     <div class="text-black text-xs mb-1 font-bold">Atas Nama</div>
-                                    <div class="text-black font-black" id="info-pemilik">
+                                    <div class="text-black font-black truncate" id="info-pemilik">
                                         {{ $selectedKontrak->kos->pemilik->nama }}</div>
                                 </div>
                             </div>

@@ -113,8 +113,8 @@
                                 <i class="fas fa-door-closed text-sky-500 text-sm"></i>
                                 <span class="text-sm text-gray-600">Kamar</span>
                             </div>
-                            <div class="text-black font-black">{{ $k->kamar->nomor_kamar }}</div>
-                            <div class="text-xs text-gray-600">{{ $k->kamar->tipe_kamar }}</div>
+                            <div class="text-black font-black break-words">{{ $k->kamar->nomor_kamar }}</div>
+                            <div class="text-xs text-gray-600 break-words">{{ $k->kamar->tipe_kamar }}</div>
                         </div>
 
                         <!-- Durasi -->

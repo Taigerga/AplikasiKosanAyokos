@@ -1,0 +1,20 @@
+{
+  "title": "Sequence - Callback Pembayaran",
+  "participants": [
+    {"id": "xendit", "label": "Xendit", "actor": true},
+    {"id": "callbackcontroller", "label": "<<control>>\\nPaymentCallback\\nController"},
+    {"id": "pembayaranservice", "label": "<<control>>\\nPembayaranService"},
+    {"id": "pembayaran", "label": "<<entity>>\\nPembayaran"}
+  ],
+  "messages": [
+    {"from": "xendit", "to": "callbackcontroller", "label": "1: POST /payment/callback\\n(X-Callback-Signature)"},
+    {"from": "callbackcontroller", "to": "pembayaranservice", "label": "2: Verifikasi\\nHMAC-SHA256"},
+    {"from": "pembayaranservice", "to": "callbackcontroller", "label": "[invalid] 400 error", "return": true, "deactivate": true},
+    {"from": "pembayaranservice", "to": "callbackcontroller", "label": "[valid] lanjut"},
+    {"from": "callbackcontroller", "to": "pembayaranservice", "label": "3: handleCallback()"},
+    {"from": "pembayaranservice", "to": "pembayaran", "label": "4: UPDATE status=lunas"},
+    {"from": "pembayaran", "to": "pembayaranservice", "label": "return", "return": true},
+    {"from": "pembayaranservice", "to": "callbackcontroller", "label": "5: response sukses"},
+    {"from": "callbackcontroller", "to": "xendit", "label": "6: 200 OK"}
+  ]
+}

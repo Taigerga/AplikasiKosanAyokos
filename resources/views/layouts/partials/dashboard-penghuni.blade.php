@@ -192,7 +192,7 @@
     </button>
 
     <!-- Main Content -->
-    <main id="mainContent" class="flex-1 transition-all duration-300 ease-in-out bg-gray-50">
+    <main id="mainContent" class="flex-1 min-w-0 w-full overflow-x-hidden transition-all duration-300 ease-in-out bg-gray-50">
         @yield('content')
     </main>
 </div>

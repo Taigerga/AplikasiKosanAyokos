@@ -15,16 +15,9 @@
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
 
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-    <!-- AOS Animation CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-
-
 </head>
 
-<body class="text-black flex flex-col min-h-screen">
+<body class="text-black flex flex-col min-h-screen overflow-x-hidden">
     <!-- Dynamic Header Based on Auth Status -->
     <?php if(auth()->guard()->check()): ?>
         <?php if(auth()->user()->role === 'penghuni'): ?>
@@ -77,8 +70,14 @@
             </div>
         </header>
 
+        <!-- Offline Banner -->
+        <div id="offline-banner" class="hidden bg-red-500 text-white text-center py-2 px-4 font-bold text-sm">
+            <i class="fas fa-wifi-slash mr-2"></i>
+            Koneksi internet terputus. Beberapa fitur mungkin tidak berfungsi.
+        </div>
+
         <!-- Main Content -->
-        <main class="flex-1 flex flex-col">
+        <main class="flex-1 flex flex-col min-w-0 w-full overflow-x-hidden">
             <?php echo $__env->yieldContent('content'); ?>
         </main>
 
@@ -212,11 +211,6 @@
         </div>
     <?php endif; ?>
 
-    <!-- AOS Animation JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Leaflet JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
     <script>
         class Modal {
             constructor(modalId) {
@@ -301,15 +295,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            // AOS Init
-            AOS.init({
-                duration: 800,
-                easing: 'ease-out-cubic',
-                once: true,
-                offset: 40,
-                disable: 'mobile'
-            });
-
             setupProfileDropdown();
             fetchNotifCount();
 

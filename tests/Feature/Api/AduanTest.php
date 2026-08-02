@@ -112,14 +112,9 @@ class AduanTest extends TestCase
             ]);
 
         $admin = User::factory()->create(['role' => 'admin']);
-        $adminToken = $admin->createToken('test')->plainTextToken;
 
-        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $adminToken])
+        $response = $this->actingAs($admin, 'sanctum')
             ->getJson('/api/admin/aduan');
-
-        dump('ADMIN ROLE: ' . $admin->role);
-        dump('STATUS: ' . $response->getStatusCode());
-        dump($response->getContent());
 
         $response->assertStatus(200)
             ->assertJsonStructure(['success', 'data' => ['aduans', 'statistik']]);
@@ -140,9 +135,8 @@ class AduanTest extends TestCase
         $id = $create->json('data.id_aduan');
 
         $admin = User::factory()->create(['role' => 'admin']);
-        $adminToken = $admin->createToken('test')->plainTextToken;
 
-        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $adminToken])
+        $response = $this->actingAs($admin, 'sanctum')
             ->postJson("/api/admin/aduan/{$id}/status", [
                 'status' => 'selesai',
             ]);

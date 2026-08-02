@@ -122,6 +122,18 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-    
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Callback Token
+    |--------------------------------------------------------------------------
+    |
+    | Shared secret for verifying incoming payment webhook callbacks.
+    | Set this in .env and configure the payment gateway to send it
+    | as X-Callback-Signature header (HMAC-SHA256 of raw body).
+    |
+    */
+
+    'payment_callback_token' => env('PAYMENT_CALLBACK_TOKEN'),
 
 ];

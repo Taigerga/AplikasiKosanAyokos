@@ -1,0 +1,30 @@
+{
+  "title": "Sequence - Setujui Kontrak",
+  "participants": [
+    {"id": "pemilik", "label": "Pemilik", "actor": true},
+    {"id": "daftarkontrakview", "label": "<<boundary>>\\nDaftarKontrakView"},
+    {"id": "kontrakcontroller", "label": "<<control>>\\nKontrakController"},
+    {"id": "kontrakservice", "label": "<<control>>\\nKontrakService"},
+    {"id": "kontraksewa", "label": "<<entity>>\\nKontrakSewa"},
+    {"id": "kamar", "label": "<<entity>>\\nKamar"},
+    {"id": "penghuni2", "label": "<<entity>>\\nPenghuni"}
+  ],
+  "messages": [
+    {"from": "pemilik", "to": "daftarkontrakview", "label": "1: Lihat daftar\\nkontrak pending"},
+    {"from": "daftarkontrakview", "to": "pemilik", "label": "Tampilkan daftar", "return": true},
+    {"from": "pemilik", "to": "daftarkontrakview", "label": "2: Klik Setujui"},
+    {"from": "daftarkontrakview", "to": "kontrakcontroller", "label": "PUT /kontrak/approve"},
+    {"from": "kontrakcontroller", "to": "kontrakservice", "label": "3: approveKontrak()"},
+    {"from": "kontrakservice", "to": "kontraksewa", "label": "4: DB Transaction"},
+    {"from": "kontraksewa", "to": "kontrakservice", "label": "return ok", "return": true},
+    {"from": "kontrakservice", "to": "kamar", "label": "5: UPDATE status=terisi"},
+    {"from": "kamar", "to": "kontrakservice", "label": "return ok", "return": true},
+    {"from": "kontrakservice", "to": "penghuni2", "label": "6: UPDATE status=aktif"},
+    {"from": "penghuni2", "to": "kontrakservice", "label": "return ok", "return": true},
+    {"from": "kontrakservice", "to": "kontraksewa", "label": "7: UPDATE status=aktif"},
+    {"from": "kontraksewa", "to": "kontrakservice", "label": "return ok", "return": true},
+    {"from": "kontrakservice", "to": "kontrakcontroller", "label": "8: response sukses"},
+    {"from": "kontrakcontroller", "to": "daftarkontrakview", "label": "9: Kirim notifikasi\\nke penghuni"},
+    {"from": "daftarkontrakview", "to": "pemilik", "label": "10: Kontrak disetujui"}
+  ]
+}

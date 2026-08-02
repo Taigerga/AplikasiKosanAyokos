@@ -1,4 +1,7 @@
 import axios from 'axios';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+NProgress.configure({ showSpinner: false, minimum: 0.1 });
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -40,6 +43,7 @@ function ensureCsrfCookie() {
 }
 
 apiClient.interceptors.request.use(async (config) => {
+    if (!config._noProgress) NProgress.start();
     const token = document.querySelector('meta[name="api-token"]')?.getAttribute('content');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -54,7 +58,10 @@ apiClient.interceptors.request.use(async (config) => {
 });
 
 apiClient.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        NProgress.done();
+        return response;
+    },
     async (error) => {
         const status = error.response?.status;
         const originalRequest = error.config;
@@ -85,6 +92,8 @@ apiClient.interceptors.response.use(
         if (!error.response) {
             console.error('Network error:', error.message);
         }
+
+        if (status !== 419) NProgress.done();
 
         return Promise.reject(error);
     }

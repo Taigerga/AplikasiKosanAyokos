@@ -1,0 +1,26 @@
+{
+  "title": "Sequence - Login",
+  "participants": [
+    {"id": "pengunjung", "label": "Pengunjung", "actor": true},
+    {"id": "loginview", "label": "<<boundary>>\\nLoginView"},
+    {"id": "logincontroller", "label": "<<control>>\\nLoginController"},
+    {"id": "loginrequest", "label": "<<control>>\\nLoginRequest"},
+    {"id": "authservice", "label": "<<control>>\\nAuthService"},
+    {"id": "user", "label": "<<entity>>\\nUser"}
+  ],
+  "messages": [
+    {"from": "pengunjung", "to": "loginview", "label": "1: Isi username + password\\nklik Login"},
+    {"from": "loginview", "to": "logincontroller", "label": "2: POST /login"},
+    {"from": "logincontroller", "to": "loginrequest", "label": "3: Validasi input", "activate": false},
+    {"from": "loginrequest", "to": "logincontroller", "label": "valid / invalid", "return": true},
+    {"from": "logincontroller", "to": "authservice", "label": "4: attempt()"},
+    {"from": "authservice", "to": "user", "label": "5: where('username')\\n->first()"},
+    {"from": "user", "to": "authservice", "label": "return user/null", "return": true},
+    {"from": "authservice", "to": "user", "label": "6: Hash::check()"},
+    {"from": "user", "to": "authservice", "label": "return bool", "return": true},
+    {"from": "authservice", "to": "logincontroller", "label": "7: [gagal] error", "return": true, "deactivate": true},
+    {"from": "authservice", "to": "logincontroller", "label": "8: [sukses] Auth::login()"},
+    {"from": "logincontroller", "to": "loginview", "label": "9: redirect / dashboard"},
+    {"from": "loginview", "to": "pengunjung", "label": "Tampilkan dashboard"}
+  ]
+}

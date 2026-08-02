@@ -1,0 +1,29 @@
+{
+  "title": "Sequence - Ajukan Aduan",
+  "participants": [
+    {"id": "pelapor", "label": "Pelapor", "actor": true},
+    {"id": "aduanview", "label": "<<boundary>>\\nAduanView"},
+    {"id": "aduancontroller", "label": "<<control>>\\nAduanController"},
+    {"id": "aduanrequest", "label": "<<control>>\\nStoreAduanRequest"},
+    {"id": "aduanservice", "label": "<<control>>\\nAduanService"},
+    {"id": "aduan", "label": "<<entity>>\\nAduan"},
+    {"id": "notification", "label": "<<entity>>\\nNotification"},
+    {"id": "admin", "label": "Admin", "actor": true}
+  ],
+  "messages": [
+    {"from": "pelapor", "to": "aduanview", "label": "1: Isi form aduan\\n+ submit"},
+    {"from": "aduanview", "to": "aduancontroller", "label": "2: POST /aduan"},
+    {"from": "aduancontroller", "to": "aduanrequest", "label": "3: Validasi", "activate": false},
+    {"from": "aduanrequest", "to": "aduancontroller", "label": "valid / invalid", "return": true},
+    {"from": "aduancontroller", "to": "aduanservice", "label": "4: createAduan()"},
+    {"from": "aduanservice", "to": "aduan", "label": "5: INSERT aduan"},
+    {"from": "aduan", "to": "aduanservice", "label": "return", "return": true},
+    {"from": "aduanservice", "to": "notification", "label": "6: INSERT notif\\nuntuk admin"},
+    {"from": "notification", "to": "aduanservice", "label": "return", "return": true},
+    {"from": "aduanservice", "to": "aduancontroller", "label": "7: response"},
+    {"from": "aduancontroller", "to": "aduanview", "label": "Aduan terkirim"},
+    {"from": "aduanview", "to": "pelapor", "label": "8: Aduan terkirim"},
+    {"from": "admin", "to": "aduanview", "label": "9: Lihat daftar aduan"},
+    {"from": "aduanview", "to": "admin", "label": "Tampilkan aduan", "return": true}
+  ]
+}

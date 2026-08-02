@@ -137,41 +137,41 @@
             </div>
             
             <!-- Table Content -->
-            <div class="overflow-x-auto w-full">
-                <table class="w-full divide-y-2 divide-gray-200">
+            <div class="overflow-x-auto w-full hidden md:block">
+                <table class="w-full min-w-[850px] text-left border-collapse">
                     <thead class="bg-black">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
+                            <th class="px-4 py-3.5 text-left text-xs font-black text-white uppercase tracking-wider min-w-[200px]">
                                 <div class="flex items-center">
                                     <i class="fas fa-user mr-2"></i>
                                     Penghuni & Kos
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
+                            <th class="px-4 py-3.5 text-left text-xs font-black text-white uppercase tracking-wider min-w-[150px]">
                                 <div class="flex items-center">
                                     <i class="fas fa-calendar-alt mr-2"></i>
                                     Periode
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
+                            <th class="px-4 py-3.5 text-left text-xs font-black text-white uppercase tracking-wider min-w-[130px]">
                                 <div class="flex items-center">
                                     <i class="fas fa-money-bill-wave mr-2"></i>
                                     Jumlah
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
+                            <th class="px-4 py-3.5 text-left text-xs font-black text-white uppercase tracking-wider min-w-[120px]">
                                 <div class="flex items-center">
                                     <i class="fas fa-info-circle mr-2"></i>
                                     Status
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
+                            <th class="px-4 py-3.5 text-left text-xs font-black text-white uppercase tracking-wider min-w-[140px]">
                                 <div class="flex items-center">
                                     <i class="fas fa-clock mr-2"></i>
                                     Tanggal Bayar
                                 </div>
                             </th>
-                            <th class="px-6 py-3 text-left text-xs font-black text-white uppercase tracking-wider">
+                            <th class="px-4 py-3.5 text-left text-xs font-black text-white uppercase tracking-wider min-w-[140px]">
                                 <div class="flex items-center">
                                     <i class="fas fa-cogs mr-2"></i>
                                     Aksi
@@ -183,17 +183,17 @@
                         <?php $__empty_1 = true; $__currentLoopData = $pembayaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr class="hover:bg-yellow-100 transition-colors duration-200">
                             <!-- Penghuni & Kos -->
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-sky-400 border-2 border-black flex items-center justify-center mr-3">
+                            <td class="px-4 py-4">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-10 h-10 shrink-0 bg-sky-400 border-2 border-black flex items-center justify-center">
                                         <i class="fas fa-user text-black"></i>
                                     </div>
-                                    <div>
-                                        <div class="text-sm font-bold text-black">
+                                    <div class="min-w-0">
+                                        <div class="text-sm font-bold text-black truncate">
                                             <?php echo e($item->penghuni->nama); ?>
 
                                         </div>
-                                        <div class="text-xs text-gray-600">
+                                        <div class="text-xs text-gray-600 truncate">
                                             <?php echo e($item->kontrak->kos->nama_kos); ?> - Kamar <?php echo e($item->kontrak->kamar->nomor_kamar ?? 'N/A'); ?>
 
                                         </div>
@@ -202,9 +202,9 @@
                             </td>
                             
                             <!-- Periode -->
-                            <td class="px-6 py-4">
-                                <div class="text-sm text-black"><?php echo e($item->bulan_tahun); ?></div>
-                                <div class="text-xs text-gray-600">
+                            <td class="px-4 py-4">
+                                <div class="text-sm text-black whitespace-nowrap"><?php echo e($item->bulan_tahun); ?></div>
+                                <div class="text-xs text-gray-600 whitespace-nowrap">
                                     <i class="fas fa-calendar-day mr-1"></i>
                                     Jatuh tempo: <?php echo e(\Carbon\Carbon::parse($item->tanggal_jatuh_tempo)->format('d M Y')); ?>
 
@@ -212,16 +212,16 @@
                             </td>
                             
                             <!-- Jumlah -->
-                            <td class="px-6 py-4">
-                                <div class="text-sm font-bold text-black">
+                            <td class="px-4 py-4">
+                                <div class="text-sm font-bold text-black whitespace-nowrap">
                                     Rp <?php echo e(number_format($item->jumlah, 0, ',', '.')); ?>
 
                                 </div>
                             </td>
                             
                             <!-- Status -->
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-3 py-1 text-xs font-black border-2 border-black
+                            <td class="px-4 py-4">
+                                <span class="inline-flex items-center px-3 py-1 text-xs font-black border-2 border-black whitespace-nowrap
                                     <?php echo e($item->status_pembayaran == 'lunas' ? 'bg-emerald-400 text-black' : 
                                        ($item->status_pembayaran == 'pending' ? 'bg-yellow-400 text-black' : 
                                        ($item->status_pembayaran == 'terlambat' ? 'bg-red-400 text-white' : 
@@ -237,19 +237,19 @@
                             </td>
                             
                             <!-- Tanggal Bayar -->
-                            <td class="px-6 py-4">
+                            <td class="px-4 py-4">
                                 <?php if($item->tanggal_bayar): ?>
-                                    <div class="text-sm text-black">
+                                    <div class="text-sm text-black whitespace-nowrap">
                                         <i class="fas fa-calendar-check mr-1 text-emerald-600"></i>
                                         <?php echo e(\Carbon\Carbon::parse($item->tanggal_bayar)->format('d M Y')); ?>
 
                                     </div>
-                                    <div class="text-xs text-gray-600">
+                                    <div class="text-xs text-gray-600 whitespace-nowrap">
                                         <?php echo e(\Carbon\Carbon::parse($item->tanggal_bayar)->format('H:i')); ?>
 
                                     </div>
                                 <?php else: ?>
-                                    <span class="text-sm text-gray-600">
+                                    <span class="text-sm text-gray-600 whitespace-nowrap">
                                         <i class="fas fa-calendar-times mr-1"></i>
                                         Belum dibayar
                                     </span>
@@ -257,8 +257,8 @@
                             </td>
                             
                             <!-- Aksi -->
-                            <td class="px-6 py-4">
-                                <div class="flex items-center space-x-2">
+                            <td class="px-4 py-4">
+                                <div class="flex items-center gap-2 whitespace-nowrap">
                                     <?php if($item->bukti_pembayaran): ?>
                                         <button onclick="showBuktiModal('<?php echo e(asset('storage/' . $item->bukti_pembayaran)); ?>')"
                                                 class="p-2 text-sky-600 hover:text-black hover:bg-yellow-100 border-2 border-black transition"
@@ -287,7 +287,7 @@
                         </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
-                            <td colspan="6" class="px-6 py-8 text-center">
+                            <td colspan="6" class="px-3 md:px-6 py-8 text-center">
                                 <div class="text-center py-8">
                                     <div class="w-16 h-16 bg-gray-200 border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center mx-auto mb-4">
                                         <i class="fas fa-credit-card text-gray-700 text-2xl"></i>
@@ -301,12 +301,88 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Mobile Card View -->
+            <div class="md:hidden divide-y-2 divide-gray-200">
+                <?php $__empty_1 = true; $__currentLoopData = $pembayaran; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <div class="p-4 space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 shrink-0 bg-sky-400 border-2 border-black flex items-center justify-center">
+                                <i class="fas fa-user text-black"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="text-sm font-bold text-black truncate"><?php echo e($item->penghuni->nama); ?></div>
+                                <div class="text-xs text-gray-600 truncate"><?php echo e($item->kontrak->kos->nama_kos); ?> - Kamar <?php echo e($item->kontrak->kamar->nomor_kamar ?? 'N/A'); ?></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-xs text-gray-500">Periode</div>
+                                <div class="text-sm text-black truncate"><?php echo e($item->bulan_tahun); ?></div>
+                                <div class="text-xs text-gray-600">
+                                    <i class="fas fa-calendar-day mr-1"></i><?php echo e(\Carbon\Carbon::parse($item->tanggal_jatuh_tempo)->format('d M Y')); ?>
+
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-gray-500">Jumlah</div>
+                                <div class="text-sm font-bold text-black">Rp <?php echo e(number_format($item->jumlah, 0, ',', '.')); ?></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="inline-flex items-center px-3 py-1 text-xs font-black border-2 border-black whitespace-nowrap
+                                <?php echo e($item->status_pembayaran == 'lunas' ? 'bg-emerald-400 text-black' : 
+                                   ($item->status_pembayaran == 'pending' ? 'bg-yellow-400 text-black' : 
+                                   ($item->status_pembayaran == 'terlambat' ? 'bg-red-400 text-white' : 
+                                   'bg-gray-200 text-black'))); ?>">
+                                <i class="fas 
+                                    <?php echo e($item->status_pembayaran == 'lunas' ? 'fa-check-circle' : 
+                                       ($item->status_pembayaran == 'pending' ? 'fa-clock' : 
+                                       ($item->status_pembayaran == 'terlambat' ? 'fa-exclamation-triangle' : 'fa-question-circle'))); ?> 
+                                    mr-1"></i>
+                                <?php echo e(ucfirst($item->status_pembayaran)); ?>
+
+                            </span>
+                            <div>
+                                <?php if($item->tanggal_bayar): ?>
+                                    <div class="text-xs text-black">
+                                        <i class="fas fa-calendar-check mr-1 text-emerald-600"></i>
+                                        <?php echo e(\Carbon\Carbon::parse($item->tanggal_bayar)->format('d M Y')); ?>
+
+                                    </div>
+                                <?php else: ?>
+                                    <span class="text-xs text-gray-600"><i class="fas fa-calendar-times mr-1"></i>Belum dibayar</span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <?php if($item->bukti_pembayaran): ?>
+                                <button onclick="showBuktiModal('<?php echo e(asset('storage/' . $item->bukti_pembayaran)); ?>')" class="px-3 py-1.5 text-xs font-black bg-white border-2 border-black text-sky-600" title="Lihat Bukti Pembayaran">
+                                    <i class="fas fa-eye mr-1"></i>Lihat Bukti
+                                </button>
+                            <?php endif; ?>
+                            <?php if($item->status_pembayaran == 'pending'): ?>
+                                <button type="button" onclick="showApproveModal('<?php echo e(route('pemilik.pembayaran.approve', $item->id_pembayaran)); ?>')" class="px-3 py-1.5 text-xs font-black bg-lime-400 border-2 border-black text-black">
+                                    <i class="fas fa-check mr-1"></i>Verifikasi
+                                </button>
+                                <button type="button" onclick="showRejectModal('<?php echo e(route('pemilik.pembayaran.reject', $item->id_pembayaran)); ?>')" class="px-3 py-1.5 text-xs font-black bg-red-400 border-2 border-black text-white">
+                                    <i class="fas fa-times mr-1"></i>Tolak
+                                </button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                <?php endif; ?>
+            </div>
             
             <!-- Pagination -->
-            <div class="px-6 py-4 border-t-2 border-black">
-                <div class="flex items-center justify-between">
-                    <div class="text-sm text-gray-700">
-                        Menampilkan <?php echo e($pembayaran->firstItem()); ?> - <?php echo e($pembayaran->lastItem()); ?> dari <?php echo e($pembayaran->total()); ?> pembayaran
+            <?php if($pembayaran->hasPages()): ?>
+            <div class="px-4 sm:px-6 py-4 border-t-2 border-black">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-sm text-gray-700 text-center sm:text-left">
+                        Menampilkan <span class="font-black text-black"><?php echo e($pembayaran->firstItem()); ?></span> - 
+                        <span class="font-black text-black"><?php echo e($pembayaran->lastItem()); ?></span> dari 
+                        <span class="font-black text-black"><?php echo e($pembayaran->total()); ?></span> pembayaran
                     </div>
                     <div class="flex space-x-2">
                         <?php echo e($pembayaran->links('vendor.pagination.custom-dark')); ?>
@@ -314,6 +390,7 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
 
         <!-- Back to Dashboard -->

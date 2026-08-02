@@ -96,15 +96,6 @@ button:disabled {
     #map {
         height: 300px;
     }
-
-    .flex-col.sm\:flex-row {
-        flex-direction: column;
-    }
-
-    .flex-col.sm\:flex-row button {
-        width: 100%;
-        margin-bottom: 8px;
-    }
 }
 
 /* File Preview */

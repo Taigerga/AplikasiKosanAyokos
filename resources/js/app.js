@@ -3,6 +3,19 @@ import './init';
 import { initModal } from './utils/modal';
 import { showSuccess, showError, showToast } from './utils/notifications';
 
+// Libraries
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import L from 'leaflet';
+import 'leaflet-routing-machine';
+
+window.AOS = AOS;
+window.L = L;
+
+document.addEventListener('DOMContentLoaded', () => {
+    AOS.init({ duration: 800, once: true });
+});
+
 window.initModal = initModal;
 window.showSuccess = showSuccess;
 window.showError = showError;

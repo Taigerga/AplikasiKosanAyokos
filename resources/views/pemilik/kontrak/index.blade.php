@@ -61,17 +61,17 @@
 
     <!-- Tabs Navigation -->
      
-    <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
+    <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000]">
         <div class="border-b-2 border-black">
-            <nav class="-mb-px flex overflow-x-auto">
+            <nav class="grid grid-cols-2 md:grid-cols-4">
                 <button onclick="showTab('pending')" 
-                        class="tab-button flex-1 py-4 px-6 border-b-2 font-bold text-sm whitespace-nowrap transition-all duration-300 {{ request('tab', 'pending') === 'pending' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
+                        class="tab-button px-2 sm:px-6 py-3 md:py-4 border-b-2 font-bold text-xs sm:text-sm transition-all duration-300 {{ request('tab', 'pending') === 'pending' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
                         id="tab-pending">
-                    <div class="flex items-center justify-center">
-                        <i class="fas fa-clock mr-2 {{ request('tab', 'pending') === 'pending' ? 'text-black' : 'text-gray-400' }}"></i>
-                        Permohonan Pending
+                    <div class="flex items-center justify-center flex-wrap gap-1">
+                        <i class="fas fa-clock {{ request('tab', 'pending') === 'pending' ? 'text-black' : 'text-gray-400' }}"></i>
+                        <span>Pending</span>
                         @if($kontrakPending->count() > 0)
-                        <span class="ml-2 bg-black text-white px-2 py-0.5 text-xs font-bold min-w-[24px] text-center">
+                        <span class="bg-black text-white px-1.5 py-0.5 text-xs font-bold min-w-[20px] text-center">
                             {{ $kontrakPending->count() }}
                         </span>
                         @endif
@@ -79,13 +79,13 @@
                 </button>
                 
                 <button onclick="showTab('aktif')" 
-                        class="tab-button flex-1 py-4 px-6 border-b-2 font-bold text-sm whitespace-nowrap transition-all duration-300 {{ request('tab') === 'aktif' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
+                        class="tab-button px-2 sm:px-6 py-3 md:py-4 border-b-2 font-bold text-xs sm:text-sm transition-all duration-300 {{ request('tab') === 'aktif' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
                         id="tab-aktif">
-                    <div class="flex items-center justify-center">
-                        <i class="fas fa-check-circle mr-2 {{ request('tab') === 'aktif' ? 'text-black' : 'text-green-400' }}"></i>
-                        Kontrak Aktif
+                    <div class="flex items-center justify-center flex-wrap gap-1">
+                        <i class="fas fa-check-circle {{ request('tab') === 'aktif' ? 'text-black' : 'text-green-400' }}"></i>
+                        <span>Aktif</span>
                         @if($kontrakAktif->count() > 0)
-                        <span class="ml-2 bg-black text-white px-2 py-0.5 text-xs font-bold min-w-[24px] text-center">
+                        <span class="bg-black text-white px-1.5 py-0.5 text-xs font-bold min-w-[20px] text-center">
                             {{ $kontrakAktif->count() }}
                         </span>
                         @endif
@@ -93,13 +93,13 @@
                 </button>
                 
                 <button onclick="showTab('selesai')" 
-                        class="tab-button flex-1 py-4 px-6 border-b-2 font-bold text-sm whitespace-nowrap transition-all duration-300 {{ request('tab') === 'selesai' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
+                        class="tab-button px-2 sm:px-6 py-3 md:py-4 border-b-2 font-bold text-xs sm:text-sm transition-all duration-300 {{ request('tab') === 'selesai' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
                         id="tab-selesai">
-                    <div class="flex items-center justify-center">
-                        <i class="fas fa-history mr-2 {{ request('tab') === 'selesai' ? 'text-black' : 'text-yellow-400' }}"></i>
-                        Riwayat Selesai
+                    <div class="flex items-center justify-center flex-wrap gap-1">
+                        <i class="fas fa-history {{ request('tab') === 'selesai' ? 'text-black' : 'text-yellow-400' }}"></i>
+                        <span>Selesai</span>
                         @if($kontrakSelesai->count() > 0)
-                        <span class="ml-2 bg-black text-white px-2 py-0.5 text-xs font-bold min-w-[24px] text-center">
+                        <span class="bg-black text-white px-1.5 py-0.5 text-xs font-bold min-w-[20px] text-center">
                             {{ $kontrakSelesai->count() }}
                         </span>
                         @endif
@@ -107,13 +107,13 @@
                 </button>
                 
                 <button onclick="showTab('ditolak')" 
-                        class="tab-button flex-1 py-4 px-6 border-b-2 font-bold text-sm whitespace-nowrap transition-all duration-300 {{ request('tab') === 'ditolak' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
+                        class="tab-button px-2 sm:px-6 py-3 md:py-4 border-b-2 font-bold text-xs sm:text-sm transition-all duration-300 {{ request('tab') === 'ditolak' ? 'border-yellow-400 text-black bg-yellow-200' : 'border-transparent text-gray-500 hover:text-black hover:bg-gray-100' }}"
                         id="tab-ditolak">
-                    <div class="flex items-center justify-center">
-                        <i class="fas fa-times-circle mr-2 {{ request('tab') === 'ditolak' ? 'text-black' : 'text-red-400' }}"></i>
-                        Riwayat Ditolak
+                    <div class="flex items-center justify-center flex-wrap gap-1">
+                        <i class="fas fa-times-circle {{ request('tab') === 'ditolak' ? 'text-black' : 'text-red-400' }}"></i>
+                        <span>Ditolak</span>
                         @if($kontrakDitolak->count() > 0)
-                        <span class="ml-2 bg-black text-white px-2 py-0.5 text-xs font-bold min-w-[24px] text-center">
+                        <span class="bg-black text-white px-1.5 py-0.5 text-xs font-bold min-w-[20px] text-center">
                             {{ $kontrakDitolak->count() }}
                         </span>
                         @endif
@@ -129,35 +129,35 @@
                 @if($kontrakPending->count() > 0)
                 <div class="space-y-4">
                     @foreach($kontrakPending as $kontrak)
-                    <div class="bg-gray-100 border-2 border-black p-5 hover:shadow-[3px_3px_0px_#000] transition-all duration-300">
+                    <div class="bg-gray-100 border-2 border-black p-5 w-full overflow-hidden hover:shadow-[3px_3px_0px_#000] transition-all duration-300">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <!-- User Info -->
-                            <div class="flex items-start space-x-4">
-                                <div class="w-12 h-12 bg-yellow-400 border-2 border-black flex items-center justify-center">
+                            <div class="flex items-start gap-4 min-w-0">
+                                <div class="shrink-0 w-12 h-12 bg-yellow-400 border-2 border-black flex items-center justify-center">
                                     <i class="fas fa-user text-black text-lg"></i>
                                 </div>
-                                <div>
-                                    <h3 class="font-bold text-black">{{ $kontrak->penghuni->nama ?? 'N/A' }}</h3>
-                                    <p class="text-sm text-gray-600">{{ $kontrak->penghuni->no_hp ?? '-' }}</p>
+                                <div class="min-w-0">
+                                    <h3 class="font-bold text-black truncate">{{ $kontrak->penghuni->nama ?? 'N/A' }}</h3>
+                                    <p class="text-sm text-gray-600 truncate">{{ $kontrak->penghuni->no_hp ?? '-' }}</p>
                                     <p class="text-xs text-gray-500 mt-1">Terdaftar: {{ $kontrak->created_at->format('d M Y') }}</p>
                                 </div>
                             </div>
                             
                             <!-- Kos & Kamar Info -->
-                            <div class="lg:text-center">
-                                <div class="text-sm font-bold text-black">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
+                            <div class="lg:text-center min-w-0">
+                                <div class="text-sm font-bold text-black truncate">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
                                 <div class="text-xs text-gray-500">Kamar {{ $kontrak->kamar->nomor_kamar ?? '-' }}</div>
                                 <div class="text-xs text-gray-500 mt-1">{{ $kontrak->durasi_sewa ?? 0 }} {{ $kontrak->unit_label_lower ?? 'bulan' }}</div>
                             </div>
                             
                             <!-- Price -->
-                            <div class="lg:text-right">
+                            <div class="lg:text-right shrink-0">
                                 <div class="text-lg font-black text-black">Rp {{ number_format($kontrak->harga_sewa ?? 0, 0, ',', '.') }}</div>
                                 <div class="text-xs text-gray-500">per {{ $kontrak->unit_label_lower ?? 'bulan' }}</div>
                             </div>
                             
                             <!-- Actions -->
-                            <div class="flex space-x-2">
+                            <div class="flex gap-2 flex-wrap shrink-0">
                                 <button type="button"
                                         data-ajax-action="/api/pemilik/kontrak/{{ $kontrak->id_kontrak }}/approve"
                                         data-confirm="Setujui kontrak {{ $kontrak->penghuni->nama ?? '' }}?"
@@ -198,17 +198,17 @@
                 @if($kontrakAktif->count() > 0)
                 <div class="space-y-4">
                     @foreach($kontrakAktif as $kontrak)
-                    <div class="bg-gray-100 border-2 border-black p-5 hover:shadow-[3px_3px_0px_#000] transition-all duration-300">
+                    <div class="bg-gray-100 border-2 border-black p-5 w-full overflow-hidden hover:shadow-[3px_3px_0px_#000] transition-all duration-300">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <!-- User Info -->
-                            <div class="flex items-start space-x-4">
-                                <div class="w-12 h-12 bg-emerald-400 border-2 border-black flex items-center justify-center">
+                            <div class="flex items-start gap-4 min-w-0">
+                                <div class="shrink-0 w-12 h-12 bg-emerald-400 border-2 border-black flex items-center justify-center">
                                     <i class="fas fa-user text-white text-lg"></i>
                                 </div>
-                                <div>
-                                    <h3 class="font-bold text-black">{{ $kontrak->penghuni->nama ?? 'N/A' }}</h3>
-                                    <p class="text-sm text-gray-600">{{ $kontrak->penghuni->no_hp ?? '-' }}</p>
-                                    <p class="text-xs text-gray-500 mt-1">
+                                <div class="min-w-0">
+                                    <h3 class="font-bold text-black truncate">{{ $kontrak->penghuni->nama ?? 'N/A' }}</h3>
+                                    <p class="text-sm text-gray-600 truncate">{{ $kontrak->penghuni->no_hp ?? '-' }}</p>
+                                    <p class="text-xs text-gray-500 mt-1 truncate">
                                         @if($kontrak->tanggal_mulai && $kontrak->tanggal_selesai)
                                             {{ $kontrak->tanggal_mulai->format('d M Y') }} - {{ $kontrak->tanggal_selesai->format('d M Y') }}
                                         @else
@@ -219,29 +219,29 @@
                             </div>
                             
                             <!-- Kos & Kamar Info -->
-                            <div class="lg:text-center">
-                                <div class="text-sm font-bold text-black">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
+                            <div class="lg:text-center min-w-0">
+                                <div class="text-sm font-bold text-black truncate">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
                                 <div class="text-xs text-gray-500">Kamar {{ $kontrak->kamar->nomor_kamar ?? '-' }}</div>
                             </div>
                             
                             <!-- Time Remaining -->
-                            <div class="lg:text-right">
+                            <div class="lg:text-right shrink-0">
                                 @if($kontrak->tanggal_selesai)
                                     @php
                                         $sisaHari = (int) ceil(now()->diffInDays($kontrak->tanggal_selesai, false));
                                     @endphp
                                     @if($sisaHari > 30)
-                                        <span class="inline-flex items-center bg-emerald-400 text-black font-black border-2 border-black px-3 py-1.5 text-sm">
+                                        <span class="inline-flex items-center bg-emerald-400 text-black font-black border-2 border-black px-3 py-1.5 text-sm whitespace-nowrap">
                                             <i class="fas fa-calendar-alt mr-2"></i>
                                             {{ (int)ceil($sisaHari/30) }} bulan lagi
                                         </span>
                                     @elseif($sisaHari > 0)
-                                        <span class="inline-flex items-center bg-yellow-400 text-black font-black border-2 border-black px-3 py-1.5 text-sm">
+                                        <span class="inline-flex items-center bg-yellow-400 text-black font-black border-2 border-black px-3 py-1.5 text-sm whitespace-nowrap">
                                             <i class="fas fa-clock mr-2"></i>
                                             {{ $sisaHari }} hari lagi
                                         </span>
                                     @else
-                                        <span class="inline-flex items-center bg-red-400 text-white font-black border-2 border-black px-3 py-1.5 text-sm">
+                                        <span class="inline-flex items-center bg-red-400 text-white font-black border-2 border-black px-3 py-1.5 text-sm whitespace-nowrap">
                                             <i class="fas fa-exclamation-triangle mr-2"></i>
                                             Telah berakhir
                                         </span>
@@ -252,7 +252,7 @@
                             </div>
                             
                             <!-- Actions -->
-                            <div class="flex space-x-2">
+                            <div class="flex gap-2 flex-wrap shrink-0">
                                 <a href="{{ route('pemilik.kontrak.show', $kontrak->id_kontrak) }}"
                                    class="px-4 py-2 bg-sky-400 hover:bg-sky-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] text-sm transition flex items-center">
                                     <i class="fas fa-eye mr-2"></i>
@@ -290,17 +290,17 @@
                 @if($kontrakSelesai->count() > 0)
                 <div class="space-y-4">
                     @foreach($kontrakSelesai as $kontrak)
-                    <div class="bg-gray-100 border-2 border-black p-5 hover:shadow-[3px_3px_0px_#000] transition-all duration-300">
+                    <div class="bg-gray-100 border-2 border-black p-5 w-full overflow-hidden hover:shadow-[3px_3px_0px_#000] transition-all duration-300">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <!-- User Info -->
-                            <div class="flex items-start space-x-4">
-                                <div class="w-12 h-12 bg-gray-300 border-2 border-black flex items-center justify-center">
+                            <div class="flex items-start gap-4 min-w-0">
+                                <div class="shrink-0 w-12 h-12 bg-gray-300 border-2 border-black flex items-center justify-center">
                                     <i class="fas fa-user text-black text-lg"></i>
                                 </div>
-                                <div>
-                                    <h3 class="font-bold text-black">{{ $kontrak->penghuni->nama ?? 'N/A' }}</h3>
-                                    <p class="text-sm text-gray-600">{{ $kontrak->penghuni->no_hp ?? '-' }}</p>
-                                    <p class="text-xs text-gray-500 mt-1">
+                                <div class="min-w-0">
+                                    <h3 class="font-bold text-black truncate">{{ $kontrak->penghuni->nama ?? 'N/A' }}</h3>
+                                    <p class="text-sm text-gray-600 truncate">{{ $kontrak->penghuni->no_hp ?? '-' }}</p>
+                                    <p class="text-xs text-gray-500 mt-1 truncate">
                                         @if($kontrak->tanggal_mulai && $kontrak->tanggal_selesai)
                                             {{ $kontrak->tanggal_mulai->format('d M Y') }} - {{ $kontrak->tanggal_selesai->format('d M Y') }}
                                         @else
@@ -311,21 +311,21 @@
                             </div>
                             
                             <!-- Kos & Kamar Info -->
-                            <div class="lg:text-center">
-                                <div class="text-sm font-bold text-black">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
+                            <div class="lg:text-center min-w-0">
+                                <div class="text-sm font-bold text-black truncate">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
                                 <div class="text-xs text-gray-500">Kamar {{ $kontrak->kamar->nomor_kamar ?? '-' }}</div>
                             </div>
                             
                             <!-- Status -->
-                            <div class="lg:text-right">
-                                <span class="inline-flex items-center bg-gray-300 text-black font-black border-2 border-black px-3 py-1.5 text-sm">
+                            <div class="lg:text-right shrink-0">
+                                <span class="inline-flex items-center bg-gray-300 text-black font-black border-2 border-black px-3 py-1.5 text-sm whitespace-nowrap">
                                     <i class="fas fa-check-circle mr-2"></i>
                                     Selesai
                                 </span>
                             </div>
                             
                             <!-- Actions -->
-                            <div class="flex space-x-2">
+                            <div class="flex gap-2 flex-wrap shrink-0">
                                 <a href="{{ route('pemilik.kontrak.show', $kontrak->id_kontrak) }}"
                                    class="px-4 py-2 bg-sky-400 hover:bg-sky-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] text-sm transition flex items-center">
                                     <i class="fas fa-eye mr-2"></i>
@@ -362,16 +362,16 @@
                 @if($kontrakDitolak->count() > 0)
                 <div class="space-y-4">
                     @foreach($kontrakDitolak as $kontrak)
-                    <div class="bg-gray-100 border-2 border-black p-5 hover:shadow-[3px_3px_0px_#000] transition-all duration-300">
+                    <div class="bg-gray-100 border-2 border-black p-5 w-full overflow-hidden hover:shadow-[3px_3px_0px_#000] transition-all duration-300">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <!-- User Info -->
-                            <div class="flex items-start space-x-4">
-                                <div class="w-12 h-12 bg-red-200 border-2 border-black flex items-center justify-center">
+                            <div class="flex items-start gap-4 min-w-0">
+                                <div class="shrink-0 w-12 h-12 bg-red-200 border-2 border-black flex items-center justify-center">
                                     <i class="fas fa-user text-red-600 text-lg"></i>
                                 </div>
-                                <div>
-                                    <h3 class="font-bold text-black">{{ $kontrak->penghuni->nama ?? 'N/A' }}</h3>
-                                    <p class="text-sm text-gray-600">{{ $kontrak->penghuni->no_hp ?? '-' }}</p>
+                                <div class="min-w-0">
+                                    <h3 class="font-bold text-black truncate">{{ $kontrak->penghuni->nama ?? 'N/A' }}</h3>
+                                    <p class="text-sm text-gray-600 truncate">{{ $kontrak->penghuni->no_hp ?? '-' }}</p>
                                     <p class="text-xs text-gray-500 mt-1">
                                         Ditolak: {{ $kontrak->created_at->format('d M Y') }}
                                     </p>
@@ -379,14 +379,14 @@
                             </div>
                             
                             <!-- Kos & Kamar Info -->
-                            <div class="lg:text-center">
-                                <div class="text-sm font-bold text-black">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
+                            <div class="lg:text-center min-w-0">
+                                <div class="text-sm font-bold text-black truncate">{{ $kontrak->kos->nama_kos ?? 'N/A' }}</div>
                                 <div class="text-xs text-gray-500">Kamar {{ $kontrak->kamar->nomor_kamar ?? '-' }}</div>
                             </div>
                             
                             <!-- Rejection Reason -->
-                            <div class="lg:text-right max-w-xs">
-                                <div class="text-sm text-gray-600">
+                            <div class="lg:text-right min-w-0">
+                                <div class="text-sm text-gray-600 truncate">
                                     @if($kontrak->alasan_ditolak)
                                         <span class="text-red-600 italic font-bold">"{{ $kontrak->alasan_ditolak }}"</span>
                                     @else
@@ -396,7 +396,7 @@
                             </div>
                             
                             <!-- Actions -->
-                            <div class="flex space-x-2">
+                            <div class="flex gap-2 flex-wrap shrink-0">
                                 <a href="{{ route('pemilik.kontrak.show', $kontrak->id_kontrak) }}"
                                    class="px-4 py-2 bg-sky-400 hover:bg-sky-500 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] text-sm transition flex items-center">
                                     <i class="fas fa-eye mr-2"></i>
@@ -434,7 +434,7 @@
                     <div class="text-sm text-gray-600">
                         Menampilkan {{ $kontrakDitolak->firstItem() }} - {{ $kontrakDitolak->lastItem() }} dari {{ $kontrakDitolak->total() }} kontrak
                     </div>
-                    <div class="flex space-x-2">
+                    <div class="flex gap-2">
                         {{ $kontrakDitolak->links('vendor.pagination.custom-dark') }}
                     </div>
                 </div>
@@ -470,7 +470,7 @@
                               required></textarea>
                 </div>
                 
-                <div class="flex justify-end space-x-3">
+                    <div class="flex justify-end gap-3">
                     <button type="button" 
                             onclick="closeRejectModal()"
                             class="px-4 py-2 bg-gray-200 text-black font-bold border-2 border-black hover:bg-gray-300 transition">

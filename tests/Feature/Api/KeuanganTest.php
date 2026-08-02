@@ -59,8 +59,7 @@ class KeuanganTest extends TestCase
         $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
             ->getJson('/api/admin/keuangan');
 
-        // API admin routes don't enforce role middleware (existing codebase pattern)
-        $response->assertStatus(200);
+        $response->assertStatus(403);
     }
 
     public function test_admin_can_access_pendapatan_bulanan()

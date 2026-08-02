@@ -8,13 +8,34 @@ use App\Models\KontrakSewa;
 use App\Models\Pembayaran;
 use App\Models\Penghuni;
 use App\Models\Review;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class AnalisisService
 {
+    public static function clearAnalisisCache(string $type, int $id): void
+    {
+        $keys = [
+            "analisis_pemilik_{$id}",
+            "dashboard_pemilik_{$id}",
+            "pendapatan_tahunan_{$id}_" . now()->year,
+        ];
+
+        if ($type === 'penghuni') {
+            $keys[] = "analisis_penghuni_{$id}";
+            $keys[] = "spending_penghuni_{$id}";
+            $keys[] = "dashboard_penghuni_{$id}";
+        }
+
+        foreach ($keys as $key) {
+            Cache::forget($key);
+        }
+    }
+
     public function getPemilikAnalisis(int $pemilikId): array
     {
+        return Cache::remember('analisis_pemilik_' . $pemilikId, 300, function () use ($pemilikId) {
         $pendapatanPerBulan = Pembayaran::selectRaw('DATE_FORMAT(tanggal_bayar, "%Y-%m") as bulan, SUM(COALESCE(bagian_pemilik, jumlah * 0.9)) as total')
             ->join('kontrak_sewa', 'pembayaran.id_kontrak', '=', 'kontrak_sewa.id_kontrak')
             ->join('kos', 'kontrak_sewa.id_kos', '=', 'kos.id_kos')
@@ -93,10 +114,12 @@ class AnalisisService
             'penghuniAktifPerKos', 'penghuniAktifPerKosFull', 'tipeKamar',
             'ratingDistribution', 'pendapatanPerKos', 'pendapatanPerKosFull'
         );
+        });
     }
 
     public function getPenghuniAnalisis(int $penghuniId): array
     {
+        return Cache::remember('analisis_penghuni_' . $penghuniId, 300, function () use ($penghuniId) {
         $riwayatKontrak = KontrakSewa::with(['kos', 'kamar'])
             ->where('id_penghuni', $penghuniId)
             ->orderBy('created_at', 'desc')
@@ -168,10 +191,12 @@ class AnalisisService
             'durasiTinggal', 'jenisKosDisewa', 'reviewStats', 'tipeKamarDisewa',
             'statistikRingkasan', 'penghusiData'
         );
+        });
     }
 
     public function getPenghuniSpendingAnalysis(int $penghuniId): array
     {
+        return Cache::remember('spending_penghuni_' . $penghuniId, 300, function () use ($penghuniId) {
         $spendingByMonth = Pembayaran::selectRaw('YEAR(tanggal_bayar) as tahun, MONTH(tanggal_bayar) as bulan, SUM(jumlah) as total_pengeluaran')
             ->join('kontrak_sewa', 'pembayaran.id_kontrak', '=', 'kontrak_sewa.id_kontrak')
             ->where('kontrak_sewa.id_penghuni', $penghuniId)
@@ -196,10 +221,12 @@ class AnalisisService
             'spending_by_month' => $spendingByMonth,
             'price_trend' => $priceTrend,
         ];
+        });
     }
 
     public function getPemilikDashboardStats(int $pemilikId): array
     {
+        return Cache::remember('dashboard_pemilik_' . $pemilikId, 300, function () use ($pemilikId) {
         $totalKos = Kos::where('id_pemilik', $pemilikId)->count();
         $totalKamar = Kamar::whereHas('kos', fn($q) => $q->where('id_pemilik', $pemilikId))->count();
         $kamarTersedia = Kamar::whereHas('kos', fn($q) => $q->where('id_pemilik', $pemilikId))
@@ -236,6 +263,7 @@ class AnalisisService
             'totalKos', 'totalKamar', 'kamarTersedia', 'totalPenghuni',
             'semuaKos', 'semuaKamar', 'kontrakPending', 'pembayaranTerbaru', 'pendapatanBulanIni'
         );
+        });
     }
 
     public function getPendapatanTahunan(int $pemilikId, ?int $tahun = null)
@@ -245,13 +273,15 @@ class AnalisisService
             ? "CAST(strftime('%m', tanggal_bayar) AS INTEGER)"
             : 'MONTH(tanggal_bayar)';
 
-        return Pembayaran::selectRaw("{$monthFn} as bulan, SUM(COALESCE(bagian_pemilik, jumlah * 0.9)) as total")
-            ->whereHas('kontrak.kos', fn($q) => $q->where('id_pemilik', $pemilikId))
-            ->whereYear('tanggal_bayar', $tahun)
-            ->where('status_pembayaran', 'lunas')
-            ->groupBy('bulan')
-            ->orderBy('bulan')
-            ->get();
+        return Cache::remember("pendapatan_tahunan_{$pemilikId}_{$tahun}", 300, function () use ($pemilikId, $tahun, $monthFn) {
+            return Pembayaran::selectRaw("{$monthFn} as bulan, SUM(COALESCE(bagian_pemilik, jumlah * 0.9)) as total")
+                ->whereHas('kontrak.kos', fn($q) => $q->where('id_pemilik', $pemilikId))
+                ->whereYear('tanggal_bayar', $tahun)
+                ->where('status_pembayaran', 'lunas')
+                ->groupBy('bulan')
+                ->orderBy('bulan')
+                ->get();
+        });
     }
 
     public function getAktivitasTerbaru(int $pemilikId, int $limit = 10)
@@ -263,6 +293,7 @@ class AnalisisService
 
     public function getPenghuniDashboardStats(int $penghuniId): array
     {
+        return Cache::remember('dashboard_penghuni_' . $penghuniId, 300, function () use ($penghuniId) {
         $kontrakAktif = KontrakSewa::with(['kos', 'kamar'])
             ->where('id_penghuni', $penghuniId)
             ->where('status_kontrak', 'aktif')
@@ -308,5 +339,6 @@ class AnalisisService
             ->sum('jumlah');
 
         return compact('kontrakAktif', 'pembayaranTerakhir', 'totalPembayaran');
+        });
     }
 }

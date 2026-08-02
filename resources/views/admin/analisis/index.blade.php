@@ -214,7 +214,6 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     if (typeof window.initAdminCharts === 'function') {
@@ -229,9 +228,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <div id="adminAnalisisData"
      data-nama="{{ auth()->user()->nama ?? 'Admin' }}"
