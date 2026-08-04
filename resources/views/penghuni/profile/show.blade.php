@@ -230,30 +230,6 @@
                     </div>
                 </div>
 
-                <!-- Bank Information -->
-                <div class="bg-gray-100 border-2 border-black p-5 md:p-6 lg:col-span-2">
-                    <h3 class="text-lg font-black text-black mb-4 flex items-center">
-                        <i class="fas fa-university text-green-400 mr-3"></i>
-                        Data Rekening Bank
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <p class="text-sm text-gray-600">Nama Bank</p>
-                            <p class="font-black text-black flex items-center">
-                                <i class="fas fa-money-check mr-2 text-green-400"></i>
-                                {{ $penghuni->nama_bank ?: 'Belum diisi' }}
-                            </p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-600">Nomor Rekening</p>
-                            <p class="font-black text-black flex items-center">
-                                <i class="fas fa-credit-card mr-2 text-blue-400"></i>
-                                {{ $penghuni->nomor_rekening ?: 'Belum diisi' }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Account Information -->
                 <div class="bg-gray-100 border-2 border-black p-5 md:p-6 lg:col-span-2">
                     <h3 class="text-lg font-black text-black mb-4 flex items-center">

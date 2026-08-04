@@ -173,55 +173,6 @@
                     </div>
                 </div>
 
-                <!-- Data Rekening Bank Section -->
-                <div class="mb-8">
-                    <h3
-                        class="text-lg md:text-xl font-black text-black mb-6 pb-4 border-b-2 border-black flex items-center">
-                        <i class="fas fa-money-check-alt text-green-400 mr-3"></i>
-                        Data Rekening Bank
-                    </h3>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Nama Bank -->
-                        <div>
-                            <label for="nama_bank" class="block text-sm font-black text-black mb-2">
-                                Nama Bank
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-university text-gray-500"></i>
-                                </div>
-                                <input type="text" id="nama_bank" name="nama_bank"
-                                    value="{{ old('nama_bank', $penghuni->nama_bank) }}"
-                                    class="w-full pl-10 pr-4 py-3 bg-white border-2 border-black text-black  focus:outline-none focus:shadow-[3px_3px_0px_#000] focus:border-black transition @error('nama_bank') border-red-500 @enderror"
-                                    placeholder="Contoh: BCA, Mandiri">
-                            </div>
-                            @error('nama_bank')
-                                <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Nomor Rekening -->
-                        <div>
-                            <label for="nomor_rekening" class="block text-sm font-black text-black mb-2">
-                                Nomor Rekening
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-credit-card text-gray-500"></i>
-                                </div>
-                                <input type="text" id="nomor_rekening" name="nomor_rekening"
-                                    value="{{ old('nomor_rekening', $penghuni->nomor_rekening) }}"
-                                    class="w-full pl-10 pr-4 py-3 bg-white border-2 border-black text-black  focus:outline-none focus:shadow-[3px_3px_0px_#000] focus:border-black transition @error('nomor_rekening') border-red-500 @enderror"
-                                    placeholder="Masukkan nomor rekening">
-                            </div>
-                            @error('nomor_rekening')
-                                <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Security Section -->
                 <div class="mb-8">
                     <h3

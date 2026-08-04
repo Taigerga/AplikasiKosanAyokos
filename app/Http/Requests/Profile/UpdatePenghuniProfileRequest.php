@@ -24,8 +24,6 @@ class UpdatePenghuniProfileRequest extends FormRequest
             'alamat' => 'nullable|string',
             'username' => 'required|string|max:50|unique:users,username,' . $this->user()->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'nama_bank' => 'nullable|string|max:50',
-            'nomor_rekening' => 'nullable|string|max:50',
         ];
     }
 }
