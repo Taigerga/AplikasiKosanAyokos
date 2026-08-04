@@ -728,6 +728,9 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
+<!-- Leaflet via CDN (agar peta tetap berfungsi meski bundle app.js gagal dimuat di hosting) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
     function openImageModal(src) {
         document.getElementById('modal-image').src = src;
