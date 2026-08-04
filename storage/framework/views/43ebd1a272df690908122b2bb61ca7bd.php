@@ -295,6 +295,12 @@
 
 <?php $__env->startPush('scripts'); ?>
 
+    <!-- Leaflet via CDN (agar peta tetap berfungsi meski bundle app.js gagal dimuat di hosting) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
+
     <script>
         // ============================================================
         // LOGIKA JAVASCRIPT ASLI - TIDAK DIUBAH SAMA SEKALI

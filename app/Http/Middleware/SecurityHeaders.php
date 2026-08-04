@@ -29,7 +29,7 @@ class SecurityHeaders
         $styleSrc  = ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', 'https://unpkg.com', 'https://cdnjs.cloudflare.com'];
         $imgSrc    = ["'self'", 'data:', 'https://images.unsplash.com', 'https://raw.githubusercontent.com', 'https://cdnjs.cloudflare.com', 'https://*.basemaps.cartocdn.com', 'https://*.tile.openstreetmap.org'];
         $fontSrc   = ["'self'", 'data:', 'https://fonts.gstatic.com', 'https://cdnjs.cloudflare.com'];
-        $connectSrc = ["'self'", 'https://nominatim.openstreetmap.org', 'https://overpass-api.de', 'https://*.basemaps.cartocdn.com', 'https://*.tile.openstreetmap.org'];
+        $connectSrc = ["'self'", 'https://nominatim.openstreetmap.org', 'https://overpass-api.de', 'https://*.basemaps.cartocdn.com', 'https://*.tile.openstreetmap.org', 'https://router.project-osrm.org'];
         $frameSrc  = ["'self'", 'https://app.sandbox.midtrans.com', 'https://app.midtrans.com'];
         $mediaSrc  = ["'self'"];
 

@@ -1,8 +1,6 @@
-@extends('layouts.app', ['hideFooter' => true])
+<?php $__env->startSection('title', 'Peta Kos - AyoKos'); ?>
 
-@section('title', 'Peta Kos - AyoKos')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
 
@@ -25,19 +23,19 @@
         <!-- Stats Cards -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="0">
-                <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->count() }}</div>
+                <div class="text-3xl md:text-4xl font-black text-black mb-1"><?php echo e($kos->count()); ?></div>
                 <div class="text-sm font-black text-gray-600">Total Kos</div>
             </div>
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="100">
-                <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'putra')->count() }}</div>
+                <div class="text-3xl md:text-4xl font-black text-black mb-1"><?php echo e($kos->where('jenis_kos', 'putra')->count()); ?></div>
                 <div class="text-sm font-black text-gray-600">Kos Putra</div>
             </div>
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="200">
-                <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'putri')->count() }}</div>
+                <div class="text-3xl md:text-4xl font-black text-black mb-1"><?php echo e($kos->where('jenis_kos', 'putri')->count()); ?></div>
                 <div class="text-sm font-black text-gray-600">Kos Putri</div>
             </div>
             <div class="bg-white border-4 border-black shadow-[4px_4px_0px_#000] p-5" data-aos="fade-up" data-aos-delay="300">
-                <div class="text-3xl md:text-4xl font-black text-black mb-1">{{ $kos->where('jenis_kos', 'campuran')->count() }}</div>
+                <div class="text-3xl md:text-4xl font-black text-black mb-1"><?php echo e($kos->where('jenis_kos', 'campuran')->count()); ?></div>
                 <div class="text-sm font-black text-gray-600">Kos Campuran</div>
             </div>
         </div>
@@ -56,40 +54,40 @@
                     Filter
                 </h2>
 
-            <form method="GET" action="{{ route('public.kos.peta') }}" class="space-y-5" id="filter-form">
+            <form method="GET" action="<?php echo e(route('public.kos.peta')); ?>" class="space-y-5" id="filter-form">
                 <div>
                     <label class="block text-sm font-black text-black mb-2">Jenis Kos</label>
                     <select name="jenis_kos" class="w-full px-4 py-3 border-2 border-black text-black font-black focus:outline-none focus:shadow-[3px_3px_0px_#000] transition bg-white">
                         <option value="">Semua Jenis</option>
-                        <option value="putra" {{ request('jenis_kos') == 'putra' ? 'selected' : '' }}>Putra</option>
-                        <option value="putri" {{ request('jenis_kos') == 'putri' ? 'selected' : '' }}>Putri</option>
-                        <option value="campuran" {{ request('jenis_kos') == 'campuran' ? 'selected' : '' }}>Campuran</option>
+                        <option value="putra" <?php echo e(request('jenis_kos') == 'putra' ? 'selected' : ''); ?>>Putra</option>
+                        <option value="putri" <?php echo e(request('jenis_kos') == 'putri' ? 'selected' : ''); ?>>Putri</option>
+                        <option value="campuran" <?php echo e(request('jenis_kos') == 'campuran' ? 'selected' : ''); ?>>Campuran</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-black text-black mb-2">Tipe Sewa</label>
                     <select name="tipe_sewa" class="w-full px-4 py-3 border-2 border-black text-black font-black focus:outline-none focus:shadow-[3px_3px_0px_#000] transition bg-white">
                         <option value="">Semua Tipe</option>
-                        <option value="harian" {{ request('tipe_sewa') == 'harian' ? 'selected' : '' }}>Harian</option>
-                        <option value="mingguan" {{ request('tipe_sewa') == 'mingguan' ? 'selected' : '' }}>Mingguan</option>
-                        <option value="bulanan" {{ request('tipe_sewa') == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
-                        <option value="tahunan" {{ request('tipe_sewa') == 'tahunan' ? 'selected' : '' }}>Tahunan</option>
+                        <option value="harian" <?php echo e(request('tipe_sewa') == 'harian' ? 'selected' : ''); ?>>Harian</option>
+                        <option value="mingguan" <?php echo e(request('tipe_sewa') == 'mingguan' ? 'selected' : ''); ?>>Mingguan</option>
+                        <option value="bulanan" <?php echo e(request('tipe_sewa') == 'bulanan' ? 'selected' : ''); ?>>Bulanan</option>
+                        <option value="tahunan" <?php echo e(request('tipe_sewa') == 'tahunan' ? 'selected' : ''); ?>>Tahunan</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-black text-black mb-2">Kota</label>
-                    <input type="text" name="kota" value="{{ request('kota') }}" placeholder="Nama kota..." class="w-full px-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
+                    <input type="text" name="kota" value="<?php echo e(request('kota')); ?>" placeholder="Nama kota..." class="w-full px-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
                 </div>
                 <div>
                     <label class="block text-sm font-black text-black mb-2">Harga Maksimal</label>
-                    <input type="number" name="max_harga" value="{{ request('max_harga') }}" placeholder="Rp..." class="w-full px-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
+                    <input type="number" name="max_harga" value="<?php echo e(request('max_harga')); ?>" placeholder="Rp..." class="w-full px-4 py-3 border-2 border-black text-black font-black placeholder-gray-500 focus:outline-none focus:shadow-[3px_3px_0px_#000] transition">
                 </div>
                 <button type="submit" class="w-full px-6 py-3 bg-black hover:bg-gray-800 text-white font-black border-2 border-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:translate-y-[-1px] transition-all uppercase tracking-wide flex items-center justify-center">
                     <i class="fas fa-search mr-2"></i> Terapkan Filter
                 </button>
-                @if(request()->hasAny(['jenis_kos','tipe_sewa','kota','max_harga']))
-                <a href="{{ route('public.kos.peta') }}" class="block w-full text-center px-6 py-3 bg-white hover:bg-yellow-100 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] transition-all uppercase tracking-wide">Reset Filter</a>
-                @endif
+                <?php if(request()->hasAny(['jenis_kos','tipe_sewa','kota','max_harga'])): ?>
+                <a href="<?php echo e(route('public.kos.peta')); ?>" class="block w-full text-center px-6 py-3 bg-white hover:bg-yellow-100 text-black font-black border-2 border-black shadow-[2px_2px_0px_#000] transition-all uppercase tracking-wide">Reset Filter</a>
+                <?php endif; ?>
             </form>
 
             <!-- Find Nearby Button -->
@@ -125,7 +123,7 @@
                     Akses Cepat
                 </h3>
                 <div class="space-y-3">
-                    <a href="{{ route('public.kos.index') }}"
+                    <a href="<?php echo e(route('public.kos.index')); ?>"
                         class="flex items-center text-gray-700 hover:text-black font-black text-sm transition-colors">
                         <div class="w-9 h-9 bg-yellow-200 border-2 border-black flex items-center justify-center mr-3">
                             <i class="fas fa-search text-black"></i>
@@ -133,33 +131,33 @@
                         <span>Cari Kos Berdasarkan List</span>
                     </a>
 
-@auth
-@if(auth()->user()->role === 'penghuni')
-<a href="{{ route('penghuni.dashboard') }}"
+<?php if(auth()->guard()->check()): ?>
+<?php if(auth()->user()->role === 'penghuni'): ?>
+<a href="<?php echo e(route('penghuni.dashboard')); ?>"
     class="flex items-center text-gray-700 hover:text-black font-black text-sm transition-colors">
     <div class="w-9 h-9 bg-emerald-200 border-2 border-black flex items-center justify-center mr-3">
         <i class="fas fa-home text-black"></i>
     </div>
     <span>Dashboard Penghuni</span>
 </a>
-@elseif(auth()->user()->role === 'pemilik')
-<a href="{{ route('pemilik.dashboard') }}"
+<?php elseif(auth()->user()->role === 'pemilik'): ?>
+<a href="<?php echo e(route('pemilik.dashboard')); ?>"
     class="flex items-center text-gray-700 hover:text-black font-black text-sm transition-colors">
     <div class="w-9 h-9 bg-sky-200 border-2 border-black flex items-center justify-center mr-3">
         <i class="fas fa-user-tie text-black"></i>
     </div>
     <span>Dashboard Pemilik</span>
 </a>
-@endif
-@else
-<a href="{{ route('login') }}"
+<?php endif; ?>
+<?php else: ?>
+<a href="<?php echo e(route('login')); ?>"
     class="flex items-center text-gray-700 hover:text-black font-black text-sm transition-colors">
     <div class="w-9 h-9 bg-amber-200 border-2 border-black flex items-center justify-center mr-3">
         <i class="fas fa-lock text-black"></i>
     </div>
     <span>Login untuk Fitur Lebih</span>
 </a>
-@endauth
+<?php endif; ?>
                 </div>
             </div>
         </div>
@@ -252,48 +250,50 @@
             Daftar Kos Terdekat
         </h2>
         <div class="grid grid-cols-1 gap-4">
-            @foreach($kos->take(5) as $k)
+            <?php $__currentLoopData = $kos->take(5); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="bg-white border-2 border-black p-4">
                     <div class="flex items-start justify-between">
                         <div class="flex-1">
-                            <h3 class="font-black text-black">{{ $k->nama_kos }}</h3>
-                            <p class="text-sm font-black text-gray-600 mt-1">{{ $k->alamat }}</p>
+                            <h3 class="font-black text-black"><?php echo e($k->nama_kos); ?></h3>
+                            <p class="text-sm font-black text-gray-600 mt-1"><?php echo e($k->alamat); ?></p>
                             <div class="flex items-center gap-4 mt-2">
                                 <span class="text-xs font-black px-2.5 py-1 border-2 border-black
-                                    {{ $k->jenis_kos == 'putra' ? 'bg-blue-200 text-black' :
+                                    <?php echo e($k->jenis_kos == 'putra' ? 'bg-blue-200 text-black' :
                                         ($k->jenis_kos == 'putri' ? 'bg-pink-200 text-black' :
-                                            'bg-purple-200 text-black') }}">
-                                    {{ ucfirst($k->jenis_kos) }}
+                                            'bg-purple-200 text-black')); ?>">
+                                    <?php echo e(ucfirst($k->jenis_kos)); ?>
+
                                 </span>
-                                <span class="text-xs font-black text-gray-500">{{ $k->kamar_count ?? 0 }} Kamar</span>
+                                <span class="text-xs font-black text-gray-500"><?php echo e($k->kamar_count ?? 0); ?> Kamar</span>
                             </div>
                         </div>
                         <div class="text-right ml-4">
                             <div class="mb-2">
-                                @if(($k->kamar->min('harga') ?? 0) > 0)
+                                <?php if(($k->kamar->min('harga') ?? 0) > 0): ?>
                                     <span class="text-sm font-black text-black">
-                                        Rp {{ number_format($k->kamar->min('harga'), 0, ',', '.') }}
+                                        Rp <?php echo e(number_format($k->kamar->min('harga'), 0, ',', '.')); ?>
+
                                     </span>
-                                @else
+                                <?php else: ?>
                                     <span class="text-sm font-black text-red-500">Kamar tidak tersedia</span>
-                                @endif
+                                <?php endif; ?>
                             </div>
-                            <a href="{{ route('public.kos.show', $k->id_kos) }}"
+                            <a href="<?php echo e(route('public.kos.show', $k->id_kos)); ?>"
                                 class="inline-flex items-center justify-center px-3 py-1.5 bg-lime-400 hover:bg-lime-500 text-black font-black text-sm border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] transition-all">
                                 <i class="fas fa-eye mr-1 text-xs"></i> Detail
                             </a>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
 </div>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 
     <!-- Leaflet via CDN (agar peta tetap berfungsi meski bundle app.js gagal dimuat di hosting) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
@@ -945,25 +945,26 @@
             }
 
             // Add markers for each kos
-            @foreach($kos as $k)
-                @if($k->latitude && $k->longitude)
+            <?php $__currentLoopData = $kos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php if($k->latitude && $k->longitude): ?>
                     try {
                         const kosData = {
-                            id: {{ $k->id_kos }},
-                            jenis: '{{ $k->jenis_kos }}',
-                            tipe: '{{ $k->tipe_sewa }}',
-                            harga: {{ $k->kamar->min('harga') ?? 0 }},
-                            lat: {{ $k->latitude }},
-                            lng: {{ $k->longitude }},
-                            nama: '{{ addslashes($k->nama_kos) }}',
-                            alamat: '{{ addslashes($k->alamat) }}',
-                            detailUrl: '{{ route('public.kos.show', $k->id_kos) }}',
-                            minHarga: {{ $k->kamar->min('harga') ?? 0 }},
-                            kamarCount: {{ $k->kamar_count ?? 0 }}
+                            id: <?php echo e($k->id_kos); ?>,
+                            jenis: '<?php echo e($k->jenis_kos); ?>',
+                            tipe: '<?php echo e($k->tipe_sewa); ?>',
+                            harga: <?php echo e($k->kamar->min('harga') ?? 0); ?>,
+                            lat: <?php echo e($k->latitude); ?>,
+                            lng: <?php echo e($k->longitude); ?>,
+                            nama: '<?php echo e(addslashes($k->nama_kos)); ?>',
+                            alamat: '<?php echo e(addslashes($k->alamat)); ?>',
+                            detailUrl: '<?php echo e(route('public.kos.show', $k->id_kos)); ?>',
+                            minHarga: <?php echo e($k->kamar->min('harga') ?? 0); ?>,
+                            kamarCount: <?php echo e($k->kamar_count ?? 0); ?>
+
                                     };
 
-                        const marker = L.marker([{{ $k->latitude }}, {{ $k->longitude }}], {
-                            icon: icons['{{ $k->jenis_kos }}'] || icons.campuran,
+                        const marker = L.marker([<?php echo e($k->latitude); ?>, <?php echo e($k->longitude); ?>], {
+                            icon: icons['<?php echo e($k->jenis_kos); ?>'] || icons.campuran,
                             riseOnHover: true
                         }).addTo(map);
 
@@ -977,10 +978,10 @@
                         markers.push(kosData);
 
                     } catch (error) {
-                        console.error('Error adding marker for kos {{ $k->id_kos }}:', error);
+                        console.error('Error adding marker for kos <?php echo e($k->id_kos); ?>:', error);
                     }
-                @endif
-            @endforeach
+                <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             console.log('Total markers added:', markers.length);
 
@@ -1215,4 +1216,5 @@
             });
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', ['hideFooter' => true], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views\public\kos\peta.blade.php ENDPATH**/ ?>
