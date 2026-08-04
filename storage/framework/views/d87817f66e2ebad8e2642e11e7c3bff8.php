@@ -421,11 +421,7 @@
         </div>
     </div>
 <?php $__env->startPush('scripts'); ?>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        if (window.initKosMap) window.initKosMap();
-    });
-</script>
+<?php echo $__env->make('pemilik.kos._map-scripts', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <?php $__env->stopPush(); ?>
 <?php $__env->stopSection(); ?>
 

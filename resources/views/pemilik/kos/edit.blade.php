@@ -467,11 +467,7 @@
         </div>
     </div>
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        if (window.initKosMap) window.initKosMap();
-    });
-</script>
+@include('pemilik.kos._map-scripts')
 @endpush
 
 @endsection
