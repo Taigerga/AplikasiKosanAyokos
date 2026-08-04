@@ -277,25 +277,18 @@
                                                 'Balkon' => 'fa-building'
                                             ];
                                         @endphp
-                                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 group">
-                                            
-                                            <!-- WRAPPER CHECKBOX: Menggunakan relative untuk memposisikan ikon centang -->
-                                            <div class="relative flex items-center justify-center w-5 h-5 flex-shrink-0">
-                                                <!-- TAMBAHKAN appearance-none untuk menghapus total style default browser (penyebab warna merah/pink) -->
-                                                <input type="checkbox" 
-                                                    name="fasilitas_kamar[]" 
-                                                    value="{{ $facility }}" 
-                                                    class="peer w-5 h-5 border-2 border-black rounded-sm appearance-none bg-white cursor-pointer checked:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors"
-                                                    {{ in_array($facility, old('fasilitas_kamar', [])) ? 'checked' : '' }}>
-                                                
-                                                <!-- IKON CENTANG: Muncul otomatis saat checkbox dicentang -->
-                                                <i class="fas fa-check text-white text-[10px] absolute pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-all duration-200">
+                                            <input type="checkbox" 
+                                                name="fasilitas_kamar[]" 
+                                                value="{{ $facility }}" 
+                                                class="peer hidden"
+                                                {{ in_array($facility, old('fasilitas_kamar', [])) ? 'checked' : '' }}>
+                                            <div class="relative flex items-center justify-center w-5 h-5 flex-shrink-0 border-2 border-black rounded-sm bg-white peer-checked:border-sky-500 peer-checked:bg-sky-500 transition-colors">
+                                                <i class="fas fa-check text-white text-[10px]"></i>
                                             </div>
-                                            
-                                            <!-- TEKS & IKON FASILITAS -->
                                             <div class="flex-1 flex items-center p-1 rounded-lg peer-checked:bg-sky-50 transition-colors">
-                                                <i class="fas {{ $icons[$facility] ?? 'fa-check' }} w-5 text-gray-500 peer-checked:text-sky-600 transition-colors mr-2"></i>
-                                                <span class="text-sm font-bold text-black peer-checked:text-sky-600 transition-colors">
+                                                <i class="fas {{ $icons[$facility] ?? 'fa-check' }} w-5 text-gray-500 transition-colors mr-2"></i>
+                                                <span class="text-sm font-bold text-black transition-colors">
                                                     {{ $facility }}
                                                 </span>
                                             </div>
