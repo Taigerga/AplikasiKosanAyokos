@@ -23,57 +23,57 @@
             <!-- Right Side -->
             <div class="flex items-center gap-4">
                 <!-- Notifications -->
-                <a href="{{ route('notifications.index') }}" class="relative p-2 text-black hover:text-yellow-500 transition-colors">
+                <a href="<?php echo e(route('notifications.index')); ?>" class="relative p-2 text-black hover:text-yellow-500 transition-colors">
                     <i class="fas fa-bell text-lg"></i>
                     <span id="notifBadge" class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 border-2 border-black text-[10px] text-white font-black flex items-center justify-center hidden"></span>
                 </a>
 
                 <!-- Profile Menu -->
                 <div class="profile-menu relative">
-                    @php $user = auth()->user(); @endphp
+                    <?php $user = auth()->user(); ?>
                     <button class="flex items-center gap-2 p-2 border-2 border-transparent hover:border-black transition-colors">
-                        @if($user && $user->pemilik && $user->pemilik->foto_profil)
-                            <img src="{{ asset('storage/' . $user->pemilik->foto_profil) }}"
-                                 alt="{{ $user->pemilik->nama ?? $user->nama }}"
+                        <?php if($user && $user->pemilik && $user->pemilik->foto_profil): ?>
+                            <img src="<?php echo e(asset('storage/' . $user->pemilik->foto_profil)); ?>"
+                                 alt="<?php echo e($user->pemilik->nama ?? $user->nama); ?>"
                                  class="w-8 h-8 object-cover border-2 border-black">
-                        @else
+                        <?php else: ?>
                             <div class="w-8 h-8 bg-sky-400 border-2 border-black flex items-center justify-center">
-                                <span class="text-white font-black">{{ ($user->pemilik->nama ?? $user->nama) ? substr($user->pemilik->nama ?? $user->nama, 0, 1) : '?' }}</span>
+                                <span class="text-white font-black"><?php echo e(($user->pemilik->nama ?? $user->nama) ? substr($user->pemilik->nama ?? $user->nama, 0, 1) : '?'); ?></span>
                             </div>
-                        @endif
-                        <span class="text-sm font-bold text-black hidden md:inline">{{ $user->pemilik->nama ?? $user->nama ?? 'User' }}</span>
+                        <?php endif; ?>
+                        <span class="text-sm font-bold text-black hidden md:inline"><?php echo e($user->pemilik->nama ?? $user->nama ?? 'User'); ?></span>
                         <i class="fas fa-chevron-down text-black text-xs"></i>
                     </button>
 
                     <!-- Profile Dropdown -->
                     <div class="profile-dropdown absolute right-0 w-64 bg-white border-2 border-black shadow-[4px_4px_0px_#000] z-[1001]">
                         <div class="px-4 py-3 border-b-2 border-black">
-                            <p class="text-sm font-black text-black">{{ $user->pemilik->nama ?? $user->nama ?? 'User' }}</p>
-                            <p class="text-xs font-medium text-gray-600 truncate">{{ $user->pemilik->email ?? $user->email ?? '-' }}</p>
+                            <p class="text-sm font-black text-black"><?php echo e($user->pemilik->nama ?? $user->nama ?? 'User'); ?></p>
+                            <p class="text-xs font-medium text-gray-600 truncate"><?php echo e($user->pemilik->email ?? $user->email ?? '-'); ?></p>
                         </div>
 
                         <div class="py-1">
-                            <a href="{{ route('pemilik.dashboard') }}"
+                            <a href="<?php echo e(route('pemilik.dashboard')); ?>"
                                 class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
                                 <i class="fas fa-tachometer-alt w-5 mr-3 text-sky-500"></i>
                                 <span>Dashboard</span>
                             </a>
-                            <a href="{{ route('pemilik.kontrak.index') }}"
+                            <a href="<?php echo e(route('pemilik.kontrak.index')); ?>"
                                 class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
                                 <i class="fas fa-file-contract w-5 mr-3 text-emerald-500"></i>
                                 <span>Kelola Kontrak</span>
                             </a>
-                            <a href="{{ route('pemilik.reviews.index') }}"
+                            <a href="<?php echo e(route('pemilik.reviews.index')); ?>"
                                 class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
                                 <i class="fas fa-star w-5 mr-3 text-yellow-500"></i>
                                 <span>Ulasan Kos</span>
                             </a>
-                            <a href="{{ route('pemilik.pembayaran.index') }}"
+                            <a href="<?php echo e(route('pemilik.pembayaran.index')); ?>"
                                 class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
                                 <i class="fas fa-credit-card w-5 mr-3 text-purple-500"></i>
                                 <span>Pembayaran</span>
                             </a>
-                            <a href="{{ route('pemilik.profile.show') }}"
+                            <a href="<?php echo e(route('pemilik.profile.show')); ?>"
                                 class="flex items-center px-4 py-2.5 text-gray-700 hover:bg-yellow-100 font-bold text-sm transition-colors">
                                 <i class="fas fa-user-cog w-5 mr-3 text-sky-500"></i>
                                 <span>Profil Saya</span>
@@ -104,57 +104,57 @@
         <nav class="p-4 pt-8">
             <ul class="space-y-1">
                 <li>
-                    <a href="{{ route('pemilik.dashboard') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('pemilik.dashboard') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                    <a href="<?php echo e(route('pemilik.dashboard')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('pemilik.dashboard') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
                         <i class="fas fa-tachometer-alt w-5"></i>
                         <span class="sidebar-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pemilik.kos.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('pemilik.kos.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                    <a href="<?php echo e(route('pemilik.kos.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('pemilik.kos.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
                         <i class="fas fa-home w-5"></i>
                         <span class="sidebar-text">Kelola Kos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pemilik.kamar.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('pemilik.kamar.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                    <a href="<?php echo e(route('pemilik.kamar.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('pemilik.kamar.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
                         <i class="fas fa-bed w-5"></i>
                         <span class="sidebar-text">Kelola Kamar</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pemilik.kontrak.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('pemilik.kontrak.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                    <a href="<?php echo e(route('pemilik.kontrak.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('pemilik.kontrak.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
                         <i class="fas fa-file-contract w-5"></i>
                         <span class="sidebar-text">Kelola Kontrak</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pemilik.reviews.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('pemilik.reviews.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                    <a href="<?php echo e(route('pemilik.reviews.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('pemilik.reviews.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
                         <i class="fas fa-star w-5"></i>
                         <span class="sidebar-text">Ulasan Kos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pemilik.pembayaran.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('pemilik.pembayaran.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                    <a href="<?php echo e(route('pemilik.pembayaran.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('pemilik.pembayaran.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
                         <i class="fas fa-credit-card w-5"></i>
                         <span class="sidebar-text">Pembayaran</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pemilik.analisis.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('pemilik.analisis.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                    <a href="<?php echo e(route('pemilik.analisis.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('pemilik.analisis.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
                         <i class="fas fa-chart-bar w-5"></i>
                         <span class="sidebar-text">Analisis Data</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pemilik.aduan.index') }}"
-                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm {{ request()->routeIs('pemilik.aduan.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent' }}">
+                    <a href="<?php echo e(route('pemilik.aduan.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-3 font-bold text-sm <?php echo e(request()->routeIs('pemilik.aduan.*') ? 'bg-yellow-400 text-black border-l-4 border-yellow-400' : 'text-gray-400 hover:bg-gray-800 hover:text-white border-l-4 border-transparent'); ?>">
                         <i class="fas fa-headset w-5"></i>
                         <span class="sidebar-text">Aduan Saya</span>
                     </a>
@@ -168,12 +168,13 @@
             <div class="space-y-2">
                 <div class="flex items-center justify-between text-sm">
                     <span class="text-gray-400 font-medium">Total Kos</span>
-                    <span class="font-black text-white">{{ $user->pemilik?->kos()->count() ?? 0 }}</span>
+                    <span class="font-black text-white"><?php echo e($user->pemilik?->kos()->count() ?? 0); ?></span>
                 </div>
                 <div class="flex items-center justify-between text-sm">
                     <span class="text-gray-400 font-medium">Kamar Tersedia</span>
                     <span class="font-black text-emerald-400">
-                        {{ $user->pemilik?->kos()->withCount(['kamar' => fn($q) => $q->where('status_kamar', 'tersedia')])->get()->sum('kamar_count') ?? 0 }}
+                        <?php echo e($user->pemilik?->kos()->withCount(['kamar' => fn($q) => $q->where('status_kamar', 'tersedia')])->get()->sum('kamar_count') ?? 0); ?>
+
                     </span>
                 </div>
             </div>
@@ -188,18 +189,18 @@
 
     <!-- Main Content -->
     <main id="mainContent" class="flex-1 min-w-0 w-full overflow-x-hidden transition-all duration-300 ease-in-out bg-gray-50">
-        @php $user = auth()->user(); @endphp
-        @if($user && $user->pemilik && (empty($user->pemilik->nama_bank) || empty($user->pemilik->nomor_rekening)))
+        <?php $user = auth()->user(); ?>
+        <?php if($user && $user->pemilik && (empty($user->pemilik->nama_bank) || empty($user->pemilik->nomor_rekening))): ?>
             <div class="bg-yellow-400 border-b-2 border-black px-4 md:px-6 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
                     <i class="fas fa-exclamation-triangle text-black"></i>
                     <span class="font-bold text-black text-sm">Anda belum mengisi data rekening bank. Lengkapi profil untuk menerima pembayaran.</span>
                 </div>
-                <a href="{{ route('pemilik.profile.edit') }}" class="shrink-0 px-4 py-1.5 bg-black text-white font-bold text-sm border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:bg-yellow-400 hover:text-black transition-all">
+                <a href="<?php echo e(route('pemilik.profile.edit')); ?>" class="shrink-0 px-4 py-1.5 bg-black text-white font-bold text-sm border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:bg-yellow-400 hover:text-black transition-all">
                     Lengkapi Profil
                 </a>
             </div>
-        @endif
-        @yield('content')
+        <?php endif; ?>
+        <?php echo $__env->yieldContent('content'); ?>
     </main>
-</div>
+</div><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views/layouts/partials/dashboard-pemilik.blade.php ENDPATH**/ ?>

@@ -189,6 +189,18 @@
 
     <!-- Main Content -->
     <main id="mainContent" class="flex-1 min-w-0 w-full overflow-x-hidden transition-all duration-300 ease-in-out bg-gray-50">
+        <?php $user = auth()->user(); ?>
+        <?php if($user && $user->pemilik && (empty($user->pemilik->nama_bank) || empty($user->pemilik->nomor_rekening))): ?>
+            <div class="bg-yellow-400 border-b-2 border-black px-4 md:px-6 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-exclamation-triangle text-black"></i>
+                    <span class="font-bold text-black text-sm">Anda belum mengisi data rekening bank. Lengkapi profil untuk menerima pembayaran.</span>
+                </div>
+                <a href="<?php echo e(route('pemilik.profile.edit')); ?>" class="shrink-0 px-4 py-1.5 bg-black text-white font-bold text-sm border-2 border-black shadow-[2px_2px_0px_#000] hover:shadow-[3px_3px_0px_#000] hover:bg-yellow-400 hover:text-black transition-all">
+                    Lengkapi Profil
+                </a>
+            </div>
+        <?php endif; ?>
         <?php echo $__env->yieldContent('content'); ?>
     </main>
 </div><?php /**PATH D:\laragon\www\AplikasiKosanAyokos\resources\views\layouts\partials\dashboard-pemilik.blade.php ENDPATH**/ ?>
