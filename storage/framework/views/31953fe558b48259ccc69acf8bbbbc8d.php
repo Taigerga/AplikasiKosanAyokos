@@ -259,7 +259,7 @@
                                         <?php endif; ?>
                                     <?php endfor; ?>
                                 </div>
-                                <span class="text-black font-black"><?php echo e($review->rating); ?>.0</span>
+                                <span class="text-black font-black"><?php echo e(number_format($review->rating, 1)); ?></span>
                             </div>
 
                             <!-- Comment -->

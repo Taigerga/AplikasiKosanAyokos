@@ -257,7 +257,7 @@
                                         @endif
                                     @endfor
                                 </div>
-                                <span class="text-black font-black">{{ $review->rating }}.0</span>
+                                <span class="text-black font-black">{{ number_format($review->rating, 1) }}</span>
                             </div>
 
                             <!-- Comment -->
